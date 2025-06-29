@@ -1,18 +1,13 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HuggingHeart – Coming Soon</title>
   <style>
-    /* Import font */
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap');
 
-    /* Base reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background-color: #1a1a1a;
       color: #f0f0f0;
@@ -20,15 +15,14 @@
       text-align: center;
       padding: 60px 20px;
       line-height: 1.6;
-      position: relative;   /* for absolute boxes */
+      position: relative;
       min-height: 100vh;
     }
 
-    /* Side boxes */
     .box {
       position: absolute;
-      width: 180px;
-      height: 300px;
+      width: 200px;
+      height: 600px;             /* doubled height */
       padding: 20px;
       display: flex;
       flex-direction: column;
@@ -37,25 +31,25 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.5);
       font-weight: 600;
-      color: #fff;
       text-transform: uppercase;
       letter-spacing: 1px;
+      text-align: center;
     }
     .sale {
       top: 50%;
-      left: 20px;
+      left: 40px;                /* more space from corner */
       transform: translateY(-50%);
       background: linear-gradient(135deg, #ff3366, #cc0055);
+      color: #fff;
     }
     .partnership {
       top: 50%;
-      right: 20px;
+      right: 40px;               /* more space from corner */
       transform: translateY(-50%);
       background: linear-gradient(135deg, #ffee58, #ffcc00);
       color: #222;
     }
 
-    /* Headings */
     h1 {
       font-size: 3rem;
       font-weight: 800;
@@ -68,14 +62,12 @@
       margin-bottom: 30px;
     }
 
-    /* Paragraph */
     p {
       font-size: 1rem;
       max-width: 700px;
       margin: 0 auto 30px;
     }
 
-    /* Moving text */
     .marquee-container {
       overflow: hidden;
       width: 100%;
@@ -95,7 +87,6 @@
       100% { transform: translateX(-100%); }
     }
 
-    /* Coming soon & contact */
     .coming-soon {
       font-size: 1.5rem;
       font-weight: 800;
@@ -117,17 +108,18 @@
 </head>
 <body>
 
-  <!-- Side Boxes -->
   <div class="box sale">
-    <h3>For Sale</h3>
-    <p>Grab this premium domain!</p>
-  </div>
-  <div class="box partnership">
-    <h3>Partnership</h3>
-    <p>Join us on this love journey</p>
+    <h3>Domain For Sale</h3>
+    <p>Premium matchmaking domain available.</p>
+    <p><strong>Inquire now:</strong><br>sale@huggingheart.com</p>
   </div>
 
-  <!-- Main Content -->
+  <div class="box partnership">
+    <h3>Partner With Us</h3>
+    <p>Join our mission to bring hearts together.</p>
+    <p><strong>Let's talk:</strong><br>partner@huggingheart.com</p>
+  </div>
+
   <h1>HuggingHeart 💖</h1>
   <h2>Where True Love Begins</h2>
 
