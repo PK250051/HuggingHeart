@@ -1,4 +1,3 @@
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -48,8 +47,7 @@
     .box {
       position: fixed;
       width: clamp(200px, 22vw, 240px);
-      height: auto;
-      min-height: 280px;
+      min-height: 560px;               /* doubled height */
       padding: 25px;
       display: flex;
       flex-direction: column;
@@ -72,16 +70,18 @@
     }
 
     .sale {
-      top: 20px;
+      top: 50%;                         /* vertically centered */
       left: 30px;
+      transform: translateY(-50%);
       background: linear-gradient(135deg, var(--primary-pink), #cc0044);
       color: #fff;
       animation-delay: 0.3s;
     }
 
     .partnership {
-      top: 20px;
+      top: 50%;                         /* vertically centered */
       right: 30px;
+      transform: translateY(-50%);
       background: linear-gradient(135deg, var(--secondary-yellow), #ffaa00);
       color: #1a1a1a;
       animation-delay: 0.5s;
@@ -89,7 +89,7 @@
 
     @keyframes slideIn {
       from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
@@ -124,7 +124,7 @@
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .marquee-container {
@@ -150,7 +150,7 @@
     }
 
     @keyframes slide {
-      0% { transform: translateX(100%); }
+      0%   { transform: translateX(100%); }
       100% { transform: translateX(-100%); }
     }
 
@@ -164,15 +164,14 @@
     }
 
     @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
+      0%,100% { transform: scale(1); }
+      50%     { transform: scale(1.08); }
     }
 
     .email {
       font-size: clamp(1rem, 2vw, 1.1rem);
       font-weight: 600;
     }
-
     .email a {
       color: var(--secondary-yellow);
       text-decoration: none;
@@ -181,50 +180,18 @@
       border-radius: 8px;
       background: rgba(255,255,255,0.1);
     }
-
     .email a:hover {
       background: var(--secondary-yellow);
       color: #1a1a1a;
-      text-decoration: none;
     }
 
-    /* Responsive Design */
+    /* Responsive adjustments */
     @media (max-width: 900px) {
       .box {
         position: static;
         width: 100%;
-        max-width: 300px;
+        max-width: 320px;
         margin: 20px auto;
-      }
-
-      .box:hover {
-        transform: scale(1.05);
-      }
-
-      h1 {
-        font-size: clamp(2.2rem, 6vw, 3rem);
-      }
-
-      h2 {
-        font-size: clamp(1.3rem, 4vw, 1.8rem);
-      }
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 50px 15px;
-      }
-
-      p {
-        font-size: 0.95rem;
-      }
-
-      .coming-soon {
-        font-size: 1.5rem;
-      }
-
-      .marquee-container {
-        margin-bottom: 30px;
       }
     }
   </style>
@@ -235,13 +202,11 @@
   <div class="box sale" role="complementary" aria-label="Domain Sale Information">
     <h3>Domain For Sale</h3>
     <p>Premium matchmaking domain available.</p>
-    <p><strong>Inquire now:</strong><br><a href="mailto:sale@huggingheart.com" aria-label="Email for domain sale inquiry">sale@huggingheart.com</a></p>
   </div>
 
   <div class="box partnership" role="complementary" aria-label="Partnership Information">
     <h3>Partner With Us</h3>
     <p>Join our mission to bring hearts together.</p>
-    <p><strong>Let's talk:</strong><br><a href="mailto:partner@huggingheart.com" aria-label="Email for partnership inquiry">partner@huggingheart.com</a></p>
   </div>
 
   <header>
@@ -274,7 +239,6 @@
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
     const particles = [];
     const particleCount = 80;
 
@@ -286,18 +250,12 @@
         this.speedX = Math.random() * 0.5 - 0.25;
         this.speedY = Math.random() * 0.5 - 0.25;
       }
-
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-
         if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1წ
-
-System: .5s ease-out;
-        }
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
       }
-
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
