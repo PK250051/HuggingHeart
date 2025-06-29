@@ -22,7 +22,7 @@
     .box {
       position: absolute;
       width: 200px;
-      height: 600px;             /* doubled height */
+      height: 600px;
       padding: 20px;
       display: flex;
       flex-direction: column;
@@ -37,14 +37,14 @@
     }
     .sale {
       top: 50%;
-      left: 40px;                /* more space from corner */
+      left: 40px;
       transform: translateY(-50%);
       background: linear-gradient(135deg, #ff3366, #cc0055);
       color: #fff;
     }
     .partnership {
       top: 50%;
-      right: 40px;               /* more space from corner */
+      right: 40px;
       transform: translateY(-50%);
       background: linear-gradient(135deg, #ffee58, #ffcc00);
       color: #222;
@@ -111,13 +111,11 @@
   <div class="box sale">
     <h3>Domain For Sale</h3>
     <p>Premium matchmaking domain available.</p>
-    <p><strong>Inquire now:</strong><br>sale@huggingheart.com</p>
   </div>
 
   <div class="box partnership">
     <h3>Partner With Us</h3>
     <p>Join our mission to bring hearts together.</p>
-    <p><strong>Let's talk:</strong><br>partner@huggingheart.com</p>
   </div>
 
   <h1>HuggingHeart 💖</h1>
