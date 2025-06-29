@@ -55,8 +55,11 @@
   <h2>Tagline: Where True Love Begins</h2>
 
   <p>
-    HuggingHeart.com is a unique matchmaking platform that helps people find
-    love by answering 100 thoughtfully designed questions – 10 at a time.
+  HuggingHeart.com connects souls through emotional compatibility and shared life values.
+We believe that true love goes beyond looks — it’s about deep understanding and meaningful alignment.
+Our platform is designed to help you find someone who truly matches your emotional world.
+Let your heart guide you to a relationship built on trust, warmth, and lasting connection.
+Welcome to a new way of discovering love — heartfelt, honest, and beautifully real.
   </p>
 
   <p class="moving-text">
@@ -65,7 +68,7 @@
 
   <h2>🚀 Coming Soon!</h2>
 
-  <p class="email">📧 Contact us: Support@hugging.com</p>
+  <p class="email">📧 Contact us: support@huggingheart.com</p>
 </body>
 </html>
 
