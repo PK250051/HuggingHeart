@@ -4,46 +4,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HuggingHeart – Coming Soon</title>
   <style>
-    /* Import a bold, elegant font */
+    /* Import font */
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap');
 
-    /* Reset & base */
+    /* Base reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
     body {
-      background-color: #1a1a1a;   /* nearly-black */
-      color: #f0f0f0;              /* light text */
+      background-color: #1a1a1a;
+      color: #f0f0f0;
       font-family: 'Poppins', sans-serif;
       text-align: center;
       padding: 60px 20px;
       line-height: 1.6;
+      position: relative;   /* for absolute boxes */
+      min-height: 100vh;
+    }
+
+    /* Side boxes */
+    .box {
+      position: absolute;
+      width: 180px;
+      height: 300px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      font-weight: 600;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .sale {
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, #ff3366, #cc0055);
+    }
+    .partnership {
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, #ffee58, #ffcc00);
+      color: #222;
     }
 
     /* Headings */
     h1 {
       font-size: 3rem;
       font-weight: 800;
-      color: #ff3366;             /* accent pink */
+      color: #ff3366;
       margin-bottom: 10px;
     }
     h2 {
       font-size: 1.75rem;
       font-weight: 600;
-      color: #ffffff;
       margin-bottom: 30px;
     }
 
-    /* Paragraphs */
+    /* Paragraph */
     p {
       font-size: 1rem;
       max-width: 700px;
-      margin: 0 auto 30px auto;
+      margin: 0 auto 30px;
     }
 
-    /* Moving marquee-style text */
+    /* Moving text */
+    .marquee-container {
+      overflow: hidden;
+      width: 100%;
+      margin-bottom: 40px;
+    }
     .moving-text {
       display: inline-block;
       padding: 10px 0;
@@ -58,19 +95,16 @@
       100% { transform: translateX(-100%); }
     }
 
-    /* Coming Soon callout */
+    /* Coming soon & contact */
     .coming-soon {
       font-size: 1.5rem;
       font-weight: 800;
-      margin: 40px 0 20px 0;
-      color: #ffee58;            /* bright accent */
+      margin-bottom: 20px;
+      color: #ffee58;
     }
-
-    /* Contact */
     .email {
       font-size: 1rem;
       font-weight: 600;
-      color: #aaa;
     }
     .email a {
       color: #ffee58;
@@ -79,15 +113,21 @@
     .email a:hover {
       text-decoration: underline;
     }
-
-    /* Make sure marquee text doesn’t overflow */
-    .marquee-container {
-      overflow: hidden;
-      width: 100%;
-    }
   </style>
 </head>
 <body>
+
+  <!-- Side Boxes -->
+  <div class="box sale">
+    <h3>For Sale</h3>
+    <p>Grab this premium domain!</p>
+  </div>
+  <div class="box partnership">
+    <h3>Partnership</h3>
+    <p>Join us on this love journey</p>
+  </div>
+
+  <!-- Main Content -->
   <h1>HuggingHeart 💖</h1>
   <h2>Where True Love Begins</h2>
 
