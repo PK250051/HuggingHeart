@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -52,7 +51,7 @@
 </head>
 <body>
   <h1>HuggingHeart 💖</h1>
-  <h2>Tagline: Where True Love Begins</h2>
+  <h2> Where True Love Begins</h2>
 
   <p>
   HuggingHeart.com connects souls through emotional compatibility and shared life values.
