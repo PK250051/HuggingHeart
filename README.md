@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -18,7 +18,7 @@
     }
 
     * {
-      margin: 0;
+      margin: 0
       padding: 0;
       box-sizing: border-box;
     }
