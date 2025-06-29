@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -47,7 +48,7 @@
     .box {
       position: fixed;
       width: clamp(200px, 22vw, 240px);
-      min-height: 560px;               /* doubled height */
+      min-height: 560px;
       padding: 25px;
       display: flex;
       flex-direction: column;
@@ -62,6 +63,7 @@
       transition: var(--transition);
       opacity: 0;
       animation: slideIn 1s ease-out forwards;
+      z-index: 2;
     }
 
     .box:hover {
@@ -70,8 +72,8 @@
     }
 
     .sale {
-      top: 50%;                         /* vertically centered */
-      left: 30px;
+      top: 50%;
+      left: 5%;
       transform: translateY(-50%);
       background: linear-gradient(135deg, var(--primary-pink), #cc0044);
       color: #fff;
@@ -79,11 +81,11 @@
     }
 
     .partnership {
-      top: 50%;                         /* vertically centered */
-      right: 30px;
+      top: 50%;
+      right: 5%;
       transform: translateY(-50%);
       background: linear-gradient(135deg, var(--secondary-yellow), #ffaa00);
-      color: #1a1a1a;
+      color: #000; /* black text for better contrast */
       animation-delay: 0.5s;
     }
 
@@ -185,13 +187,14 @@
       color: #1a1a1a;
     }
 
-    /* Responsive adjustments */
     @media (max-width: 900px) {
       .box {
         position: static;
         width: 100%;
         max-width: 320px;
         margin: 20px auto;
+        opacity: 1;
+        transform: none;
       }
     }
   </style>
