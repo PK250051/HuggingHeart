@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chat | HuggingHeart</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+  font-family:Arial;
+  background:#121212;
+  color:#f5f5f5;
+}
+.chat-container{
+  max-width:900px;
+  margin:40px auto;
+  display:grid;
+  grid-template-columns:1fr 2fr;
+  height:80vh;
+  background:#1e1e1e;
+  border-radius:18px;
+}
+.users{
+  border-right:1px solid #333;
+  padding:20px;
+}
+.user{
+  padding:10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.user:hover{background:#2a2a2a}
+.chat{
+  display:flex;
+  flex-direction:column;
+}
+.chat-header{
+  padding:15px;
+  background:#ff4d7d;
+}
+.messages{
+  flex:1;
+  padding:20px;
+  overflow-y:auto;
+}
+.msg{
+  margin-bottom:12px;
+}
+.msg.you{color:#ffd700}
+.input{
+  display:flex;
+  border-top:1px solid #333;
+}
+.input input{
+  flex:1;
+  padding:12px;
+  border:none;
+}
+.input button{
+  padding:12px 20px;
+  background:#ffd700;
+  border:none;
+}
+</style>
+</head>
+<body>
+
+<div class="chat-container">
+
+<div class="users">
+<h3>Chats</h3>
+<div class="user">Alex</div>
+<div class="user">Sophia</div>
+<div class="user">Michael</div>
+</div>
+
+<div class="chat">
+<div class="chat-header">Alex</div>
+<div class="messages">
+<div class="msg">Alex: Hi 👋</div>
+<div class="msg you">You: Hello!</div>
+</div>
+<div class="input">
+<input placeholder="Type message...">
+<button>Send</button>
+</div>
+</div>
+
+</div>
+
+</body>
+</html>
