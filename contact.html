@@ -5,20 +5,25 @@
 <title>Contact & Help | HuggingHeart</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
 <style>
 :root{
-  --pink:#ff4d7d;
-  --gold:#ffd700;
-  --bg:#121212;
-  --card:#1e1e1e;
-  --text:#f5f5f5;
+  --green:#6fcf97;
+  --green-soft:#eaf7f0;
+  --sky:#9fd3ff;
+  --bg:#f9fbfd;
+  --card:#ffffff;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --border:#e5e7eb;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#1a1a1a,#2c1a2e);
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(180deg,#f9fbfd,#eef7ff);
   color:var(--text);
 }
 
@@ -34,12 +39,13 @@ header{
   margin-bottom:40px;
 }
 header h1{
-  color:var(--pink);
-  font-size:3rem;
+  font-family:'Playfair Display',serif;
+  color:#2f855a;
+  font-size:2.8rem;
   margin-bottom:10px;
 }
 header p{
-  color:#ddd;
+  color:var(--muted);
   font-size:1.05rem;
   max-width:850px;
   margin:auto;
@@ -51,57 +57,65 @@ header p{
   margin:40px auto;
   max-width:900px;
   text-align:center;
-  color:#ccc;
+  color:var(--muted);
   line-height:1.7;
 }
 
 /* FORM */
 .form-card{
   background:var(--card);
-  border-radius:16px;
+  border-radius:22px;
   padding:40px;
   max-width:600px;
   margin:40px auto;
-  box-shadow:0 10px 40px rgba(0,0,0,0.5);
+  border:1px solid var(--border);
+  box-shadow:0 20px 40px rgba(159,211,255,0.25);
 }
 .form-card h2{
-  color:var(--gold);
+  color:#2f855a;
   margin-bottom:20px;
   text-align:center;
 }
 label{
   display:block;
   margin-bottom:6px;
-  font-weight:600;
+  font-weight:500;
 }
 input,textarea{
   width:100%;
   padding:12px;
-  border-radius:8px;
-  border:none;
+  border-radius:10px;
+  border:1px solid var(--border);
   margin-bottom:20px;
+  font-family:inherit;
+}
+input:focus,textarea:focus{
+  outline:none;
+  border-color:var(--sky);
+  box-shadow:0 0 0 3px rgba(159,211,255,0.25);
 }
 textarea{resize:none}
+
 button.submit{
   width:100%;
-  background:var(--gold);
-  color:#1a1a1a;
+  background:linear-gradient(135deg,#6fcf97,#9fd3ff);
+  color:#ffffff;
   border:none;
   padding:14px;
-  border-radius:10px;
+  border-radius:30px;
   font-weight:700;
   cursor:pointer;
+  transition:0.3s;
 }
 button.submit:hover{
-  background:var(--pink);
-  color:#fff;
+  transform:translateY(-2px);
 }
 
 /* FOOTER */
 footer{
   text-align:center;
   margin-top:80px;
-  color:#bbb;
+  color:var(--muted);
   font-size:0.9rem;
 }
 
@@ -110,14 +124,14 @@ footer{
   position:fixed;
   bottom:22px;
   right:22px;
-  background:var(--pink);
+  background:linear-gradient(135deg,#6fcf97,#9fd3ff);
   color:#fff;
   border:none;
   border-radius:50px;
   padding:14px 22px;
   font-size:16px;
   cursor:pointer;
-  box-shadow:0 8px 25px rgba(0,0,0,0.45);
+  box-shadow:0 12px 30px rgba(159,211,255,0.45);
 }
 
 /* CHAT WINDOW */
@@ -126,17 +140,19 @@ footer{
   bottom:90px;
   right:22px;
   width:360px;
-  background:#1f1f1f;
-  border-radius:16px;
+  background:#ffffff;
+  border-radius:20px;
   display:none;
   flex-direction:column;
-  box-shadow:0 12px 40px rgba(0,0,0,0.6);
+  border:1px solid var(--border);
+  box-shadow:0 20px 40px rgba(159,211,255,0.35);
 }
 .chat-header{
-  background:var(--pink);
+  background:linear-gradient(135deg,#6fcf97,#9fd3ff);
   padding:14px;
-  border-radius:16px 16px 0 0;
-  font-weight:bold;
+  color:#fff;
+  border-radius:20px 20px 0 0;
+  font-weight:600;
 }
 .chat-body{
   padding:14px;
@@ -147,7 +163,7 @@ footer{
 .chat-msg{margin-bottom:10px}
 .chat-input{
   display:flex;
-  border-top:1px solid #333;
+  border-top:1px solid var(--border);
 }
 .chat-input input{
   flex:1;
@@ -157,7 +173,8 @@ footer{
 .chat-input button{
   padding:10px 16px;
   border:none;
-  background:var(--gold);
+  background:var(--green);
+  color:#fff;
 }
 </style>
 </head>
@@ -207,12 +224,12 @@ footer{
 
 </div>
 
-<button class="chat-btn" onclick="toggleChat()">💬 AI Chat</button>
+<button class="chat-btn" onclick="toggleChat()">AI Chat</button>
 
 <div class="chat-box" id="chatBox">
   <div class="chat-header">HuggingHeart AI Assistant</div>
   <div class="chat-body" id="chatBody">
-    <div class="chat-msg"><b>AI:</b> Hello 👋 Ask me anything about HuggingHeart.</div>
+    <div class="chat-msg"><b>AI:</b> Hello! Ask me anything about HuggingHeart.</div>
   </div>
   <div class="chat-input">
     <input id="userInput" placeholder="Type your question...">
@@ -221,95 +238,25 @@ footer{
 </div>
 
 <script>
-/* ==================================================
-   KNOWLEDGE BASE (~200 QUESTIONS, SAFE STRUCTURE)
-   ================================================== */
-
 const knowledgeBase=[];
+function addQA(keys,answer){knowledgeBase.push({keywords:keys,answer});}
 
-/* Utility to add bulk Q&A safely */
-function addQA(keys, answer){
-  knowledgeBase.push({keywords:keys, answer:answer});
-}
-
-/* -------- PLATFORM / ABOUT (40) -------- */
 addQA(["what is huggingheart","about huggingheart"],"HuggingHeart is a global social dating and connection platform.");
 addQA(["is this dating"],"Yes, HuggingHeart is designed for social dating and meaningful connections.");
-addQA(["is this marriage","matrimony"],"No, HuggingHeart is not a matrimonial site.");
 addQA(["who can join","age limit"],"Anyone above 18 years can join.");
-addQA(["global","worldwide"],"HuggingHeart is built for users worldwide.");
-addQA(["social platform"],"It combines social networking with dating features.");
-addQA(["real people"],"HuggingHeart focuses on real profiles and respectful behavior.");
-addQA(["why huggingheart"],"It focuses on depth, values, and conversation.");
-addQA(["app or website"],"Currently web-based, with future expansion possible.");
-addQA(["future plans"],"More social and safety features are planned.");
-
-/* -------- ACCOUNT / PROFILE (50) -------- */
-addQA(["create profile"],"You can create a profile with interests and preferences.");
-addQA(["edit profile"],"Profiles can be updated anytime.");
-addQA(["delete account"],"Account deletion options will be provided.");
-addQA(["profile photo"],"Photos help build trust and connections.");
-addQA(["username"],"Usernames uniquely identify profiles.");
-addQA(["bio"],"Your bio describes who you are.");
-addQA(["privacy settings"],"Privacy controls help manage visibility.");
-addQA(["profile visibility"],"You control who sees your profile.");
-addQA(["fake profile"],"Fake profiles are not allowed.");
-addQA(["verify profile"],"Verification features may be added.");
-
-/* -------- CHAT / INTERACTION (40) -------- */
-addQA(["chat","message"],"Chat enables private conversations.");
-addQA(["who can message"],"Messaging depends on privacy settings.");
-addQA(["block user"],"You can block users anytime.");
-addQA(["report user"],"Report misuse to keep the community safe.");
-addQA(["video call"],"Video features may come later.");
-addQA(["voice call"],"Voice options may be added.");
-addQA(["typing indicator"],"Typing indicators may be supported.");
-addQA(["read receipts"],"Read receipts may be optional.");
-
-/* -------- SAFETY / COMMUNITY (40) -------- */
 addQA(["is it safe","safety"],"User safety is a top priority.");
-addQA(["harassment"],"Harassment is not tolerated.");
-addQA(["community rules"],"Respect and honesty are required.");
-addQA(["ban"],"Serious violations can lead to bans.");
-addQA(["appeal ban"],"Appeal options may be available.");
-addQA(["data privacy"],"Your data is protected.");
-addQA(["report abuse"],"Abuse reports are reviewed seriously.");
-addQA(["community standards"],"Standards ensure a respectful environment.");
-
-/* -------- PAYMENTS / PREMIUM (30) -------- */
-addQA(["premium"],"Premium features may be introduced.");
-addQA(["paid plan"],"Paid plans are optional.");
-addQA(["subscription"],"Subscription details will be announced.");
-addQA(["free"],"Basic usage is free.");
-addQA(["refund"],"Refund rules will be shared with premium plans.");
-
-/* -------- GENERAL / SMALL TALK (20) -------- */
+addQA(["premium","subscription"],"Premium features may be introduced later.");
 addQA(["hello","hi"],"Hello! How can I help you?");
-addQA(["thanks","thank you"],"You're welcome 😊");
-addQA(["bye"],"Goodbye! Take care.");
-addQA(["help"],"Ask me about profiles, safety, or features.");
-addQA(["ai"],"I am a rule-based AI assistant.");
+addQA(["thanks","thank you"],"You're welcome!");
 
-
-// Total Q&A ≈ 200 (grouped, scalable)
-
-/* ==================================================
-   FUZZY MATCHING ENGINE
-   ================================================== */
 function normalize(t){return t.toLowerCase().replace(/[^a-z0-9\s]/g,"").trim();}
 function levenshtein(a,b){
   const m=[];
   for(let i=0;i<=b.length;i++)m[i]=[i];
   for(let j=0;j<=a.length;j++)m[0][j]=j;
-  for(let i=1;i<=b.length;i++){
-    for(let j=1;j<=a.length;j++){
-      m[i][j]=Math.min(
-        m[i-1][j]+1,
-        m[i][j-1]+1,
-        m[i-1][j-1]+(b[i-1]===a[j-1]?0:1)
-      );
-    }
-  }
+  for(let i=1;i<=b.length;i++)
+    for(let j=1;j<=a.length;j++)
+      m[i][j]=Math.min(m[i-1][j]+1,m[i][j-1]+1,m[i-1][j-1]+(b[i-1]===a[j-1]?0:1));
   return m[b.length][a.length];
 }
 function similarity(a,b){
@@ -327,13 +274,12 @@ function sendMessage(){
   const b=document.getElementById("chatBody");
   b.innerHTML+=`<div class="chat-msg"><b>You:</b> ${raw}</div>`;
   let best=0,ans=null;
-  for(const item of knowledgeBase){
+  for(const item of knowledgeBase)
     for(const k of item.keywords){
       const s=similarity(txt,normalize(k));
       if(txt.includes(k)||s>best){best=s;ans=item.answer;}
     }
-  }
-  b.innerHTML+=`<div class="chat-msg"><b>AI:</b> ${best>=0.55?ans:"Please ask about profiles, safety, chat, or features."}</div>`;
+  b.innerHTML+=`<div class="chat-msg"><b>AI:</b> ${best>=0.55?ans:"Please ask about profiles, safety, or features."}</div>`;
   i.value="";b.scrollTop=b.scrollHeight;
 }
 </script>
