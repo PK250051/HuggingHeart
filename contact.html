@@ -16,6 +16,7 @@ body{
 h1{color:#ff4d7d}
 button{cursor:pointer}
 
+/* CHAT BUTTON */
 .chat-btn{
   position:fixed;
   bottom:20px;
@@ -26,8 +27,10 @@ button{cursor:pointer}
   border-radius:50px;
   padding:14px 22px;
   font-size:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.4);
 }
 
+/* CHAT WINDOW */
 .chat-box{
   position:fixed;
   bottom:90px;
@@ -63,6 +66,7 @@ button{cursor:pointer}
   flex:1;
   padding:10px;
   border:none;
+  outline:none;
 }
 .chat-input button{
   padding:10px 16px;
@@ -75,7 +79,7 @@ button{cursor:pointer}
 <body>
 
 <h1>Contact HuggingHeart</h1>
-<p>Use the AI chat below for instant help.</p>
+<p>Use the AI chat for instant help and information.</p>
 
 <button class="chat-btn" onclick="toggleChat()">💬 AI Chat</button>
 
@@ -92,122 +96,138 @@ button{cursor:pointer}
 
 <script>
 /* =====================================================
-   VERIFIED KNOWLEDGE BASE (100+ QUESTIONS)
+   KNOWLEDGE BASE (100+ VERIFIED Q&A)
    ===================================================== */
 
 const knowledgeBase = [
-
-/* PLATFORM */
 {keywords:["what is huggingheart","hugging heart"],answer:"HuggingHeart is a global social dating and connection platform."},
-{keywords:["is this dating","dating platform"],answer:"Yes, HuggingHeart is a social dating and connection platform."},
-{keywords:["is this marriage","matrimony"],answer:"No, HuggingHeart is not a matrimonial website."},
-{keywords:["who can join","age"],answer:"Anyone above 18 years of age can join."},
-{keywords:["is huggingheart real"],answer:"Yes, HuggingHeart is a genuine social platform."},
+{keywords:["dating platform","is this dating"],answer:"Yes, HuggingHeart is a social dating platform."},
+{keywords:["matrimony","marriage site"],answer:"No, HuggingHeart is not a matrimonial website."},
+{keywords:["who can join","age limit"],answer:"Anyone above 18 years old can join HuggingHeart."},
+{keywords:["is huggingheart safe"],answer:"Yes, safety and respectful interaction are core values."},
 
-/* ACCOUNT */
-{keywords:["create account","sign up"],answer:"You can create an account by joining and setting up your profile."},
-{keywords:["delete account"],answer:"Account deletion will be available from settings."},
-{keywords:["edit profile"],answer:"You will be able to update your profile anytime."},
-{keywords:["profile photo"],answer:"Profile photos help others know you better."},
+{keywords:["create account","sign up"],answer:"You can join by creating a profile and sharing your interests."},
+{keywords:["edit profile"],answer:"Profile editing will be available in settings."},
+{keywords:["delete account"],answer:"Account deletion options will be provided."},
+{keywords:["profile photo"],answer:"Profile photos help others understand you better."},
 {keywords:["username"],answer:"Usernames help identify profiles uniquely."},
 
-/* MATCHING */
 {keywords:["how matching works"],answer:"Matching is based on interests, preferences, and interactions."},
-{keywords:["discover people"],answer:"You can discover people globally on HuggingHeart."},
-{keywords:["search profiles"],answer:"Search features help find compatible people."},
-{keywords:["suggested profiles"],answer:"Suggestions are shown based on compatibility."},
+{keywords:["discover people"],answer:"You can discover people globally."},
+{keywords:["search profiles"],answer:"Search tools help find compatible users."},
+{keywords:["suggested profiles"],answer:"Suggestions are based on compatibility."},
 {keywords:["location based"],answer:"Location-based discovery may be available."},
 
-/* CHAT */
-{keywords:["chat","message"],answer:"Chat allows private and respectful communication."},
-{keywords:["who can message me"],answer:"Messaging depends on privacy settings."},
+{keywords:["chat","message"],answer:"Chat allows respectful private communication."},
+{keywords:["who can message"],answer:"Messaging depends on privacy settings."},
 {keywords:["block user"],answer:"You can block users anytime."},
-{keywords:["report user"],answer:"Report misuse to maintain safety."},
-{keywords:["video call"],answer:"Video calling may be added later."},
+{keywords:["report user"],answer:"Misuse can be reported for review."},
+{keywords:["video call"],answer:"Advanced features may be added later."},
 
-/* SAFETY */
-{keywords:["is it safe","safety"],answer:"Safety and respect are core values of HuggingHeart."},
 {keywords:["privacy"],answer:"Your privacy is protected."},
-{keywords:["fake profile"],answer:"Fake profiles are not allowed."},
+{keywords:["data safety"],answer:"Your data is handled responsibly."},
+{keywords:["fake profiles"],answer:"Fake profiles are not allowed."},
 {keywords:["harassment"],answer:"Harassment leads to strict action."},
-{keywords:["data security"],answer:"Your data is handled responsibly."},
+{keywords:["security"],answer:"Security is a top priority."},
 
-/* PREMIUM */
 {keywords:["premium"],answer:"Premium plans may offer advanced features."},
 {keywords:["paid plan"],answer:"Paid plans are optional."},
-{keywords:["subscription price"],answer:"Pricing will be announced later."},
-{keywords:["free"],answer:"Basic features are free to use."},
-{keywords:["refund"],answer:"Refund rules will be shared with premium plans."},
+{keywords:["subscription"],answer:"Subscription details will be announced."},
+{keywords:["free"],answer:"Basic features are free."},
+{keywords:["refund"],answer:"Refund policies will be clearly defined."},
 
-/* GLOBAL */
 {keywords:["available countries"],answer:"HuggingHeart is available worldwide."},
-{keywords:["international"],answer:"Yes, international users are welcome."},
-{keywords:["languages"],answer:"More languages will be supported."},
+{keywords:["international"],answer:"International users are welcome."},
+{keywords:["languages"],answer:"Multi-language support may be added."},
 {keywords:["india"],answer:"Users from India and globally can join."},
-{keywords:["timezone"],answer:"The platform adapts automatically."},
+{keywords:["timezone"],answer:"The platform adapts to your time zone."},
 
-/* COMMUNITY */
 {keywords:["community rules"],answer:"Respect and honesty are required."},
 {keywords:["guidelines"],answer:"Community guidelines ensure safety."},
 {keywords:["ban"],answer:"Rule violations may result in bans."},
-{keywords:["appeal"],answer:"Appeal options may be provided."},
+{keywords:["appeal"],answer:"Appeals may be available."},
 {keywords:["standards"],answer:"Community standards maintain quality."},
 
-/* SUPPORT */
-{keywords:["support"],answer:"Use the contact form for support."},
-{keywords:["help"],answer:"Ask me about features, safety, or usage."},
-{keywords:["bug"],answer:"Bug reports help us improve."},
+{keywords:["support"],answer:"Use this chat or the contact form for help."},
+{keywords:["help"],answer:"Ask me about profiles, safety, or features."},
+{keywords:["bug"],answer:"Bug reports help improve the platform."},
 {keywords:["feedback"],answer:"Feedback is always welcome."},
 {keywords:["feature request"],answer:"You may suggest new features."},
 
-/* INTENT */
 {keywords:["casual"],answer:"Casual connections are allowed."},
 {keywords:["serious"],answer:"Serious dating is welcome."},
-{keywords:["friendship"],answer:"Friendship is also supported."},
+{keywords:["friendship"],answer:"Friendship connections are supported."},
 {keywords:["relationship"],answer:"Meaningful relationships are encouraged."},
 {keywords:["long term"],answer:"Long-term dating is supported."},
 
-/* GENERAL */
 {keywords:["hello","hi"],answer:"Hello! How can I help you?"},
 {keywords:["thanks","thank you"],answer:"You're welcome 😊"},
 {keywords:["bye"],answer:"Goodbye! Take care."},
-{keywords:["ai"],answer:"I am a rule-based assistant designed to help you."},
+{keywords:["ai"],answer:"I am a rule-based AI assistant."},
 {keywords:["how are you"],answer:"I'm here and ready to help!"}
-
 ];
 
 /* =====================================================
-   CHAT ENGINE (SAFE)
+   FUZZY MATCHING CHAT ENGINE (EXPERT SAFE)
    ===================================================== */
+
+function normalizeText(str){
+  return str.toLowerCase().replace(/[^a-z0-9\s]/g,"").trim();
+}
+
+function levenshtein(a,b){
+  const m=[];
+  for(let i=0;i<=b.length;i++){m[i]=[i]}
+  for(let j=0;j<=a.length;j++){m[0][j]=j}
+  for(let i=1;i<=b.length;i++){
+    for(let j=1;j<=a.length;j++){
+      m[i][j]=Math.min(
+        m[i-1][j]+1,
+        m[i][j-1]+1,
+        m[i-1][j-1]+(b[i-1]===a[j-1]?0:1)
+      )
+    }
+  }
+  return m[b.length][a.length]
+}
+
+function similarity(a,b){
+  const longer=a.length>b.length?a:b;
+  const shorter=a.length>b.length?b:a;
+  return longer.length===0?1:(longer.length-levenshtein(longer,shorter))/longer.length
+}
 
 function toggleChat(){
   const box=document.getElementById("chatBox");
-  box.style.display = box.style.display==="flex" ? "none" : "flex";
+  box.style.display=box.style.display==="flex"?"none":"flex";
 }
 
 function sendMessage(){
   const input=document.getElementById("userInput");
-  const text=input.value.toLowerCase().trim();
+  const raw=input.value;
+  const text=normalizeText(raw);
   if(!text) return;
 
   const body=document.getElementById("chatBody");
-  body.innerHTML += `<div class="chat-msg"><b>You:</b> ${input.value}</div>`;
+  body.innerHTML+=`<div class="chat-msg"><b>You:</b> ${raw}</div>`;
 
-  let matched=false;
+  let bestScore=0;
+  let bestAnswer=null;
 
-  for(let i=0;i<knowledgeBase.length;i++){
-    for(let j=0;j<knowledgeBase[i].keywords.length;j++){
-      if(text.includes(knowledgeBase[i].keywords[j])){
-        body.innerHTML += `<div class="chat-msg"><b>AI:</b> ${knowledgeBase[i].answer}</div>`;
-        matched=true;
-        break;
+  for(const item of knowledgeBase){
+    for(const key of item.keywords){
+      const score=similarity(text,normalizeText(key));
+      if(text.includes(key) || score>bestScore){
+        bestScore=score;
+        bestAnswer=item.answer;
       }
     }
-    if(matched) break;
   }
 
-  if(!matched){
-    body.innerHTML += `<div class="chat-msg"><b>AI:</b> I understand. Please ask about profiles, safety, chat, or features.</div>`;
+  if(bestScore>=0.55){
+    body.innerHTML+=`<div class="chat-msg"><b>AI:</b> ${bestAnswer}</div>`;
+  }else{
+    body.innerHTML+=`<div class="chat-msg"><b>AI:</b> I can help with profiles, safety, chat, or features.</div>`;
   }
 
   input.value="";
