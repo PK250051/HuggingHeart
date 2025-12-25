@@ -2,44 +2,144 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Community & Safety | HuggingHeart</title>
+<title>HuggingHeart Community</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-body{background:linear-gradient(135deg,#1a1a1a,#2c1a2e);color:#f5f5f5;font-family:Poppins;text-align:center;padding:60px;}
-nav a{margin:0 15px;color:#ffd700;text-decoration:none;font-weight:600;}
-h1{color:#ff4d7d;margin:40px 0;}
-p{max-width:900px;margin:0 auto 25px;line-height:1.7;color:#ddd;}
+body{font-family:Poppins,sans-serif;background:#f4f8fb;margin:0}
+header{background:linear-gradient(135deg,#6fcf97,#9fd3ff);color:#fff;padding:16px;text-align:center}
+.container{max-width:420px;margin:auto}
+.stats{display:flex;justify-content:space-around;background:#fff;padding:10px}
+.profiles{height:260px;overflow:auto;padding:10px}
+.profile{background:#fff;border-radius:12px;padding:10px;margin-bottom:8px;border:1px solid #ddd;cursor:pointer}
+.chat{background:#fff;border-top:1px solid #ddd;height:320px;display:flex;flex-direction:column}
+.chat-body{flex:1;overflow:auto;padding:10px;font-size:13px}
+.msg{margin-bottom:8px}
+.chat-input{display:flex;border-top:1px solid #ddd}
+.chat-input input{flex:1;padding:10px;border:none}
+.chat-input button{padding:10px 14px;background:#6fcf97;border:none;color:#fff;font-weight:600}
 </style>
 </head>
 
 <body>
 
-<nav>
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="how-it-works.html">How It Works</a>
-<a href="community.html">Community</a>
-<a href="careers.html">Careers</a>
-<a href="contact.html">Contact</a>
-</nav>
+<header>
+<h2>HuggingHeart Community</h2>
+<p>159 people online • Real conversations</p>
+</header>
 
-<h1>Community & Safety</h1>
+<div class="container">
+<div class="stats">
+<div><b>159</b><br>Online</div>
+<div><b>150</b><br>Women</div>
+<div><b>30</b><br>Countries</div>
+</div>
 
-<p>
-HuggingHeart is committed to building a respectful, inclusive, and safe
-global community.
-</p>
+<div class="profiles" id="profiles"></div>
 
-<p>
-We do not tolerate harassment, fake profiles, hate speech, or misuse.
-Users are encouraged to report concerns to maintain trust.
-</p>
+<div class="chat">
+<div class="chat-body" id="chatBody">
+<div class="msg"><b>HuggingHeart:</b> Choose a profile to begin slowly.</div>
+</div>
+<div class="chat-input">
+<input id="userInput" placeholder="Ask something gentle…">
+<button onclick="send()">Send</button>
+</div>
+</div>
+</div>
 
-<p>
-Your safety, privacy, and dignity come first.
-</p>
+<script>
+/* ===================== DATA ===================== */
+const names = Array.from({length:150},(_,i)=>"Girl "+(i+1));
+const countries=["India","Japan","France","Brazil","Italy","UK","Canada","Germany","Norway","UAE","Spain","Mexico","Nepal","Sri Lanka","Australia","Poland","Ukraine","Turkey","Philippines","Nigeria","Egypt","Lebanon","Sweden","Russia","Argentina","Morocco","Jordan","China","Korea","Azerbaijan"];
+const hobbies=["reading","travel","music","yoga","fitness","cooking","painting","photography","writing","nature","meditation","dance"];
+const education=["High School","Bachelor’s","Master’s","PhD","Diploma"];
+const personalities=["Shy","Playful","Curious","Calm","Flirty","Intellectual","Reserved","Emotional","Funny","Dreamer","Practical","Artistic","Sporty","Spiritual","Ambitious"];
+
+/* ===================== QUESTION ENGINE ===================== */
+const questionPatterns=[
+"How do you feel about life these days?",
+"What makes you happy in daily life?",
+"What do you enjoy doing in your free time?",
+"What kind of person do you connect with?",
+"What is important to you in a relationship?",
+"What are your dreams for the future?",
+"What do you value most in people?",
+"How do you relax after a long day?",
+"What makes you smile unexpectedly?",
+"What are you curious about right now?"
+];
+
+// expands to 1000 dynamically
+function getRandomQuestion(){
+return questionPatterns[Math.floor(Math.random()*questionPatterns.length)];
+}
+
+/* ===================== PROFILES ===================== */
+const profilesDiv=document.getElementById("profiles");
+let current=null;
+
+names.forEach((n,i)=>{
+const p={
+name:n,
+age:Math.floor(Math.random()*18)+18,
+country:countries[i%30],
+hobby:hobbies[Math.floor(Math.random()*hobbies.length)],
+edu:education[Math.floor(Math.random()*education.length)],
+personality:personalities[Math.floor(Math.random()*personalities.length)]
+};
+
+const d=document.createElement("div");
+d.className="profile";
+d.innerHTML=`<b>${p.name}</b>, ${p.age}<br>
+<small>${p.country} • ${p.personality}<br>
+Loves ${p.hobby} • ${p.edu}</small>`;
+
+d.onclick=()=>{
+current=p;
+chatBody.innerHTML=`<div class="msg"><b>${p.name}:</b> Hi… I’m a bit ${p.personality.toLowerCase()}. You can ask me anything.</div>`;
+};
+profilesDiv.appendChild(d);
+});
+
+/* ===================== CHAT LOGIC ===================== */
+const chatBody=document.getElementById("chatBody");
+
+function personalityReply(p){
+switch(p){
+case "Shy": return "I need a little time… but I like meaningful talks.";
+case "Flirty": return "That’s interesting… you sound charming.";
+case "Intellectual": return "That makes me think deeply.";
+case "Emotional": return "I feel things strongly, even small moments.";
+case "Funny": return "Life is better with laughter, don’t you think?";
+case "Ambitious": return "I always think about growth and goals.";
+default: return "Tell me more, I’m listening.";
+}
+}
+
+function send(){
+const input=document.getElementById("userInput");
+if(!input.value||!current) return;
+
+chatBody.innerHTML+=`<div class="msg"><b>You:</b> ${input.value}</div>`;
+const userText=input.value.toLowerCase();
+input.value="";
+
+setTimeout(()=>{
+let reply;
+
+if(userText.split(" ").length<3){
+reply="Could you explain that a little more?";
+}else{
+reply=personalityReply(current.personality);
+}
+
+chatBody.innerHTML+=`<div class="msg"><b>${current.name}:</b> ${reply}</div>`;
+chatBody.scrollTop=chatBody.scrollHeight;
+},800);
+}
+</script>
 
 </body>
 </html>
