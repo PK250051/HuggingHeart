@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Contact & Help | HuggingHeart</title>
+<title>HuggingHeart AI Chat</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --green:#6fcf97;
-  --green-soft:#eaf7f0;
   --sky:#9fd3ff;
   --bg:#f9fbfd;
   --card:#ffffff;
@@ -24,315 +23,226 @@
 body{
   font-family:'Poppins',sans-serif;
   background:linear-gradient(180deg,#f9fbfd,#eef7ff);
-  color:var(--text);
-}
-
-/* ================= NAVBAR ================= */
-.navbar{
-  position:sticky;
-  top:0;
-  background:var(--green-soft);
+  height:100vh;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  padding:14px 20px;
-  border-bottom:1px solid var(--border);
-  box-shadow:0 8px 18px rgba(159,211,255,0.45);
-  z-index:1000;
+  justify-content:center;
 }
 
-.logo{
-  font-family:'Playfair Display',serif;
-  font-size:1.5rem;
-  color:#2f855a;
-}
-
-.menu-toggle{
-  display:none;
-  font-size:26px;
-  cursor:pointer;
-  color:#2f855a;
-}
-
-.nav-links{
-  display:flex;
-  align-items:center;
-}
-
-.nav-links a{
-  margin-left:26px;
-  text-decoration:none;
-  color:var(--muted);
-  font-weight:500;
-}
-
-.nav-links a:hover{
-  color:#2f855a;
-}
-
-/* MOBILE MENU */
-@media(max-width:900px){
-  .menu-toggle{
-    display:block;
-  }
-  .nav-links{
-    position:absolute;
-    top:64px;
-    right:16px;
-    background:#ffffff;
-    border:1px solid var(--border);
-    border-radius:16px;
-    display:none;
-    flex-direction:column;
-    width:220px;
-    box-shadow:0 20px 40px rgba(159,211,255,0.35);
-  }
-  .nav-links a{
-    margin:0;
-    padding:14px 18px;
-    border-bottom:1px solid var(--border);
-  }
-  .nav-links a:last-child{
-    border-bottom:none;
-  }
-}
-
-/* ================= PAGE ================= */
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:60px 20px 140px;
-}
-
-header{
-  text-align:center;
-  margin-bottom:40px;
-}
-header h1{
-  font-family:'Playfair Display',serif;
-  color:#2f855a;
-  font-size:2.6rem;
-  margin-bottom:10px;
-}
-header p{
-  color:var(--muted);
-  font-size:1.05rem;
-  max-width:850px;
-  margin:auto;
-  line-height:1.7;
-}
-
-.info{
-  margin:40px auto;
-  max-width:900px;
-  text-align:center;
-  color:var(--muted);
-  line-height:1.7;
-}
-
-/* FORM */
-.form-card{
-  background:var(--card);
-  border-radius:22px;
-  padding:40px;
-  max-width:600px;
-  margin:40px auto;
-  border:1px solid var(--border);
-  box-shadow:0 20px 40px rgba(159,211,255,0.25);
-}
-.form-card h2{
-  color:#2f855a;
-  margin-bottom:20px;
-  text-align:center;
-}
-label{
-  display:block;
-  margin-bottom:6px;
-  font-weight:500;
-}
-input,textarea{
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  margin-bottom:20px;
-  font-family:inherit;
-}
-input:focus,textarea:focus{
-  outline:none;
-  border-color:var(--sky);
-  box-shadow:0 0 0 3px rgba(159,211,255,0.25);
-}
-textarea{resize:none}
-
-button.submit{
-  width:100%;
-  background:linear-gradient(135deg,#6fcf97,#9fd3ff);
-  color:#ffffff;
-  border:none;
-  padding:14px;
-  border-radius:30px;
-  font-weight:700;
-  cursor:pointer;
-  transition:0.3s;
-}
-button.submit:hover{
-  transform:translateY(-2px);
-}
-
-footer{
-  text-align:center;
-  margin-top:80px;
-  color:var(--muted);
-  font-size:0.9rem;
-}
-
-/* CHAT */
-.chat-btn{
-  position:fixed;
-  bottom:22px;
-  right:22px;
-  background:linear-gradient(135deg,#6fcf97,#9fd3ff);
-  color:#fff;
-  border:none;
-  border-radius:50px;
-  padding:14px 22px;
-  font-size:16px;
-  cursor:pointer;
-  box-shadow:0 12px 30px rgba(159,211,255,0.45);
-}
-
+/* CHAT CONTAINER */
 .chat-box{
-  position:fixed;
-  bottom:90px;
-  right:22px;
   width:360px;
-  background:#ffffff;
+  background:var(--card);
   border-radius:20px;
-  display:none;
+  display:flex;
   flex-direction:column;
   border:1px solid var(--border);
   box-shadow:0 20px 40px rgba(159,211,255,0.35);
 }
+
 .chat-header{
-  background:linear-gradient(135deg,#6fcf97,#9fd3ff);
+  background:linear-gradient(135deg,var(--green),var(--sky));
   padding:14px;
   color:#fff;
   border-radius:20px 20px 0 0;
   font-weight:600;
+  text-align:center;
 }
+
 .chat-body{
   padding:14px;
-  height:260px;
+  height:300px;
   overflow-y:auto;
   font-size:14px;
 }
-.chat-msg{margin-bottom:10px}
+
+.chat-msg{
+  margin-bottom:12px;
+  line-height:1.5;
+}
+
 .chat-input{
   display:flex;
   border-top:1px solid var(--border);
 }
+
 .chat-input input{
   flex:1;
-  padding:10px;
+  padding:12px;
   border:none;
+  font-family:inherit;
 }
+
 .chat-input button{
-  padding:10px 16px;
+  padding:12px 18px;
   border:none;
   background:var(--green);
   color:#fff;
+  font-weight:600;
+  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<div class="navbar">
-  <div class="logo">HuggingHeart</div>
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-  <div class="nav-links" id="navLinks">
-    <a href="index.html" onclick="closeMenu()">Home</a>
-    <a href="about.html" onclick="closeMenu()">About</a>
-    <a href="how-it-works.html" onclick="closeMenu()">How It Works</a>
-    <a href="careers.html" onclick="closeMenu()">Careers</a>
-    <a href="contact.html" onclick="closeMenu()">Contact</a>
-  </div>
-</div>
+<div class="chat-box">
+  <div class="chat-header" id="chatHeader"></div>
 
-<div class="container">
-
-<header>
-  <h1>Contact & Help Center</h1>
-  <p>
-    HuggingHeart is a global social connection and dating platform.
-    This page helps you get answers, support, and guidance — instantly or by message.
-  </p>
-</header>
-
-<div class="info">
-  <p>
-    You can use our AI Help Chat to understand how HuggingHeart works,
-    explore safety guidelines, profile features, subscriptions, and community rules.
-  </p>
-</div>
-
-<div class="form-card">
-  <h2>Send Us a Message</h2>
-  <form>
-    <label>Your Name</label>
-    <input type="text" required placeholder="Your name">
-
-    <label>Email</label>
-    <input type="email" required placeholder="Your email">
-
-    <label>Message</label>
-    <textarea rows="5" required placeholder="Write your message..."></textarea>
-
-    <button class="submit">Submit</button>
-  </form>
-</div>
-
-<footer>
-  © 2025 HuggingHeart • Global Social Platform
-</footer>
-
-</div>
-
-<button class="chat-btn" onclick="toggleChat()">AI Chat</button>
-
-<div class="chat-box" id="chatBox">
-  <div class="chat-header">HuggingHeart AI Assistant</div>
   <div class="chat-body" id="chatBody">
-    <div class="chat-msg"><b>AI:</b> Hello! Ask me anything about HuggingHeart.</div>
+    <!-- Greeting added by JS -->
   </div>
+
   <div class="chat-input">
-    <input id="userInput" placeholder="Type your question...">
+    <input id="userInput" placeholder="Type your message…">
     <button onclick="sendMessage()">Send</button>
   </div>
 </div>
 
 <script>
-function toggleMenu(){
-  const m=document.getElementById("navLinks");
-  m.style.display = m.style.display==="flex" ? "none" : "flex";
-}
-function closeMenu(){
-  document.getElementById("navLinks").style.display="none";
+/* ======================================================
+   RANDOM FEMALE AI NAME (30 COUNTRIES)
+   ====================================================== */
+
+const femaleNames = [
+  "Aiko (Japan)",
+  "Sofia (Spain)",
+  "Amara (Nigeria)",
+  "Elena (Italy)",
+  "Mei (China)",
+  "Anaya (India)",
+  "Layla (UAE)",
+  "Freya (Norway)",
+  "Isabella (Brazil)",
+  "Noura (Egypt)",
+  "Camille (France)",
+  "Yara (Lebanon)",
+  "Hana (South Korea)",
+  "Lucia (Argentina)",
+  "Zara (UK)",
+  "Mila (Russia)",
+  "Ingrid (Sweden)",
+  "Riya (Nepal)",
+  "Noor (Jordan)",
+  "Alina (Ukraine)",
+  "Aya (Morocco)",
+  "Lea (Germany)",
+  "Karla (Mexico)",
+  "Nina (Poland)",
+  "Ivy (Canada)",
+  "Saanvi (Sri Lanka)",
+  "Tala (Philippines)",
+  "Mariam (Turkey)",
+  "Esra (Azerbaijan)",
+  "Olivia (Australia)"
+];
+
+const BOT_NAME = femaleNames[Math.floor(Math.random() * femaleNames.length)];
+document.getElementById("chatHeader").innerText = BOT_NAME + " • HuggingHeart AI";
+
+/* ======================================================
+   KNOWLEDGE BASE
+   ====================================================== */
+
+const knowledgeBase = [
+  {
+    keys:["what is huggingheart","about huggingheart"],
+    answer:"HuggingHeart is a gentle social and dating platform focused on conversation, emotional comfort, and meaningful connections."
+  },
+  {
+    keys:["is this dating","dating app"],
+    answer:"Yes, HuggingHeart supports dating, but in a calm and respectful way—no pressure, no aggressive matching."
+  },
+  {
+    keys:["is it safe","safety"],
+    answer:"Safety is very important here. Respectful behavior, privacy, and user well-being come first."
+  },
+  {
+    keys:["age limit","who can join"],
+    answer:"Anyone who is 18 years or older can join HuggingHeart."
+  },
+  {
+    keys:["premium","subscription"],
+    answer:"Basic features are free. Optional premium features may be added later."
+  },
+  {
+    keys:["hello","hi","hey"],
+    answer:"Hi 😊 I’m happy you’re here. How can I help you today?"
+  },
+  {
+    keys:["thank you","thanks"],
+    answer:"You’re very welcome 💚"
+  }
+];
+
+/* ======================================================
+   SMART FALLBACK REPLIES
+   ====================================================== */
+
+const fallbackReplies = [
+  "That’s an interesting question. You can ask me about safety, profiles, or how HuggingHeart works.",
+  "I might not have that exact answer yet, but I’d love to help if you ask about features or community rules.",
+  "Try asking me about dating, emotional connections, or account setup.",
+  "Could you rephrase that a little? I want to understand you better 😊"
+];
+
+/* ======================================================
+   UTILITIES
+   ====================================================== */
+
+function normalize(text){
+  return text.toLowerCase().replace(/[^a-z0-9\s]/g,"").trim();
 }
 
-function toggleChat(){
-  const c=document.getElementById("chatBox");
-  c.style.display=c.style.display==="flex"?"none":"flex";
+function scoreMatch(input, key){
+  let score = 0;
+  const words = key.split(" ");
+  for(const w of words){
+    if(input.includes(w)) score++;
+  }
+  return score / words.length;
 }
+
+/* ======================================================
+   CHAT LOGIC
+   ====================================================== */
+
+const chatBody = document.getElementById("chatBody");
+
+/* Initial greeting */
+chatBody.innerHTML += `
+  <div class="chat-msg"><b>${BOT_NAME}:</b> Hello 👋  
+  I’m here to help you understand HuggingHeart. Ask me anything.</div>
+`;
+
 function sendMessage(){
-  const i=document.getElementById("userInput");
-  if(!i.value.trim())return;
-  const b=document.getElementById("chatBody");
-  b.innerHTML+=`<div class="chat-msg"><b>You:</b> ${i.value}</div>`;
-  b.innerHTML+=`<div class="chat-msg"><b>AI:</b> Please ask about profiles, safety, or features.</div>`;
-  i.value="";b.scrollTop=b.scrollHeight;
+  const input = document.getElementById("userInput");
+  const raw = input.value.trim();
+  if(!raw) return;
+
+  chatBody.innerHTML += `<div class="chat-msg"><b>You:</b> ${raw}</div>`;
+
+  const text = normalize(raw);
+  let bestScore = 0;
+  let reply = null;
+
+  for(const item of knowledgeBase){
+    for(const k of item.keys){
+      const s = scoreMatch(text, normalize(k));
+      if(s > bestScore){
+        bestScore = s;
+        reply = item.answer;
+      }
+    }
+  }
+
+  if(bestScore < 0.4){
+    reply = fallbackReplies[Math.floor(Math.random() * fallbackReplies.length)];
+  }
+
+  chatBody.innerHTML += `<div class="chat-msg"><b>${BOT_NAME}:</b> ${reply}</div>`;
+  input.value = "";
+  chatBody.scrollTop = chatBody.scrollHeight;
 }
 </script>
 
