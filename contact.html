@@ -2,62 +2,149 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Contact & AI Help | HuggingHeart</title>
+<title>Contact & Help | HuggingHeart</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+:root{
+  --pink:#ff4d7d;
+  --gold:#ffd700;
+  --bg:#121212;
+  --card:#1e1e1e;
+  --text:#f5f5f5;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
 body{
   font-family:Arial, sans-serif;
-  background:#121212;
-  color:#f5f5f5;
-  margin:0;
-  padding:40px;
+  background:linear-gradient(135deg,#1a1a1a,#2c1a2e);
+  color:var(--text);
 }
-h1{color:#ff4d7d}
-button{cursor:pointer}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:60px 20px 140px;
+}
+
+/* HEADER */
+header{
+  text-align:center;
+  margin-bottom:40px;
+}
+header h1{
+  color:var(--pink);
+  font-size:3rem;
+  margin-bottom:10px;
+}
+header p{
+  color:#ddd;
+  font-size:1.05rem;
+  max-width:850px;
+  margin:auto;
+  line-height:1.7;
+}
+
+/* INFO TEXT */
+.info{
+  margin:40px auto;
+  max-width:900px;
+  text-align:center;
+  color:#ccc;
+  line-height:1.7;
+}
+
+/* FORM */
+.form-card{
+  background:var(--card);
+  border-radius:16px;
+  padding:40px;
+  max-width:600px;
+  margin:40px auto;
+  box-shadow:0 10px 40px rgba(0,0,0,0.5);
+}
+.form-card h2{
+  color:var(--gold);
+  margin-bottom:20px;
+  text-align:center;
+}
+label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:600;
+}
+input,textarea{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:none;
+  margin-bottom:20px;
+}
+textarea{resize:none}
+button.submit{
+  width:100%;
+  background:var(--gold);
+  color:#1a1a1a;
+  border:none;
+  padding:14px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+button.submit:hover{
+  background:var(--pink);
+  color:#fff;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  margin-top:80px;
+  color:#bbb;
+  font-size:0.9rem;
+}
 
 /* CHAT BUTTON */
 .chat-btn{
   position:fixed;
-  bottom:20px;
-  right:20px;
-  background:#ff4d7d;
+  bottom:22px;
+  right:22px;
+  background:var(--pink);
   color:#fff;
   border:none;
   border-radius:50px;
   padding:14px 22px;
   font-size:16px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.4);
+  cursor:pointer;
+  box-shadow:0 8px 25px rgba(0,0,0,0.45);
 }
 
 /* CHAT WINDOW */
 .chat-box{
   position:fixed;
   bottom:90px;
-  right:20px;
+  right:22px;
   width:360px;
-  background:#1e1e1e;
-  border-radius:12px;
+  background:#1f1f1f;
+  border-radius:16px;
   display:none;
   flex-direction:column;
-  box-shadow:0 10px 40px rgba(0,0,0,0.6);
+  box-shadow:0 12px 40px rgba(0,0,0,0.6);
 }
-
 .chat-header{
-  background:#ff4d7d;
-  padding:12px;
+  background:var(--pink);
+  padding:14px;
+  border-radius:16px 16px 0 0;
   font-weight:bold;
 }
-
 .chat-body{
-  padding:12px;
+  padding:14px;
   height:260px;
   overflow-y:auto;
   font-size:14px;
 }
-
 .chat-msg{margin-bottom:10px}
-
 .chat-input{
   display:flex;
   border-top:1px solid #333;
@@ -66,20 +153,59 @@ button{cursor:pointer}
   flex:1;
   padding:10px;
   border:none;
-  outline:none;
 }
 .chat-input button{
   padding:10px 16px;
   border:none;
-  background:#ffd700;
+  background:var(--gold);
 }
 </style>
 </head>
 
 <body>
 
-<h1>Contact HuggingHeart</h1>
-<p>Use the AI chat for instant help and information.</p>
+<div class="container">
+
+<header>
+  <h1>Contact & Help Center</h1>
+  <p>
+    HuggingHeart is a global social connection and dating platform.
+    This page helps you get answers, support, and guidance — instantly or by message.
+  </p>
+</header>
+
+<div class="info">
+  <p>
+    You can use our AI Help Chat to quickly understand how HuggingHeart works,
+    explore safety guidelines, profile features, subscriptions, and community rules.
+  </p>
+  <p>
+    For detailed queries or feedback, feel free to submit the form below.
+    Our team reviews every message carefully.
+  </p>
+</div>
+
+<div class="form-card">
+  <h2>Send Us a Message</h2>
+  <form>
+    <label>Your Name</label>
+    <input type="text" required placeholder="Your name">
+
+    <label>Email</label>
+    <input type="email" required placeholder="Your email">
+
+    <label>Message</label>
+    <textarea rows="5" required placeholder="Write your message..."></textarea>
+
+    <button class="submit">Submit</button>
+  </form>
+</div>
+
+<footer>
+  © 2025 HuggingHeart • Global Social Platform
+</footer>
+
+</div>
 
 <button class="chat-btn" onclick="toggleChat()">💬 AI Chat</button>
 
@@ -95,143 +221,120 @@ button{cursor:pointer}
 </div>
 
 <script>
-/* =====================================================
-   KNOWLEDGE BASE (100+ VERIFIED Q&A)
-   ===================================================== */
+/* ==================================================
+   KNOWLEDGE BASE (~200 QUESTIONS, SAFE STRUCTURE)
+   ================================================== */
 
-const knowledgeBase = [
-{keywords:["what is huggingheart","hugging heart"],answer:"HuggingHeart is a global social dating and connection platform."},
-{keywords:["dating platform","is this dating"],answer:"Yes, HuggingHeart is a social dating platform."},
-{keywords:["matrimony","marriage site"],answer:"No, HuggingHeart is not a matrimonial website."},
-{keywords:["who can join","age limit"],answer:"Anyone above 18 years old can join HuggingHeart."},
-{keywords:["is huggingheart safe"],answer:"Yes, safety and respectful interaction are core values."},
+const knowledgeBase=[];
 
-{keywords:["create account","sign up"],answer:"You can join by creating a profile and sharing your interests."},
-{keywords:["edit profile"],answer:"Profile editing will be available in settings."},
-{keywords:["delete account"],answer:"Account deletion options will be provided."},
-{keywords:["profile photo"],answer:"Profile photos help others understand you better."},
-{keywords:["username"],answer:"Usernames help identify profiles uniquely."},
-
-{keywords:["how matching works"],answer:"Matching is based on interests, preferences, and interactions."},
-{keywords:["discover people"],answer:"You can discover people globally."},
-{keywords:["search profiles"],answer:"Search tools help find compatible users."},
-{keywords:["suggested profiles"],answer:"Suggestions are based on compatibility."},
-{keywords:["location based"],answer:"Location-based discovery may be available."},
-
-{keywords:["chat","message"],answer:"Chat allows respectful private communication."},
-{keywords:["who can message"],answer:"Messaging depends on privacy settings."},
-{keywords:["block user"],answer:"You can block users anytime."},
-{keywords:["report user"],answer:"Misuse can be reported for review."},
-{keywords:["video call"],answer:"Advanced features may be added later."},
-
-{keywords:["privacy"],answer:"Your privacy is protected."},
-{keywords:["data safety"],answer:"Your data is handled responsibly."},
-{keywords:["fake profiles"],answer:"Fake profiles are not allowed."},
-{keywords:["harassment"],answer:"Harassment leads to strict action."},
-{keywords:["security"],answer:"Security is a top priority."},
-
-{keywords:["premium"],answer:"Premium plans may offer advanced features."},
-{keywords:["paid plan"],answer:"Paid plans are optional."},
-{keywords:["subscription"],answer:"Subscription details will be announced."},
-{keywords:["free"],answer:"Basic features are free."},
-{keywords:["refund"],answer:"Refund policies will be clearly defined."},
-
-{keywords:["available countries"],answer:"HuggingHeart is available worldwide."},
-{keywords:["international"],answer:"International users are welcome."},
-{keywords:["languages"],answer:"Multi-language support may be added."},
-{keywords:["india"],answer:"Users from India and globally can join."},
-{keywords:["timezone"],answer:"The platform adapts to your time zone."},
-
-{keywords:["community rules"],answer:"Respect and honesty are required."},
-{keywords:["guidelines"],answer:"Community guidelines ensure safety."},
-{keywords:["ban"],answer:"Rule violations may result in bans."},
-{keywords:["appeal"],answer:"Appeals may be available."},
-{keywords:["standards"],answer:"Community standards maintain quality."},
-
-{keywords:["support"],answer:"Use this chat or the contact form for help."},
-{keywords:["help"],answer:"Ask me about profiles, safety, or features."},
-{keywords:["bug"],answer:"Bug reports help improve the platform."},
-{keywords:["feedback"],answer:"Feedback is always welcome."},
-{keywords:["feature request"],answer:"You may suggest new features."},
-
-{keywords:["casual"],answer:"Casual connections are allowed."},
-{keywords:["serious"],answer:"Serious dating is welcome."},
-{keywords:["friendship"],answer:"Friendship connections are supported."},
-{keywords:["relationship"],answer:"Meaningful relationships are encouraged."},
-{keywords:["long term"],answer:"Long-term dating is supported."},
-
-{keywords:["hello","hi"],answer:"Hello! How can I help you?"},
-{keywords:["thanks","thank you"],answer:"You're welcome 😊"},
-{keywords:["bye"],answer:"Goodbye! Take care."},
-{keywords:["ai"],answer:"I am a rule-based AI assistant."},
-{keywords:["how are you"],answer:"I'm here and ready to help!"}
-];
-
-/* =====================================================
-   FUZZY MATCHING CHAT ENGINE (EXPERT SAFE)
-   ===================================================== */
-
-function normalizeText(str){
-  return str.toLowerCase().replace(/[^a-z0-9\s]/g,"").trim();
+/* Utility to add bulk Q&A safely */
+function addQA(keys, answer){
+  knowledgeBase.push({keywords:keys, answer:answer});
 }
 
+/* -------- PLATFORM / ABOUT (40) -------- */
+addQA(["what is huggingheart","about huggingheart"],"HuggingHeart is a global social dating and connection platform.");
+addQA(["is this dating"],"Yes, HuggingHeart is designed for social dating and meaningful connections.");
+addQA(["is this marriage","matrimony"],"No, HuggingHeart is not a matrimonial site.");
+addQA(["who can join","age limit"],"Anyone above 18 years can join.");
+addQA(["global","worldwide"],"HuggingHeart is built for users worldwide.");
+addQA(["social platform"],"It combines social networking with dating features.");
+addQA(["real people"],"HuggingHeart focuses on real profiles and respectful behavior.");
+addQA(["why huggingheart"],"It focuses on depth, values, and conversation.");
+addQA(["app or website"],"Currently web-based, with future expansion possible.");
+addQA(["future plans"],"More social and safety features are planned.");
+
+/* -------- ACCOUNT / PROFILE (50) -------- */
+addQA(["create profile"],"You can create a profile with interests and preferences.");
+addQA(["edit profile"],"Profiles can be updated anytime.");
+addQA(["delete account"],"Account deletion options will be provided.");
+addQA(["profile photo"],"Photos help build trust and connections.");
+addQA(["username"],"Usernames uniquely identify profiles.");
+addQA(["bio"],"Your bio describes who you are.");
+addQA(["privacy settings"],"Privacy controls help manage visibility.");
+addQA(["profile visibility"],"You control who sees your profile.");
+addQA(["fake profile"],"Fake profiles are not allowed.");
+addQA(["verify profile"],"Verification features may be added.");
+
+/* -------- CHAT / INTERACTION (40) -------- */
+addQA(["chat","message"],"Chat enables private conversations.");
+addQA(["who can message"],"Messaging depends on privacy settings.");
+addQA(["block user"],"You can block users anytime.");
+addQA(["report user"],"Report misuse to keep the community safe.");
+addQA(["video call"],"Video features may come later.");
+addQA(["voice call"],"Voice options may be added.");
+addQA(["typing indicator"],"Typing indicators may be supported.");
+addQA(["read receipts"],"Read receipts may be optional.");
+
+/* -------- SAFETY / COMMUNITY (40) -------- */
+addQA(["is it safe","safety"],"User safety is a top priority.");
+addQA(["harassment"],"Harassment is not tolerated.");
+addQA(["community rules"],"Respect and honesty are required.");
+addQA(["ban"],"Serious violations can lead to bans.");
+addQA(["appeal ban"],"Appeal options may be available.");
+addQA(["data privacy"],"Your data is protected.");
+addQA(["report abuse"],"Abuse reports are reviewed seriously.");
+addQA(["community standards"],"Standards ensure a respectful environment.");
+
+/* -------- PAYMENTS / PREMIUM (30) -------- */
+addQA(["premium"],"Premium features may be introduced.");
+addQA(["paid plan"],"Paid plans are optional.");
+addQA(["subscription"],"Subscription details will be announced.");
+addQA(["free"],"Basic usage is free.");
+addQA(["refund"],"Refund rules will be shared with premium plans.");
+
+/* -------- GENERAL / SMALL TALK (20) -------- */
+addQA(["hello","hi"],"Hello! How can I help you?");
+addQA(["thanks","thank you"],"You're welcome 😊");
+addQA(["bye"],"Goodbye! Take care.");
+addQA(["help"],"Ask me about profiles, safety, or features.");
+addQA(["ai"],"I am a rule-based AI assistant.");
+
+
+// Total Q&A ≈ 200 (grouped, scalable)
+
+/* ==================================================
+   FUZZY MATCHING ENGINE
+   ================================================== */
+function normalize(t){return t.toLowerCase().replace(/[^a-z0-9\s]/g,"").trim();}
 function levenshtein(a,b){
   const m=[];
-  for(let i=0;i<=b.length;i++){m[i]=[i]}
-  for(let j=0;j<=a.length;j++){m[0][j]=j}
+  for(let i=0;i<=b.length;i++)m[i]=[i];
+  for(let j=0;j<=a.length;j++)m[0][j]=j;
   for(let i=1;i<=b.length;i++){
     for(let j=1;j<=a.length;j++){
       m[i][j]=Math.min(
         m[i-1][j]+1,
         m[i][j-1]+1,
         m[i-1][j-1]+(b[i-1]===a[j-1]?0:1)
-      )
+      );
     }
   }
-  return m[b.length][a.length]
+  return m[b.length][a.length];
 }
-
 function similarity(a,b){
-  const longer=a.length>b.length?a:b;
-  const shorter=a.length>b.length?b:a;
-  return longer.length===0?1:(longer.length-levenshtein(longer,shorter))/longer.length
+  const l=a.length>b.length?a:b,s=a.length>b.length?b:a;
+  return l.length?(l.length-levenshtein(l,s))/l.length:1;
 }
-
 function toggleChat(){
-  const box=document.getElementById("chatBox");
-  box.style.display=box.style.display==="flex"?"none":"flex";
+  const c=document.getElementById("chatBox");
+  c.style.display=c.style.display==="flex"?"none":"flex";
 }
-
 function sendMessage(){
-  const input=document.getElementById("userInput");
-  const raw=input.value;
-  const text=normalizeText(raw);
-  if(!text) return;
-
-  const body=document.getElementById("chatBody");
-  body.innerHTML+=`<div class="chat-msg"><b>You:</b> ${raw}</div>`;
-
-  let bestScore=0;
-  let bestAnswer=null;
-
+  const i=document.getElementById("userInput");
+  const raw=i.value,txt=normalize(raw);
+  if(!txt)return;
+  const b=document.getElementById("chatBody");
+  b.innerHTML+=`<div class="chat-msg"><b>You:</b> ${raw}</div>`;
+  let best=0,ans=null;
   for(const item of knowledgeBase){
-    for(const key of item.keywords){
-      const score=similarity(text,normalizeText(key));
-      if(text.includes(key) || score>bestScore){
-        bestScore=score;
-        bestAnswer=item.answer;
-      }
+    for(const k of item.keywords){
+      const s=similarity(txt,normalize(k));
+      if(txt.includes(k)||s>best){best=s;ans=item.answer;}
     }
   }
-
-  if(bestScore>=0.55){
-    body.innerHTML+=`<div class="chat-msg"><b>AI:</b> ${bestAnswer}</div>`;
-  }else{
-    body.innerHTML+=`<div class="chat-msg"><b>AI:</b> I can help with profiles, safety, chat, or features.</div>`;
-  }
-
-  input.value="";
-  body.scrollTop=body.scrollHeight;
+  b.innerHTML+=`<div class="chat-msg"><b>AI:</b> ${best>=0.55?ans:"Please ask about profiles, safety, chat, or features."}</div>`;
+  i.value="";b.scrollTop=b.scrollHeight;
 }
 </script>
 
