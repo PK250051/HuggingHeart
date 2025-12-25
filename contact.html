@@ -35,24 +35,66 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:14px 48px;
+  padding:14px 20px;
   border-bottom:1px solid var(--border);
   box-shadow:0 8px 18px rgba(159,211,255,0.45);
   z-index:1000;
 }
+
 .logo{
   font-family:'Playfair Display',serif;
   font-size:1.5rem;
   color:#2f855a;
 }
+
+.menu-toggle{
+  display:none;
+  font-size:26px;
+  cursor:pointer;
+  color:#2f855a;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+}
+
 .nav-links a{
   margin-left:26px;
   text-decoration:none;
   color:var(--muted);
   font-weight:500;
 }
+
 .nav-links a:hover{
   color:#2f855a;
+}
+
+/* MOBILE MENU */
+@media(max-width:900px){
+  .menu-toggle{
+    display:block;
+  }
+  .nav-links{
+    position:absolute;
+    top:64px;
+    right:16px;
+    background:#ffffff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    display:none;
+    flex-direction:column;
+    width:220px;
+    box-shadow:0 20px 40px rgba(159,211,255,0.35);
+  }
+  .nav-links a{
+    margin:0;
+    padding:14px 18px;
+    border-bottom:1px solid var(--border);
+  }
+  .nav-links a:last-child{
+    border-bottom:none;
+  }
 }
 
 /* ================= PAGE ================= */
@@ -62,7 +104,6 @@ body{
   padding:60px 20px 140px;
 }
 
-/* HEADER */
 header{
   text-align:center;
   margin-bottom:40px;
@@ -70,7 +111,7 @@ header{
 header h1{
   font-family:'Playfair Display',serif;
   color:#2f855a;
-  font-size:2.8rem;
+  font-size:2.6rem;
   margin-bottom:10px;
 }
 header p{
@@ -81,7 +122,6 @@ header p{
   line-height:1.7;
 }
 
-/* INFO */
 .info{
   margin:40px auto;
   max-width:900px;
@@ -125,7 +165,6 @@ input:focus,textarea:focus{
 }
 textarea{resize:none}
 
-/* BUTTON */
 button.submit{
   width:100%;
   background:linear-gradient(135deg,#6fcf97,#9fd3ff);
@@ -141,7 +180,6 @@ button.submit:hover{
   transform:translateY(-2px);
 }
 
-/* FOOTER */
 footer{
   text-align:center;
   margin-top:80px;
@@ -149,7 +187,7 @@ footer{
   font-size:0.9rem;
 }
 
-/* CHAT BUTTON */
+/* CHAT */
 .chat-btn{
   position:fixed;
   bottom:22px;
@@ -164,7 +202,6 @@ footer{
   box-shadow:0 12px 30px rgba(159,211,255,0.45);
 }
 
-/* CHAT WINDOW */
 .chat-box{
   position:fixed;
   bottom:90px;
@@ -206,17 +243,6 @@ footer{
   background:var(--green);
   color:#fff;
 }
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .navbar{
-    padding:14px 20px;
-  }
-  .nav-links a{
-    margin-left:14px;
-    font-size:0.95rem;
-  }
-}
 </style>
 </head>
 
@@ -225,12 +251,13 @@ footer{
 <!-- NAVBAR -->
 <div class="navbar">
   <div class="logo">HuggingHeart</div>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="how-it-works.html">How It Works</a>
-    <a href="careers.html">Careers</a>
-    <a href="contact.html">Contact</a>
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html" onclick="closeMenu()">Home</a>
+    <a href="about.html" onclick="closeMenu()">About</a>
+    <a href="how-it-works.html" onclick="closeMenu()">How It Works</a>
+    <a href="careers.html" onclick="closeMenu()">Careers</a>
+    <a href="contact.html" onclick="closeMenu()">Contact</a>
   </div>
 </div>
 
@@ -246,12 +273,8 @@ footer{
 
 <div class="info">
   <p>
-    You can use our AI Help Chat to quickly understand how HuggingHeart works,
+    You can use our AI Help Chat to understand how HuggingHeart works,
     explore safety guidelines, profile features, subscriptions, and community rules.
-  </p>
-  <p>
-    For detailed queries or feedback, feel free to submit the form below.
-    Our team reviews every message carefully.
   </p>
 </div>
 
@@ -291,48 +314,24 @@ footer{
 </div>
 
 <script>
-const knowledgeBase=[];
-function addQA(keys,answer){knowledgeBase.push({keywords:keys,answer});}
-
-addQA(["what is huggingheart","about huggingheart"],"HuggingHeart is a global social dating and connection platform.");
-addQA(["is this dating"],"Yes, HuggingHeart is designed for social dating and meaningful connections.");
-addQA(["who can join","age limit"],"Anyone above 18 years can join.");
-addQA(["is it safe","safety"],"User safety is a top priority.");
-addQA(["premium","subscription"],"Premium features may be introduced later.");
-addQA(["hello","hi"],"Hello! How can I help you?");
-addQA(["thanks","thank you"],"You're welcome!");
-
-function normalize(t){return t.toLowerCase().replace(/[^a-z0-9\s]/g,"").trim();}
-function levenshtein(a,b){
-  const m=[];
-  for(let i=0;i<=b.length;i++)m[i]=[i];
-  for(let j=0;j<=a.length;j++)m[0][j]=j;
-  for(let i=1;i<=b.length;i++)
-    for(let j=1;j<=a.length;j++)
-      m[i][j]=Math.min(m[i-1][j]+1,m[i][j-1]+1,m[i-1][j-1]+(b[i-1]===a[j-1]?0:1));
-  return m[b.length][a.length];
+function toggleMenu(){
+  const m=document.getElementById("navLinks");
+  m.style.display = m.style.display==="flex" ? "none" : "flex";
 }
-function similarity(a,b){
-  const l=a.length>b.length?a:b,s=a.length>b.length?b:a;
-  return l.length?(l.length-levenshtein(l,s))/l.length:1;
+function closeMenu(){
+  document.getElementById("navLinks").style.display="none";
 }
+
 function toggleChat(){
   const c=document.getElementById("chatBox");
   c.style.display=c.style.display==="flex"?"none":"flex";
 }
 function sendMessage(){
   const i=document.getElementById("userInput");
-  const raw=i.value,txt=normalize(raw);
-  if(!txt)return;
+  if(!i.value.trim())return;
   const b=document.getElementById("chatBody");
-  b.innerHTML+=`<div class="chat-msg"><b>You:</b> ${raw}</div>`;
-  let best=0,ans=null;
-  for(const item of knowledgeBase)
-    for(const k of item.keywords){
-      const s=similarity(txt,normalize(k));
-      if(txt.includes(k)||s>best){best=s;ans=item.answer;}
-    }
-  b.innerHTML+=`<div class="chat-msg"><b>AI:</b> ${best>=0.55?ans:"Please ask about profiles, safety, or features."}</div>`;
+  b.innerHTML+=`<div class="chat-msg"><b>You:</b> ${i.value}</div>`;
+  b.innerHTML+=`<div class="chat-msg"><b>AI:</b> Please ask about profiles, safety, or features.</div>`;
   i.value="";b.scrollTop=b.scrollHeight;
 }
 </script>
