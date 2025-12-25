@@ -21,21 +21,34 @@
 *{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  font-family:'Poppins',sans-serif;
+  font-family:Poppins,sans-serif;
   background:linear-gradient(180deg,#f9fbfd,#eef7ff);
   color:var(--text);
+}
+
+/* MENU */
+.menu{
+  display:flex;
+  justify-content:space-around;
+  padding:12px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
+}
+.menu a{
+  text-decoration:none;
+  color:var(--text);
+  font-weight:500;
 }
 
 /* HEADER */
 .header{
   background:linear-gradient(135deg,var(--green),var(--sky));
   color:#fff;
-  padding:16px;
+  padding:14px;
   text-align:center;
 }
-
-.header h1{font-size:20px;font-weight:600}
-.header p{font-size:13px;opacity:.95}
+.header h1{font-size:20px}
 
 /* STATS */
 .stats{
@@ -45,96 +58,95 @@ body{
   border-bottom:1px solid var(--border);
   padding:10px 0;
 }
-
 .stat{text-align:center}
 .stat strong{font-size:18px}
 
-/* FILTERS */
-.filters{
-  display:flex;
-  gap:8px;
-  padding:10px;
-  background:#fff;
-  border-bottom:1px solid var(--border);
-}
-
-.filters button, .filters select{
-  flex:1;
-  padding:8px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  background:#fff;
-  font-family:inherit;
-  font-size:12px;
-}
-
-.filters button.active{
-  background:var(--green);
-  color:#fff;
-  border:none;
-}
-
-/* MAIN */
-.container{
-  max-width:420px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-}
-
 /* PROFILES */
+.container{max-width:420px;margin:auto}
 .profiles{
-  height:300px;
+  padding:12px;
+  height:420px;
   overflow-y:auto;
-  padding:10px;
 }
-
-.profile-card{
-  background:var(--card);
+.profile{
+  background:#fff;
   border:1px solid var(--border);
   border-radius:14px;
   padding:10px;
   margin-bottom:10px;
+  cursor:pointer;
 }
+.profile small{color:var(--muted)}
 
-.profile-card b{font-size:14px}
-.profile-card small{color:var(--muted);font-size:12px}
-
-/* CHAT (UI only for now) */
+/* CHAT (HIDDEN INITIALLY) */
 .chat{
+  display:none;
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  max-width:420px;
+  margin:auto;
   background:#fff;
   border-top:1px solid var(--border);
-  height:260px;
-  display:flex;
+  height:320px;
   flex-direction:column;
 }
-
 .chat-header{
   padding:10px;
   border-bottom:1px solid var(--border);
   font-size:14px;
+  font-weight:500;
 }
-
 .chat-body{
   flex:1;
   padding:10px;
-  font-size:13px;
   overflow-y:auto;
+  font-size:13px;
 }
-
 .chat-input{
   display:flex;
   border-top:1px solid var(--border);
 }
-
 .chat-input input{
   flex:1;
   padding:10px;
   border:none;
 }
-
 .chat-input button{
   padding:10px 14px;
+  background:var(--green);
+  border:none;
+  color:#fff;
+  font-weight:600;
+}
+
+/* NAME MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.modal-box{
+  background:#fff;
+  padding:20px;
+  border-radius:14px;
+  width:80%;
+  max-width:300px;
+}
+.modal-box input{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:1px solid var(--border);
+}
+.modal-box button{
+  margin-top:12px;
+  width:100%;
+  padding:10px;
   background:var(--green);
   border:none;
   color:#fff;
@@ -145,129 +157,114 @@ body{
 
 <body>
 
+<!-- MENU -->
+<div class="menu">
+  <a href="#">Community</a>
+  <a href="#">About</a>
+  <a href="#">Contact</a>
+</div>
+
 <!-- HEADER -->
 <div class="header">
   <h1>HuggingHeart Community</h1>
-  <p>159 people online • Real conversations</p>
+  <p>159 people online</p>
 </div>
 
 <!-- STATS -->
 <div class="stats">
-  <div class="stat"><strong id="onlineCount">159</strong><br><small>Online</small></div>
-  <div class="stat"><strong id="girlCount">130</strong><br><small>Girls</small></div>
-  <div class="stat"><strong id="boyCount">29</strong><br><small>Boys</small></div>
+  <div class="stat"><strong>130</strong><br><small>Girls</small></div>
+  <div class="stat"><strong>29</strong><br><small>Boys</small></div>
 </div>
 
-<!-- FILTERS -->
-<div class="filters">
-  <button id="girlsBtn" class="active" onclick="filterGender('girl')">Girls</button>
-  <button id="boysBtn" onclick="filterGender('boy')">Boys</button>
-  <select id="countryFilter" onchange="renderProfiles()">
-    <option value="all">All Countries</option>
-  </select>
-</div>
-
-<!-- MAIN -->
+<!-- PROFILES -->
 <div class="container">
-
-  <!-- PROFILES -->
   <div class="profiles" id="profiles"></div>
+</div>
 
-  <!-- CHAT -->
-  <div class="chat">
-    <div class="chat-header">Select a profile to chat</div>
-    <div class="chat-body">
-      <b>HuggingHeart:</b> Choose someone from the community.
-    </div>
-    <div class="chat-input">
-      <input placeholder="Type later…">
-      <button disabled>Send</button>
-    </div>
+<!-- CHAT -->
+<div class="chat" id="chat">
+  <div class="chat-header" id="chatHeader"></div>
+  <div class="chat-body" id="chatBody">
+    <b>HuggingHeart:</b> Say hello to start.
   </div>
+  <div class="chat-input">
+    <input placeholder="Chat will be enabled next step…" disabled>
+    <button disabled>Send</button>
+  </div>
+</div>
 
+<!-- NAME MODAL -->
+<div class="modal" id="nameModal">
+  <div class="modal-box">
+    <b>Your name</b>
+    <input id="userNameInput" placeholder="Enter your name">
+    <button onclick="saveName()">Continue</button>
+  </div>
 </div>
 
 <script>
-/* ========== DATA ========== */
+/* ========= DATA ========= */
 
-const countries = [
-"India 🇮🇳","Japan 🇯🇵","France 🇫🇷","Brazil 🇧🇷","Italy 🇮🇹","UK 🇬🇧","Canada 🇨🇦",
-"Germany 🇩🇪","Norway 🇳🇴","UAE 🇦🇪","Spain 🇪🇸","Mexico 🇲🇽","Nepal 🇳🇵",
-"Sri Lanka 🇱🇰","Australia 🇦🇺","Poland 🇵🇱","Ukraine 🇺🇦","Turkey 🇹🇷",
-"Philippines 🇵🇭","Nigeria 🇳🇬","Egypt 🇪🇬","Lebanon 🇱🇧","Sweden 🇸🇪",
-"Russia 🇷🇺","Argentina 🇦🇷","Morocco 🇲🇦","Jordan 🇯🇴","China 🇨🇳",
-"Korea 🇰🇷","Azerbaijan 🇦🇿"
+const girlNames = [
+"Aiko 🇯🇵","Sofia 🇪🇸","Amara 🇳🇬","Elena 🇮🇹","Mei 🇨🇳","Anaya 🇮🇳","Layla 🇦🇪","Freya 🇳🇴",
+"Isabella 🇧🇷","Noura 🇪🇬","Camille 🇫🇷","Yara 🇱🇧","Hana 🇰🇷","Lucia 🇦🇷","Zara 🇬🇧",
+"Mila 🇷🇺","Ingrid 🇸🇪","Riya 🇳🇵","Noor 🇯🇴","Alina 🇺🇦",
+"Aya 🇲🇦","Lea 🇩🇪","Karla 🇲🇽","Nina 🇵🇱","Ivy 🇨🇦","Saanvi 🇱🇰","Tala 🇵🇭",
+"Mariam 🇹🇷","Esra 🇦🇿","Olivia 🇦🇺"
 ];
 
-const professions = [
-"Software Engineer","Doctor","Architect","Product Manager","UX Designer",
-"Lawyer","Data Scientist","Psychologist","Founder","Researcher",
-"Marketing Lead","AI Specialist","Consultant","Financial Analyst",
-"Brand Manager","HR Partner","Film Editor","Entrepreneur",
-"Strategy Lead","Public Relations"
+const boyNames = [
+"Daniel 🇬🇧","Arjun 🇮🇳","Leo 🇫🇷","Noah 🇨🇦","Omar 🇦🇪","Ethan 🇺🇸","Lucas 🇧🇷",
+"Aditya 🇮🇳","Jonas 🇩🇪","Mateo 🇲🇽"
 ];
 
-let profiles = [];
-let activeGender = "girl";
+let userName = localStorage.getItem("hh_user") || "";
+let selectedProfile = "";
 
-/* ========== GENERATE PROFILES ========== */
-function generateProfiles(){
-  profiles = [];
-  for(let i=0;i<130;i++){
-    profiles.push({
-      name:"Girl "+(i+1),
-      gender:"girl",
-      country:countries[i % countries.length],
-      profession:professions[i % professions.length]
-    });
+/* ========= GENERATE 159 PROFILES ========= */
+
+const profilesDiv = document.getElementById("profiles");
+
+for(let i=0;i<130;i++){
+  createProfile(girlNames[i % girlNames.length],"Girl");
+}
+for(let i=0;i<29;i++){
+  createProfile(boyNames[i % boyNames.length],"Boy");
+}
+
+function createProfile(name, gender){
+  const div = document.createElement("div");
+  div.className="profile";
+  div.innerHTML=`<b>${name}</b><br><small>${gender}</small>`;
+  div.onclick=()=>openChat(name);
+  profilesDiv.appendChild(div);
+}
+
+/* ========= CHAT FLOW ========= */
+
+function openChat(profileName){
+  selectedProfile = profileName;
+  if(!userName){
+    document.getElementById("nameModal").style.display="flex";
+  }else{
+    showChat();
   }
-  for(let i=0;i<29;i++){
-    profiles.push({
-      name:"Boy "+(i+1),
-      gender:"boy",
-      country:countries[i % countries.length],
-      profession:professions[i % professions.length]
-    });
-  }
 }
 
-/* ========== FILTERS ========== */
-function filterGender(g){
-  activeGender = g;
-  document.getElementById("girlsBtn").classList.toggle("active", g==="girl");
-  document.getElementById("boysBtn").classList.toggle("active", g==="boy");
-  renderProfiles();
+function saveName(){
+  const val=document.getElementById("userNameInput").value.trim();
+  if(!val) return;
+  userName = val;
+  localStorage.setItem("hh_user",userName);
+  document.getElementById("nameModal").style.display="none";
+  showChat();
 }
 
-/* ========== RENDER ========== */
-function renderProfiles(){
-  const wrap = document.getElementById("profiles");
-  wrap.innerHTML = "";
-
-  const countryVal = document.getElementById("countryFilter").value;
-
-  profiles.filter(p=>{
-    return p.gender===activeGender &&
-      (countryVal==="all" || p.country===countryVal);
-  }).forEach(p=>{
-    const div = document.createElement("div");
-    div.className="profile-card";
-    div.innerHTML = `<b>${p.name}</b><br>
-      <small>${p.profession}<br>${p.country}</small>`;
-    wrap.appendChild(div);
-  });
+function showChat(){
+  document.getElementById("chat").style.display="flex";
+  document.getElementById("chatHeader").innerText =
+    `You (${userName}) ↔ ${selectedProfile}`;
 }
-
-/* ========== INIT ========== */
-countries.forEach(c=>{
-  const opt=document.createElement("option");
-  opt.value=c;
-  opt.textContent=c;
-  countryFilter.appendChild(opt);
-});
-
-generateProfiles();
-renderProfiles();
 </script>
 
 </body>
