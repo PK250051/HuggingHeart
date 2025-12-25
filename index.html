@@ -9,83 +9,179 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --pink:#ff4d7d;
-  --gold:#ffd700;
-  --dark:#121212;
-  --light:#f5f5f5;
+:root{
+  --primary:#ff4d7d;
+  --bg:#f6f7fb;
+  --nav:#ffffff;
+  --text:#222222;
+  --muted:#6b7280;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
 body{
   font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#1a1a1a,#2c1a2e);
-  color:var(--light);
-  text-align:center;
-  padding:60px 20px;
+  background:var(--bg);
+  color:var(--text);
 }
-nav a{
-  margin:0 15px;
-  color:var(--gold);
-  text-decoration:none;
-  font-weight:600;
+
+/* ================= NAVBAR ================= */
+.navbar{
+  position:sticky;
+  top:0;
+  background:var(--nav);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 40px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.06);
+  z-index:1000;
 }
-nav a:hover{color:var(--pink);}
-h1{
+
+.logo{
   font-family:'Playfair Display',serif;
-  font-size:3.5rem;
-  color:var(--pink);
-  margin:40px 0 10px;
+  font-size:1.6rem;
+  color:var(--primary);
+  font-weight:700;
 }
-h2{font-weight:400;margin-bottom:30px;color:#ddd;}
-p{max-width:900px;margin:0 auto 30px;line-height:1.7;}
+
+.nav-links a{
+  margin-left:24px;
+  text-decoration:none;
+  color:var(--muted);
+  font-weight:500;
+  position:relative;
+}
+
+.nav-links a:hover{
+  color:var(--text);
+}
+
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  width:0;
+  height:2px;
+  background:var(--primary);
+  left:0;
+  bottom:-6px;
+  transition:0.3s;
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+/* ================= HERO ================= */
+.hero{
+  text-align:center;
+  padding:80px 20px 40px;
+}
+
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:3.2rem;
+  color:var(--primary);
+  margin-bottom:12px;
+}
+
+.hero h2{
+  font-weight:400;
+  color:var(--muted);
+  margin-bottom:30px;
+}
+
+.hero p{
+  max-width:900px;
+  margin:0 auto 30px;
+  line-height:1.8;
+}
+
+/* ================= BUTTONS ================= */
 .btn a{
   display:inline-block;
   margin:10px;
-  padding:14px 30px;
-  background:var(--gold);
-  color:#1a1a1a;
+  padding:14px 32px;
+  background:var(--primary);
+  color:#fff;
   text-decoration:none;
-  border-radius:8px;
+  border-radius:30px;
   font-weight:600;
 }
-.btn a:hover{background:var(--pink);color:#fff;}
-.box{
-  background:rgba(255,255,255,0.08);
-  border-radius:16px;
-  padding:30px;
-  margin:40px auto;
-  max-width:900px;
+
+.btn a.secondary{
+  background:#ffffff;
+  color:var(--primary);
+  border:1px solid var(--primary);
 }
-footer{margin-top:80px;color:#bbb;font-size:0.9rem;}
+
+.btn a:hover{
+  opacity:0.9;
+}
+
+/* ================= SECTIONS ================= */
+.section{
+  background:#ffffff;
+  border-radius:18px;
+  padding:40px;
+  margin:40px auto;
+  max-width:1000px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.06);
+}
+
+.section h2{
+  color:var(--primary);
+  margin-bottom:15px;
+}
+
+.section p{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+/* ================= FOOTER ================= */
+footer{
+  text-align:center;
+  padding:40px 20px;
+  color:var(--muted);
+  font-size:0.9rem;
+}
 </style>
 </head>
 
 <body>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="how-it-works.html">How It Works</a>
-  <a href="community.html">Community</a>
-  <a href="careers.html">Careers</a>
-  <a href="contact.html">Contact</a>
-</nav>
-
-<h1>HuggingHeart</h1>
-<h2>Where Meaningful Connections Begin</h2>
-
-<p>
-HuggingHeart is a global social dating and connection platform designed to help people
-discover, connect, and build relationships through genuine conversation, shared values,
-and emotional compatibility — beyond superficial swipes.
-</p>
-
-<div class="btn">
-  <a href="#">Join Now</a>
-  <a href="#">Explore People</a>
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">HuggingHeart</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="careers.html">Careers</a>
+    <a href="contact.html">Contact</a>
+  </div>
 </div>
 
-<div class="box">
+<!-- HERO -->
+<div class="hero">
+  <h1>HuggingHeart</h1>
+  <h2>Where Meaningful Connections Begin</h2>
+
+  <p>
+    HuggingHeart is a global social dating and connection platform designed to help people
+    discover, connect, and build relationships through genuine conversation, shared values,
+    and emotional compatibility — beyond superficial swipes.
+  </p>
+
+  <div class="btn">
+    <a href="signup.html">Join Now</a>
+    <a href="feed.html" class="secondary">Explore People</a>
+  </div>
+</div>
+
+<!-- SECTIONS -->
+<div class="section">
   <h2>More Than Dating</h2>
   <p>
     HuggingHeart blends social networking and dating — allowing users to connect,
@@ -93,7 +189,7 @@ and emotional compatibility — beyond superficial swipes.
   </p>
 </div>
 
-<div class="box">
+<div class="section">
   <h2>Global • Safe • Respectful</h2>
   <p>
     Built for users worldwide, HuggingHeart prioritizes safety, privacy,
