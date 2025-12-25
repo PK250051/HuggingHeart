@@ -27,6 +27,35 @@ body{
   color:var(--text);
 }
 
+/* ================= NAVBAR ================= */
+.navbar{
+  position:sticky;
+  top:0;
+  background:var(--green-soft);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 48px;
+  border-bottom:1px solid var(--border);
+  box-shadow:0 8px 18px rgba(159,211,255,0.45);
+  z-index:1000;
+}
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;
+  color:#2f855a;
+}
+.nav-links a{
+  margin-left:26px;
+  text-decoration:none;
+  color:var(--muted);
+  font-weight:500;
+}
+.nav-links a:hover{
+  color:#2f855a;
+}
+
+/* ================= PAGE ================= */
 .container{
   max-width:1100px;
   margin:auto;
@@ -52,7 +81,7 @@ header p{
   line-height:1.7;
 }
 
-/* INFO TEXT */
+/* INFO */
 .info{
   margin:40px auto;
   max-width:900px;
@@ -96,6 +125,7 @@ input:focus,textarea:focus{
 }
 textarea{resize:none}
 
+/* BUTTON */
 button.submit{
   width:100%;
   background:linear-gradient(135deg,#6fcf97,#9fd3ff);
@@ -176,10 +206,33 @@ footer{
   background:var(--green);
   color:#fff;
 }
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .navbar{
+    padding:14px 20px;
+  }
+  .nav-links a{
+    margin-left:14px;
+    font-size:0.95rem;
+  }
+}
 </style>
 </head>
 
 <body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">HuggingHeart</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="careers.html">Careers</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</div>
 
 <div class="container">
 
