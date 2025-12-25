@@ -10,9 +10,10 @@
 
 <style>
 :root{
-  --brand:#ff6b81;
-  --accent:#6c8cff;
-  --bg:#f9fafc;
+  --green:#6fcf97;
+  --green-soft:#eaf7f0;
+  --sky:#9fd3ff;
+  --bg:#f9fbfd;
   --card:#ffffff;
   --text:#1f2937;
   --muted:#6b7280;
@@ -31,20 +32,20 @@ body{
 .navbar{
   position:sticky;
   top:0;
-  background:rgba(255,255,255,0.85);
-  backdrop-filter:blur(10px);
+  background:var(--green-soft);
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:14px 48px;
   border-bottom:1px solid var(--border);
+  box-shadow:0 8px 18px rgba(159,211,255,0.45); /* sky blue shadow */
   z-index:1000;
 }
 
 .logo{
   font-family:'Playfair Display',serif;
   font-size:1.5rem;
-  color:var(--brand);
+  color:#2f855a;
 }
 
 .nav-links a{
@@ -55,7 +56,7 @@ body{
 }
 
 .nav-links a:hover{
-  color:var(--brand);
+  color:#2f855a;
 }
 
 /* ================= HERO ================= */
@@ -72,7 +73,7 @@ body{
 .hero-text h1{
   font-family:'Playfair Display',serif;
   font-size:3rem;
-  color:var(--brand);
+  color:#2f855a;
   margin-bottom:14px;
 }
 
@@ -94,12 +95,12 @@ body{
 }
 
 .primary{
-  background:linear-gradient(135deg,var(--brand),var(--accent));
-  color:#fff;
+  background:linear-gradient(135deg,#6fcf97,#9fd3ff);
+  color:#ffffff;
 }
 
 .secondary{
-  background:#fff;
+  background:#ffffff;
   border:1px solid var(--border);
   color:var(--text);
 }
@@ -108,16 +109,16 @@ body{
   transform:translateY(-2px);
 }
 
-/* ================= HERO VISUAL ================= */
+/* ================= HERO CARD ================= */
 .hero-card{
-  background:linear-gradient(135deg,#ffeef2,#eef2ff);
+  background:linear-gradient(135deg,#f0fff6,#eef7ff);
   border-radius:28px;
   padding:40px;
-  box-shadow:0 20px 40px rgba(0,0,0,0.06);
+  box-shadow:0 20px 40px rgba(159,211,255,0.25);
 }
 
 .hero-card h3{
-  color:var(--text);
+  color:#2f855a;
   margin-bottom:16px;
 }
 
@@ -149,12 +150,12 @@ body{
 
 .card:hover{
   transform:translateY(-6px);
-  box-shadow:0 20px 40px rgba(0,0,0,0.08);
+  box-shadow:0 20px 40px rgba(159,211,255,0.25);
 }
 
 .card h4{
   margin-bottom:12px;
-  color:var(--brand);
+  color:#2f855a;
 }
 
 .card p{
@@ -200,11 +201,11 @@ footer{
 <!-- HERO -->
 <div class="hero">
   <div class="hero-text">
-    <h1>Where Real Connections Feel Natural</h1>
+    <h1>Feel-Good Connections, Naturally</h1>
     <p>
-      HuggingHeart is a gentle, human-first social and dating platform.
-      We help people connect through meaningful conversations,
-      shared values, and emotional understanding — not pressure or noise.
+      HuggingHeart is a calm, people-first social and dating platform.
+      We help connections grow through conversation, kindness,
+      and shared emotional values — without pressure.
     </p>
     <div class="hero-actions">
       <a href="signup.html" class="primary">Join Free</a>
@@ -213,12 +214,12 @@ footer{
   </div>
 
   <div class="hero-card">
-    <h3>Why People Love HuggingHeart</h3>
+    <h3>Why It Feels Different</h3>
     <p>
-      • Calm, respectful environment<br>
-      • Focus on conversation, not swiping<br>
+      • Fresh, stress-free environment<br>
       • Designed for emotional comfort<br>
-      • Global & inclusive community
+      • Conversation over swiping<br>
+      • Global & inclusive
     </p>
   </div>
 </div>
@@ -230,24 +231,24 @@ footer{
     <div class="card">
       <h4>More Than Dating</h4>
       <p>
-        HuggingHeart blends social discovery with dating,
-        allowing connections to grow naturally.
+        Social discovery blended with dating,
+        so connections grow naturally.
       </p>
     </div>
 
     <div class="card">
       <h4>Emotion-First Design</h4>
       <p>
-        Every interaction is designed to feel safe,
-        warm, and emotionally comfortable.
+        Built to feel warm, safe,
+        and easy on the mind.
       </p>
     </div>
 
     <div class="card">
       <h4>Global & Respectful</h4>
       <p>
-        A worldwide community built on kindness,
-        authenticity, and mutual respect.
+        A worldwide community based on
+        kindness and authenticity.
       </p>
     </div>
 
@@ -255,7 +256,7 @@ footer{
 </div>
 
 <footer>
-© 2025 HuggingHeart • Built for Meaningful Human Connection
+© 2025 HuggingHeart • Calm • Kind • Human
 </footer>
 
 </body>
