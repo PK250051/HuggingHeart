@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Join HuggingHeart | Signup & Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --pink:#ff4d7d;
+  --gold:#ffd700;
+  --bg:#121212;
+  --card:#1e1e1e;
+  --text:#f5f5f5;
+  --muted:#bbbbbb;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#1a1a1a,#2c1a2e);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* CONTAINER */
+.auth-container{
+  width:100%;
+  max-width:420px;
+  background:var(--card);
+  border-radius:18px;
+  padding:40px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.6);
+}
+
+/* HEADER */
+.auth-header{
+  text-align:center;
+  margin-bottom:30px;
+}
+.auth-header h1{
+  color:var(--pink);
+  font-size:2.4rem;
+  margin-bottom:8px;
+}
+.auth-header p{
+  color:var(--muted);
+  font-size:0.95rem;
+}
+
+/* FORM */
+form{
+  display:none;
+}
+form.active{
+  display:block;
+}
+
+label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:600;
+  font-size:0.9rem;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:none;
+  margin-bottom:18px;
+  font-size:14px;
+}
+
+button.primary{
+  width:100%;
+  background:var(--gold);
+  color:#1a1a1a;
+  border:none;
+  padding:14px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+  font-size:15px;
+}
+button.primary:hover{
+  background:var(--pink);
+  color:#fff;
+}
+
+/* TOGGLE */
+.toggle{
+  text-align:center;
+  margin-top:20px;
+  font-size:0.9rem;
+  color:var(--muted);
+}
+.toggle span{
+  color:var(--gold);
+  cursor:pointer;
+  font-weight:600;
+}
+.toggle span:hover{
+  color:var(--pink);
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  margin-top:30px;
+  font-size:0.8rem;
+  color:#888;
+}
+</style>
+</head>
+
+<body>
+
+<div class="auth-container">
+
+  <div class="auth-header">
+    <h1>HuggingHeart</h1>
+    <p id="formSubtitle">
+      Create an account to start meaningful connections
+    </p>
+  </div>
+
+  <!-- SIGNUP FORM -->
+  <form id="signupForm" class="active">
+    <label>Full Name</label>
+    <input type="text" placeholder="Your name" required>
+
+    <label>Email Address</label>
+    <input type="email" placeholder="you@example.com" required>
+
+    <label>Password</label>
+    <input type="password" placeholder="Create a password" required>
+
+    <label>Confirm Password</label>
+    <input type="password" placeholder="Confirm password" required>
+
+    <button class="primary">Create Account</button>
+  </form>
+
+  <!-- LOGIN FORM -->
+  <form id="loginForm">
+    <label>Email Address</label>
+    <input type="email" placeholder="you@example.com" required>
+
+    <label>Password</label>
+    <input type="password" placeholder="Enter your password" required>
+
+    <button class="primary">Login</button>
+  </form>
+
+  <!-- TOGGLE -->
+  <div class="toggle">
+    <span id="toggleText" onclick="toggleForm()">Already have an account? Login</span>
+  </div>
+
+  <div class="footer">
+    By continuing, you agree to HuggingHeart’s Terms & Community Guidelines.
+  </div>
+
+</div>
+
+<script>
+let isSignup=true;
+
+function toggleForm(){
+  const signup=document.getElementById("signupForm");
+  const login=document.getElementById("loginForm");
+  const subtitle=document.getElementById("formSubtitle");
+  const toggle=document.getElementById("toggleText");
+
+  if(isSignup){
+    signup.classList.remove("active");
+    login.classList.add("active");
+    subtitle.innerText="Welcome back. Login to continue";
+    toggle.innerText="Don’t have an account? Sign up";
+  }else{
+    login.classList.remove("active");
+    signup.classList.add("active");
+    subtitle.innerText="Create an account to start meaningful connections";
+    toggle.innerText="Already have an account? Login";
+  }
+  isSignup=!isSignup;
+}
+</script>
+
+</body>
+</html>
