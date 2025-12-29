@@ -2,270 +2,47 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>HuggingHeart Community</title>
+<title>Community | HuggingHeart</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="HuggingHeart Community — conversations and connections coming soon.">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<style>
-:root{
-  --green:#6fcf97;
-  --sky:#9fd3ff;
-  --bg:#f9fbfd;
-  --card:#ffffff;
-  --text:#1f2937;
-  --muted:#6b7280;
-  --border:#e5e7eb;
-}
-
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-  font-family:Poppins,sans-serif;
-  background:linear-gradient(180deg,#f9fbfd,#eef7ff);
-  color:var(--text);
-}
-
-/* MENU */
-.menu{
-  display:flex;
-  justify-content:space-around;
-  padding:12px;
-  background:#fff;
-  border-bottom:1px solid var(--border);
-  font-size:14px;
-}
-.menu a{
-  text-decoration:none;
-  color:var(--text);
-  font-weight:500;
-}
-
-/* HEADER */
-.header{
-  background:linear-gradient(135deg,var(--green),var(--sky));
-  color:#fff;
-  padding:14px;
-  text-align:center;
-}
-.header h1{font-size:20px}
-
-/* STATS */
-.stats{
-  display:flex;
-  justify-content:space-around;
-  background:#fff;
-  border-bottom:1px solid var(--border);
-  padding:10px 0;
-}
-.stat{text-align:center}
-.stat strong{font-size:18px}
-
-/* PROFILES */
-.container{max-width:420px;margin:auto}
-.profiles{
-  padding:12px;
-  height:420px;
-  overflow-y:auto;
-}
-.profile{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:10px;
-  margin-bottom:10px;
-  cursor:pointer;
-}
-.profile small{color:var(--muted)}
-
-/* CHAT (HIDDEN INITIALLY) */
-.chat{
-  display:none;
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  max-width:420px;
-  margin:auto;
-  background:#fff;
-  border-top:1px solid var(--border);
-  height:320px;
-  flex-direction:column;
-}
-.chat-header{
-  padding:10px;
-  border-bottom:1px solid var(--border);
-  font-size:14px;
-  font-weight:500;
-}
-.chat-body{
-  flex:1;
-  padding:10px;
-  overflow-y:auto;
-  font-size:13px;
-}
-.chat-input{
-  display:flex;
-  border-top:1px solid var(--border);
-}
-.chat-input input{
-  flex:1;
-  padding:10px;
-  border:none;
-}
-.chat-input button{
-  padding:10px 14px;
-  background:var(--green);
-  border:none;
-  color:#fff;
-  font-weight:600;
-}
-
-/* NAME MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.4);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-.modal-box{
-  background:#fff;
-  padding:20px;
-  border-radius:14px;
-  width:80%;
-  max-width:300px;
-}
-.modal-box input{
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-  border:1px solid var(--border);
-}
-.modal-box button{
-  margin-top:12px;
-  width:100%;
-  padding:10px;
-  background:var(--green);
-  border:none;
-  color:#fff;
-  font-weight:600;
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- MENU -->
-<div class="menu">
-  <a href="#">Community</a>
-  <a href="#">About</a>
-  <a href="#">Contact</a>
-</div>
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">HuggingHeart</div>
 
-<!-- HEADER -->
-<div class="header">
-  <h1>HuggingHeart Community</h1>
-  <p>159 people online</p>
-</div>
-
-<!-- STATS -->
-<div class="stats">
-  <div class="stat"><strong>130</strong><br><small>Girls</small></div>
-  <div class="stat"><strong>29</strong><br><small>Boys</small></div>
-</div>
-
-<!-- PROFILES -->
-<div class="container">
-  <div class="profiles" id="profiles"></div>
-</div>
-
-<!-- CHAT -->
-<div class="chat" id="chat">
-  <div class="chat-header" id="chatHeader"></div>
-  <div class="chat-body" id="chatBody">
-    <b>HuggingHeart:</b> Say hello to start.
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="community.html">Community</a>
+    <a href="about.html">About</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="careers.html">Careers</a>
+    <a href="contact.html">Contact</a>
   </div>
-  <div class="chat-input">
-    <input placeholder="Chat will be enabled next step…" disabled>
-    <button disabled>Send</button>
+
+  <div class="auth-links">
+    <a href="signin.html" class="signin">Sign In</a>
+    <a href="signup.html" class="signup">Sign Up</a>
   </div>
 </div>
 
-<!-- NAME MODAL -->
-<div class="modal" id="nameModal">
-  <div class="modal-box">
-    <b>Your name</b>
-    <input id="userNameInput" placeholder="Enter your name">
-    <button onclick="saveName()">Continue</button>
-  </div>
+<!-- PAGE CONTENT (INTENTIONALLY BLANK FOR NOW) -->
+<div class="section">
+  <h1>Community</h1>
+  <p>
+    Our community experience is coming soon.  
+    This space will host meaningful conversations and connections.
+  </p>
 </div>
 
-<script>
-/* ========= DATA ========= */
-
-const girlNames = [
-"Aiko 🇯🇵","Sofia 🇪🇸","Amara 🇳🇬","Elena 🇮🇹","Mei 🇨🇳","Anaya 🇮🇳","Layla 🇦🇪","Freya 🇳🇴",
-"Isabella 🇧🇷","Noura 🇪🇬","Camille 🇫🇷","Yara 🇱🇧","Hana 🇰🇷","Lucia 🇦🇷","Zara 🇬🇧",
-"Mila 🇷🇺","Ingrid 🇸🇪","Riya 🇳🇵","Noor 🇯🇴","Alina 🇺🇦",
-"Aya 🇲🇦","Lea 🇩🇪","Karla 🇲🇽","Nina 🇵🇱","Ivy 🇨🇦","Saanvi 🇱🇰","Tala 🇵🇭",
-"Mariam 🇹🇷","Esra 🇦🇿","Olivia 🇦🇺"
-];
-
-const boyNames = [
-"Daniel 🇬🇧","Arjun 🇮🇳","Leo 🇫🇷","Noah 🇨🇦","Omar 🇦🇪","Ethan 🇺🇸","Lucas 🇧🇷",
-"Aditya 🇮🇳","Jonas 🇩🇪","Mateo 🇲🇽"
-];
-
-let userName = localStorage.getItem("hh_user") || "";
-let selectedProfile = "";
-
-/* ========= GENERATE 159 PROFILES ========= */
-
-const profilesDiv = document.getElementById("profiles");
-
-for(let i=0;i<130;i++){
-  createProfile(girlNames[i % girlNames.length],"Girl");
-}
-for(let i=0;i<29;i++){
-  createProfile(boyNames[i % boyNames.length],"Boy");
-}
-
-function createProfile(name, gender){
-  const div = document.createElement("div");
-  div.className="profile";
-  div.innerHTML=`<b>${name}</b><br><small>${gender}</small>`;
-  div.onclick=()=>openChat(name);
-  profilesDiv.appendChild(div);
-}
-
-/* ========= CHAT FLOW ========= */
-
-function openChat(profileName){
-  selectedProfile = profileName;
-  if(!userName){
-    document.getElementById("nameModal").style.display="flex";
-  }else{
-    showChat();
-  }
-}
-
-function saveName(){
-  const val=document.getElementById("userNameInput").value.trim();
-  if(!val) return;
-  userName = val;
-  localStorage.setItem("hh_user",userName);
-  document.getElementById("nameModal").style.display="none";
-  showChat();
-}
-
-function showChat(){
-  document.getElementById("chat").style.display="flex";
-  document.getElementById("chatHeader").innerText =
-    `You (${userName}) ↔ ${selectedProfile}`;
-}
-</script>
+<footer>
+© 2025 HuggingHeart • Calm • Kind • Human
+</footer>
 
 </body>
 </html>
