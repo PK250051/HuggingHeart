@@ -4,171 +4,176 @@
 <meta charset="UTF-8">
 <title>Community | HuggingHeart</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-  /* --- BASE STYLES --- */
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background-color: #ffffff;
-    color: #333;
-  }
+/* ---------- BASE ---------- */
+body{
+  margin:0;
+  padding:0;
+  font-family:'Poppins',sans-serif;
+  background:#ffffff;
+  color:#333;
+}
 
-  /* --- NAVBAR (Your Original Green/White Style) --- */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px;
-    background: #fff;
-    border-bottom: 1px solid #f0f0f0;
-  }
-  .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    font-weight: 600;
-    color: #2D5A27; /* Brand Green */
-  }
-  .nav-links a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: #555;
-    font-size: 14px;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover { color: #2D5A27; }
-  .auth-links .signin { text-decoration: none; color: #555; margin-right: 20px; font-size: 14px; }
-  .auth-links .signup {
-    text-decoration: none;
-    background: #2D5A27;
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-size: 14px;
-  }
+/* ---------- NAVBAR ---------- */
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 50px;
+  background:#fff;
+  border-bottom:1px solid #f0f0f0;
+}
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:24px;
+  font-weight:600;
+  color:#2D5A27;
+}
+.nav-links a{
+  margin:0 15px;
+  text-decoration:none;
+  color:#555;
+  font-size:14px;
+}
+.nav-links a:hover{color:#2D5A27;}
+.auth-links .signin{
+  text-decoration:none;
+  color:#555;
+  margin-right:20px;
+  font-size:14px;
+}
+.auth-links .signup{
+  text-decoration:none;
+  background:#2D5A27;
+  color:#fff;
+  padding:8px 20px;
+  border-radius:20px;
+  font-size:14px;
+}
 
-  /* --- COMMUNITY SECTION --- */
-  .section {
-    text-align: center;
-    padding: 80px 20px;
-    background-color: #F9FBF9; /* Very soft green tint */
-  }
-  .section h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    color: #2D5A27;
-    margin-bottom: 10px;
-  }
+/* ---------- COMMUNITY ---------- */
+.section{
+  text-align:center;
+  padding:80px 20px;
+  background:#F9FBF9;
+}
+.section h1{
+  font-family:'Playfair Display',serif;
+  font-size:36px;
+  color:#2D5A27;
+  margin-bottom:10px;
+}
+.section p{
+  color:#666;
+}
 
-  /* --- BIG LUNA BOX (2x3 Aspect Ratio) --- */
-  .community-grid {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-  }
-  .profile-card {
-    width: 350px; 
-    background: white;
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #eef2ee;
-  }
-  .profile-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 45px rgba(45, 90, 39, 0.15);
-  }
-  .profile-img {
-    width: 100%;
-    height: 380px; /* Tall image area */
-    background: #f0f0f0;
-    object-fit: cover;
-  }
-  .profile-content {
-    padding: 30px;
-    text-align: center;
-  }
-  .job-label {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #6a8d66;
-    margin-bottom: 8px;
-  }
-  .profile-content h2 {
-    font-family: 'Playfair Display', serif;
-    margin: 0;
-    color: #2D5A27;
-    font-size: 24px;
-  }
-  .profile-content p {
-    font-size: 14px;
-    color: #777;
-    margin: 10px 0 20px;
-  }
-  .btn-talk {
-    background: #2D5A27;
-    color: white;
-    padding: 10px 25px;
-    border-radius: 30px;
-    display: inline-block;
-    font-size: 14px;
-    font-weight: 500;
-  }
+/* ---------- PROFILE CARD ---------- */
+.community-grid{
+  display:flex;
+  justify-content:center;
+  margin-top:50px;
+}
+.profile-card{
+  width:350px;
+  background:#fff;
+  border-radius:25px;
+  overflow:hidden;
+  box-shadow:0 15px 35px rgba(0,0,0,0.08);
+  cursor:pointer;
+  border:1px solid #eef2ee;
+  transition:transform .3s, box-shadow .3s;
+}
+.profile-card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 20px 45px rgba(45,90,39,0.15);
+}
+.profile-img{
+  width:100%;
+  height:380px;
+  object-fit:cover;
+  background:#eee;
+}
+.profile-content{
+  padding:30px;
+}
+.job-label{
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:#6a8d66;
+}
+.profile-content h2{
+  font-family:'Playfair Display',serif;
+  margin:10px 0 5px;
+  color:#2D5A27;
+}
+.profile-content p{
+  font-size:14px;
+  color:#777;
+}
+.btn-talk{
+  margin-top:15px;
+  display:inline-block;
+  background:#2D5A27;
+  color:#fff;
+  padding:10px 25px;
+  border-radius:30px;
+  font-size:14px;
+}
 
-  /* --- CHAT POPUP (Fixed Hidden Issue) --- */
-  #chat-container {
-    display: none; /* Starts hidden */
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 400px;
-    height: 600px;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-    z-index: 9999;
-    border: 1px solid #2D5A27;
-    overflow: hidden;
-  }
-  .chat-header {
-    background: #2D5A27;
-    color: white;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .close-chat {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 22px;
-    cursor: pointer;
-  }
-  iframe {
-    width: 100%;
-    height: calc(100% - 55px);
-    border: none;
-  }
+/* ---------- CHAT MODAL ---------- */
+#chat-container{
+  display:none;
+  position:fixed;
+  bottom:30px;
+  right:30px;
+  width:400px;
+  height:600px;
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.25);
+  z-index:9999;
+  overflow:hidden;
+  border:1px solid #2D5A27;
+}
+.chat-header{
+  background:#2D5A27;
+  color:#fff;
+  padding:14px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:15px;
+}
+.close-chat{
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:22px;
+  cursor:pointer;
+}
+iframe{
+  width:100%;
+  height:calc(100% - 50px);
+  border:none;
+}
 
-  /* --- FOOTER --- */
-  footer {
-    text-align: center;
-    padding: 40px;
-    font-size: 14px;
-    color: #888;
-    background: #fff;
-  }
+/* ---------- FOOTER ---------- */
+footer{
+  text-align:center;
+  padding:40px;
+  font-size:14px;
+  color:#888;
+}
 </style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <div class="navbar">
   <div class="logo">HuggingHeart</div>
   <div class="nav-links">
@@ -185,12 +190,13 @@
   </div>
 </div>
 
+<!-- COMMUNITY -->
 <div class="section">
   <h1>Community</h1>
   <p>Meaningful conversations with our behavioral observers.</p>
 
   <div class="community-grid">
-    <div class="profile-card" onclick="toggleChat()">
+    <div class="profile-card" onclick="openChat()">
       <img src="luna-photo.jpg" class="profile-img" alt="Luna Ribeiro">
       <div class="profile-content">
         <div class="job-label">Cultural Observer</div>
@@ -202,12 +208,17 @@
   </div>
 </div>
 
+<!-- CHAT -->
 <div id="chat-container">
   <div class="chat-header">
-    <span>Luna Ribeiro</span>
-    <button class="close-chat" onclick="toggleChat()">×</button>
+    <span>Chatting with Luna</span>
+    <button class="close-chat" onclick="closeChat()">×</button>
   </div>
-  <iframe src="https://your-chatbot-ui-vercel.app"></iframe>
+
+  <iframe 
+    src="https://your-chatbot-ui-vercel.app"
+    loading="lazy">
+  </iframe>
 </div>
 
 <footer>
@@ -215,14 +226,12 @@
 </footer>
 
 <script>
-  function toggleChat() {
-    var chat = document.getElementById('chat-container');
-    if (chat.style.display === "none" || chat.style.display === "") {
-      chat.style.display = "block";
-    } else {
-      chat.style.display = "none";
-    }
-  }
+function openChat(){
+  document.getElementById("chat-container").style.display="block";
+}
+function closeChat(){
+  document.getElementById("chat-container").style.display="none";
+}
 </script>
 
 </body>
