@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
-/* ================= COMMUNITY SPECIFIC STYLES ================= */
+/* ================= COMMUNITY PAGE STYLES (Matched to Index) ================= */
 .community-container {
     max-width: 1200px;
     margin: 60px auto;
@@ -20,9 +20,9 @@
     display: flex;
     justify-content: center;
     margin-top: 40px;
+    padding-bottom: 80px;
 }
 
-/* Matching the "Hero Card" style from your Index */
 .profile-card {
     background: #fff;
     padding: 30px;
@@ -40,7 +40,7 @@
 
 .profile-img {
     width: 100%;
-    height: 300px;
+    height: 320px;
     object-fit: cover;
     border-radius: 15px;
     margin-bottom: 20px;
@@ -64,19 +64,20 @@
     height: 8px;
     background: #2ecc71;
     border-radius: 50%;
+    box-shadow: 0 0 5px #2ecc71;
 }
 
-/* ================= CHAT WINDOW (Matched to Branding) ================= */
+/* ================= CHAT WINDOW STYLES ================= */
 #chat {
     display: none;
     position: fixed;
     bottom: 30px;
     right: 30px;
-    width: 380px;
-    height: 580px;
+    width: 400px;
+    height: 600px;
     background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
     overflow: hidden;
     z-index: 1000;
     flex-direction: column;
@@ -92,7 +93,7 @@
     border-bottom: 1px solid #d4edda;
 }
 
-.chat-header h4 { margin: 0; color: #2f855a; font-family: 'Playfair Display', serif; }
+.chat-header h4 { margin: 0; color: #2f855a; font-family: 'Playfair Display', serif; font-size: 20px; }
 
 .chat-body {
     flex: 1;
@@ -101,26 +102,28 @@
     background: #fcfdfc;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
 }
 
-.msg { padding: 12px 16px; border-radius: 15px; font-size: 14px; max-width: 80%; }
+.msg { padding: 12px 18px; border-radius: 18px; font-size: 14px; max-width: 85%; line-height: 1.5; }
 .msg-bot { background: #eaf7f0; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
-.msg-user { background: #6fcf97; color: #fff; align-self: flex-end; border-bottom-right-radius: 2px; }
+.msg-user { background: #6fcf97; color: #fff; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 500; }
 
 .chat-input-container {
-    padding: 15px;
+    padding: 20px;
     display: flex;
     gap: 10px;
     border-top: 1px solid #eee;
+    background: #fff;
 }
 
 .chat-input-container input {
     flex: 1;
-    padding: 12px;
+    padding: 12px 15px;
     border: 1px solid #eee;
-    border-radius: 10px;
+    border-radius: 12px;
     outline: none;
+    font-family: 'Poppins', sans-serif;
 }
 
 .chat-input-container button {
@@ -128,11 +131,18 @@
     color: white;
     border: none;
     padding: 0 20px;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
 }
 
-.close-btn { background: none; border: none; font-size: 24px; color: #2f855a; cursor: pointer; }
+.chat-input-container button:hover { background: #276749; }
+.close-btn { background: none; border: none; font-size: 28px; color: #2f855a; cursor: pointer; line-height: 1; }
+
+/* Typing Cursor Effect */
+.cursor { display: inline-block; width: 2px; background: #2f855a; margin-left: 2px; animation: blink 0.7s infinite; }
+@keyframes blink { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
 </style>
 </head>
 
@@ -140,7 +150,6 @@
 
 <div class="navbar">
   <div class="logo">HuggingHeart</div>
-
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="community.html" class="active">Community</a>
@@ -149,7 +158,6 @@
     <a href="careers.html">Careers</a>
     <a href="contact.html">Contact</a>
   </div>
-
   <div class="auth-links">
     <a href="signin.html" class="signin">Sign In</a>
     <a href="signup.html" class="signup">Sign Up</a>
@@ -157,16 +165,20 @@
 </div>
 
 <div class="community-container">
-    <h1 style="font-family:'Playfair Display', serif; font-size: 42px; color: #2f855a; margin-bottom: 10px;">Our Community</h1>
-    <p style="color: #6b7280; font-size: 18px;">Connect with individuals who value depth and kindness.</p>
+    <h1 style="font-family:'Playfair Display', serif; font-size: 48px; color: #2f855a; margin-bottom: 10px;">Community</h1>
+    <p style="color: #6b7280; font-size: 18px; max-width: 600px; margin: 0 auto 40px auto;">
+        Meet our Cultural Observers. Start a conversation and explore new perspectives.
+    </p>
 
     <div class="community-grid">
         <div class="profile-card" onclick="openChat()">
             <img src="knowledge/images/luna-avatar.png.png" class="profile-img" alt="Luna">
             <div class="status-tag"><div class="status-dot"></div> Luna is Online</div>
-            <h2 style="font-family:'Playfair Display', serif; margin: 10px 0;">Luna Ribeiro</h2>
-            <p style="color: #6b7280; font-size: 14px; margin-bottom: 20px;">Sociology Student & Cultural Observer from São Paulo.</p>
-            <span class="signup" style="display:inline-block; width: 80%;">Chat with Luna</span>
+            <h2 style="font-family:'Playfair Display', serif; margin: 5px 0;">Luna Ribeiro</h2>
+            <p style="color: #6b7280; font-size: 14px; margin-bottom: 25px; line-height: 1.6;">
+                Sociology student and observer of city life. Curious about human connections.
+            </p>
+            <span class="signup" style="display:block; text-align:center; padding: 12px;">Chat with Luna</span>
         </div>
     </div>
 </div>
@@ -177,28 +189,28 @@
         <button class="close-btn" onclick="closeChat()">×</button>
     </div>
     <div class="chat-body" id="chatBody">
-        <div class="msg msg-bot">Hi! I'm Luna. I'm so glad you stopped by to say hello. What's on your mind?</div>
-    </div>
+        </div>
     <form class="chat-input-container" onsubmit="event.preventDefault(); send();">
-        <input id="userInput" placeholder="Type your message..." autocomplete="off">
+        <input id="userInput" placeholder="Say something..." autocomplete="off">
         <button type="submit">Send</button>
     </form>
 </div>
 
-<footer style="margin-top: 100px;">
+<footer style="padding: 40px 0; border-top: 1px solid #eee; margin-top: 50px; text-align: center;">
 © 2025 HuggingHeart • Calm • Kind • Human
 </footer>
 
 <script>
 let qa = [];
+let userName = "";
+let step = 0; // 0: Start, 1: Name Received, 2: Regular Chat
 
-// Load the CSV Knowledge Base
+// 1. Load CSV Knowledge Base
 fetch("knowledge/luna_qa.csv")
 .then(r => r.text())
 .then(t => {
     const lines = t.split("\n").slice(1);
     lines.forEach(l => {
-        // Handle CSV with quotes
         const match = l.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
         if(match && match.length >= 2) {
             qa.push({
@@ -209,33 +221,73 @@ fetch("knowledge/luna_qa.csv")
     });
 });
 
-function openChat() { document.getElementById("chat").style.display = "flex"; }
+function openChat() {
+    document.getElementById("chat").style.display = "flex";
+    if (step === 0) {
+        setTimeout(() => {
+            typeWriter("Olá! I'm Luna. I love meeting new people. Before we begin... may I ask what your name is?");
+            step = 1;
+        }, 500);
+    }
+}
+
 function closeChat() { document.getElementById("chat").style.display = "none"; }
 
+// 2. Human-Like Typewriter Function
+function typeWriter(text) {
+    let body = document.getElementById("chatBody");
+    let msgDiv = document.createElement("div");
+    msgDiv.className = "msg msg-bot";
+    body.appendChild(msgDiv);
+    
+    let i = 0;
+    let speed = 40; // milliseconds per character
+
+    function typing() {
+        if (i < text.length) {
+            msgDiv.innerHTML += text.charAt(i);
+            i++;
+            body.scrollTop = body.scrollHeight;
+            setTimeout(typing, speed);
+        }
+    }
+    typing();
+}
+
+// 3. Send Logic
 function send() {
     let input = document.getElementById("userInput");
     let text = input.value.trim();
     if(!text) return;
 
     let body = document.getElementById("chatBody");
+    
+    // Add User Message
     body.innerHTML += `<div class="msg msg-user">${text}</div>`;
-    
-    let userQuery = text.toLowerCase();
-    
-    // Logic: Find the most relevant answer
-    let match = qa.find(p => userQuery === p.q) || 
-                qa.find(p => userQuery.includes(p.q)) ||
-                qa.find(p => p.q.includes(userQuery));
-
-    let reply = match ? match.a : "I'm not quite sure how to answer that yet, but I'm listening. Can you tell me more?";
-
-    setTimeout(() => {
-        body.innerHTML += `<div class="msg msg-bot">${reply}</div>`;
-        body.scrollTop = body.scrollHeight;
-    }, 600);
-
-    body.scrollTop = body.scrollHeight;
     input.value = "";
+    body.scrollTop = body.scrollHeight;
+
+    // Logic Steps
+    if (step === 1) {
+        userName = text;
+        step = 2;
+        setTimeout(() => {
+            typeWriter(`It is a pleasure to meet you, ${userName}! I'm ready to chat. What's on your mind?`);
+        }, 800);
+    } else {
+        // Search CSV for answer
+        let userQuery = text.toLowerCase();
+        let match = qa.find(p => userQuery === p.q) || 
+                    qa.find(p => userQuery.includes(p.q)) || 
+                    qa.find(p => p.q.includes(userQuery));
+
+        let response = match ? match.a : "That is a very interesting thought. I'm still learning about so many things... could you explain that a bit more to me?";
+
+        // Delay to simulate "thinking"
+        setTimeout(() => {
+            typeWriter(response);
+        }, 1000);
+    }
 }
 </script>
 
