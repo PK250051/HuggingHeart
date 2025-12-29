@@ -1,48 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Community | HuggingHeart</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="HuggingHeart Community — conversations and connections coming soon.">
+<style>
+  .community-grid {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+  }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
+  /* The 2x3 inch Box (approx 200x300px) */
+  .profile-card {
+    width: 200px;
+    height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    background: #fff;
+    border: 1px solid #eee;
+    text-align: center;
+  }
 
-<body>
+  .profile-card:hover {
+    transform: translateY(-50px);
+  }
 
-<!-- NAVBAR -->
-<div class="navbar">
-  <div class="logo">HuggingHeart</div>
+  .profile-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
 
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="community.html">Community</a>
-    <a href="about.html">About</a>
-    <a href="how-it-works.html">How It Works</a>
-    <a href="careers.html">Careers</a>
-    <a href="contact.html">Contact</a>
-  </div>
+  .profile-info {
+    padding: 10px;
+  }
 
-  <div class="auth-links">
-    <a href="signin.html" class="signin">Sign In</a>
-    <a href="signup.html" class="signup">Sign Up</a>
-  </div>
-</div>
+  .profile-info h3 {
+    font-family: 'Playfair Display', serif;
+    margin: 5px 0;
+    font-size: 1.1rem;
+  }
 
-<!-- PAGE CONTENT (INTENTIONALLY BLANK FOR NOW) -->
+  .profile-info p {
+    font-size: 0.8rem;
+    color: #666;
+  }
+
+  /* Chat Popup Overlay */
+  #chat-overlay {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 400px;
+    height: 600px;
+    background: white;
+    box-shadow: 0 5px 40px rgba(0,0,0,0.2);
+    border-radius: 15px;
+    z-index: 1000;
+    overflow: hidden;
+  }
+
+  .chat-header {
+    background: #f8f9fa;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+  }
+
+  iframe {
+    width: 100%;
+    height: calc(100% - 45px);
+    border: none;
+  }
+</style>
+
 <div class="section">
   <h1>Community</h1>
-  <p>
-    Our community experience is coming soon.  
-    This space will host meaningful conversations and connections.
-  </p>
+  <p>Click a profile to start a meaningful conversation.</p>
+
+  <div class="community-grid">
+    <div class="profile-card" onclick="openChat()">
+      <img src="luna-photo.jpg" alt="Luna Ribeiro">
+      <div class="profile-info">
+        <h3>Luna Ribeiro</h3>
+        <p>Sociology Master • 22</p>
+        <p><em>"Let's talk about the rhythm of the city."</em></p>
+      </div>
+    </div>
+  </div>
 </div>
 
-<footer>
-© 2025 HuggingHeart • Calm • Kind • Human
-</footer>
+<div id="chat-overlay">
+  <div class="chat-header">
+    <span>Chatting with Luna</span>
+    <button onclick="closeChat()" style="border:none; background:none; cursor:pointer;">✖</button>
+  </div>
+  <iframe src="https://your-chatbot-ui-link.vercel.app"></iframe>
+</div>
 
-</body>
-</html>
+<script>
+  function openChat() {
+    document.getElementById('chat-overlay').style.display = 'block';
+  }
+  function closeChat() {
+    document.getElementById('chat-overlay').style.display = 'none';
+  }
+</script>
