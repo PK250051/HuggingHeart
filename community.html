@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,203 +5,177 @@
 <title>Community | HuggingHeart</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-/* ---------- BASE ---------- */
 body{
   margin:0;
-  padding:0;
   font-family:'Poppins',sans-serif;
-  background:#ffffff;
-  color:#333;
+  background:#F9FBF9;
 }
 
-/* ---------- NAVBAR ---------- */
+/* NAVBAR */
 .navbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:20px 50px;
-  background:#fff;
-  border-bottom:1px solid #f0f0f0;
+  padding:18px 50px;
+  background:#ffffff;
+  border-bottom:1px solid #e6efe6;
 }
 .logo{
   font-family:'Playfair Display',serif;
   font-size:24px;
-  font-weight:600;
   color:#2D5A27;
 }
 .nav-links a{
-  margin:0 15px;
+  margin:0 14px;
   text-decoration:none;
   color:#555;
   font-size:14px;
 }
 .nav-links a:hover{color:#2D5A27;}
-.auth-links .signin{
-  text-decoration:none;
-  color:#555;
-  margin-right:20px;
-  font-size:14px;
-}
-.auth-links .signup{
-  text-decoration:none;
-  background:#2D5A27;
-  color:#fff;
-  padding:8px 20px;
-  border-radius:20px;
-  font-size:14px;
-}
 
-/* ---------- COMMUNITY ---------- */
+/* COMMUNITY */
 .section{
   text-align:center;
-  padding:80px 20px;
-  background:#F9FBF9;
+  padding:70px 20px;
 }
 .section h1{
   font-family:'Playfair Display',serif;
   font-size:36px;
   color:#2D5A27;
-  margin-bottom:10px;
-}
-.section p{
-  color:#666;
 }
 
-/* ---------- PROFILE CARD ---------- */
+/* CARD */
 .community-grid{
   display:flex;
   justify-content:center;
   margin-top:50px;
 }
 .profile-card{
-  width:350px;
+  width:340px;
   background:#fff;
-  border-radius:25px;
-  overflow:hidden;
+  border-radius:24px;
   box-shadow:0 15px 35px rgba(0,0,0,0.08);
   cursor:pointer;
-  border:1px solid #eef2ee;
-  transition:transform .3s, box-shadow .3s;
-}
-.profile-card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 20px 45px rgba(45,90,39,0.15);
+  overflow:hidden;
 }
 .profile-img{
   width:100%;
-  height:380px;
+  height:360px;
   object-fit:cover;
-  background:#eee;
 }
 .profile-content{
-  padding:30px;
+  padding:26px;
 }
-.job-label{
-  font-size:12px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  color:#6a8d66;
-}
-.profile-content h2{
-  font-family:'Playfair Display',serif;
-  margin:10px 0 5px;
+.status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:13px;
   color:#2D5A27;
 }
-.profile-content p{
-  font-size:14px;
-  color:#777;
+.dot{
+  width:10px;
+  height:10px;
+  background:#2ecc71;
+  border-radius:50%;
+}
+.profile-content h2{
+  margin:10px 0;
+  font-family:'Playfair Display',serif;
 }
 .btn-talk{
-  margin-top:15px;
+  margin-top:14px;
   display:inline-block;
   background:#2D5A27;
   color:#fff;
-  padding:10px 25px;
-  border-radius:30px;
+  padding:10px 24px;
+  border-radius:24px;
   font-size:14px;
 }
 
-/* ---------- CHAT MODAL ---------- */
-#chat-container{
+/* CHAT */
+#chat{
   display:none;
   position:fixed;
   bottom:30px;
   right:30px;
-  width:400px;
-  height:600px;
+  width:380px;
+  height:560px;
   background:#fff;
   border-radius:20px;
-  box-shadow:0 20px 50px rgba(0,0,0,0.25);
-  z-index:9999;
+  box-shadow:0 20px 45px rgba(0,0,0,0.25);
   overflow:hidden;
-  border:1px solid #2D5A27;
+  border:2px solid #2D5A27;
 }
 .chat-header{
   background:#2D5A27;
   color:#fff;
-  padding:14px 18px;
+  padding:14px;
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  font-size:15px;
 }
-.close-chat{
+.chat-body{
+  padding:14px;
+  height:420px;
+  overflow-y:auto;
+  font-size:14px;
+}
+.chat-input{
+  display:flex;
+  border-top:1px solid #eee;
+}
+.chat-input input{
+  flex:1;
+  padding:12px;
+  border:none;
+  font-size:14px;
+}
+.chat-input button{
+  background:#2D5A27;
+  color:#fff;
+  border:none;
+  padding:0 20px;
+  cursor:pointer;
+}
+.msg-user{color:#333;margin-bottom:10px;}
+.msg-bot{color:#2D5A27;margin-bottom:14px;}
+.close-btn{
   background:none;
   border:none;
   color:#fff;
-  font-size:22px;
+  font-size:20px;
   cursor:pointer;
-}
-iframe{
-  width:100%;
-  height:calc(100% - 50px);
-  border:none;
-}
-
-/* ---------- FOOTER ---------- */
-footer{
-  text-align:center;
-  padding:40px;
-  font-size:14px;
-  color:#888;
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
 <div class="navbar">
   <div class="logo">HuggingHeart</div>
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="community.html">Community</a>
     <a href="about.html">About</a>
-    <a href="how-it-works.html">How It Works</a>
-    <a href="careers.html">Careers</a>
-    <a href="contact.html">Contact</a>
-  </div>
-  <div class="auth-links">
-    <a href="signin.html" class="signin">Sign In</a>
-    <a href="signup.html" class="signup">Sign Up</a>
   </div>
 </div>
 
-<!-- COMMUNITY -->
 <div class="section">
   <h1>Community</h1>
-  <p>Meaningful conversations with our behavioral observers.</p>
+  <p>Talk with our cultural observer</p>
 
   <div class="community-grid">
     <div class="profile-card" onclick="openChat()">
-      <img src="luna-photo.jpg" class="profile-img" alt="Luna Ribeiro">
+      <img src="knowledge/images/luna-avatar.png.png" class="profile-img">
       <div class="profile-content">
-        <div class="job-label">Cultural Observer</div>
+        <div class="status">
+          <div class="dot"></div> Luna is online
+        </div>
         <h2>Luna Ribeiro</h2>
-        <p>Master’s in Sociology • Village Roots</p>
+        <p>Sociology • Cultural Observer</p>
         <div class="btn-talk">Chat with Luna</div>
       </div>
     </div>
@@ -210,28 +183,49 @@ footer{
 </div>
 
 <!-- CHAT -->
-<div id="chat-container">
+<div id="chat">
   <div class="chat-header">
-    <span>Chatting with Luna</span>
-    <button class="close-chat" onclick="closeChat()">×</button>
+    <span>Luna</span>
+    <button class="close-btn" onclick="closeChat()">×</button>
   </div>
-
-  <iframe 
-    src="https://your-chatbot-ui-vercel.app"
-    loading="lazy">
-  </iframe>
+  <div class="chat-body" id="chatBody">
+    <div class="msg-bot">Hi, I’m Luna. You can ask me about my background or community insights.</div>
+  </div>
+  <div class="chat-input">
+    <input id="userInput" placeholder="Ask Luna...">
+    <button onclick="send()">Send</button>
+  </div>
 </div>
 
-<footer>
-© 2025 HuggingHeart • Calm • Kind • Human
-</footer>
-
 <script>
-function openChat(){
-  document.getElementById("chat-container").style.display="block";
-}
-function closeChat(){
-  document.getElementById("chat-container").style.display="none";
+let bioText="";
+let qa=[];
+
+fetch("knowledge/luna_biography.txt").then(r=>r.text()).then(t=>bioText=t);
+fetch("knowledge/luna_qa.csv").then(r=>r.text()).then(t=>{
+  t.split("\n").slice(1).forEach(line=>{
+    let [q,a]=line.split(",");
+    if(q && a) qa.push({q:q.toLowerCase(),a});
+  });
+});
+
+function openChat(){document.getElementById("chat").style.display="block";}
+function closeChat(){document.getElementById("chat").style.display="none";}
+
+function send(){
+  let input=document.getElementById("userInput");
+  let text=input.value.trim();
+  if(!text) return;
+  let body=document.getElementById("chatBody");
+  body.innerHTML+=`<div class="msg-user"><b>You:</b> ${text}</div>`;
+  let reply="I don’t have that information yet.";
+  qa.forEach(p=>{
+    if(text.toLowerCase().includes(p.q)) reply=p.a;
+  });
+  if(reply==="I don’t have that information yet.") reply=bioText;
+  body.innerHTML+=`<div class="msg-bot"><b>Luna:</b> ${reply}</div>`;
+  body.scrollTop=body.scrollHeight;
+  input.value="";
 }
 </script>
 
