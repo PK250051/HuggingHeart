@@ -5,55 +5,60 @@
 <title>Community | HuggingHeart</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:#f9fbf9;
+  background:#fbfdfb;
   color:#333;
 }
 
-/* NAV */
-.navbar{
-  padding:20px 40px;
+/* ===== HEADER (MATCH INDEX) ===== */
+.header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  background:#fff;
+  padding:20px 60px;
+  background:#ffffff;
   border-bottom:1px solid #eee;
 }
 .logo{
   font-family:'Playfair Display',serif;
-  font-size:24px;
+  font-size:26px;
   color:#2D5A27;
 }
-.nav-links a{
-  margin:0 15px;
+.nav a{
+  margin-left:30px;
   text-decoration:none;
-  color:#555;
+  color:#444;
+  font-size:14px;
 }
+.nav a:hover{color:#2D5A27}
 
-/* COMMUNITY */
+/* ===== PAGE ===== */
 .section{
   text-align:center;
-  padding:70px 20px;
+  padding:80px 20px;
 }
 .section h1{
   font-family:'Playfair Display',serif;
+  font-size:38px;
   color:#2D5A27;
-  font-size:36px;
+}
+.section p{
+  color:#666;
 }
 
-/* CARD */
+/* ===== PROFILE CARD ===== */
 .card{
-  width:340px;
-  margin:40px auto;
+  width:320px;
+  margin:50px auto;
   background:#fff;
-  border-radius:24px;
-  box-shadow:0 20px 40px rgba(0,0,0,.1);
-  cursor:pointer;
+  border-radius:22px;
+  box-shadow:0 20px 40px rgba(0,0,0,.08);
+  overflow:hidden;
 }
 .card img{
   width:100%;
@@ -63,59 +68,58 @@ body{
 .card-body{
   padding:25px;
 }
-.status{
-  font-size:13px;
-  color:#2D5A27;
-}
-.status::before{
-  content:"● ";
+.online{
   color:#2ecc71;
+  font-size:13px;
 }
-.card-body h2{
-  margin:10px 0 5px;
+.name{
   font-family:'Playfair Display',serif;
+  font-size:22px;
+  margin:10px 0;
 }
-.card-body p{
+.role{
   font-size:14px;
   color:#777;
 }
 .btn{
-  margin-top:15px;
+  margin-top:18px;
   background:#2D5A27;
   color:#fff;
-  padding:10px 25px;
+  padding:10px 24px;
+  border:none;
   border-radius:30px;
-  display:inline-block;
+  cursor:pointer;
 }
 
-/* CHAT */
+/* ===== CHAT ===== */
 #chat{
-  display:none;
   position:fixed;
-  bottom:25px;
-  right:25px;
-  width:380px;
-  height:560px;
+  right:30px;
+  bottom:30px;
+  width:360px;
+  height:520px;
   background:#fff;
   border-radius:18px;
   box-shadow:0 25px 60px rgba(0,0,0,.25);
-  overflow:hidden;
+  display:none;
+  flex-direction:column;
 }
-.chat-header{
+.chat-head{
   background:#2D5A27;
   color:#fff;
-  padding:14px;
+  padding:14px 18px;
   display:flex;
   justify-content:space-between;
+  align-items:center;
 }
 .chat-body{
-  height:430px;
+  flex:1;
   padding:15px;
   overflow-y:auto;
   font-size:14px;
 }
-.msg-user{margin:8px 0;color:#555;}
-.msg-bot{margin:8px 0;color:#2D5A27;}
+.msg-user{margin-bottom:10px}
+.msg-bot{margin-bottom:14px;color:#2D5A27}
 .chat-input{
   display:flex;
   border-top:1px solid #eee;
@@ -129,90 +133,92 @@ body{
   background:#2D5A27;
   color:#fff;
   border:none;
-  padding:12px 18px;
+  padding:0 18px;
+}
+.close{
+  cursor:pointer;
+  font-size:18px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="navbar">
+<!-- HEADER -->
+<div class="header">
   <div class="logo">HuggingHeart</div>
-  <div class="nav-links">
+  <div class="nav">
     <a href="index.html">Home</a>
     <a href="community.html">Community</a>
   </div>
 </div>
 
+<!-- COMMUNITY -->
 <div class="section">
   <h1>Community</h1>
   <p>Talk with our cultural observer</p>
 
-  <div class="card" onclick="openChat()">
-    <img src="knowledge/images/luna-avatar.png" alt="Luna">
+  <div class="card">
+    <img src="./knowledge/images/luna-avatar.png" alt="Luna">
     <div class="card-body">
-      <div class="status">Luna is online</div>
-      <h2>Luna Ribeiro</h2>
-      <p>Sociology • Cultural Observer</p>
-      <div class="btn">Chat with Luna</div>
+      <div class="online">● Luna is online</div>
+      <div class="name">Luna Ribeiro</div>
+      <div class="role">Sociology · Cultural Observer</div>
+      <button class="btn" onclick="openChat()">Chat with Luna</button>
     </div>
   </div>
 </div>
 
 <!-- CHAT WINDOW -->
 <div id="chat">
-  <div class="chat-header">
+  <div class="chat-head">
     <span>Luna</span>
-    <span onclick="closeChat()" style="cursor:pointer">×</span>
+    <span class="close" onclick="closeChat()">×</span>
   </div>
   <div class="chat-body" id="chatBody">
     <div class="msg-bot"><b>Luna:</b> Hi, you can ask me questions.</div>
   </div>
   <div class="chat-input">
-    <input id="userInput" placeholder="Ask Luna..." onkeydown="if(event.key==='Enter')send()">
+    <input id="userInput" placeholder="Ask Luna...">
     <button onclick="send()">Send</button>
   </div>
 </div>
 
 <script>
-let qa = [];
+let qa=[];
 
-/* LOAD Q&A ONLY */
-fetch("knowledge/luna_qa.csv")
+function clean(t){
+  return t.toLowerCase().replace(/[^a-z0-9 ]/g,"").trim();
+}
+
+fetch("./knowledge/luna_qa.csv")
 .then(r=>r.text())
 .then(t=>{
-  t.split("\n").slice(1).forEach(line=>{
-    let parts=line.split(",");
-    if(parts.length>=2){
-      qa.push({
-        q:parts[0].toLowerCase().trim(),
-        a:parts.slice(1).join(",").trim()
-      });
+  t.split("\n").slice(1).forEach(l=>{
+    let p=l.split(",");
+    if(p.length>=2){
+      qa.push({q:clean(p[0]),a:p.slice(1).join(",")});
     }
   });
 });
 
-function openChat(){document.getElementById("chat").style.display="block";}
-function closeChat(){document.getElementById("chat").style.display="none";}
+function openChat(){document.getElementById("chat").style.display="flex"}
+function closeChat(){document.getElementById("chat").style.display="none"}
 
 function send(){
-  let input=document.getElementById("userInput");
-  let text=input.value.trim();
-  if(!text)return;
-
-  let body=document.getElementById("chatBody");
-  body.innerHTML+=`<div class="msg-user"><b>You:</b> ${text}</div>`;
-
-  let reply=null;
-  qa.forEach(p=>{
-    if(text.toLowerCase().includes(p.q)) reply=p.a;
+  let i=document.getElementById("userInput");
+  let t=i.value.trim();
+  if(!t)return;
+  let b=document.getElementById("chatBody");
+  b.innerHTML+=`<div class="msg-user"><b>You:</b> ${t}</div>`;
+  let c=clean(t),ans=null;
+  qa.forEach(x=>{
+    if(c.includes(x.q)||x.q.includes(c)) ans=x.a;
   });
-
-  if(!reply) reply="I don’t have an answer for that yet.";
-
-  body.innerHTML+=`<div class="msg-bot"><b>Luna:</b> ${reply}</div>`;
-  body.scrollTop=body.scrollHeight;
-  input.value="";
+  if(!ans) ans="I don’t have an answer for that yet.";
+  b.innerHTML+=`<div class="msg-bot"><b>Luna:</b> ${ans}</div>`;
+  b.scrollTop=b.scrollHeight;
+  i.value="";
 }
 </script>
 
