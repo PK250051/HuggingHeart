@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
-/* ================= PAGE STYLES (Matched to Index) ================= */
+/* ================= PREVIOUS STYLES REMAIN SAME ================= */
 .community-container { max-width: 1200px; margin: 60px auto; padding: 0 20px; text-align: center; }
 .community-grid { display: flex; justify-content: center; margin: 40px 0 80px 0; }
 .profile-card { background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 24px rgba(159, 211, 255, 0.45); max-width: 380px; cursor: pointer; transition: 0.3s; border: 1px solid #eaf7f0; }
@@ -17,7 +17,6 @@
 .status-tag { display: inline-flex; align-items: center; gap: 8px; background: #eaf7f0; color: #2f855a; padding: 5px 15px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 15px; }
 .status-dot { width: 8px; height: 8px; background: #2ecc71; border-radius: 50%; box-shadow: 0 0 5px #2ecc71; }
 
-/* ================= CHAT UI ================= */
 #chat { display: none; position: fixed; bottom: 30px; right: 30px; width: 400px; height: 600px; background: #fff; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.15); overflow: hidden; z-index: 1000; flex-direction: column; border: 1px solid #eaf7f0; }
 .chat-header { background: #eaf7f0; padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #d4edda; }
 .chat-header h4 { margin: 0; color: #2f855a; font-family: 'Playfair Display', serif; }
@@ -26,9 +25,28 @@
 .msg-bot { background: #eaf7f0; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
 .msg-user { background: #6fcf97; color: #fff; align-self: flex-end; border-bottom-right-radius: 2px; }
 .typing-indicator { display:none; padding: 0 20px 10px; font-size: 12px; color: #2f855a; font-style: italic; }
-.chat-input-container { padding: 20px; display: flex; gap: 10px; border-top: 1px solid #eee; }
+
+/* ================= NEW: SUGGESTION STYLES ================= */
+.suggestion-box {
+    background: #fff;
+    border-top: 1px solid #eee;
+    max-height: 120px;
+    overflow-y: auto;
+    display: none; /* Hidden by default */
+}
+.suggestion-item {
+    padding: 10px 20px;
+    font-size: 13px;
+    color: #888; /* Gray color for suggestions */
+    cursor: pointer;
+    border-bottom: 1px solid #fafafa;
+    text-align: left;
+}
+.suggestion-item:hover { background: #f9fbf9; color: #2f855a; }
+
+.chat-input-container { padding: 15px; display: flex; gap: 10px; border-top: 1px solid #eee; background: #fff; }
 .chat-input-container input { flex: 1; padding: 12px; border: 1px solid #eee; border-radius: 12px; outline: none; }
-.chat-input-container button { background: #2f855a; color: white; border: none; padding: 0 20px; border-radius: 12px; cursor: pointer; font-weight: 600; }
+.chat-input-container button { background: #2f855a; color: white; border: none; padding: 0 20px; border-radius: 12px; cursor: pointer; }
 </style>
 </head>
 
@@ -51,15 +69,13 @@
 </div>
 
 <div class="community-container">
-    <h1 style="font-family:'Playfair Display', serif; font-size: 48px; color: #2f855a; margin-bottom:10px;">Community</h1>
-    <p style="color: #6b7280; font-size: 18px;">Start a meaningful conversation with our observers.</p>
-
+    <h1 style="font-family:'Playfair Display', serif; font-size: 48px; color: #2f855a;">Community</h1>
     <div class="community-grid">
         <div class="profile-card" onclick="openChat()">
             <img src="knowledge/images/luna-avatar.png.png" class="profile-img">
             <div class="status-tag"><div class="status-dot"></div> Luna is Online</div>
-            <h2 style="font-family:'Playfair Display', serif;">Luna Ribeiro</h2>
-            <p style="color: #6b7280; font-size: 14px; margin-bottom: 20px;">Cultural Observer • São Paulo</p>
+            <h2>Luna Ribeiro</h2>
+            <p>Cultural Observer • São Paulo</p>
             <span class="signup" style="display:block; text-align:center; padding: 12px;">Chat with Luna</span>
         </div>
     </div>
@@ -72,22 +88,20 @@
     </div>
     <div class="chat-body" id="chatBody"></div>
     <div id="typingIndicator" class="typing-indicator">Luna is typing...</div>
+    
+    <div id="suggestionBox" class="suggestion-box"></div>
+
     <form class="chat-input-container" onsubmit="event.preventDefault(); send();">
-        <input id="userInput" placeholder="Share a thought..." autocomplete="off">
+        <input id="userInput" placeholder="Ask me something..." autocomplete="off" oninput="showSuggestions(this.value)">
         <button type="submit">Send</button>
     </form>
 </div>
-
-<footer style="padding: 40px 0; border-top: 1px solid #eee; text-align: center;">
-© 2025 HuggingHeart • Calm • Kind • Human
-</footer>
 
 <script>
 let qa = [];
 let userName = localStorage.getItem("luna_user_name") || "";
 let step = userName ? 2 : 0; 
 
-// Load Knowledge Base
 fetch("knowledge/luna_qa.csv").then(r => r.text()).then(t => {
     t.split("\n").slice(1).forEach(l => {
         const m = l.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
@@ -95,21 +109,38 @@ fetch("knowledge/luna_qa.csv").then(r => r.text()).then(t => {
     });
 });
 
+// --- NEW SUGGESTION LOGIC ---
+function showSuggestions(val) {
+    const box = document.getElementById("suggestionBox");
+    if (val.length < 2 || step < 2) { // Only suggest after name is known and 2+ chars typed
+        box.style.display = "none";
+        return;
+    }
+
+    const matches = qa.filter(p => p.q.includes(val.toLowerCase())).slice(0, 3); // Limit to 3 suggestions
+    
+    if (matches.length > 0) {
+        box.innerHTML = matches.map(m => `<div class="suggestion-item" onclick="useSuggestion('${m.q}')">${m.q}</div>`).join('');
+        box.style.display = "block";
+    } else {
+        box.style.display = "none";
+    }
+}
+
+function useSuggestion(text) {
+    document.getElementById("userInput").value = text;
+    document.getElementById("suggestionBox").style.display = "none";
+    send();
+}
+
 function openChat() {
     document.getElementById("chat").style.display = "flex";
-    const body = document.getElementById("chatBody");
-    
-    // Load existing history if any
-    const savedHistory = localStorage.getItem("luna_chat_history");
-    if (savedHistory) {
-        body.innerHTML = savedHistory;
-        body.scrollTop = body.scrollHeight;
-    } else if (body.innerHTML === "") {
+    if (document.getElementById("chatBody").innerHTML === "") {
         if (!userName) {
-            showReply("Olá! I'm Luna. I love meeting new people. Before we begin... may I ask what your name is?");
+            showReply("Olá! I'm Luna. What is your name?");
             step = 1;
         } else {
-            showReply(`Welcome back, ${userName}! I was just thinking about our last talk. What's on your mind today?`);
+            showReply(`Welcome back, ${userName}! Ask me anything.`);
         }
     }
 }
@@ -117,16 +148,11 @@ function openChat() {
 function closeChat() { document.getElementById("chat").style.display = "none"; }
 
 function showReply(text) {
-    const indicator = document.getElementById("typingIndicator");
-    indicator.style.display = "block";
-    
-    // 2-4 second "thinking" delay
-    const delay = Math.floor(Math.random() * 2000) + 2000; 
-
+    document.getElementById("typingIndicator").style.display = "block";
     setTimeout(() => {
-        indicator.style.display = "none";
+        document.getElementById("typingIndicator").style.display = "none";
         typeWriter(text);
-    }, delay);
+    }, 2000);
 }
 
 function typeWriter(text) {
@@ -136,15 +162,7 @@ function typeWriter(text) {
     body.appendChild(div);
     let i = 0;
     function type() {
-        if (i < text.length) { 
-            div.innerHTML += text.charAt(i); 
-            i++; 
-            body.scrollTop = body.scrollHeight; 
-            setTimeout(type, 35); 
-        } else {
-            // Save history after typing is done
-            localStorage.setItem("luna_chat_history", body.innerHTML);
-        }
+        if (i < text.length) { div.innerHTML += text.charAt(i); i++; body.scrollTop = body.scrollHeight; setTimeout(type, 30); }
     }
     type();
 }
@@ -154,21 +172,19 @@ function send() {
     let val = input.value.trim();
     if(!val) return;
     
-    let body = document.getElementById("chatBody");
-    body.innerHTML += `<div class="msg msg-user">${val}</div>`;
+    document.getElementById("suggestionBox").style.display = "none";
+    document.getElementById("chatBody").innerHTML += `<div class="msg msg-user">${val}</div>`;
     input.value = "";
-    body.scrollTop = body.scrollHeight;
 
     if(step === 1) {
         userName = val;
         localStorage.setItem("luna_user_name", userName);
         step = 2;
-        showReply(`It's lovely to meet you, ${userName}. I'm ready to chat. What would you like to talk about?`);
+        showReply(`Nice to meet you, ${userName}. What's on your mind?`);
     } else {
         let query = val.toLowerCase();
-        let match = qa.find(p => query.includes(p.q)) || qa.find(p => p.q.includes(query));
-        let response = match ? match.a : "That's a very interesting thought. I'm still exploring so many ideas... could you tell me more?";
-        showReply(response);
+        let match = qa.find(p => query === p.q) || qa.find(p => query.includes(p.q));
+        showReply(match ? match.a : "Interesting... tell me more?");
     }
 }
 </script>
