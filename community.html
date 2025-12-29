@@ -1,167 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Community | HuggingHeart</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Community | HuggingHeart</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 
-    <style>
-        /* ================= BASE ================= */
-        body { margin:0; font-family:'Poppins',sans-serif; background:#f9fbf9; color:#333; }
+<style>
+/* ================= COMMUNITY SPECIFIC STYLES ================= */
+.community-container {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+    text-align: center;
+}
 
-        /* ================= HEADER ================= */
-        .site-header { position:sticky; top:0; z-index:1000; background:#eaf7f0; box-shadow:0 10px 24px rgba(159,211,255,0.45); }
-        .header-inner { max-width:1200px; margin:auto; padding:14px 28px; display:flex; align-items:center; justify-content:space-between; }
-        .logo { font-family:'Playfair Display',serif; font-size:26px; color:#2f855a; text-decoration:none; font-weight:bold; }
-        .nav a { margin:0 14px; text-decoration:none; font-size:14px; color:#6b7280; font-weight:500; }
-        .nav a:hover, .nav a.active { color:#2f855a; }
+.community-grid {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
 
-        /* ================= COMMUNITY SECTION ================= */
-        .section { text-align:center; padding:70px 20px; }
-        .section h1 { font-family:'Playfair Display',serif; font-size:42px; color:#2f855a; margin-bottom:10px; }
-        .section p { color:#6b7280; font-size:18px; }
+/* Matching the "Hero Card" style from your Index */
+.profile-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 24px rgba(159, 211, 255, 0.45);
+    max-width: 380px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border: 1px solid #eaf7f0;
+}
 
-        .community-grid { display:flex; justify-content:center; margin-top:50px; }
-        .profile-card { width:340px; background:#fff; border-radius:24px; box-shadow:0 15px 35px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden; transition:.3s; border:1px solid #eee; }
-        .profile-card:hover { transform:translateY(-10px); box-shadow:0 20px 40px rgba(47,133,90,0.15); }
-        .profile-img { width:100%; height:360px; object-fit:cover; }
-        .profile-content { padding:26px; text-align:left; }
-        .status { display:flex; align-items:center; gap:8px; font-size:13px; color:#2f855a; font-weight:600; }
-        .dot { width:10px; height:10px; background:#2ecc71; border-radius:50%; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-        .profile-content h2 { margin:10px 0 5px 0; font-family:'Playfair Display',serif; font-size:24px; }
-        .btn-talk { margin-top:14px; display:block; text-align:center; background:#2f855a; color:#fff; padding:12px; border-radius:12px; text-decoration:none; font-weight:500; }
+.profile-card:hover {
+    transform: translateY(-8px);
+}
 
-        /* ================= CHAT UI ================= */
-        #chat { display:none; position:fixed; bottom:30px; right:30px; width:400px; height:600px; background:#fff; border-radius:24px; box-shadow:0 20px 50px rgba(0,0,0,0.2); overflow:hidden; border:1px solid #eaf7f0; z-index:9999; flex-direction:column; }
-        .chat-header { background:#2f855a; color:#fff; padding:18px; display:flex; align-items:center; gap:12px; }
-        .chat-header img { width:35px; height:35px; border-radius:50%; border:2px solid #fff; }
-        .chat-header-info { flex:1; }
-        .chat-header-info b { display:block; font-size:16px; }
-        .chat-header-info span { font-size:11px; opacity:0.8; }
-        .chat-body { padding:20px; flex:1; overflow-y:auto; background:#fcfdfc; display:flex; flex-direction:column; gap:12px; }
-        
-        /* Bubble Styles */
-        .msg { max-width:80%; padding:12px 16px; border-radius:18px; font-size:14px; line-height:1.5; }
-        .msg-user { align-self:flex-end; background:#2f855a; color:#fff; border-bottom-right-radius:4px; }
-        .msg-bot { align-self:flex-start; background:#eaf7f0; color:#333; border-bottom-left-radius:4px; border:1px solid #d4edda; }
-        
-        .chat-input { display:flex; padding:15px; background:#fff; border-top:1px solid #eee; gap:10px; }
-        .chat-input input { flex:1; padding:12px; border:1px solid #ddd; border-radius:25px; outline:none; font-family:inherit; }
-        .chat-input button { background:#2f855a; color:#fff; border:none; width:45px; height:45px; border-radius:50%; cursor:pointer; font-weight:bold; }
-        .close-btn { background:none; border:none; color:#fff; font-size:24px; cursor:pointer; }
-    </style>
+.profile-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.status-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #eaf7f0;
+    color: #2f855a;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #2ecc71;
+    border-radius: 50%;
+}
+
+/* ================= CHAT WINDOW (Matched to Branding) ================= */
+#chat {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 380px;
+    height: 580px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+    overflow: hidden;
+    z-index: 1000;
+    flex-direction: column;
+    border: 1px solid #eaf7f0;
+}
+
+.chat-header {
+    background: #eaf7f0;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #d4edda;
+}
+
+.chat-header h4 { margin: 0; color: #2f855a; font-family: 'Playfair Display', serif; }
+
+.chat-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #fcfdfc;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.msg { padding: 12px 16px; border-radius: 15px; font-size: 14px; max-width: 80%; }
+.msg-bot { background: #eaf7f0; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
+.msg-user { background: #6fcf97; color: #fff; align-self: flex-end; border-bottom-right-radius: 2px; }
+
+.chat-input-container {
+    padding: 15px;
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid #eee;
+}
+
+.chat-input-container input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    outline: none;
+}
+
+.chat-input-container button {
+    background: #2f855a;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.close-btn { background: none; border: none; font-size: 24px; color: #2f855a; cursor: pointer; }
+</style>
 </head>
 
 <body>
 
-<header class="site-header">
-    <div class="header-inner">
-        <a href="index.html" class="logo">HuggingHeart</a>
-        <nav class="nav">
-            <a href="index.html">Home</a>
-            <a href="community.html" class="active">Community</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-        <div class="auth">
-            <a href="#" class="btn-outline">Sign In</a>
-        </div>
-    </div>
-</header>
+<div class="navbar">
+  <div class="logo">HuggingHeart</div>
 
-<div class="section">
-    <h1>Community</h1>
-    <p>Connect with personalities from around the world.</p>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="community.html" class="active">Community</a>
+    <a href="about.html">About</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="careers.html">Careers</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="auth-links">
+    <a href="signin.html" class="signin">Sign In</a>
+    <a href="signup.html" class="signup">Sign Up</a>
+  </div>
+</div>
+
+<div class="community-container">
+    <h1 style="font-family:'Playfair Display', serif; font-size: 42px; color: #2f855a; margin-bottom: 10px;">Our Community</h1>
+    <p style="color: #6b7280; font-size: 18px;">Connect with individuals who value depth and kindness.</p>
 
     <div class="community-grid">
         <div class="profile-card" onclick="openChat()">
-            <img src="knowledge/images/luna-avatar.png.png" class="profile-img" alt="Luna Ribeiro">
-            <div class="profile-content">
-                <div class="status"><div class="dot"></div>Luna is online</div>
-                <h2>Luna Ribeiro</h2>
-                <p>Sociology • Cultural Observer • São Paulo</p>
-                <div class="btn-talk">Chat with Luna</div>
-            </div>
+            <img src="knowledge/images/luna-avatar.png.png" class="profile-img" alt="Luna">
+            <div class="status-tag"><div class="status-dot"></div> Luna is Online</div>
+            <h2 style="font-family:'Playfair Display', serif; margin: 10px 0;">Luna Ribeiro</h2>
+            <p style="color: #6b7280; font-size: 14px; margin-bottom: 20px;">Sociology Student & Cultural Observer from São Paulo.</p>
+            <span class="signup" style="display:inline-block; width: 80%;">Chat with Luna</span>
         </div>
     </div>
 </div>
 
 <div id="chat">
     <div class="chat-header">
-        <img src="knowledge/images/luna-avatar.png.png" alt="Luna">
-        <div class="chat-header-info">
-            <b>Luna Ribeiro</b>
-            <span>Active now</span>
-        </div>
+        <h4>Luna Ribeiro</h4>
         <button class="close-btn" onclick="closeChat()">×</button>
     </div>
     <div class="chat-body" id="chatBody">
-        <div class="msg msg-bot">Hi! I'm Luna. I love observing life and people. Ask me anything, or just say "Hey".</div>
+        <div class="msg msg-bot">Hi! I'm Luna. I'm so glad you stopped by to say hello. What's on your mind?</div>
     </div>
-    <form class="chat-input" onsubmit="event.preventDefault(); send();">
-        <input id="userInput" placeholder="Type a message..." autocomplete="off">
-        <button type="submit">➤</button>
+    <form class="chat-input-container" onsubmit="event.preventDefault(); send();">
+        <input id="userInput" placeholder="Type your message..." autocomplete="off">
+        <button type="submit">Send</button>
     </form>
 </div>
+
+<footer style="margin-top: 100px;">
+© 2025 HuggingHeart • Calm • Kind • Human
+</footer>
 
 <script>
 let qa = [];
 
-// Improved CSV Parsing
+// Load the CSV Knowledge Base
 fetch("knowledge/luna_qa.csv")
-    .then(r => r.text())
-    .then(t => {
-        const lines = t.split(/\r?\n/);
-        lines.slice(1).forEach(line => {
-            // This regex handles quotes and commas correctly in CSV
-            const parts = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-            if (parts && parts.length >= 2) {
-                qa.push({
-                    q: parts[0].replace(/"/g, '').trim().toLowerCase(),
-                    a: parts[1].replace(/"/g, '').trim()
-                });
-            }
-        });
-        console.log("Luna Knowledge Loaded:", qa.length, "answers ready.");
+.then(r => r.text())
+.then(t => {
+    const lines = t.split("\n").slice(1);
+    lines.forEach(l => {
+        // Handle CSV with quotes
+        const match = l.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+        if(match && match.length >= 2) {
+            qa.push({
+                q: match[0].replace(/"/g, '').trim().toLowerCase(),
+                a: match[1].replace(/"/g, '').trim()
+            });
+        }
     });
+});
 
-function openChat() { 
-    document.getElementById("chat").style.display = "flex"; 
-    document.getElementById("userInput").focus();
-}
-function closeChat() { 
-    document.getElementById("chat").style.display = "none"; 
-}
+function openChat() { document.getElementById("chat").style.display = "flex"; }
+function closeChat() { document.getElementById("chat").style.display = "none"; }
 
 function send() {
     let input = document.getElementById("userInput");
     let text = input.value.trim();
-    if (!text) return;
+    if(!text) return;
 
     let body = document.getElementById("chatBody");
-    
-    // User Message
     body.innerHTML += `<div class="msg msg-user">${text}</div>`;
     
     let userQuery = text.toLowerCase();
     
-    // Logic: Find best match
-    // 1. Check for exact match
-    // 2. Check if user question contains the CSV question
-    // 3. Check if CSV question contains user words
+    // Logic: Find the most relevant answer
     let match = qa.find(p => userQuery === p.q) || 
                 qa.find(p => userQuery.includes(p.q)) ||
                 qa.find(p => p.q.includes(userQuery));
 
-    let reply = match ? match.a : "I'm still learning about that... but I'd love to hear your perspective on it.";
+    let reply = match ? match.a : "I'm not quite sure how to answer that yet, but I'm listening. Can you tell me more?";
 
-    // Bot Reply with small delay for realism
     setTimeout(() => {
         body.innerHTML += `<div class="msg msg-bot">${reply}</div>`;
         body.scrollTop = body.scrollHeight;
-    }, 400);
+    }, 600);
 
     body.scrollTop = body.scrollHeight;
     input.value = "";
