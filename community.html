@@ -1,280 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Community | HuggingHeart</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Community | HuggingHeart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ================= BASE ================= */
+        body { margin:0; font-family:'Poppins',sans-serif; background:#f9fbf9; color:#333; }
 
-<style>
-/* ================= BASE ================= */
-body{
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background:#f9fbf9;
-  color:#333;
-}
+        /* ================= HEADER ================= */
+        .site-header { position:sticky; top:0; z-index:1000; background:#eaf7f0; box-shadow:0 10px 24px rgba(159,211,255,0.45); }
+        .header-inner { max-width:1200px; margin:auto; padding:14px 28px; display:flex; align-items:center; justify-content:space-between; }
+        .logo { font-family:'Playfair Display',serif; font-size:26px; color:#2f855a; text-decoration:none; font-weight:bold; }
+        .nav a { margin:0 14px; text-decoration:none; font-size:14px; color:#6b7280; font-weight:500; }
+        .nav a:hover, .nav a.active { color:#2f855a; }
 
-/* ================= HEADER (MATCH INDEX) ================= */
-.site-header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:#eaf7f0;
-  box-shadow:0 10px 24px rgba(159,211,255,0.45);
-}
-.header-inner{
-  max-width:1200px;
-  margin:auto;
-  padding:14px 28px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.logo{
-  font-family:'Playfair Display',serif;
-  font-size:26px;
-  color:#2f855a;
-}
-.nav a{
-  margin:0 14px;
-  text-decoration:none;
-  font-size:14px;
-  color:#6b7280;
-  font-weight:500;
-}
-.nav a:hover,
-.nav a.active{color:#2f855a;}
-.auth{
-  display:flex;
-  gap:12px;
-}
-.btn-outline{
-  padding:8px 18px;
-  border:1px solid #6fcf97;
-  border-radius:20px;
-  color:#2f855a;
-  text-decoration:none;
-  font-size:13px;
-}
-.btn-fill{
-  padding:8px 18px;
-  background:linear-gradient(135deg,#6fcf97,#9fd3ff);
-  border-radius:20px;
-  color:#fff;
-  text-decoration:none;
-  font-size:13px;
-}
+        /* ================= COMMUNITY SECTION ================= */
+        .section { text-align:center; padding:70px 20px; }
+        .section h1 { font-family:'Playfair Display',serif; font-size:42px; color:#2f855a; margin-bottom:10px; }
+        .section p { color:#6b7280; font-size:18px; }
 
-/* ================= COMMUNITY ================= */
-.section{
-  text-align:center;
-  padding:70px 20px;
-}
-.section h1{
-  font-family:'Playfair Display',serif;
-  font-size:36px;
-  color:#2f855a;
-}
-.section p{color:#6b7280;}
+        .community-grid { display:flex; justify-content:center; margin-top:50px; }
+        .profile-card { width:340px; background:#fff; border-radius:24px; box-shadow:0 15px 35px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden; transition:.3s; border:1px solid #eee; }
+        .profile-card:hover { transform:translateY(-10px); box-shadow:0 20px 40px rgba(47,133,90,0.15); }
+        .profile-img { width:100%; height:360px; object-fit:cover; }
+        .profile-content { padding:26px; text-align:left; }
+        .status { display:flex; align-items:center; gap:8px; font-size:13px; color:#2f855a; font-weight:600; }
+        .dot { width:10px; height:10px; background:#2ecc71; border-radius:50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        .profile-content h2 { margin:10px 0 5px 0; font-family:'Playfair Display',serif; font-size:24px; }
+        .btn-talk { margin-top:14px; display:block; text-align:center; background:#2f855a; color:#fff; padding:12px; border-radius:12px; text-decoration:none; font-weight:500; }
 
-/* ================= PROFILE CARD ================= */
-.community-grid{
-  display:flex;
-  justify-content:center;
-  margin-top:50px;
-}
-.profile-card{
-  width:340px;
-  background:#fff;
-  border-radius:24px;
-  box-shadow:0 15px 35px rgba(0,0,0,0.08);
-  cursor:pointer;
-  overflow:hidden;
-  transition:.3s;
-}
-.profile-card:hover{transform:translateY(-6px);}
-.profile-img{
-  width:100%;
-  height:360px;
-  object-fit:cover;
-}
-.profile-content{padding:26px;}
-.status{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:13px;
-  color:#2f855a;
-}
-.dot{
-  width:10px;
-  height:10px;
-  background:#2ecc71;
-  border-radius:50%;
-}
-.profile-content h2{
-  margin:10px 0;
-  font-family:'Playfair Display',serif;
-}
-.btn-talk{
-  margin-top:14px;
-  display:inline-block;
-  background:#2f855a;
-  color:#fff;
-  padding:10px 24px;
-  border-radius:24px;
-  font-size:14px;
-}
-
-/* ================= CHAT ================= */
-#chat{
-  display:none;
-  position:fixed;
-  bottom:30px;
-  right:30px;
-  width:380px;
-  height:560px;
-  background:#fff;
-  border-radius:20px;
-  box-shadow:0 20px 45px rgba(0,0,0,0.25);
-  overflow:hidden;
-  border:2px solid #2f855a;
-  z-index:9999;
-}
-.chat-header{
-  background:#2f855a;
-  color:#fff;
-  padding:14px;
-  display:flex;
-  justify-content:space-between;
-}
-.chat-body{
-  padding:14px;
-  height:420px;
-  overflow-y:auto;
-  font-size:14px;
-}
-.chat-input{
-  display:flex;
-  border-top:1px solid #eee;
-}
-.chat-input input{
-  flex:1;
-  padding:12px;
-  border:none;
-  font-size:14px;
-}
-.chat-input button{
-  background:#2f855a;
-  color:#fff;
-  border:none;
-  padding:0 20px;
-  cursor:pointer;
-}
-.msg-user{margin-bottom:10px;}
-.msg-bot{margin-bottom:14px;color:#2f855a;}
-.close-btn{
-  background:none;
-  border:none;
-  color:#fff;
-  font-size:20px;
-  cursor:pointer;
-}
-</style>
+        /* ================= CHAT UI ================= */
+        #chat { display:none; position:fixed; bottom:30px; right:30px; width:400px; height:600px; background:#fff; border-radius:24px; box-shadow:0 20px 50px rgba(0,0,0,0.2); overflow:hidden; border:1px solid #eaf7f0; z-index:9999; flex-direction:column; }
+        .chat-header { background:#2f855a; color:#fff; padding:18px; display:flex; align-items:center; gap:12px; }
+        .chat-header img { width:35px; height:35px; border-radius:50%; border:2px solid #fff; }
+        .chat-header-info { flex:1; }
+        .chat-header-info b { display:block; font-size:16px; }
+        .chat-header-info span { font-size:11px; opacity:0.8; }
+        .chat-body { padding:20px; flex:1; overflow-y:auto; background:#fcfdfc; display:flex; flex-direction:column; gap:12px; }
+        
+        /* Bubble Styles */
+        .msg { max-width:80%; padding:12px 16px; border-radius:18px; font-size:14px; line-height:1.5; }
+        .msg-user { align-self:flex-end; background:#2f855a; color:#fff; border-bottom-right-radius:4px; }
+        .msg-bot { align-self:flex-start; background:#eaf7f0; color:#333; border-bottom-left-radius:4px; border:1px solid #d4edda; }
+        
+        .chat-input { display:flex; padding:15px; background:#fff; border-top:1px solid #eee; gap:10px; }
+        .chat-input input { flex:1; padding:12px; border:1px solid #ddd; border-radius:25px; outline:none; font-family:inherit; }
+        .chat-input button { background:#2f855a; color:#fff; border:none; width:45px; height:45px; border-radius:50%; cursor:pointer; font-weight:bold; }
+        .close-btn { background:none; border:none; color:#fff; font-size:24px; cursor:pointer; }
+    </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header class="site-header">
-  <div class="header-inner">
-    <div class="logo">HuggingHeart</div>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="community.html" class="active">Community</a>
-      <a href="about.html">About</a>
-      <a href="how-it-works.html">How It Works</a>
-      <a href="careers.html">Careers</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <div class="auth">
-      <a href="signin.html" class="btn-outline">Sign In</a>
-      <a href="signup.html" class="btn-fill">Sign Up</a>
+    <div class="header-inner">
+        <a href="index.html" class="logo">HuggingHeart</a>
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="community.html" class="active">Community</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div class="auth">
+            <a href="#" class="btn-outline">Sign In</a>
+        </div>
     </div>
-  </div>
 </header>
 
-<!-- COMMUNITY -->
 <div class="section">
-  <h1>Community</h1>
-  <p>Talk with our cultural observer</p>
+    <h1>Community</h1>
+    <p>Connect with personalities from around the world.</p>
 
-  <div class="community-grid">
-    <div class="profile-card" onclick="openChat()">
-      <img src="knowledge/images/luna-avatar.png.png" class="profile-img" alt="Luna">
-      <div class="profile-content">
-        <div class="status"><div class="dot"></div>Luna is online</div>
-        <h2>Luna Ribeiro</h2>
-        <p>Sociology • Cultural Observer</p>
-        <div class="btn-talk">Chat with Luna</div>
-      </div>
+    <div class="community-grid">
+        <div class="profile-card" onclick="openChat()">
+            <img src="knowledge/images/luna-avatar.png.png" class="profile-img" alt="Luna Ribeiro">
+            <div class="profile-content">
+                <div class="status"><div class="dot"></div>Luna is online</div>
+                <h2>Luna Ribeiro</h2>
+                <p>Sociology • Cultural Observer • São Paulo</p>
+                <div class="btn-talk">Chat with Luna</div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
-<!-- CHAT -->
 <div id="chat">
-  <div class="chat-header">
-    <span>Luna</span>
-    <button class="close-btn" onclick="closeChat()">×</button>
-  </div>
-  <div class="chat-body" id="chatBody">
-    <div class="msg-bot"><b>Luna:</b> Hi, you can ask me questions.</div>
-  </div>
-  <div class="chat-input">
-    <input id="userInput" placeholder="Ask Luna...">
-    <button onclick="send()">Send</button>
-  </div>
+    <div class="chat-header">
+        <img src="knowledge/images/luna-avatar.png.png" alt="Luna">
+        <div class="chat-header-info">
+            <b>Luna Ribeiro</b>
+            <span>Active now</span>
+        </div>
+        <button class="close-btn" onclick="closeChat()">×</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+        <div class="msg msg-bot">Hi! I'm Luna. I love observing life and people. Ask me anything, or just say "Hey".</div>
+    </div>
+    <form class="chat-input" onsubmit="event.preventDefault(); send();">
+        <input id="userInput" placeholder="Type a message..." autocomplete="off">
+        <button type="submit">➤</button>
+    </form>
 </div>
 
 <script>
-let qa=[];
+let qa = [];
 
+// Improved CSV Parsing
 fetch("knowledge/luna_qa.csv")
-.then(r=>r.text())
-.then(t=>{
-  t.split("\n").slice(1).forEach(l=>{
-    let i=l.indexOf(",");
-    if(i>0){
-      qa.push({
-        q:l.slice(0,i).trim().toLowerCase(),
-        a:l.slice(i+1).trim()
-      });
-    }
-  });
-});
+    .then(r => r.text())
+    .then(t => {
+        const lines = t.split(/\r?\n/);
+        lines.slice(1).forEach(line => {
+            // This regex handles quotes and commas correctly in CSV
+            const parts = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+            if (parts && parts.length >= 2) {
+                qa.push({
+                    q: parts[0].replace(/"/g, '').trim().toLowerCase(),
+                    a: parts[1].replace(/"/g, '').trim()
+                });
+            }
+        });
+        console.log("Luna Knowledge Loaded:", qa.length, "answers ready.");
+    });
 
-function openChat(){document.getElementById("chat").style.display="block";}
-function closeChat(){document.getElementById("chat").style.display="none";}
+function openChat() { 
+    document.getElementById("chat").style.display = "flex"; 
+    document.getElementById("userInput").focus();
+}
+function closeChat() { 
+    document.getElementById("chat").style.display = "none"; 
+}
 
-function send(){
-  let input=document.getElementById("userInput");
-  let text=input.value.trim();
-  if(!text) return;
+function send() {
+    let input = document.getElementById("userInput");
+    let text = input.value.trim();
+    if (!text) return;
 
-  let body=document.getElementById("chatBody");
-  body.innerHTML+=`<div class="msg-user"><b>You:</b> ${text}</div>`;
+    let body = document.getElementById("chatBody");
+    
+    // User Message
+    body.innerHTML += `<div class="msg msg-user">${text}</div>`;
+    
+    let userQuery = text.toLowerCase();
+    
+    // Logic: Find best match
+    // 1. Check for exact match
+    // 2. Check if user question contains the CSV question
+    // 3. Check if CSV question contains user words
+    let match = qa.find(p => userQuery === p.q) || 
+                qa.find(p => userQuery.includes(p.q)) ||
+                qa.find(p => p.q.includes(userQuery));
 
-  let reply="I don’t have an answer for that yet.";
-  qa.forEach(p=>{
-    if(text.toLowerCase().includes(p.q)) reply=p.a;
-  });
+    let reply = match ? match.a : "I'm still learning about that... but I'd love to hear your perspective on it.";
 
-  body.innerHTML+=`<div class="msg-bot"><b>Luna:</b> ${reply}</div>`;
-  body.scrollTop=body.scrollHeight;
-  input.value="";
+    // Bot Reply with small delay for realism
+    setTimeout(() => {
+        body.innerHTML += `<div class="msg msg-bot">${reply}</div>`;
+        body.scrollTop = body.scrollHeight;
+    }, 400);
+
+    body.scrollTop = body.scrollHeight;
+    input.value = "";
 }
 </script>
 
