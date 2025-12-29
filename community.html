@@ -5,23 +5,24 @@
 <title>Community | HuggingHeart</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:#F9FBF9;
+  background:#f9fbf9;
+  color:#333;
 }
 
-/* NAVBAR */
+/* NAV */
 .navbar{
+  padding:20px 40px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:18px 50px;
-  background:#ffffff;
-  border-bottom:1px solid #e6efe6;
+  background:#fff;
+  border-bottom:1px solid #eee;
 }
 .logo{
   font-family:'Playfair Display',serif;
@@ -29,12 +30,10 @@ body{
   color:#2D5A27;
 }
 .nav-links a{
-  margin:0 14px;
+  margin:0 15px;
   text-decoration:none;
   color:#555;
-  font-size:14px;
 }
-.nav-links a:hover{color:#2D5A27;}
 
 /* COMMUNITY */
 .section{
@@ -43,72 +42,64 @@ body{
 }
 .section h1{
   font-family:'Playfair Display',serif;
-  font-size:36px;
   color:#2D5A27;
+  font-size:36px;
 }
 
 /* CARD */
-.community-grid{
-  display:flex;
-  justify-content:center;
-  margin-top:50px;
-}
-.profile-card{
+.card{
   width:340px;
+  margin:40px auto;
   background:#fff;
   border-radius:24px;
-  box-shadow:0 15px 35px rgba(0,0,0,0.08);
+  box-shadow:0 20px 40px rgba(0,0,0,.1);
   cursor:pointer;
-  overflow:hidden;
 }
-.profile-img{
+.card img{
   width:100%;
   height:360px;
   object-fit:cover;
 }
-.profile-content{
-  padding:26px;
+.card-body{
+  padding:25px;
 }
 .status{
-  display:flex;
-  align-items:center;
-  gap:8px;
   font-size:13px;
   color:#2D5A27;
 }
-.dot{
-  width:10px;
-  height:10px;
-  background:#2ecc71;
-  border-radius:50%;
+.status::before{
+  content:"● ";
+  color:#2ecc71;
 }
-.profile-content h2{
-  margin:10px 0;
+.card-body h2{
+  margin:10px 0 5px;
   font-family:'Playfair Display',serif;
 }
-.btn-talk{
-  margin-top:14px;
-  display:inline-block;
+.card-body p{
+  font-size:14px;
+  color:#777;
+}
+.btn{
+  margin-top:15px;
   background:#2D5A27;
   color:#fff;
-  padding:10px 24px;
-  border-radius:24px;
-  font-size:14px;
+  padding:10px 25px;
+  border-radius:30px;
+  display:inline-block;
 }
 
 /* CHAT */
 #chat{
   display:none;
   position:fixed;
-  bottom:30px;
-  right:30px;
+  bottom:25px;
+  right:25px;
   width:380px;
   height:560px;
   background:#fff;
-  border-radius:20px;
-  box-shadow:0 20px 45px rgba(0,0,0,0.25);
+  border-radius:18px;
+  box-shadow:0 25px 60px rgba(0,0,0,.25);
   overflow:hidden;
-  border:2px solid #2D5A27;
 }
 .chat-header{
   background:#2D5A27;
@@ -118,11 +109,13 @@ body{
   justify-content:space-between;
 }
 .chat-body{
-  padding:14px;
-  height:420px;
+  height:430px;
+  padding:15px;
   overflow-y:auto;
   font-size:14px;
 }
+.msg-user{margin:8px 0;color:#555;}
+.msg-bot{margin:8px 0;color:#2D5A27;}
 .chat-input{
   display:flex;
   border-top:1px solid #eee;
@@ -131,23 +124,12 @@ body{
   flex:1;
   padding:12px;
   border:none;
-  font-size:14px;
 }
 .chat-input button{
   background:#2D5A27;
   color:#fff;
   border:none;
-  padding:0 20px;
-  cursor:pointer;
-}
-.msg-user{color:#333;margin-bottom:10px;}
-.msg-bot{color:#2D5A27;margin-bottom:14px;}
-.close-btn{
-  background:none;
-  border:none;
-  color:#fff;
-  font-size:20px;
-  cursor:pointer;
+  padding:12px 18px;
 }
 </style>
 </head>
@@ -159,7 +141,6 @@ body{
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="community.html">Community</a>
-    <a href="about.html">About</a>
   </div>
 </div>
 
@@ -167,45 +148,47 @@ body{
   <h1>Community</h1>
   <p>Talk with our cultural observer</p>
 
-  <div class="community-grid">
-    <div class="profile-card" onclick="openChat()">
-      <img src="knowledge/images/luna-avatar.png.png" class="profile-img">
-      <div class="profile-content">
-        <div class="status">
-          <div class="dot"></div> Luna is online
-        </div>
-        <h2>Luna Ribeiro</h2>
-        <p>Sociology • Cultural Observer</p>
-        <div class="btn-talk">Chat with Luna</div>
-      </div>
+  <div class="card" onclick="openChat()">
+    <img src="knowledge/images/luna-avatar.png" alt="Luna">
+    <div class="card-body">
+      <div class="status">Luna is online</div>
+      <h2>Luna Ribeiro</h2>
+      <p>Sociology • Cultural Observer</p>
+      <div class="btn">Chat with Luna</div>
     </div>
   </div>
 </div>
 
-<!-- CHAT -->
+<!-- CHAT WINDOW -->
 <div id="chat">
   <div class="chat-header">
     <span>Luna</span>
-    <button class="close-btn" onclick="closeChat()">×</button>
+    <span onclick="closeChat()" style="cursor:pointer">×</span>
   </div>
   <div class="chat-body" id="chatBody">
-    <div class="msg-bot">Hi, I’m Luna. You can ask me about my background or community insights.</div>
+    <div class="msg-bot"><b>Luna:</b> Hi, you can ask me questions.</div>
   </div>
   <div class="chat-input">
-    <input id="userInput" placeholder="Ask Luna...">
+    <input id="userInput" placeholder="Ask Luna..." onkeydown="if(event.key==='Enter')send()">
     <button onclick="send()">Send</button>
   </div>
 </div>
 
 <script>
-let bioText="";
-let qa=[];
+let qa = [];
 
-fetch("knowledge/luna_biography.txt").then(r=>r.text()).then(t=>bioText=t);
-fetch("knowledge/luna_qa.csv").then(r=>r.text()).then(t=>{
+/* LOAD Q&A ONLY */
+fetch("knowledge/luna_qa.csv")
+.then(r=>r.text())
+.then(t=>{
   t.split("\n").slice(1).forEach(line=>{
-    let [q,a]=line.split(",");
-    if(q && a) qa.push({q:q.toLowerCase(),a});
+    let parts=line.split(",");
+    if(parts.length>=2){
+      qa.push({
+        q:parts[0].toLowerCase().trim(),
+        a:parts.slice(1).join(",").trim()
+      });
+    }
   });
 });
 
@@ -215,14 +198,18 @@ function closeChat(){document.getElementById("chat").style.display="none";}
 function send(){
   let input=document.getElementById("userInput");
   let text=input.value.trim();
-  if(!text) return;
+  if(!text)return;
+
   let body=document.getElementById("chatBody");
   body.innerHTML+=`<div class="msg-user"><b>You:</b> ${text}</div>`;
-  let reply="I don’t have that information yet.";
+
+  let reply=null;
   qa.forEach(p=>{
     if(text.toLowerCase().includes(p.q)) reply=p.a;
   });
-  if(reply==="I don’t have that information yet.") reply=bioText;
+
+  if(!reply) reply="I don’t have an answer for that yet.";
+
   body.innerHTML+=`<div class="msg-bot"><b>Luna:</b> ${reply}</div>`;
   body.scrollTop=body.scrollHeight;
   input.value="";
