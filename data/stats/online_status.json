@@ -1,0 +1,20 @@
+[
+  {
+    "id": "G001",
+    "name": "Luna",
+    "image": "G001_luna.jpg",
+    "job": "Artist",
+    "country": "Japan",
+    "online": true,
+    "personality_type": "B1 Very Shy"
+  },
+  {
+    "id": "G002",
+    "name": "Ayumi",
+    "image": "G002_ayumi.jpg",
+    "job": "Designer",
+    "country": "Korea",
+    "online": true,
+    "personality_type": "B2 Shy"
+  }
+]
