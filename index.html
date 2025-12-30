@@ -8,13 +8,82 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
+<style>
+/* ================= POPUP STYLES ================= */
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(31, 41, 55, 0.6); /* Transparent dark grey */
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-card {
+    background: #fff;
+    padding: 40px;
+    border-radius: 30px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    border: 1px solid #eaf7f0;
+}
+
+.welcome-card h2 {
+    font-family: 'Playfair Display', serif;
+    color: #2f855a;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.welcome-card p {
+    color: #6b7280;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.btn-full {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #6fcf97, #9fd3ff);
+    color: white;
+    text-decoration: none;
+    border-radius: 15px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.btn-outline {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    color: #2f855a;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+</style>
 </head>
 
 <body>
 
+<div id="welcomeModal" class="modal-overlay">
+    <div class="welcome-card">
+        <h2>Welcome Home.</h2>
+        <p>Join a community where meaningful conversation and emotional intelligence come first.</p>
+        <a href="signin.html" class="btn-full">Join the Movement</a>
+        <a href="#" onclick="closeModal()" class="btn-outline">Maybe Later</a>
+    </div>
+</div>
+
 <div class="navbar">
   <div class="logo">HuggingHeart</div>
-
   <div class="nav-links">
     <a href="index.html" class="active">Home</a>
     <a href="community.html">Community</a>
@@ -23,10 +92,9 @@
     <a href="careers.html">Careers</a>
     <a href="contact.html">Contact</a>
   </div>
-
   <div class="auth-links">
     <a href="signin.html" class="signin">Sign In</a>
-    <a href="signin.html" class="signup">Join the Movement</a>
+    <a href="signin.html" class="signup">Join Free</a>
   </div>
 </div>
 
@@ -34,20 +102,20 @@
   <div class="hero-text">
     <h1 style="line-height: 1.1;">Finally, a Social Space <br><span style="color: #6fcf97;">That Has a Heart.</span></h1>
     <p>
-      Ditch the stress of mindless swiping. HuggingHeart is where deep conversation meets genuine discovery. We’ve built a high-trust, emotion-first ecosystem for people who value kindness over algorithms.
+      Ditch the stress of mindless swiping. HuggingHeart is where deep conversation meets intelligent discovery. We’ve built a high-trust ecosystem for people who value kindness and authentic connection.
     </p>
     <div class="hero-actions">
       <a href="signin.html" class="primary">Start for Free</a>
-      <a href="community.html" class="secondary">Meet the Community</a>
+      <a href="community.html" class="secondary">Meet Our Observers</a>
     </div>
   </div>
 
   <div class="hero-card" style="border-left: 5px solid #6fcf97;">
     <h3 style="font-size: 1.4rem;">The New Standard</h3>
-    <p style="font-style: italic; margin-bottom: 15px;">"We’re not just another app. We’re a sanctuary for authentic human connection."</p>
+    <p style="font-style: italic; margin-bottom: 15px;">"We’re a sanctuary for those who value depth over digital noise."</p>
     <div style="display: flex; flex-direction: column; gap: 10px; font-weight: 500; font-size: 0.9rem;">
-        <span>✅ 0% Pressure. 100% Human.</span>
-        <span>✅ Verified Kind Community.</span>
+        <span>✅ 0% Pressure. Safe Space.</span>
+        <span>✅ Intelligent AI Observers.</span>
         <span>✅ Conversation-First Logic.</span>
     </div>
   </div>
@@ -55,38 +123,45 @@
 
 <div class="section">
   <div class="cards">
-
     <div class="card">
       <div style="font-size: 2rem; margin-bottom: 10px;">🤝</div>
       <h4>Depth Over Distance</h4>
-      <p>
-        Stop collecting matches. Start building bonds. Our platform rewards meaningful interaction and emotional intelligence.
-      </p>
+      <p>Stop collecting matches. Start building bonds. Our platform rewards meaningful interaction and emotional intelligence.</p>
     </div>
-
     <div class="card">
       <div style="font-size: 2rem; margin-bottom: 10px;">🛡️</div>
-      <h4>Your Peace is Priority</h4>
-      <p>
-        An environment designed to eliminate burnout. No "rating" systems—just safe, warm, and respectful discovery.
-      </p>
+      <h4>Intelligent Discovery</h4>
+      <p>Meet our AI Observers like Luna, designed to facilitate warm, respectful, and safe community experiences.</p>
     </div>
-
     <div class="card">
       <div style="font-size: 2rem; margin-bottom: 10px;">🌍</div>
       <h4>A Global Soul</h4>
-      <p>
-        Connect with thinkers, observers, and kind hearts from every corner of the world. Authenticity has no borders.
-      </p>
+      <p>Connect with thinkers and kind hearts from every corner of the world. Authenticity has no borders.</p>
     </div>
-
   </div>
 </div>
 
 <footer style="margin-top: 100px;">
 <div style="margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2f855a;">HuggingHeart</div>
-<p>© 2025 HuggingHeart • Built for Humans, Not Bots.</p>
+<p>© 2025 HuggingHeart • Calm • Kind • Human-First</p>
 </footer>
+
+<script>
+// Logic to show popup after 1 second
+window.onload = function() {
+    // Check if they already closed it this session
+    if (!sessionStorage.getItem('popupShown')) {
+        setTimeout(() => {
+            document.getElementById('welcomeModal').style.display = 'flex';
+        }, 1000);
+    }
+}
+
+function closeModal() {
+    document.getElementById('welcomeModal').style.display = 'none';
+    sessionStorage.setItem('popupShown', 'true'); // Don't show again until they refresh/reopen
+}
+</script>
 
 </body>
 </html>
