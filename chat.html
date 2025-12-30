@@ -1,91 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Chat | HuggingHeart</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{
-  font-family:Arial;
-  background:#121212;
-  color:#f5f5f5;
-}
-.chat-container{
-  max-width:900px;
-  margin:40px auto;
-  display:grid;
-  grid-template-columns:1fr 2fr;
-  height:80vh;
-  background:#1e1e1e;
-  border-radius:18px;
-}
-.users{
-  border-right:1px solid #333;
-  padding:20px;
-}
-.user{
-  padding:10px;
-  border-radius:8px;
-  cursor:pointer;
-}
-.user:hover{background:#2a2a2a}
-.chat{
-  display:flex;
-  flex-direction:column;
-}
-.chat-header{
-  padding:15px;
-  background:#ff4d7d;
-}
-.messages{
-  flex:1;
-  padding:20px;
-  overflow-y:auto;
-}
-.msg{
-  margin-bottom:12px;
-}
-.msg.you{color:#ffd700}
-.input{
-  display:flex;
-  border-top:1px solid #333;
-}
-.input input{
-  flex:1;
-  padding:12px;
-  border:none;
-}
-.input button{
-  padding:12px 20px;
-  background:#ffd700;
-  border:none;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>Conversation | HuggingHeart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #2f855a; --soft: #eaf7f0; }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: #fff; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; display: flex; gap: 50px; }
+        .profile-img { width: 380px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        
+        /* Chat Box */
+        .chat-container { flex: 1; height: 600px; display: flex; flex-direction: column; border: 1px solid #eee; border-radius: 25px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .chat-body { flex: 1; padding: 20px; overflow-y: auto; background: #fbfbfb; display: flex; flex-direction: column; gap: 10px; }
+        .msg { padding: 10px 15px; border-radius: 15px; font-size: 14px; max-width: 80%; }
+        .bot { background: var(--soft); align-self: flex-start; }
+        .user { background: var(--primary); color: white; align-self: flex-end; }
+        
+        /* Suggestions Box */
+        .suggestions { border-top: 1px solid #eee; background: #fff; display: none; max-height: 100px; overflow-y: auto; }
+        .sugg-item { padding: 8px 20px; font-size: 12px; cursor: pointer; border-bottom: 1px solid #f9f9f9; color: #666; }
+        .sugg-item:hover { background: var(--soft); }
+
+        .chat-input { padding: 15px; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        .chat-input input { flex: 1; padding: 12px; border: 1px solid #eee; border-radius: 10px; outline: none; }
+    </style>
 </head>
 <body>
 
-<div class="chat-container">
+<div class="container">
+    <div class="left">
+        <img src="knowledge/images/luna-avatar.png.png" class="profile-img">
+        <h1 id="pName" style="font-family: 'Playfair Display'; margin-top:20px;"></h1>
+        <p id="pBio" style="color:#666; line-height:1.6;"></p>
+    </div>
 
-<div class="users">
-<h3>Chats</h3>
-<div class="user">Alex</div>
-<div class="user">Sophia</div>
-<div class="user">Michael</div>
-</div>
-
-<div class="chat">
-<div class="chat-header">Alex</div>
-<div class="messages">
-<div class="msg">Alex: Hi 👋</div>
-<div class="msg you">You: Hello!</div>
-</div>
-<div class="input">
-<input placeholder="Type message...">
-<button>Send</button>
-</div>
+    <div class="chat-container">
+        <div class="chat-body" id="chatBody"></div>
+        <div class="suggestions" id="suggBox"></div>
+        <form class="chat-input" onsubmit="event.preventDefault(); sendMessage();">
+            <input type="text" id="userInput" placeholder="Type a message..." oninput="showSuggestions(this.value)">
+        </form>
+    </div>
 </div>
 
-</div>
-
+<script src="assets/js/chat-engine.js"></script>
 </body>
 </html>
