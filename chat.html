@@ -3,107 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat | HuggingHeart</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #2f855a; --soft: #f0fdf4; }
-        body { margin: 0; font-family: 'Poppins', sans-serif; background: #f9f9f9; height: 100vh; display: flex; flex-direction: column; }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: #f7f9fb; height: 100vh; display: flex; flex-direction: column; }
+        .chat-header { background: white; padding: 15px 5%; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 15px; font-weight: 600; }
+        .chat-header img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
         
-        .chat-header { background: white; padding: 15px 5%; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 15px; }
-        .chat-header img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
-        
-        .messages { flex: 1; padding: 20px 5%; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
-        .msg { padding: 12px 18px; border-radius: 20px; font-size: 14px; max-width: 70%; line-height: 1.5; }
-        .bot { background: white; align-self: flex-start; border: 1px solid #eee; }
-        .user { background: var(--primary); color: white; align-self: flex-end; }
+        .messages { flex: 1; padding: 25px 5%; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+        .msg { padding: 12px 20px; border-radius: 20px; font-size: 14px; max-width: 70%; line-height: 1.5; }
+        .bot { background: white; align-self: flex-start; border: 1px solid #eef; }
+        .user { background: #2f855a; color: white; align-self: flex-end; }
 
-        .suggestions { padding: 10px 5%; background: white; border-top: 1px solid #eee; display: none; }
-        .sugg-item { display: inline-block; background: var(--soft); border: 1px solid #dcfce7; padding: 6px 15px; border-radius: 15px; margin: 5px; font-size: 12px; cursor: pointer; color: var(--primary); }
+        .sugg-box { padding: 10px 5%; background: white; border-top: 1px solid #eee; display: none; }
+        .sugg-item { display: inline-block; background: #f0fdf4; border: 1px solid #dcfce7; padding: 8px 15px; border-radius: 20px; margin: 5px; font-size: 12px; cursor: pointer; color: #2f855a; }
 
-        .input-area { background: white; padding: 20px 5%; border-top: 1px solid #eee; display: flex; gap: 10px; }
-        .input-area input { flex: 1; border: 1px solid #ddd; padding: 12px; border-radius: 15px; outline: none; }
+        .input-bar { background: white; padding: 20px 5%; border-top: 1px solid #eee; display: flex; gap: 15px; }
+        .input-bar input { flex: 1; border: 1px solid #eee; padding: 14px 20px; border-radius: 15px; outline: none; background: #fafafa; }
     </style>
 </head>
 <body>
 
-<div class="chat-header" id="chatHeader"></div>
-<div class="messages" id="chatMsgs"></div>
-<div class="suggestions" id="suggBox"></div>
-<form class="input-area" onsubmit="event.preventDefault(); sendMsg();">
-    <input type="text" id="userInput" placeholder="Type a message..." oninput="getSuggestions(this.value)">
+<div class="chat-header" id="header"></div>
+<div class="messages" id="msgBox"></div>
+<div class="sugg-box" id="suggBox"></div>
+<form class="input-bar" onsubmit="event.preventDefault(); send();">
+    <input type="text" id="uInp" placeholder="Type your message..." oninput="showSugg(this.value)">
 </form>
 
 <script>
-    let girl = {};
-    let personalityQA = [];
-    let masterQS = [];
+    let girl = {}, answers = [], masterQ = [];
 
     async function init() {
         const id = new URLSearchParams(window.location.search).get('id');
         
-        // 1. Get Girl Info
+        // 1. Get Profile
         const res = await fetch('knowledge/Assertive_Girls_Profile_Database_V1.csv');
         const text = await res.text();
         const row = text.split(/\r?\n/).find(r => r.startsWith(id));
         const c = row.split(',');
         girl = { name: c[1], type: c[6] };
 
-        document.getElementById('chatHeader').innerHTML = `
-            <img src="knowledge/images/luna-avatar.png.png">
-            <div><b>${girl.name}</b><br><small style="color:green">Online • ${girl.type}</small></div>
-        `;
+        document.getElementById('header').innerHTML = `<img src="knowledge/images/luna-avatar.png.png"> <span>${girl.name} (${girl.type})</span>`;
 
-        // 2. Load Specific Personality File
-        const fileName = `knowledge/type_${girl.type.toLowerCase().trim().replace(/\s+/g, '_')}.csv`;
-        const pRes = await fetch(fileName);
-        const pTxt = await pRes.text();
-        personalityQA = pTxt.split(/\r?\n/).slice(1).map(l => ({ q: l.split(',')[0]?.toLowerCase().trim(), a: l.split(',')[1] }));
+        // 2. Personality Routing
+        // Formats "B2 Shy" -> "type_b2_shy.csv"
+        const file = `knowledge/type_${girl.type.toLowerCase().trim().replace(/\s+/g, '_')}.csv`;
+        try {
+            const aRes = await fetch(file);
+            const aTxt = await aRes.text();
+            answers = aTxt.split(/\r?\n/).slice(1).map(l => {
+                const p = l.split(',');
+                return { q: p[0]?.toLowerCase().trim(), a: p[1] };
+            });
+        } catch(e) { console.log("Personality file missing, using general mode."); }
 
         // 3. Load Suggestions
-        const mRes = await fetch('knowledge/PQ_Master_List.csv');
-        const mTxt = await mRes.text();
-        masterQS = mTxt.split(/\r?\n/).slice(1).map(l => l.split(',')[0]);
+        const sRes = await fetch('knowledge/PQ_Master_List.csv');
+        const sTxt = await sRes.text();
+        masterQ = sTxt.split(/\r?\n/).slice(1).map(l => l.split(',')[0]);
 
-        addMsg(`Hi! I'm ${girl.name.split(' ')[0]}. I'm a ${girl.type.split(' ')[1]} type of girl. What's on your mind?`, 'bot');
+        addMsg(`Hi! I'm ${girl.name}. I'm feeling a bit ${girl.type.split(' ')[1]} today. What would you like to ask?`, 'bot');
     }
 
-    function getSuggestions(val) {
+    function showSugg(v) {
         const box = document.getElementById('suggBox');
-        if(val.length >= 2) {
-            const matches = masterQS.filter(q => q && q.toLowerCase().includes(val.toLowerCase())).slice(0, 3);
+        if(v.length > 2) {
+            const matches = masterQ.filter(q => q && q.toLowerCase().includes(v.toLowerCase())).slice(0,3);
             if(matches.length) {
                 box.innerHTML = matches.map(m => `<div class="sugg-item" onclick="useSugg('${m}')">${m}</div>`).join('');
-                box.style.display = 'block';
-                return;
+                box.style.display = 'block'; return;
             }
         }
         box.style.display = 'none';
     }
 
-    function useSugg(t) { document.getElementById('userInput').value = t; document.getElementById('suggBox').style.display = 'none'; sendMsg(); }
+    function useSugg(t) { document.getElementById('uInp').value = t; document.getElementById('suggBox').style.display = 'none'; send(); }
 
-    function sendMsg() {
-        const input = document.getElementById('userInput');
-        const txt = input.value.trim();
-        if(!txt) return;
-
-        addMsg(txt, 'user');
-        input.value = "";
+    function send() {
+        const inp = document.getElementById('uInp');
+        const val = inp.value.trim();
+        if(!val) return;
+        addMsg(val, 'user');
+        inp.value = "";
         document.getElementById('suggBox').style.display = 'none';
 
         setTimeout(() => {
-            const match = personalityQA.find(item => txt.toLowerCase().includes(item.q));
-            const reply = match ? match.a : "I like to keep a little mystery... tell me more about you first?";
-            addMsg(reply, 'bot');
+            const found = answers.find(a => val.toLowerCase().includes(a.q));
+            addMsg(found ? found.a : "I'm a mystery... ask me something else!", 'bot');
         }, 800);
     }
 
     function addMsg(t, s) {
-        const div = document.createElement('div');
-        div.className = `msg ${s}`;
-        div.innerText = t;
-        const box = document.getElementById('chatMsgs');
-        box.appendChild(div);
-        box.scrollTop = box.scrollHeight;
+        const d = document.createElement('div');
+        d.className = `msg ${s}`; d.innerText = t;
+        const b = document.getElementById('msgBox');
+        b.appendChild(d); b.scrollTop = b.scrollHeight;
     }
 
     init();
