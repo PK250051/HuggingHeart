@@ -5,265 +5,212 @@
     <title>Community | HuggingHeart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --primary: #2f855a;
-            --soft: #eaf7f0;
-            --gray: #6b7280;
-            --white: #ffffff;
-        }
-
+        :root { --primary: #2f855a; --soft: #eaf7f0; --gray: #6b7280; --white: #ffffff; }
         body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #fff; overflow-x: hidden; }
-
-        /* ================= NAVIGATION ================= */
-        .navbar {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 5%; background: var(--white); border-bottom: 1px solid #eee;
-        }
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: var(--white); border-bottom: 1px solid #eee; }
         .logo { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary); font-weight: bold; text-decoration: none; }
         .nav-links a { text-decoration: none; color: var(--gray); margin: 0 15px; font-size: 14px; }
         .nav-links a.active { color: var(--primary); font-weight: 600; }
         .auth-links .signup { background: var(--primary); color: white; padding: 8px 20px; border-radius: 20px; text-decoration: none; }
-
-        /* ================= COMMUNITY GRID ================= */
         .container { max-width: 1100px; margin: 50px auto; padding: 0 20px; text-align: center; }
         .grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 40px; }
-
-        .card { 
-            background: #fff; width: 320px; padding: 20px; border-radius: 25px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s;
-            border: 1px solid #f0f0f0;
-        }
+        .card { background: #fff; width: 300px; padding: 15px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; border: 1px solid #f0f0f0; }
         .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(47, 133, 90, 0.2); }
-        .card img { width: 100%; height: 380px; object-fit: cover; border-radius: 18px; }
+        .card img { width: 100%; height: 320px; object-fit: cover; border-radius: 18px; }
         .card h3 { font-family: 'Playfair Display', serif; margin: 15px 0 5px; }
-        .card p { color: var(--gray); font-size: 13px; margin: 0; }
-
-        /* ================= PROFILE VIEW (OVERLAY) ================= */
-        #profileOverlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--white); z-index: 1000; overflow-y: auto;
-        }
-        .profile-content { max-width: 800px; margin: 0 auto; padding: 100px 20px; display: flex; gap: 50px; align-items: flex-start; }
+        #profileOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--white); z-index: 1000; overflow-y: auto; }
+        .profile-content { max-width: 800px; margin: 0 auto; padding: 80px 20px; display: flex; gap: 50px; align-items: flex-start; }
         .profile-left { flex: 1; }
-        .profile-left img { width: 100%; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .profile-left img { width: 100%; border-radius: 30px; }
         .profile-right { flex: 1.2; text-align: left; }
-        .back-btn { cursor: pointer; color: var(--primary); font-weight: 600; margin-bottom: 20px; display: inline-block; }
-
-        /* ================= CHAT BOX & SUGGESTIONS ================= */
-        #chatBox {
-            display: none; position: fixed; bottom: 20px; right: 20px; width: 380px; height: 550px;
-            background: white; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            z-index: 2000; flex-direction: column; border: 1px solid var(--soft); overflow: hidden;
-        }
-        .chat-header { background: var(--soft); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #d4ece0; }
+        .back-btn { cursor: pointer; color: var(--primary); font-weight: 600; margin-bottom: 20px; }
+        #chatBox { display: none; position: fixed; bottom: 20px; right: 20px; width: 380px; height: 550px; background: white; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 2000; flex-direction: column; border: 1px solid var(--soft); overflow: hidden; }
+        .chat-header { background: var(--soft); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
         .chat-body { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #fafafa; }
-        
-        .msg { padding: 10px 15px; border-radius: 15px; font-size: 14px; max-width: 80%; line-height: 1.4; }
-        .msg-bot { background: var(--soft); align-self: flex-start; border-bottom-left-radius: 2px; }
-        .msg-user { background: var(--primary); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-
-        .suggestion-box {
-            background: white; border-top: 1px solid #eee; max-height: 150px; overflow-y: auto; display: none;
-        }
-        .suggestion-item {
-            padding: 10px 20px; font-size: 13px; color: #666; cursor: pointer; border-bottom: 1px solid #fafafa; text-align: left;
-        }
-        .suggestion-item:hover { background: var(--soft); color: var(--primary); }
-
-        .chat-input { padding: 15px; border-top: 1px solid #eee; display: flex; gap: 10px; background: white; }
-        .chat-input input { flex: 1; border: 1px solid #eee; padding: 10px; border-radius: 10px; outline: none; font-size: 14px; }
-        .chat-input button { background: var(--primary); color: white; border: none; padding: 0 15px; border-radius: 10px; cursor: pointer; font-weight: 600; }
-
-        @media (max-width: 768px) {
-            .profile-content { flex-direction: column; padding: 40px 20px; }
-            #chatBox { width: 100%; height: 100%; bottom: 0; right: 0; border-radius: 0; }
-        }
+        .msg { padding: 10px 15px; border-radius: 15px; font-size: 14px; max-width: 80%; }
+        .msg-bot { background: var(--soft); align-self: flex-start; }
+        .msg-user { background: var(--primary); color: white; align-self: flex-end; }
+        .suggestion-box { background: white; border-top: 1px solid #eee; max-height: 120px; overflow-y: auto; display: none; }
+        .suggestion-item { padding: 8px 20px; font-size: 12px; color: #666; cursor: pointer; border-bottom: 1px solid #fafafa; }
+        .chat-input { padding: 15px; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        .chat-input input { flex: 1; border: 1px solid #eee; padding: 10px; border-radius: 10px; }
+        .chat-input button { background: var(--primary); color: white; border: none; padding: 0 15px; border-radius: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="navbar">
-    <a href="index.html" class="logo">HuggingHeart</a>
+    <a href="#" class="logo">HuggingHeart</a>
     <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="community.html" class="active">Community</a>
-        <a href="about.html">About</a>
+        <a href="#">Home</a>
+        <a href="#" class="active">Community</a>
     </div>
-    <div class="auth-links">
-        <a href="signup.html" class="signup">Sign Up</a>
-    </div>
+    <div class="auth-links"><a href="#" class="signup">Sign Up</a></div>
 </div>
 
-<div class="container" id="communityMain">
-    <h1 style="font-family:'Playfair Display', serif; color: var(--primary); font-size: 40px; margin-bottom: 10px;">Meet our Observers</h1>
-    <p style="color: var(--gray); margin-bottom: 40px;">Select a profile to explore their world.</p>
-
-    <div class="grid">
-        <div class="card" onclick="showProfile()">
-            <img src="knowledge/images/luna-avatar.png.png" alt="Luna">
-            <h3>Luna Ribeiro</h3>
-            <p>Sociology • 22 • Brazil</p>
-        </div>
-    </div>
+<div class="container">
+    <h1 style="font-family:'Playfair Display', serif; color: var(--primary);">Meet our Community</h1>
+    <div class="grid" id="profileGrid"></div>
 </div>
 
 <div id="profileOverlay">
-    <div class="profile-content">
-        <div class="profile-left">
-            <img src="knowledge/images/luna-avatar.png.png" alt="Luna">
-        </div>
-        <div class="profile-right">
-            <div class="back-btn" onclick="hideProfile()">← Back to Community</div>
-            <h1 style="font-family:'Playfair Display', serif; font-size: 48px; margin: 10px 0;">Luna Ribeiro</h1>
-            <p style="color: var(--primary); font-weight: 600; letter-spacing: 1px; font-size: 14px;">SOCIOLOGIST & CULTURAL OBSERVER</p>
-            
-            <p style="color: #555; line-height: 1.8; margin: 25px 0; font-size: 15px;">
-                I was born in a quiet Brazilian village where the rhythm of life was dictated by the sun. 
-                Now in São Paulo, I study the invisible threads that connect us. I am energetic but calming, 
-                playful but deep. I love Bossa Nova, strong coffee, and conversations that actually mean something.
-            </p>
-
-            <div style="background: #f9fbf9; padding: 25px; border-radius: 20px; margin-bottom: 30px; font-size: 14px;">
-                <p style="margin: 8px 0;">📍 <b>Location:</b> São Paulo, Brazil</p>
-                <p style="margin: 8px 0;">🎭 <b>Vibe:</b> Playful & Observant</p>
-                <p style="margin: 8px 0;">☕ <b>Ritual:</b> Coffee, rain, and journaling</p>
-            </div>
-
-            <button onclick="openChat()" style="background: var(--primary); color: white; border: none; padding: 18px 40px; border-radius: 35px; font-weight: 600; font-size: 16px; cursor: pointer; box-shadow: 0 10px 20px rgba(47, 133, 90, 0.3);">
-                Start a Conversation with Luna
-            </button>
-        </div>
-    </div>
+    <div class="profile-content" id="profileDetail"></div>
 </div>
 
 <div id="chatBox">
     <div class="chat-header">
-        <h4 style="margin:0; font-family:'Playfair Display', serif;">Luna Ribeiro</h4>
-        <button onclick="closeChat()" style="background:none; border:none; font-size:24px; cursor:pointer; color:var(--primary);">&times;</button>
+        <h4 id="chatName" style="margin:0; font-family:'Playfair Display', serif;"></h4>
+        <button onclick="closeChat()" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
     </div>
-    
     <div class="chat-body" id="chatBody"></div>
-    
     <div id="suggestionBox" class="suggestion-box"></div>
-
     <form class="chat-input" onsubmit="event.preventDefault(); send();">
-        <input id="userInput" placeholder="Ask me about Brazil, Sociology, or life..." autocomplete="off" oninput="handleInput(this.value)">
+        <input id="userInput" placeholder="Type a message..." autocomplete="off" oninput="handleInput(this.value)">
         <button type="submit">Send</button>
     </form>
 </div>
 
 <script>
-    let qa = [];
-    let userName = localStorage.getItem("luna_user_name") || "";
+    let allProfiles = [];
+    let currentQA = [];
+    let selectedProfile = null;
+    let userName = localStorage.getItem("user_name") || "";
 
-    // 1. Fetch the CSV with all 550+ questions
-    fetch("knowledge/luna_qa.csv")
-        .then(response => response.text())
-        .then(data => {
-            const lines = data.split("\n").slice(1);
-            lines.forEach(line => {
-                const match = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-                if (match && match.length >= 2) {
-                    qa.push({
-                        q: match[0].replace(/"/g, '').toLowerCase().trim(),
-                        a: match[1].replace(/"/g, '').trim()
-                    });
-                }
-            });
-        });
+    // 1. Load Profiles from Knowledge
+    async function init() {
+        const resp = await fetch("knowledge/Assertive_Girls_Profile_Database_V1.csv");
+        const data = await resp.text();
+        const rows = data.split("\n").slice(1);
+        
+        allProfiles = rows.map(row => {
+            const cols = row.split(",");
+            if(cols.length < 8) return null;
+            return {
+                id: cols[0], name: cols[1], age: cols[2], city: cols[3], country: cols[4],
+                job: cols[5], type: cols[6], social: cols[7], bio: cols[8]
+            };
+        }).filter(p => p).slice(0, 30); // Get first 30
 
-    // 2. Navigation Functions
-    function showProfile() {
-        document.getElementById("profileOverlay").style.display = "block";
-        document.body.style.overflow = "hidden"; // Disable scroll
+        renderGrid();
     }
 
-    function hideProfile() {
-        document.getElementById("profileOverlay").style.display = "none";
-        document.body.style.overflow = "auto";
+    function renderGrid() {
+        const grid = document.getElementById("profileGrid");
+        grid.innerHTML = allProfiles.map((p, index) => `
+            <div class="card" onclick="showProfile(${index})">
+                <img src="knowledge/images/luna-avatar.png.png" alt="Avatar">
+                <h3>${p.name}</h3>
+                <p>${p.job} • ${p.age} • ${p.country}</p>
+            </div>
+        `).join('');
+    }
+
+    async function showProfile(index) {
+        selectedProfile = allProfiles[index];
+        const overlay = document.getElementById("profileOverlay");
+        const detail = document.getElementById("profileDetail");
+
+        // Logic: Connect B1 or Luna based on social style
+        const chatFile = selectedProfile.social.includes("Shy") ? "knowledge/type_B1_very_shy.csv" : "knowledge/luna_qa.csv";
+        await loadQA(chatFile);
+
+        detail.innerHTML = `
+            <div class="profile-left"><img src="knowledge/images/luna-avatar.png.png"></div>
+            <div class="profile-right">
+                <div class="back-btn" onclick="hideProfile()">← Back</div>
+                <h1>${selectedProfile.name}</h1>
+                <p style="color:var(--primary)">${selectedProfile.type.toUpperCase()} • ${selectedProfile.social}</p>
+                <p>${selectedProfile.bio}</p>
+                <button onclick="openChat()" style="background:var(--primary); color:white; padding:15px 30px; border-radius:30px; border:none; cursor:pointer;">
+                    Start Conversation with ${selectedProfile.name.split(' ')[0]}
+                </button>
+            </div>
+        `;
+        overlay.style.display = "block";
+    }
+
+    async function loadQA(file) {
+        currentQA = [];
+        const resp = await fetch(file);
+        const data = await resp.text();
+        const lines = data.split("\n").slice(1);
+        lines.forEach(line => {
+            const parts = line.split(",");
+            if(parts.length >= 2) {
+                currentQA.push({ q: parts[0].toLowerCase().trim(), a: parts[1].trim() });
+            }
+        });
     }
 
     function openChat() {
         document.getElementById("chatBox").style.display = "flex";
-        const chatBody = document.getElementById("chatBody");
-        if (chatBody.innerHTML === "") {
-            const greeting = userName ? `Welcome back, ${userName}! 🌸 I missed our talks.` : "Oii! I'm Luna. I was just watching the city lights. What's your name?";
-            appendMessage(greeting, "bot");
-        }
+        document.getElementById("chatName").innerText = selectedProfile.name;
+        const body = document.getElementById("chatBody");
+        body.innerHTML = "";
+        
+        const greeting = userName ? `Hi ${userName}! I'm ${selectedProfile.name.split(' ')[0]}. How are you?` : `Hi! I'm ${selectedProfile.name.split(' ')[0]}. I'm a bit ${selectedProfile.social.toLowerCase()}. What's your name?`;
+        appendMessage(greeting, "bot");
+        showSuggestions();
     }
 
-    function closeChat() {
-        document.getElementById("chatBox").style.display = "none";
+    function showSuggestions() {
+        const box = document.getElementById("suggestionBox");
+        // Pick 3 random questions from the loaded QA for testing
+        const samples = currentQA.sort(() => 0.5 - Math.random()).slice(0, 3);
+        box.innerHTML = samples.map(s => `<div class="suggestion-item" onclick="useSuggestion('${s.q}')">${s.q}</div>`).join('');
+        box.style.display = "block";
     }
 
-    // 3. Suggestion Box Logic
     function handleInput(val) {
         const box = document.getElementById("suggestionBox");
-        if (val.length < 2) {
-            box.style.display = "none";
-            return;
-        }
-
-        const matches = qa.filter(item => item.q.includes(val.toLowerCase())).slice(0, 5);
-
-        if (matches.length > 0) {
-            box.innerHTML = matches.map(m => `
-                <div class="suggestion-item" onclick="useSuggestion('${m.q.replace(/'/g, "\\'")}')">
-                    ${m.q}
-                </div>
-            `).join('');
+        const matches = currentQA.filter(i => i.q.includes(val.toLowerCase())).slice(0, 3);
+        if(val.length > 1 && matches.length > 0) {
+            box.innerHTML = matches.map(m => `<div class="suggestion-item" onclick="useSuggestion('${m.q}')">${m.q}</div>`).join('');
             box.style.display = "block";
-        } else {
-            box.style.display = "none";
         }
     }
 
     function useSuggestion(text) {
         document.getElementById("userInput").value = text;
-        document.getElementById("suggestionBox").style.display = "none";
         send();
     }
 
-    // 4. Chat Sending Logic
     function appendMessage(text, side) {
-        const chatBody = document.getElementById("chatBody");
+        const body = document.getElementById("chatBody");
         const div = document.createElement("div");
         div.className = `msg msg-${side}`;
         div.innerText = text;
-        chatBody.appendChild(div);
-        chatBody.scrollTop = chatBody.scrollHeight;
+        body.appendChild(div);
+        body.scrollTop = body.scrollHeight;
     }
 
     function send() {
         const input = document.getElementById("userInput");
         const val = input.value.trim();
-        const box = document.getElementById("suggestionBox");
-        
-        if (!val) return;
+        if(!val) return;
 
-        box.style.display = "none";
         appendMessage(val, "user");
         input.value = "";
+        document.getElementById("suggestionBox").style.display = "none";
 
-        // Artificial delay for realism
         setTimeout(() => {
-            if (!userName) {
+            if(!userName) {
                 userName = val;
-                localStorage.setItem("luna_user_name", userName);
-                appendMessage(`It's lovely to meet you, ${userName}. Since I'm a sociology nerd, I have to ask... how's your day going?`, "bot");
+                localStorage.setItem("user_name", userName);
+                appendMessage(`Nice to meet you, ${userName}! Ask me anything.`, "bot");
+                showSuggestions();
             } else {
-                const query = val.toLowerCase();
-                // Find match in our 550+ list
-                const match = qa.find(item => query === item.q || query.includes(item.q) || item.q.includes(query));
-                
-                const response = match ? match.a : "Ngl, you've got me thinking now. lol. Tell me more about that? I'm listening.";
-                appendMessage(response, "bot");
+                const match = currentQA.find(i => val.toLowerCase().includes(i.q));
+                appendMessage(match ? match.a : "That's interesting! Tell me more.", "bot");
             }
-        }, 1000);
+        }, 800);
     }
-</script>
 
+    function hideProfile() { document.getElementById("profileOverlay").style.display = "none"; }
+    function closeChat() { document.getElementById("chatBox").style.display = "none"; }
+    
+    init();
+</script>
 </body>
 </html>
