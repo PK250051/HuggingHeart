@@ -2,100 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Community | HuggingHeart</title>
+    <title>HuggingHeart | Community</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #2f855a; --soft: #eaf7f0; --gray: #6b7280; }
-        body { margin: 0; font-family: 'Poppins', sans-serif; display: flex; flex-direction: column; height: 100vh; }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: #fff; }
+        .nav { padding: 15px 5%; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display'; font-size: 24px; color: var(--primary); font-weight: bold; text-decoration: none; }
         
-        /* Layout */
-        .header { padding: 15px 5%; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        .main-content { display: flex; flex: 1; overflow: hidden; }
-        
-        /* Sidebar Filter (Left Side) */
-        .sidebar { width: 280px; padding: 25px; border-right: 1px solid #eee; overflow-y: auto; background: #fcfcfc; }
-        .filter-group { margin-bottom: 25px; }
-        .filter-group label { display: block; font-weight: 600; color: var(--primary); font-size: 13px; margin-bottom: 8px; text-transform: uppercase; }
-        .filter-group select, .filter-group input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; }
+        .main { display: flex; max-width: 1400px; margin: 30px auto; padding: 0 20px; gap: 30px; }
+        .sidebar { width: 250px; background: #fbfbfb; padding: 20px; border-radius: 20px; border: 1px solid #eee; height: fit-content; }
+        .filter-group { margin-bottom: 20px; }
+        .filter-group label { display: block; font-size: 12px; font-weight: 600; color: var(--primary); margin-bottom: 8px; text-transform: uppercase; }
+        .filter-group select { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #ddd; outline: none; }
 
-        /* Grid */
-        .grid-container { flex: 1; padding: 30px; overflow-y: auto; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
-        
-        /* Small Elegant Cards */
+        .grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
         .card { background: white; border-radius: 15px; border: 1px solid #eee; overflow: hidden; cursor: pointer; transition: 0.3s; text-align: center; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-color: var(--primary); }
-        .card img { width: 100%; height: 210px; object-fit: cover; }
-        .card h3 { font-family: 'Playfair Display', serif; font-size: 16px; margin: 10px 0 2px; }
-        .card p { font-size: 11px; color: var(--gray); margin-bottom: 10px; }
+        .card img { width: 100%; height: 200px; object-fit: cover; background: #eee; }
+        .card h3 { font-family: 'Playfair Display'; font-size: 16px; margin: 10px 0 2px; }
+        .card p { font-size: 11px; color: var(--gray); margin-bottom: 12px; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <a href="index.html" style="font-family:'Playfair Display'; font-size:24px; color:var(--primary); text-decoration:none; font-weight:bold;">HuggingHeart</a>
-</div>
+<nav class="nav">
+    <a href="index.html" class="logo">HuggingHeart</a>
+</nav>
 
-<div class="main-content">
+<div class="main">
     <aside class="sidebar">
-        <h2 style="font-family:'Playfair Display'; margin-top:0;">Filters</h2>
         <div class="filter-group">
             <label>Country</label>
-            <select id="countryFilter" onchange="filterGirls()"><option value="all">All Countries</option></select>
+            <select id="fCountry" onchange="filterList()"><option value="">All Countries</option></select>
         </div>
         <div class="filter-group">
             <label>Profession</label>
-            <select id="jobFilter" onchange="filterGirls()"><option value="all">Professional</option></select>
-        </div>
-        <div class="filter-group">
-            <label>Min Age</label>
-            <input type="number" id="ageFilter" placeholder="21" oninput="filterGirls()">
+            <select id="fJob" onchange="filterList()"><option value="">All Jobs</option></select>
         </div>
     </aside>
 
-    <main class="grid-container">
-        <div class="grid" id="girlGrid"></div>
-    </main>
+    <div class="grid" id="girlGrid"></div>
 </div>
 
 <script>
-    let girls = [];
-    async function loadGirls() {
-        // Fetching your master database
-        const res = await fetch('knowledge/Assertive_Girls_Profile_Database_V1.csv');
-        const text = await res.text();
-        const rows = text.split('\n').slice(1);
-        
-        girls = rows.map(row => {
-            const c = row.split(',');
-            if(c.length < 8) return null;
-            return { id: c[0], name: c[1], age: c[2], country: c[4], job: c[5], type: c[6] };
-        }).filter(g => g);
+    let girlsDB = [];
+    async function loadData() {
+        try {
+            const r = await fetch('knowledge/Assertive_Girls_Profile_Database_V1.csv');
+            const txt = await r.text();
+            // Split rows, handling potential empty lines
+            const rows = txt.split(/\r?\n/).filter(row => row.trim() !== "").slice(1);
+            
+            girlsDB = rows.map(row => {
+                const c = row.split(',');
+                return { id: c[0], name: c[1], age: c[2], city: c[3], country: c[4], job: c[5], type: c[6], bio: c[8] };
+            });
 
-        // Fill filters
-        const countries = [...new Set(girls.map(g => g.country))];
-        countries.forEach(c => document.getElementById('countryFilter').innerHTML += `<option value="${c}">${c}</option>`);
+            // Fill Dropdowns
+            const countries = [...new Set(girlsDB.map(g => g.country))];
+            const jobs = [...new Set(girlsDB.map(g => g.job))];
+            countries.forEach(c => document.getElementById('fCountry').innerHTML += `<option value="${c}">${c}</option>`);
+            jobs.forEach(j => document.getElementById('fJob').innerHTML += `<option value="${j}">${j}</option>`);
 
-        renderGrid(girls);
+            render(girlsDB);
+        } catch (e) { console.error("Database load error:", e); }
     }
 
-    function renderGrid(list) {
+    function render(list) {
         document.getElementById('girlGrid').innerHTML = list.map(g => `
             <div class="card" onclick="window.location.href='chat.html?id=${g.id}'">
-                <img src="knowledge/images/luna-avatar.png.png">
+                <img src="knowledge/images/luna-avatar.png.png" onerror="this.src='https://via.placeholder.com/200'">
                 <h3>${g.name}</h3>
                 <p>${g.job} • ${g.country}</p>
             </div>
         `).join('');
     }
 
-    function filterGirls() {
-        const c = document.getElementById('countryFilter').value;
-        const a = document.getElementById('ageFilter').value;
-        const filtered = girls.filter(g => (c === 'all' || g.country === c) && (!a || g.age >= a));
-        renderGrid(filtered);
+    function filterList() {
+        const c = document.getElementById('fCountry').value;
+        const j = document.getElementById('fJob').value;
+        const filtered = girlsDB.filter(g => (!c || g.country === c) && (!j || g.job === j));
+        render(filtered);
     }
-    loadGirls();
+
+    window.onload = loadData;
 </script>
 </body>
 </html>
