@@ -1,63 +1,212 @@
-<div class="community-grid">
-    <div class="profile-card" onclick="openProfile()">
-        <img src="knowledge/images/luna-avatar.png.png" class="profile-img" alt="Luna">
-        <div class="status-tag"><div class="status-dot"></div> Luna is Online</div>
-        <h2 style="font-family:'Playfair Display', serif; margin: 5px 0;">Luna Ribeiro</h2>
-        <p style="color: #2f855a; font-weight: 600; font-size: 13px;">SOCIOLOGY • 22 • BRAZIL</p>
-        <p style="color: #6b7280; font-size: 13px; margin: 10px 0;">Click to view full profile</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Community | HuggingHeart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2f855a;
+            --soft: #eaf7f0;
+            --gray: #6b7280;
+            --white: #ffffff;
+        }
+
+        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #fff; overflow-x: hidden; }
+
+        /* ================= NAVIGATION ================= */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 5%; background: var(--white); border-bottom: 1px solid #eee;
+        }
+        .logo { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary); font-weight: bold; text-decoration: none; }
+        .nav-links a { text-decoration: none; color: var(--gray); margin: 0 15px; font-size: 14px; }
+        .nav-links a.active { color: var(--primary); font-weight: 600; }
+        .auth-links .signup { background: var(--primary); color: white; padding: 8px 20px; border-radius: 20px; text-decoration: none; }
+
+        /* ================= COMMUNITY GRID ================= */
+        .container { max-width: 1100px; margin: 50px auto; padding: 0 20px; text-align: center; }
+        .grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 40px; }
+
+        .card { 
+            background: #fff; width: 320px; padding: 20px; border-radius: 25px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s;
+            border: 1px solid #f0f0f0;
+        }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(47, 133, 90, 0.2); }
+        .card img { width: 100%; height: 380px; object-fit: cover; border-radius: 18px; }
+        .card h3 { font-family: 'Playfair Display', serif; margin: 15px 0 5px; }
+        .card p { color: var(--gray); font-size: 13px; margin: 0; }
+
+        /* ================= PROFILE VIEW (OVERLAY) ================= */
+        #profileOverlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--white); z-index: 1000; overflow-y: auto;
+        }
+        .profile-content { max-width: 800px; margin: 0 auto; padding: 100px 20px; display: flex; gap: 50px; align-items: flex-start; }
+        .profile-left { flex: 1; }
+        .profile-left img { width: 100%; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .profile-right { flex: 1.2; text-align: left; }
+        .back-btn { cursor: pointer; color: var(--primary); font-weight: 600; margin-bottom: 20px; display: inline-block; }
+
+        /* ================= CHAT BOX ================= */
+        #chatBox {
+            display: none; position: fixed; bottom: 20px; right: 20px; width: 380px; height: 550px;
+            background: white; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 2000; flex-direction: column; border: 1px solid var(--soft);
+        }
+        .chat-header { background: var(--soft); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .chat-body { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #fafafa; }
+        .msg { padding: 10px 15px; border-radius: 15px; font-size: 14px; max-width: 80%; }
+        .msg-bot { background: var(--soft); align-self: flex-start; }
+        .msg-user { background: var(--primary); color: white; align-self: flex-end; }
+        .chat-input { padding: 15px; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        .chat-input input { flex: 1; border: 1px solid #eee; padding: 10px; border-radius: 10px; outline: none; }
+        .chat-input button { background: var(--primary); color: white; border: none; padding: 0 15px; border-radius: 10px; cursor: pointer; }
+
+        @media (max-width: 768px) {
+            .profile-content { flex-direction: column; padding: 40px 20px; }
+            #chatBox { width: 100%; height: 100%; bottom: 0; right: 0; border-radius: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="index.html" class="logo">HuggingHeart</a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="community.html" class="active">Community</a>
+        <a href="about.html">About</a>
+    </div>
+    <div class="auth-links">
+        <a href="signup.html" class="signup">Sign Up</a>
     </div>
 </div>
 
-<div id="profileModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:3000; align-items:center; justify-content:center; padding:20px;">
-    <div style="background:white; max-width:500px; width:100%; border-radius:30px; overflow-y:auto; max-height:90vh; position:relative; animation: slideUp 0.3s ease;">
-        <button onclick="closeProfile()" style="position:absolute; right:20px; top:20px; font-size:30px; border:none; background:none; cursor:pointer;">&times;</button>
-        
-        <img src="knowledge/images/luna-avatar.png.png" style="width:100%; height:250px; object-fit:cover;">
-        
-        <div style="padding:30px;">
-            <h2 style="font-family:'Playfair Display', serif; margin-bottom:5px;">Luna Ribeiro</h2>
-            <p style="color:#2f855a; font-weight:600; font-size:14px; margin-bottom:20px;">Village Heart, City Mind</p>
+<div class="container" id="communityMain">
+    <h1 style="font-family:'Playfair Display', serif; color: var(--primary); font-size: 40px;">Meet our Observers</h1>
+    <p style="color: var(--gray);">Click a card to learn more about their story.</p>
+
+    <div class="grid">
+        <div class="card" onclick="showProfile()">
+            <img src="knowledge/images/luna-avatar.png.png" alt="Luna">
+            <h3>Luna Ribeiro</h3>
+            <p>Sociology • 22 • Brazil</p>
+        </div>
+    </div>
+</div>
+
+<div id="profileOverlay">
+    <div class="profile-content">
+        <div class="profile-left">
+            <img src="knowledge/images/luna-avatar.png.png" alt="Luna">
+        </div>
+        <div class="profile-right">
+            <div class="back-btn" onclick="hideProfile()">← Back to Community</div>
+            <h1 style="font-family:'Playfair Display', serif; font-size: 48px; margin: 10px 0;">Luna Ribeiro</h1>
+            <p style="color: var(--primary); font-weight: 600; letter-spacing: 1px;">SOCIOLOGIST & CULTURAL OBSERVER</p>
             
-            <h4 style="color:#2f855a; margin-bottom:10px;">About Me</h4>
-            <p style="font-size:14px; color:#555; line-height:1.6;">
-                I am a blend of two worlds. I grew up in a quiet village where the sun dictated the day. 
-                Today, I live in the high-tech pulse of São Paulo. My Master’s in Sociology has made me sharp in thought, but I'm still that soft-hearted girl who loves Bossa Nova and deep conversations.
+            <p style="color: #555; line-height: 1.8; margin: 25px 0;">
+                I was born in a quiet Brazilian village where conversations lasted as long as the sunset. 
+                Now living in the neon chaos of São Paulo, I use my Master's in Sociology to understand 
+                the invisible threads that connect us all. I am playful, observant, and I believe 
+                the best connections happen after midnight when the world slows down.
             </p>
 
-            <div style="background:#f9fbf9; padding:15px; border-radius:15px; margin:20px 0;">
-                <p style="font-size:13px; margin:5px 0;">📍 <b>Based in:</b> São Paulo, Brazil</p>
-                <p style="font-size:13px; margin:5px 0;">🎓 <b>Studies:</b> Urban Sociology</p>
-                <p style="font-size:13px; margin:5px 0;">☕ <b>Loves:</b> Strong Coffee & Rain</p>
+            <div style="background: #f9fbf9; padding: 20px; border-radius: 20px; margin-bottom: 30px;">
+                <p>📍 <b>Location:</b> São Paulo / Minas Gerais</p>
+                <p>🎭 <b>Vibe:</b> Bossa Nova & Deep Thinking</p>
+                <p>☕ <b>Ritual:</b> Strong Coffee & Morning Journaling</p>
             </div>
 
-            <button onclick="startChatFromProfile()" style="width:100%; background:#2f855a; color:white; border:none; padding:15px; border-radius:15px; font-weight:600; font-size:16px; cursor:pointer;">
-                Chat with Luna
+            <button onclick="openChat()" style="background: var(--primary); color: white; border: none; padding: 18px 40px; border-radius: 35px; font-weight: 600; font-size: 16px; cursor: pointer; box-shadow: 0 10px 20px rgba(47, 133, 90, 0.3);">
+                Start a Conversation with Luna
             </button>
         </div>
     </div>
 </div>
 
-<style>
-@keyframes slideUp { from { transform: translateY(50px); opacity:0; } to { transform: translateY(0); opacity:1; } }
-</style>
+<div id="chatBox">
+    <div class="chat-header">
+        <h4 style="margin:0;">Luna Ribeiro</h4>
+        <button onclick="closeChat()" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <form class="chat-input" onsubmit="event.preventDefault(); send();">
+        <input id="userInput" placeholder="Say something..." autocomplete="off">
+        <button type="submit">Send</button>
+    </form>
+</div>
 
 <script>
-// --- MODAL CONTROLS ---
-function openProfile() {
-    document.getElementById("profileModal").style.display = "flex";
-    document.body.style.overflow = "hidden";
-}
+    let qa = [];
+    let userName = localStorage.getItem("luna_user_name") || "";
 
-function closeProfile() {
-    document.getElementById("profileModal").style.display = "none";
-    document.body.style.overflow = "auto";
-}
+    // Load CSV Data
+    fetch("knowledge/luna_qa.csv").then(r => r.text()).then(t => {
+        const lines = t.split("\n").slice(1);
+        lines.forEach(l => {
+            const m = l.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+            if(m && m.length >= 2) {
+                qa.push({ q: m[0].replace(/"/g, '').toLowerCase().trim(), a: m[1].replace(/"/g, '').trim() });
+            }
+        });
+    });
 
-function startChatFromProfile() {
-    closeProfile(); // Close bio first
-    openChat();     // Then open chat box
-}
+    // Navigation Logic
+    function showProfile() {
+        document.getElementById("profileOverlay").style.display = "block";
+        window.scrollTo(0,0);
+    }
 
-// --- KEEP YOUR EXISTING openChat(), send(), AND qa LOGIC BELOW THIS ---
-// (Your previous openChat function and CSV fetching remains exactly the same)
+    function hideProfile() {
+        document.getElementById("profileOverlay").style.display = "none";
+    }
+
+    function openChat() {
+        document.getElementById("chatBox").style.display = "flex";
+        if (document.getElementById("chatBody").innerHTML === "") {
+            const greet = userName ? `Hey ${userName}! Welcome back to my world.` : "Oii! I'm Luna. I was just thinking about the stars. What's your name?";
+            appendMsg(greet, "bot");
+        }
+    }
+
+    function closeChat() {
+        document.getElementById("chatBox").style.display = "none";
+    }
+
+    // Chat Logic
+    function appendMsg(text, side) {
+        const b = document.getElementById("chatBody");
+        const d = document.createElement("div");
+        d.className = `msg msg-${side}`;
+        d.innerText = text;
+        b.appendChild(d);
+        b.scrollTop = b.scrollHeight;
+    }
+
+    function send() {
+        const i = document.getElementById("userInput");
+        const val = i.value.trim();
+        if(!val) return;
+        appendMsg(val, "user");
+        i.value = "";
+
+        setTimeout(() => {
+            if(!userName) {
+                userName = val;
+                localStorage.setItem("luna_user_name", userName);
+                appendMsg(`Beautiful name. So, ${userName}, what brings you here today?`, "bot");
+            } else {
+                const match = qa.find(p => val.toLowerCase().includes(p.q));
+                appendMsg(match ? match.a : "Ngl, that's interesting. Tell me more?", "bot");
+            }
+        }, 1000);
+    }
 </script>
+
+</body>
+</html>
