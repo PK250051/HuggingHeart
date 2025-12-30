@@ -2,247 +2,250 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>HuggingHeart Community | Explore Connections</title>
+    <title>Community | HuggingHeart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #2f855a; --soft: #eaf7f0; --gray: #6b7280; --white: #ffffff; --border: #eee; }
-        body { margin: 0; font-family: 'Poppins', sans-serif; background: #fbfbfb; color: #333; }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: #fff; }
         
-        /* Layout */
-        .main-wrapper { display: flex; max-width: 1400px; margin: 0 auto; padding: 20px; gap: 30px; }
+        /* Header Fix */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary); font-weight: bold; text-decoration: none; }
+        .nav-links a { text-decoration: none; color: var(--gray); margin: 0 15px; font-size: 14px; }
+        .auth-links .signup { background: var(--primary); color: white; padding: 8px 20px; border-radius: 20px; text-decoration: none; font-size: 14px; }
+
+        /* Main Layout */
+        .main-container { display: flex; max-width: 1400px; margin: 30px auto; padding: 0 20px; gap: 30px; }
         
-        /* Sidebar Filter */
-        .sidebar { width: 250px; background: white; padding: 25px; border-radius: 20px; height: fit-content; position: sticky; top: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        /* Sidebar Filters */
+        .sidebar { width: 260px; flex-shrink: 0; background: #fbfbfb; padding: 20px; border-radius: 20px; border: 1px solid var(--border); height: fit-content; }
         .filter-group { margin-bottom: 20px; }
-        .filter-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; color: var(--primary); }
-        .filter-group select, .filter-group input { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 10px; font-family: inherit; }
+        .filter-group label { display: block; font-size: 12px; font-weight: 600; color: var(--primary); margin-bottom: 8px; text-transform: uppercase; }
+        .filter-group select, .filter-group input { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #ddd; outline: none; }
 
-        /* Grid */
-        .content-area { flex: 1; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-        
-        /* Small Elegant Cards */
-        .card { background: white; border-radius: 15px; overflow: hidden; border: 1px solid var(--border); transition: 0.3s; cursor: pointer; text-align: center; padding-bottom: 15px; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-color: var(--primary); }
-        .card img { width: 100%; height: 220px; object-fit: cover; }
-        .card h3 { font-family: 'Playfair Display', serif; font-size: 16px; margin: 10px 0 5px; }
-        .card p { font-size: 12px; color: var(--gray); margin: 0; }
+        /* Grid - Small Cards */
+        .content { flex-grow: 1; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 15px; border: 1px solid var(--border); overflow: hidden; cursor: pointer; transition: 0.3s; text-align: center; padding-bottom: 12px; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card h3 { font-family: 'Playfair Display', serif; font-size: 16px; margin: 10px 0 2px; }
+        .card p { font-size: 11px; color: var(--gray); margin: 0; }
 
-        /* Profile Overlay */
-        #profileOverlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:white; z-index: 1000; overflow-y: auto; padding: 50px 0; }
-        .profile-container { max-width: 900px; margin: 0 auto; display: flex; gap: 40px; }
-        .profile-img { width: 400px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        
-        /* Chat UI */
-        #chatBox { display: none; position: fixed; bottom: 20px; right: 20px; width: 350px; height: 500px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 2000; flex-direction: column; overflow: hidden; border: 1px solid var(--primary); }
-        .chat-header { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .chat-body { flex: 1; padding: 15px; overflow-y: auto; background: #f9f9f9; display: flex; flex-direction: column; gap: 10px; }
-        .msg { padding: 8px 12px; border-radius: 12px; font-size: 13px; max-width: 80%; }
-        .msg-bot { background: var(--soft); color: #222; align-self: flex-start; }
-        .msg-user { background: var(--primary); color: white; align-self: flex-end; }
-        
-        .suggestion-box { border-top: 1px solid var(--border); background: #fff; max-height: 100px; overflow-y: auto; display: none; }
-        .suggestion-item { padding: 8px 15px; font-size: 12px; cursor: pointer; border-bottom: 1px solid #f0f0f0; }
-        .suggestion-item:hover { background: var(--soft); }
+        /* Full Profile Overlay */
+        #profileOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; overflow-y: auto; }
+        .profile-view { max-width: 1000px; margin: 50px auto; padding: 20px; display: flex; gap: 50px; }
+        .profile-view img { width: 400px; border-radius: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        .profile-info { flex: 1; }
 
-        .chat-input { display: flex; padding: 10px; gap: 5px; border-top: 1px solid var(--border); }
-        .chat-input input { flex: 1; padding: 8px; border-radius: 5px; border: 1px solid var(--border); }
-        .chat-input button { background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+        /* Chat Bot UI */
+        #chatBox { display: none; position: fixed; bottom: 20px; right: 20px; width: 360px; height: 500px; background: white; border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.15); z-index: 2000; flex-direction: column; border: 1px solid var(--primary); overflow: hidden; }
+        .chat-header { background: var(--primary); color: white; padding: 15px; font-weight: 600; display: flex; justify-content: space-between; }
+        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #f9f9f9; }
+        .m { padding: 8px 12px; border-radius: 12px; font-size: 13px; max-width: 80%; line-height: 1.4; }
+        .bot { background: var(--soft); align-self: flex-start; border-bottom-left-radius: 2px; }
+        .user { background: var(--primary); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        
+        .sugg-box { padding: 5px; background: #fff; border-top: 1px solid var(--border); max-height: 100px; overflow-y: auto; display: none; }
+        .sugg-item { padding: 6px 12px; font-size: 11px; cursor: pointer; border-bottom: 1px solid #eee; color: var(--gray); }
+        .sugg-item:hover { background: var(--soft); color: var(--primary); }
+
+        .chat-input { display: flex; padding: 10px; gap: 8px; border-top: 1px solid var(--border); }
+        .chat-input input { flex: 1; border: 1px solid #ddd; padding: 10px; border-radius: 8px; font-size: 13px; }
+        .chat-input button { background: var(--primary); color: white; border: none; padding: 0 15px; border-radius: 8px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div class="main-wrapper">
+<nav class="navbar">
+    <a href="index.html" class="logo">HuggingHeart</a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="community.html" class="active">Community</a>
+        <a href="about.html">About</a>
+    </div>
+    <div class="auth-links">
+        <a href="signin.html" class="signup">Join Free</a>
+    </div>
+</nav>
+
+<div class="main-container">
     <aside class="sidebar">
-        <h3 style="font-family: 'Playfair Display';">Filters</h3>
         <div class="filter-group">
             <label>Country</label>
-            <select id="filterCountry" onchange="applyFilters()">
-                <option value="all">All Countries</option>
-                <option value="USA">USA</option>
-                <option value="UK">UK</option>
-                <option value="Canada">Canada</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label>Min Age</label>
-            <input type="number" id="filterAge" placeholder="e.g. 20" oninput="applyFilters()">
+            <select id="fCountry" onchange="filterData()"><option value="">All Countries</option></select>
         </div>
         <div class="filter-group">
             <label>Profession</label>
-            <select id="filterJob" onchange="applyFilters()">
-                <option value="all">All Jobs</option>
-                <option value="Artist">Artist</option>
-                <option value="Model">Model</option>
-                <option value="Designer">Designer</option>
-            </select>
+            <select id="fJob" onchange="filterData()"><option value="">All Professions</option></select>
+        </div>
+        <div class="filter-group">
+            <label>Min Age</label>
+            <input type="number" id="fAge" placeholder="20" oninput="filterData()">
         </div>
     </aside>
 
-    <main class="content-area">
-        <h2 style="font-family: 'Playfair Display'; margin-bottom: 20px;">Discovery Community</h2>
-        <div class="grid" id="profileGrid"></div>
+    <main class="content">
+        <div class="grid" id="girlGrid"></div>
     </main>
 </div>
 
 <div id="profileOverlay">
-    <div class="profile-container" id="profileDetail"></div>
+    <div class="profile-view" id="profileContent"></div>
 </div>
 
 <div id="chatBox">
-    <div class="chat-header">
-        <span id="chatTitle">Chat</span>
-        <button onclick="closeChat()" style="background:none; border:none; color:white; cursor:pointer;">✕</button>
-    </div>
-    <div class="chat-body" id="chatBody"></div>
-    <div class="suggestion-box" id="suggestionBox"></div>
-    <form class="chat-input" onsubmit="event.preventDefault(); sendMessage();">
-        <input id="userInput" placeholder="Say something..." oninput="checkSuggestions(this.value)">
+    <div class="chat-header"><span id="chatName">Chat</span> <span onclick="closeChat()" style="cursor:pointer">✕</span></div>
+    <div class="chat-messages" id="chatMsgs"></div>
+    <div class="sugg-box" id="suggBox"></div>
+    <form class="chat-input" onsubmit="event.preventDefault(); sendMsg();">
+        <input type="text" id="uInp" placeholder="Type..." oninput="getSugg(this.value)">
         <button type="submit">Send</button>
     </form>
 </div>
 
 <script>
-    let allProfiles = [];
-    let filteredProfiles = [];
-    let qaDatabase = []; // PQ and G1-G25 data
-    let currentUser = localStorage.getItem("userName") || "";
+    let db = [];
+    let activeQA = [];
+    let currentGirl = null;
+    let userName = localStorage.getItem("HH_Name") || "";
 
-    // Load Data
-    async function init() {
-        // Mocking 150 profiles for demo purposes (In production, fetch your CSV)
-        for(let i=1; i<=150; i++) {
-            allProfiles.push({
-                id: i,
-                name: "User " + i,
-                age: 20 + (i % 10),
-                country: i % 2 === 0 ? "USA" : "UK",
-                job: i % 3 === 0 ? "Artist" : "Designer",
-                social: "B" + (1 + (i % 10)), // Hidden Personality
-                bio: "Enjoying the journey of life..."
-            });
-        }
-        filteredProfiles = [...allProfiles];
-        renderGrid();
-        loadQA();
+    // 1. Fetch Master Database
+    async function loadData() {
+        try {
+            const r = await fetch('knowledge/Assertive_Girls_Profile_Database_V1.csv');
+            const txt = await r.text();
+            const lines = txt.split('\n').slice(1);
+            
+            db = lines.map(l => {
+                const c = l.split(',');
+                if(c.length < 5) return null;
+                return { id:c[0], name:c[1], age:c[2], city:c[3], country:c[4], job:c[5], type:c[6], bio:c[8] };
+            }).filter(x => x);
+
+            populateFilters();
+            renderGrid(db);
+        } catch (e) { console.error("Database failed to load", e); }
     }
 
-    async function loadQA() {
-        // Fetch G1-G25 list and PQ list
-        // For logic purposes, we populate a diplomatic fallback array
-        qaDatabase = [
-            { q: "what is your dream", a: "To build a world full of color and kindness." },
-            { q: "u like music", a: "Music is the heartbeat of the soul." }
-        ];
-    }
-
-    function renderGrid() {
-        const grid = document.getElementById("profileGrid");
-        grid.innerHTML = filteredProfiles.map((p, idx) => `
-            <div class="card" onclick="openProfile(${idx})">
-                <img src="knowledge/images/luna-avatar.png.png" alt="Profile">
-                <h3>${p.name}</h3>
-                <p>${p.job} • ${p.age}</p>
-                <p>${p.country}</p>
+    function renderGrid(list) {
+        document.getElementById('girlGrid').innerHTML = list.map((g, i) => `
+            <div class="card" onclick="viewProfile('${g.id}')">
+                <img src="knowledge/images/luna-avatar.png.png">
+                <h3>${g.name}</h3>
+                <p>${g.job} • ${g.age}</p>
+                <p>${g.country}</p>
             </div>
         `).join('');
     }
 
-    function applyFilters() {
-        const country = document.getElementById("filterCountry").value;
-        const age = document.getElementById("filterAge").value;
-        const job = document.getElementById("filterJob").value;
-
-        filteredProfiles = allProfiles.filter(p => {
-            return (country === 'all' || p.country === country) &&
-                   (p.age >= (age || 0)) &&
-                   (job === 'all' || p.job === job);
-        });
-        renderGrid();
+    function populateFilters() {
+        const countries = [...new Set(db.map(g => g.country))];
+        const jobs = [...new Set(db.map(g => g.job))];
+        document.getElementById('fCountry').innerHTML += countries.map(c => `<option value="${c}">${c}</option>`).join('');
+        document.getElementById('fJob').innerHTML += jobs.map(j => `<option value="${j}">${j}</option>`).join('');
     }
 
-    function openProfile(idx) {
-        const p = filteredProfiles[idx];
-        const detail = document.getElementById("profileDetail");
-        detail.innerHTML = `
-            <img src="knowledge/images/luna-avatar.png.png" class="profile-img">
-            <div>
-                <button onclick="closeProfile()" style="margin-bottom:20px; cursor:pointer;">← Back to Community</button>
-                <h1 style="font-family:'Playfair Display'">${p.name}</h1>
-                <p><strong>Location:</strong> ${p.country}</p>
-                <p><strong>Profession:</strong> ${p.job}</p>
-                <p>${p.bio}</p>
-                <button onclick="startChat('${p.name}')" style="background:var(--primary); color:white; padding:12px 25px; border-radius:10px; border:none; cursor:pointer; margin-top:20px;">Message ${p.name}</button>
+    function filterData() {
+        const c = document.getElementById('fCountry').value;
+        const j = document.getElementById('fJob').value;
+        const a = document.getElementById('fAge').value;
+        const filtered = db.filter(g => 
+            (!c || g.country === c) && (!j || g.job === j) && (!a || g.age >= a)
+        );
+        renderGrid(filtered);
+    }
+
+    // 2. Profile & Chat Logic
+    async function viewProfile(id) {
+        currentGirl = db.find(x => x.id == id);
+        // Map Personality Type to file
+        const pFile = `knowledge/type_${currentGirl.type.toLowerCase().replace(' ', '_')}.csv`;
+        
+        // Pre-load her personality
+        const resp = await fetch(pFile);
+        const pTxt = await resp.text();
+        activeQA = pTxt.split('\n').slice(1).map(l => {
+            const pts = l.split('\t'); // Assuming tab or comma based on your file
+            return { q: pts[0]?.toLowerCase().trim(), a: pts[1] };
+        });
+
+        document.getElementById('profileContent').innerHTML = `
+            <img src="knowledge/images/luna-avatar.png.png">
+            <div class="profile-info">
+                <button onclick="document.getElementById('profileOverlay').style.display='none'">← Back</button>
+                <h1 style="font-family:Playfair Display">${currentGirl.name}</h1>
+                <p><strong>From:</strong> ${currentGirl.city}, ${currentGirl.country}</p>
+                <p><strong>Work:</strong> ${currentGirl.job}</p>
+                <p style="margin: 20px 0; color: #555; line-height: 1.6;">${currentGirl.bio}</p>
+                <button onclick="openChat()" style="background:var(--primary); color:white; padding:12px 30px; border:none; border-radius:30px; cursor:pointer">Message ${currentGirl.name.split(' ')[0]}</button>
             </div>
         `;
-        document.getElementById("profileOverlay").style.display = "block";
+        document.getElementById('profileOverlay').style.display = 'block';
     }
 
-    function startChat(name) {
-        document.getElementById("chatBox").style.display = "flex";
-        document.getElementById("chatTitle").innerText = name;
-        const body = document.getElementById("chatBody");
-        body.innerHTML = "";
+    function openChat() {
+        document.getElementById('chatBox').style.display = 'flex';
+        document.getElementById('chatName').innerText = currentGirl.name;
+        document.getElementById('chatMsgs').innerHTML = "";
         
-        const intro = currentUser ? `Hi ${currentUser}! I'm ${name}.` : `Hi! I'm ${name}. What's your name?`;
-        appendMsg(intro, "bot");
+        const hi = userName ? `Hi ${userName}! I'm ${currentGirl.name.split(' ')[0]}.` : `Hi! I'm ${currentGirl.name.split(' ')[0]}. What is your name?`;
+        addMsg(hi, 'bot');
     }
 
-    function checkSuggestions(val) {
-        const box = document.getElementById("suggestionBox");
+    function getSugg(val) {
+        const box = document.getElementById('suggBox');
         if(val.length >= 3) {
-            const matches = qaDatabase.filter(item => item.q.includes(val.toLowerCase()));
+            const matches = activeQA.filter(x => x.q && x.q.includes(val.toLowerCase())).slice(0, 4);
             if(matches.length > 0) {
-                box.innerHTML = matches.map(m => `<div class="suggestion-item" onclick="fillInput('${m.q}')">${m.q}</div>`).join('');
-                box.style.display = "block";
+                box.innerHTML = matches.map(m => `<div class="sugg-item" onclick="useSugg('${m.q}')">${m.q}</div>`).join('');
+                box.style.display = 'block';
                 return;
             }
         }
-        box.style.display = "none";
+        box.style.display = 'none';
     }
 
-    function fillInput(text) {
-        document.getElementById("userInput").value = text;
-        document.getElementById("suggestionBox").style.display = "none";
-        sendMessage();
+    function useSugg(q) {
+        document.getElementById('uInp').value = q;
+        sendMsg();
     }
 
-    function sendMessage() {
-        const input = document.getElementById("userInput");
-        const text = input.value.trim();
-        if(!text) return;
+    function sendMsg() {
+        const inp = document.getElementById('uInp');
+        const txt = inp.value.trim();
+        if(!txt) return;
 
-        appendMsg(text, "user");
-        input.value = "";
-        document.getElementById("suggestionBox").style.display = "none";
+        addMsg(txt, 'user');
+        inp.value = "";
+        document.getElementById('suggBox').style.display = 'none';
 
         setTimeout(() => {
-            if(!currentUser) {
-                currentUser = text;
-                localStorage.setItem("userName", text);
-                appendMsg(`Nice to meet you, ${currentUser}!`, "bot");
+            if(!userName) {
+                userName = txt;
+                localStorage.setItem("HH_Name", userName);
+                addMsg(`Nice to meet you, ${userName}. Ask me anything!`, 'bot');
             } else {
-                const match = qaDatabase.find(item => text.toLowerCase().includes(item.q));
-                const response = match ? match.a : "That's a deep question... I think life is best lived one moment at a time, don't you?";
-                appendMsg(response, "bot");
+                const match = activeQA.find(x => x.q && txt.toLowerCase().includes(x.q));
+                const reply = match ? match.a : "I prefer to keep some mysteries for later. Tell me more about you?";
+                addMsg(reply, 'bot');
             }
-        }, 1000);
+        }, 800);
     }
 
-    function appendMsg(text, side) {
-        const body = document.getElementById("chatBody");
-        const div = document.createElement("div");
-        div.className = `msg msg-${side}`;
-        div.innerText = text;
-        body.appendChild(div);
-        body.scrollTop = body.scrollHeight;
+    function addMsg(t, s) {
+        const d = document.createElement('div');
+        d.className = `m ${s}`;
+        d.innerText = t;
+        const b = document.getElementById('chatMsgs');
+        b.appendChild(d);
+        b.scrollTop = b.scrollHeight;
     }
 
-    function closeProfile() { document.getElementById("profileOverlay").style.display = "none"; }
-    function closeChat() { document.getElementById("chatBox").style.display = "none"; }
+    function closeChat() { document.getElementById('chatBox').style.display = 'none'; }
 
-    init();
+    window.onload = loadData;
 </script>
 </body>
 </html>
