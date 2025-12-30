@@ -1,272 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Community | HuggingHeart</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <style>
-        /* ================= THEME COLORS & BASICS ================= */
-        :root {
-            --primary-green: #2f855a;
-            --soft-green: #eaf7f0;
-            --text-dark: #333;
-            --text-gray: #6b7280;
-            --white: #ffffff;
-        }
+<div class="community-grid">
+    <div class="profile-card" onclick="openProfile()">
+        <img src="knowledge/images/luna-avatar.png.png" class="profile-img" alt="Luna">
+        <div class="status-tag"><div class="status-dot"></div> Luna is Online</div>
+        <h2 style="font-family:'Playfair Display', serif; margin: 5px 0;">Luna Ribeiro</h2>
+        <p style="color: #2f855a; font-weight: 600; font-size: 13px;">SOCIOLOGY • 22 • BRAZIL</p>
+        <p style="color: #6b7280; font-size: 13px; margin: 10px 0;">Click to view full profile</p>
+    </div>
+</div>
 
-        body { 
-            margin: 0; 
-            font-family: 'Poppins', sans-serif; 
-            background-color: #fcfdfc; 
-            color: var(--text-dark); 
-        }
-
-        /* ================= NAVIGATION ================= */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            background: var(--white);
-            border-bottom: 1px solid #eee;
-        }
-        .logo { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary-green); font-weight: bold; }
-        .nav-links a { text-decoration: none; color: var(--text-gray); margin: 0 15px; font-size: 14px; transition: 0.3s; }
-        .nav-links a.active { color: var(--primary-green); font-weight: 600; }
-        .auth-links .signup { background: var(--primary-green); color: white; padding: 8px 20px; border-radius: 20px; text-decoration: none; }
-
-        /* ================= COMMUNITY GRID ================= */
-        .community-container { max-width: 1200px; margin: 60px auto; padding: 0 20px; text-align: center; }
-        .community-grid { display: flex; justify-content: center; margin-top: 40px; }
-
-        .profile-card { 
-            background: var(--white); 
-            padding: 25px; 
-            border-radius: 30px; 
-            box-shadow: 0 20px 40px rgba(47, 133, 90, 0.1); 
-            max-width: 360px; 
-            cursor: pointer; 
-            transition: all 0.4s ease; 
-            border: 1px solid var(--soft-green);
-        }
-        .profile-card:hover { transform: translateY(-10px); box-shadow: 0 30px 50px rgba(47, 133, 90, 0.15); }
-        .profile-img { width: 100%; height: 350px; object-fit: cover; border-radius: 20px; margin-bottom: 20px; }
-
-        .status-tag { 
-            display: inline-flex; align-items: center; gap: 8px; 
-            background: var(--soft-green); color: var(--primary-green); 
-            padding: 6px 16px; border-radius: 25px; font-size: 12px; font-weight: 600; margin-bottom: 15px; 
-        }
-        .status-dot { width: 8px; height: 8px; background: #2ecc71; border-radius: 50%; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
-
-        /* ================= CHAT WINDOW ================= */
-        #chat { 
-            display: none; position: fixed; bottom: 30px; right: 30px; 
-            width: 400px; height: 600px; background: var(--white); border-radius: 30px; 
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2); overflow: hidden; 
-            z-index: 2000; flex-direction: column; border: 1px solid var(--soft-green); 
-        }
-
-        .chat-header { background: var(--soft-green); padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #d4ece0; }
-        .chat-header h4 { margin: 0; color: var(--primary-green); font-family: 'Playfair Display', serif; font-size: 20px; }
-
-        .chat-body { flex: 1; padding: 25px; overflow-y: auto; background: #fcfdfc; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
+<div id="profileModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:3000; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:white; max-width:500px; width:100%; border-radius:30px; overflow-y:auto; max-height:90vh; position:relative; animation: slideUp 0.3s ease;">
+        <button onclick="closeProfile()" style="position:absolute; right:20px; top:20px; font-size:30px; border:none; background:none; cursor:pointer;">&times;</button>
         
-        .msg { padding: 12px 18px; border-radius: 20px; font-size: 14px; max-width: 85%; line-height: 1.5; word-wrap: break-word; position: relative; }
-        .msg-bot { background: var(--soft-green); color: var(--text-dark); align-self: flex-start; border-bottom-left-radius: 4px; }
-        .msg-user { background: var(--primary-green); color: var(--white); align-self: flex-end; border-bottom-right-radius: 4px; }
-
-        /* ================= INPUT & SUGGESTIONS ================= */
-        .suggestion-box { background: var(--white); border-top: 1px solid #eee; max-height: 180px; overflow-y: auto; display: none; }
-        .suggestion-item { padding: 12px 20px; font-size: 13px; color: var(--text-gray); cursor: pointer; border-bottom: 1px solid #f9f9f9; transition: 0.2s; }
-        .suggestion-item:hover { background: var(--soft-green); color: var(--primary-green); }
-
-        .chat-input-container { padding: 20px; display: flex; gap: 12px; background: var(--white); border-top: 1px solid #eee; }
-        .chat-input-container input { flex: 1; padding: 12px 18px; border: 1px solid #eee; border-radius: 15px; outline: none; font-size: 15px; transition: 0.3s; }
-        .chat-input-container input:focus { border-color: var(--primary-green); }
-        .chat-input-container button { background: var(--primary-green); color: white; border: none; padding: 0 20px; border-radius: 15px; cursor: pointer; font-weight: 600; transition: 0.3s; }
-        .chat-input-container button:hover { background: #276749; }
-
-        .typing-indicator { display:none; padding: 0 25px 10px; font-size: 12px; color: var(--primary-green); font-style: italic; }
-
-        /* ================= MOBILE ================= */
-        @media (max-width: 600px) {
-            #chat { width: 100% !important; height: 100% !important; bottom: 0 !important; right: 0 !important; border-radius: 0 !important; }
-            .navbar { padding: 15px 20px; }
-            .nav-links { display: none; }
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="navbar">
-    <div class="logo">HuggingHeart</div>
-    <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="community.html" class="active">Community</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-    </div>
-    <div class="auth-links">
-        <a href="signup.html" class="signup">Join Us</a>
-    </div>
-</div>
-
-<div class="community-container">
-    <h1 style="font-family:'Playfair Display', serif; color: var(--primary-green); font-size: 42px; margin-bottom: 10px;">The Community</h1>
-    <p style="color: var(--text-gray); max-width: 600px; margin: 0 auto 40px;">Meet Luna and our observers. Real connections start with a simple 'Oii'.</p>
-
-    <div class="community-grid">
-        <div class="profile-card" onclick="openChat()">
-            <img src="knowledge/images/luna-avatar.png.png" class="profile-img" alt="Luna">
-            <div class="status-tag"><div class="status-dot"></div> Luna is vibing online</div>
-            <h2 style="font-family:'Playfair Display', serif; margin: 5px 0; font-size: 26px;">Luna Ribeiro</h2>
-            <p style="color: var(--primary-green); font-weight: 600; font-size: 13px; letter-spacing: 1px; margin-bottom: 10px;">SOCIOLOGIST • 22 • BRAZIL</p>
-            <p style="color: var(--text-gray); font-size: 14px; line-height: 1.6; margin-bottom: 20px; padding: 0 10px;">
-                "Master of people-watching. Village soul navigating the São Paulo neon. Let's talk about things that actually matter."
+        <img src="knowledge/images/luna-avatar.png.png" style="width:100%; height:250px; object-fit:cover;">
+        
+        <div style="padding:30px;">
+            <h2 style="font-family:'Playfair Display', serif; margin-bottom:5px;">Luna Ribeiro</h2>
+            <p style="color:#2f855a; font-weight:600; font-size:14px; margin-bottom:20px;">Village Heart, City Mind</p>
+            
+            <h4 style="color:#2f855a; margin-bottom:10px;">About Me</h4>
+            <p style="font-size:14px; color:#555; line-height:1.6;">
+                I am a blend of two worlds. I grew up in a quiet village where the sun dictated the day. 
+                Today, I live in the high-tech pulse of São Paulo. My Master’s in Sociology has made me sharp in thought, but I'm still that soft-hearted girl who loves Bossa Nova and deep conversations.
             </p>
-            <div style="background: var(--primary-green); color:#fff; padding: 14px; border-radius: 15px; font-weight:600; font-size: 15px;">
-                Open Luna's World
+
+            <div style="background:#f9fbf9; padding:15px; border-radius:15px; margin:20px 0;">
+                <p style="font-size:13px; margin:5px 0;">📍 <b>Based in:</b> São Paulo, Brazil</p>
+                <p style="font-size:13px; margin:5px 0;">🎓 <b>Studies:</b> Urban Sociology</p>
+                <p style="font-size:13px; margin:5px 0;">☕ <b>Loves:</b> Strong Coffee & Rain</p>
             </div>
+
+            <button onclick="startChatFromProfile()" style="width:100%; background:#2f855a; color:white; border:none; padding:15px; border-radius:15px; font-weight:600; font-size:16px; cursor:pointer;">
+                Chat with Luna
+            </button>
         </div>
     </div>
 </div>
 
-<div id="chat">
-    <div class="chat-header">
-        <div>
-            <h4 style="margin:0;">Luna Ribeiro</h4>
-            <small style="color: var(--text-gray); font-size: 11px;">Typically replies in seconds</small>
-        </div>
-        <button onclick="closeChat()" style="background:none; border:none; font-size:32px; cursor:pointer; color:var(--primary-green); line-height:1;">&times;</button>
-    </div>
-    <div class="chat-body" id="chatBody"></div>
-    <div id="typingIndicator" class="typing-indicator">Luna is typing...</div>
-    
-    <div id="suggestionBox" class="suggestion-box"></div>
-
-    <form class="chat-input-container" onsubmit="event.preventDefault(); send();">
-        <input id="userInput" placeholder="Ask me something..." autocomplete="off" oninput="showSuggestions(this.value)">
-        <button type="submit">Send</button>
-    </form>
-</div>
-
-<footer style="padding: 50px 20px; border-top: 1px solid #eee; text-align: center; color: var(--text-gray); font-size: 13px;">
-    &copy; 2025 HuggingHeart • Made with Heart in Brazil • Calm • Kind • Human
-</footer>
+<style>
+@keyframes slideUp { from { transform: translateY(50px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+</style>
 
 <script>
-    let qa = [];
-    let userName = localStorage.getItem("luna_user_name") || "";
-    let step = userName ? 2 : 0; 
+// --- MODAL CONTROLS ---
+function openProfile() {
+    document.getElementById("profileModal").style.display = "flex";
+    document.body.style.overflow = "hidden";
+}
 
-    // 1. Load the 550+ Question CSV
-    fetch("knowledge/luna_qa.csv").then(r => r.text()).then(t => {
-        const lines = t.split("\n").slice(1);
-        lines.forEach(l => {
-            const m = l.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-            if(m && m.length >= 2) {
-                qa.push({ 
-                    q: m[0].replace(/"/g, '').toLowerCase().trim(), 
-                    a: m[1].replace(/"/g, '').trim() 
-                });
-            }
-        });
-    });
+function closeProfile() {
+    document.getElementById("profileModal").style.display = "none";
+    document.body.style.overflow = "auto";
+}
 
-    // 2. Suggestions Logic
-    function showSuggestions(val) {
-        const box = document.getElementById("suggestionBox");
-        if (val.length < 2 || step < 2) { 
-            box.style.display = "none";
-            return;
-        }
-        const matches = qa.filter(p => p.q.includes(val.toLowerCase())).slice(0, 4);
-        if (matches.length > 0) {
-            box.innerHTML = matches.map(m => `<div class="suggestion-item" onclick="useSuggestion('${m.q}')">${m.q}</div>`).join('');
-            box.style.display = "block";
-        } else {
-            box.style.display = "none";
-        }
-    }
+function startChatFromProfile() {
+    closeProfile(); // Close bio first
+    openChat();     // Then open chat box
+}
 
-    function useSuggestion(text) {
-        document.getElementById("userInput").value = text;
-        document.getElementById("suggestionBox").style.display = "none";
-        send();
-    }
-
-    // 3. Chat Controls
-    function openChat() {
-        document.getElementById("chat").style.display = "flex";
-        document.body.style.overflow = "hidden"; // Prevent background scroll
-        const body = document.getElementById("chatBody");
-        
-        if (body.innerHTML === "") {
-            if (!userName) {
-                showReply("Oii! I'm Luna. 🌸 I was just watching the city lights and thinking about how everyone has a secret story. What's yours? (And what should I call you?)");
-                step = 1;
-            } else {
-                showReply(`Hey ${userName}! I was hoping you'd stop by. My sociology brain is tired—tell me something real. How are you?`);
-            }
-        }
-    }
-
-    function closeChat() {
-        document.getElementById("chat").style.display = "none";
-        document.body.style.overflow = "auto";
-    }
-
-    function showReply(text) {
-        const indicator = document.getElementById("typingIndicator");
-        indicator.style.display = "block";
-        
-        // Random "thinking" delay for realism
-        const delay = Math.floor(Math.random() * 1200) + 800; 
-
-        setTimeout(() => {
-            indicator.style.display = "none";
-            appendMessage(text, "bot");
-        }, delay);
-    }
-
-    function appendMessage(text, side) {
-        let body = document.getElementById("chatBody");
-        let div = document.createElement("div");
-        div.className = side === "bot" ? "msg msg-bot" : "msg msg-user";
-        div.innerText = text;
-        body.appendChild(div);
-        body.scrollTop = body.scrollHeight;
-    }
-
-    function send() {
-        let input = document.getElementById("userInput");
-        let val = input.value.trim();
-        if(!val) return;
-        
-        document.getElementById("suggestionBox").style.display = "none";
-        appendMessage(val, "user");
-        input.value = "";
-
-        if(step === 1) {
-            userName = val;
-            localStorage.setItem("luna_user_name", userName);
-            step = 2;
-            showReply(`It's a pleasure, ${userName}. Since I'm a sociology student, I'm obsessed with how people feel. What's on your mind today?`);
-        } else {
-            let query = val.toLowerCase();
-            // Matching logic: direct match -> includes -> fuzzy includes
-            let match = qa.find(p => query === p.q) || qa.find(p => query.includes(p.q)) || qa.find(p => p.q.includes(query));
-            
-            let response = match ? match.a : "Ngl, you've got me thinking now. lol. Tell me more about that? I'm listening.";
-            showReply(response);
-        }
-    }
+// --- KEEP YOUR EXISTING openChat(), send(), AND qa LOGIC BELOW THIS ---
+// (Your previous openChat function and CSV fetching remains exactly the same)
 </script>
-
-</body>
-</html>
