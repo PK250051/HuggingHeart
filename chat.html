@@ -2,105 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chat | HuggingHeart</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Chat with Luna | HuggingHeart</title>
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/chat.css">
     <style>
-        body { margin: 0; font-family: 'Poppins', sans-serif; background: #f7f9fb; height: 100vh; display: flex; flex-direction: column; }
-        .chat-header { background: white; padding: 15px 5%; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 15px; font-weight: 600; }
-        .chat-header img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
-        
-        .messages { flex: 1; padding: 25px 5%; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
-        .msg { padding: 12px 20px; border-radius: 20px; font-size: 14px; max-width: 70%; line-height: 1.5; }
-        .bot { background: white; align-self: flex-start; border: 1px solid #eef; }
-        .user { background: #2f855a; color: white; align-self: flex-end; }
-
-        .sugg-box { padding: 10px 5%; background: white; border-top: 1px solid #eee; display: none; }
-        .sugg-item { display: inline-block; background: #f0fdf4; border: 1px solid #dcfce7; padding: 8px 15px; border-radius: 20px; margin: 5px; font-size: 12px; cursor: pointer; color: #2f855a; }
-
-        .input-bar { background: white; padding: 20px 5%; border-top: 1px solid #eee; display: flex; gap: 15px; }
-        .input-bar input { flex: 1; border: 1px solid #eee; padding: 14px 20px; border-radius: 15px; outline: none; background: #fafafa; }
+        /* Specific style for the Suggestion UI */
+        #suggestion-box {
+            display: none;
+            background: #fff;
+            border: 1px solid #ddd;
+            position: absolute;
+            bottom: 80px;
+            width: 80%;
+            left: 10%;
+            border-radius: 10px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+        .sugg-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+            color: #2f855a;
+        }
+        .sugg-item:hover { background: #f9f9f9; }
     </style>
 </head>
 <body>
 
-<div class="chat-header" id="header"></div>
-<div class="messages" id="msgBox"></div>
-<div class="sugg-box" id="suggBox"></div>
-<form class="input-bar" onsubmit="event.preventDefault(); send();">
-    <input type="text" id="uInp" placeholder="Type your message..." oninput="showSugg(this.value)">
-</form>
+<div class="chat-container">
+    <header class="chat-header">
+        <button onclick="window.location.href='community.html'">←</button>
+        <div class="girl-profile">
+            <img src="assets/images/girls/G001_luna.jpg" alt="Luna">
+            <span>Luna (B1 Very Shy)</span>
+        </div>
+    </header>
 
-<script>
-    let girl = {}, answers = [], masterQ = [];
+    <main id="chat-window" class="chat-messages">
+        </main>
 
-    async function init() {
-        const id = new URLSearchParams(window.location.search).get('id');
-        
-        // 1. Get Profile
-        const res = await fetch('knowledge/Assertive_Girls_Profile_Database_V1.csv');
-        const text = await res.text();
-        const row = text.split(/\r?\n/).find(r => r.startsWith(id));
-        const c = row.split(',');
-        girl = { name: c[1], type: c[6] };
+    <div id="suggestion-box"></div>
 
-        document.getElementById('header').innerHTML = `<img src="knowledge/images/luna-avatar.png.png"> <span>${girl.name} (${girl.type})</span>`;
+    <footer class="chat-input-area">
+        <input type="text" id="user-input" placeholder="Type a question..." oninput="handleTyping(this.value)">
+        <button id="send-btn">Send</button>
+    </footer>
+</div>
 
-        // 2. Personality Routing
-        // Formats "B2 Shy" -> "type_b2_shy.csv"
-        const file = `knowledge/type_${girl.type.toLowerCase().trim().replace(/\s+/g, '_')}.csv`;
-        try {
-            const aRes = await fetch(file);
-            const aTxt = await aRes.text();
-            answers = aTxt.split(/\r?\n/).slice(1).map(l => {
-                const p = l.split(',');
-                return { q: p[0]?.toLowerCase().trim(), a: p[1] };
-            });
-        } catch(e) { console.log("Personality file missing, using general mode."); }
-
-        // 3. Load Suggestions
-        const sRes = await fetch('knowledge/PQ_Master_List.csv');
-        const sTxt = await sRes.text();
-        masterQ = sTxt.split(/\r?\n/).slice(1).map(l => l.split(',')[0]);
-
-        addMsg(`Hi! I'm ${girl.name}. I'm feeling a bit ${girl.type.split(' ')[1]} today. What would you like to ask?`, 'bot');
-    }
-
-    function showSugg(v) {
-        const box = document.getElementById('suggBox');
-        if(v.length > 2) {
-            const matches = masterQ.filter(q => q && q.toLowerCase().includes(v.toLowerCase())).slice(0,3);
-            if(matches.length) {
-                box.innerHTML = matches.map(m => `<div class="sugg-item" onclick="useSugg('${m}')">${m}</div>`).join('');
-                box.style.display = 'block'; return;
-            }
-        }
-        box.style.display = 'none';
-    }
-
-    function useSugg(t) { document.getElementById('uInp').value = t; document.getElementById('suggBox').style.display = 'none'; send(); }
-
-    function send() {
-        const inp = document.getElementById('uInp');
-        const val = inp.value.trim();
-        if(!val) return;
-        addMsg(val, 'user');
-        inp.value = "";
-        document.getElementById('suggBox').style.display = 'none';
-
-        setTimeout(() => {
-            const found = answers.find(a => val.toLowerCase().includes(a.q));
-            addMsg(found ? found.a : "I'm a mystery... ask me something else!", 'bot');
-        }, 800);
-    }
-
-    function addMsg(t, s) {
-        const d = document.createElement('div');
-        d.className = `msg ${s}`; d.innerText = t;
-        const b = document.getElementById('msgBox');
-        b.appendChild(d); b.scrollTop = b.scrollHeight;
-    }
-
-    init();
-</script>
+<script src="assets/js/chat.js"></script>
 </body>
 </html>
