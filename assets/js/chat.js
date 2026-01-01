@@ -1,48 +1,38 @@
-let currentGirl = {}; // Stores Luna's profile
-let personalityBank = []; // Stores the B1 responses
-let suggestionList = []; // Stores the PQ suggestions
+// assets/js/chat.js
 
-async function initChat() {
-    try {
-        // 1. Load the Profile (Luna)
-        const profileRes = await fetch('profiles/G001_luna.json');
-        currentGirl = await profileRes.json();
+let personalMaster = []; // G1_G25_One_Line_Answers.csv
+let pqMaster = [];       // PQ_Master_List.csv
+let personalityBank = []; // e.g., type_B1_very_shy.csv
 
-        // 2. Load the Personality (B1 Answers)
-        const answerRes = await fetch(`data/answers/${currentGirl.type_file}`);
-        const answerData = await answerRes.text();
-        personalityBank = parseCSV(answerData);
+async function initBrain(girlId, personalityFile) {
+    // 1. Load PQ Master (The Question IDs)
+    const pqRes = await fetch('data/questions/PQ_Master_List.csv');
+    pqMaster = parseCSV(await pqRes.text());
 
-        // 3. Load Suggestions (PQ Master)
-        const suggRes = await fetch('data/questions/PQ_Master_List.csv');
-        const suggData = await suggRes.text();
-        suggestionList = parseCSV(suggData);
+    // 2. Load Personal Master (The Unique Answers)
+    const pmRes = await fetch('data/answers/personal_master.csv');
+    personalMaster = parseCSV(await pmRes.text());
 
-        console.log("System Ready: Chatting with " + currentGirl.name);
-    } catch (err) {
-        console.error("Path Error: Check if folders and files are named correctly.", err);
-    }
+    // 3. Load Personality Bank (The "Voice")
+    const pbRes = await fetch(`data/answers/${personalityFile}`);
+    personalityBank = parseCSV(await pbRes.text());
 }
 
-// Simple CSV Parser
-function parseCSV(data) {
-    const rows = data.split('\n');
-    return rows.slice(1).map(row => {
-        const columns = row.split(',');
-        return { 
-            q: columns[0]?.trim().toLowerCase(), 
-            a: columns[1]?.trim() 
-        };
-    }).filter(item => item.q);
-}
-
-// Handle User Messages
-function getReply(userInput) {
+function getFinalResponse(userInput, girlId) {
     const input = userInput.toLowerCase().trim();
-    // Search the personality bank for a matching question
-    const match = personalityBank.find(item => input.includes(item.q) || item.q.includes(input));
-    
-    return match ? match.a : "i... i don't know what to say to that. 🌸";
-}
 
-initChat();
+    // STEP A: Search for a Master Question Match (Personal)
+    const masterMatch = pqMaster.find(m => input.includes(m.Question_Text.toLowerCase()));
+    
+    if (masterMatch) {
+        const girlRow = personalMaster.find(row => row.Profile_ID === girlId);
+        if (girlRow && girlRow[masterMatch.Q_ID]) {
+            return girlRow[masterMatch.Q_ID]; // Returns Luna's specific age/job/city
+        }
+    }
+
+    // STEP B: Search for Personality Match (General Chat)
+    const personalityMatch = personalityBank.find(p => input.includes(p.Question.toLowerCase()));
+    
+    return personalityMatch ? personalityMatch.Response : "I'm not sure how to answer that... 🌸";
+}
