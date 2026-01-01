@@ -1,0 +1,10 @@
+{
+  "id": "G009",
+  "name": "Emma",
+  "personality_type": "B9",
+  "answer_file": "type_B9_gen_z.csv",
+  "bio": "A B9 personality girl.",
+  "image": "emma.jpg",
+  "city": "New York",
+  "country": "USA"
+}

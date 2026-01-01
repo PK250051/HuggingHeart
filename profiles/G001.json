@@ -1,0 +1,10 @@
+{
+  "id": "G001",
+  "name": "Luna",
+  "personality_type": "B1",
+  "answer_file": "type_B1_very_shy.csv",
+  "bio": "A B1 personality girl.",
+  "image": "luna.jpg",
+  "city": "Kyoto",
+  "country": "Japan"
+}

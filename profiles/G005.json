@@ -1,0 +1,10 @@
+{
+  "id": "G005",
+  "name": "Riya",
+  "personality_type": "B5",
+  "answer_file": "type_B5_confident.csv",
+  "bio": "A B5 personality girl.",
+  "image": "riya.jpg",
+  "city": "Bangalore",
+  "country": "India"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "G003",
+  "name": "Priya",
+  "personality_type": "B3",
+  "answer_file": "type_B3_soft.csv",
+  "bio": "A B3 personality girl.",
+  "image": "priya.jpg",
+  "city": "Delhi",
+  "country": "India"
+}

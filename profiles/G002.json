@@ -1,0 +1,10 @@
+{
+  "id": "G002",
+  "name": "Ayumi",
+  "personality_type": "B2",
+  "answer_file": "type_B2_shy.csv",
+  "bio": "A B2 personality girl.",
+  "image": "ayumi.jpg",
+  "city": "Tokyo",
+  "country": "Japan"
+}

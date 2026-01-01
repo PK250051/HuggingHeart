@@ -1,0 +1,10 @@
+{
+  "id": "G007",
+  "name": "Olivia",
+  "personality_type": "B7",
+  "answer_file": "type_B7_bold.csv",
+  "bio": "A B7 personality girl.",
+  "image": "olivia.jpg",
+  "city": "London",
+  "country": "UK"
+}

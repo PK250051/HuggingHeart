@@ -1,0 +1,10 @@
+{
+  "id": "G004",
+  "name": "Isha",
+  "personality_type": "B4",
+  "answer_file": "type_B4_balanced.csv",
+  "bio": "A B4 personality girl.",
+  "image": "isha.jpg",
+  "city": "Mumbai",
+  "country": "India"
+}

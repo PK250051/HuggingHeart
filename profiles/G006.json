@@ -1,0 +1,10 @@
+{
+  "id": "G006",
+  "name": "Sofia",
+  "personality_type": "B6",
+  "answer_file": "type_B6_witty.csv",
+  "bio": "A B6 personality girl.",
+  "image": "sofia.jpg",
+  "city": "Madrid",
+  "country": "Spain"
+}
