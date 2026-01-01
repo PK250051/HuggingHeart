@@ -8,40 +8,73 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* --- CORE STYLES --- */
+        /* --- RESET & CORE --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background: #fff; color: #1a202c; }
 
+        /* --- NAVBAR (Same as Index Page) --- */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; position: fixed; top: 0; width: 100%;
             background: #f0fdf4; z-index: 1000; border-bottom: 1px solid #eaf7f0;
         }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #2f855a; text-decoration: none; }
-        .nav-links { display: flex; gap: 25px; align-items: center; position: absolute; left: 50%; transform: translateX(-50%); }
+        
+        /* Centered Menu Links */
+        .nav-links { 
+            display: flex; gap: 25px; align-items: center; 
+            position: absolute; left: 50%; transform: translateX(-50%); 
+        }
         .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; }
         .nav-links a.active { color: #6fcf97; font-weight: 600; }
 
-        /* --- GRID --- */
-        .community-header { text-align: center; padding: 140px 20px 40px; background: linear-gradient(to bottom, #f0fdf4, #ffffff); }
-        .observer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 20px 5% 80px; max-width: 1300px; margin: 0 auto; }
-        .girl-card { background: #fff; border-radius: 25px; border: 1px solid #eaf7f0; overflow: hidden; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .auth-links { display: flex; gap: 15px; align-items: center; }
+        .signin { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; }
+        .signup { 
+            text-decoration: none; background: #6fcf97; color: #fff !important; 
+            padding: 10px 20px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; 
+        }
+
+        /* --- GRID SECTION --- */
+        .community-header { 
+            text-align: center; padding: 140px 20px 60px; 
+            background: linear-gradient(to bottom, #f0fdf4, #ffffff); 
+        }
+        .community-header h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #1a202c; }
+        .community-header span { color: #6fcf97; }
+
+        .observer-grid { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 25px; padding: 20px 5% 100px; max-width: 1300px; margin: 0 auto; 
+        }
+        .girl-card { 
+            background: #fff; border-radius: 25px; border: 1px solid #eaf7f0; 
+            overflow: hidden; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.03); 
+        }
         .girl-card:hover { transform: translateY(-10px); }
         .img-box { width: 100%; height: 380px; position: relative; overflow: hidden; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
         .info-box { padding: 20px; }
+        .info-box h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-top: 5px; }
 
-        /* --- PROFILE MODAL (CENTER) --- */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; }
+        /* --- PROFILE MODAL --- */
+        .modal-overlay { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(8px); z-index: 2000; 
+            justify-content: center; align-items: center; 
+        }
         .profile-modal { background: #fff; width: 95%; max-width: 850px; display: flex; border-radius: 30px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
         .modal-left { flex: 1; min-height: 500px; background-size: cover; background-position: top; }
         .modal-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
         .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
-        .btn-full-index { display: block; width: 100%; padding: 15px; background: linear-gradient(135deg, #6fcf97, #9fd3ff); color: white; border: none; border-radius: 15px; font-weight: 600; cursor: pointer; margin-top: 20px; }
+        .btn-full-index { 
+            display: block; width: 100%; padding: 15px; background: linear-gradient(135deg, #6fcf97, #9fd3ff); 
+            color: white; border: none; border-radius: 15px; font-weight: 600; cursor: pointer; margin-top: 20px; 
+        }
 
-        /* --- NEW: BOTTOM LEFT CHAT WIDGET --- */
+        /* --- CHAT WIDGET (BOTTOM RIGHT) --- */
         .chat-widget {
-            display: none; position: fixed; bottom: 20px; left: 20px;
+            display: none; position: fixed; bottom: 20px; right: 20px;
             width: 320px; height: 450px; background: #fff; border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.15); border: 1px solid #eaf7f0;
             z-index: 3000; flex-direction: column; overflow: hidden;
@@ -54,11 +87,12 @@
         .chat-window { flex-grow: 1; padding: 15px; overflow-y: auto; background: #fafafa; font-size: 0.85rem; }
         .chat-input { padding: 15px; display: flex; gap: 10px; border-top: 1px solid #eaf7f0; }
         .chat-input input { flex: 1; border: 1px solid #eaf7f0; border-radius: 10px; padding: 8px 12px; outline: none; }
-        
+
         @media (max-width: 768px) {
+            .nav-links { display: none; } /* Hamburger can be added later if needed */
             .observer-grid { grid-template-columns: 1fr 1fr; }
             .profile-modal { flex-direction: column; max-height: 90vh; overflow-y: auto; }
-            .chat-widget { width: 90%; left: 5%; bottom: 10px; }
+            .chat-widget { width: 90%; right: 5%; bottom: 10px; }
         }
     </style>
 </head>
@@ -71,6 +105,10 @@
         <a href="community.html" class="active">Community</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
+    </div>
+    <div class="auth-links">
+        <a href="signin.html" class="signin">Sign In</a>
+        <a href="signin.html" class="signup">Join Free</a>
     </div>
 </nav>
 
@@ -129,10 +167,16 @@
 
     let activeGirl = null;
     const container = document.getElementById('grid');
+
+    // Generate Grid Cards
     girls.forEach(g => {
-        container.innerHTML += `<div class="girl-card" onclick="openP('${g.id}')">
+        container.innerHTML += `
+        <div class="girl-card" onclick="openP('${g.id}')">
             <div class="img-box"><img src="assets/images/girls/${g.img}"></div>
-            <div class="info-box"><p>${g.role}</p><h3>${g.name}</h3></div>
+            <div class="info-box">
+                <p style="color:#6fcf97; font-size:0.75rem; font-weight:600; text-transform:uppercase;">${g.role}</p>
+                <h3>${g.name}</h3>
+            </div>
         </div>`;
     });
 
@@ -145,20 +189,28 @@
         document.getElementById('mBio').innerText = activeGirl.bio;
         document.getElementById('mImg').style.backgroundImage = `url('assets/images/girls/${activeGirl.img}')`;
         document.getElementById('pModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
     }
 
     function openChat() {
-        closeP(); // Close profile modal
+        closeP(); 
         document.getElementById('chatName').innerText = activeGirl.name;
         document.getElementById('chatImg').src = `assets/images/girls/${activeGirl.img}`;
         document.getElementById('chatWidget').style.display = 'flex';
         
-        // Add greeting message
-        document.getElementById('chatMessages').innerHTML += `<div style="margin-bottom:10px;"><strong>${activeGirl.name}:</strong> Hi there! I'm ${activeGirl.name}. Glad you reached out.</div>`;
+        // Add greeting message only if not already there
+        if (document.getElementById('chatMessages').children.length <= 1) {
+            document.getElementById('chatMessages').innerHTML += `<div style="margin-top:15px; padding:10px; background:#fff; border-radius:10px; border:1px solid #eaf7f0;"><strong>${activeGirl.name}:</strong> Hi there! I'm ${activeGirl.name}. Glad you reached out.</div>`;
+        }
     }
 
-    function closeP() { document.getElementById('pModal').style.display = 'none'; }
+    function closeP() { 
+        document.getElementById('pModal').style.display = 'none'; 
+        document.body.style.overflow = 'auto'; 
+    }
+    
     function closeChat() { document.getElementById('chatWidget').style.display = 'none'; }
+    function closeChatWidget() { document.getElementById('chatWidget').style.display = 'none'; }
 </script>
 </body>
 </html>
