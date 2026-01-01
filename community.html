@@ -198,23 +198,31 @@
 
     // --- NEW LOADING LOGIC (One by One) ---
     function loadGirls() {
-        girls.forEach((g, index) => {
-            setTimeout(() => {
-                const card = document.createElement('div');
-                card.className = 'girl-card loaded';
-                card.onclick = () => openP(g.id);
-                card.innerHTML = `
-                    <div class="img-box"><img src="assets/images/girls/${g.img}"></div>
-                    <div class="info-box">
-                        <p style="color:#6fcf97; font-size:0.75rem; font-weight:600; text-transform:uppercase;">${g.role}</p>
-                        <h3>${g.name}</h3>
-                    </div>
-                `;
-                container.appendChild(card);
-            }, index * 1500); // 150ms delay between each card
-        });
-    }
+    const container = document.getElementById('grid');
+    // Add a temporary status message
+    container.insertAdjacentHTML('beforebegin', '<div id="loadStatus" class="loading-status">DISCOVERING SOULS<span class="dot-pulse"></span></div>');
 
+    girls.forEach((g, index) => {
+        setTimeout(() => {
+            const card = document.createElement('div');
+            card.className = 'girl-card loaded';
+            card.onclick = () => openP(g.id);
+            card.innerHTML = `
+                <div class="img-box"><img src="assets/images/girls/${g.img}"></div>
+                <div class="info-box">
+                    <p style="color:#6fcf97; font-size:0.75rem; font-weight:600; text-transform:uppercase;">${g.role}</p>
+                    <h3>${g.name}</h3>
+                </div>
+            `;
+            container.appendChild(card);
+
+            // Remove status message once the last girl (G010) is loaded
+            if(index === girls.length - 1) {
+                document.getElementById('loadStatus').style.display = 'none';
+            }
+        }, index * 1000); // Your 1000ms relax mode
+    });
+}
     function toggleMenu() { document.getElementById('navMenu').classList.toggle('show'); }
 
     function openP(id) {
