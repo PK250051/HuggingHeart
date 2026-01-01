@@ -190,3 +190,4 @@ function closeChat() {
 
 // Ensure the grid loads when the page finishes loading
 window.onload = loadGrid;
+``` [cite: 2, 3, 4]
