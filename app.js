@@ -83,7 +83,7 @@ const girls = [
 
 let activeGirl = null;
 
-// STAGGERED LOAD LOGIC
+// RELAX MODE LOADING
 function loadGrid() {
     const grid = document.getElementById('gridContainer');
     if(!grid) return;
@@ -121,23 +121,25 @@ function toggleMenu() {
     document.getElementById('navMenu').classList.toggle('show');
 }
 
-// ASSERTIVE PROFILE POPULATION
+// PROFILE POPULATION
 function openProfile(id) {
     activeGirl = girls.find(x => x.id === id);
     
+    // Fill the fields
     document.getElementById('mName').innerText = activeGirl.name;
     document.getElementById('mRole').innerText = activeGirl.role;
     document.getElementById('mAge').innerText = activeGirl.age;
     document.getElementById('mLoc').innerText = activeGirl.loc;
     document.getElementById('mPers').innerText = activeGirl.pers;
     document.getElementById('mBio').innerText = activeGirl.bio;
-    
-    // Detailed Assertive Fields
     document.getElementById('mMotto').innerText = `"${activeGirl.motto}"`;
     document.getElementById('mLove').innerText = activeGirl.loveLanguage;
     document.getElementById('mValues').innerText = activeGirl.values;
     
+    // Set Background Image
     document.getElementById('mImg').style.backgroundImage = `url('assets/images/girls/${activeGirl.img}')`;
+    
+    // Show Modal
     document.getElementById('pModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
@@ -147,19 +149,22 @@ function closeProfile() {
     document.body.style.overflow = 'auto';
 }
 
+// BOTTOM-RIGHT CHAT LOGIC
 function openChat() {
     closeProfile();
     document.getElementById('chatWidget').style.display = 'flex';
     document.getElementById('chatName').innerText = activeGirl.name;
     document.getElementById('chatAvatar').src = `assets/images/girls/${activeGirl.img}`;
     
-    // Clear old messages and add a personality-driven greeting
-    const chatWindow = document.getElementById('chatMessages') || document.getElementById('chatWindow');
-    chatWindow.innerHTML = `<div style="margin-bottom:15px; padding:10px; background:#f0fdf4; border-radius:10px; border:1px solid #eaf7f0;">
-        <strong>${activeGirl.name}:</strong> Hi! I'm ${activeGirl.name}. I noticed you were looking at my profile. I'm really glad you decided to reach out.
+    // Personality-driven greeting
+    const chatWindow = document.querySelector('.chat-window') || document.getElementById('chatMessages');
+    chatWindow.innerHTML = `<div style="margin-bottom:15px; padding:12px; background:#f0fdf4; border-radius:12px; border:1px solid #eaf7f0; font-size: 0.9rem;">
+        <strong>${activeGirl.name}:</strong> Hi! I'm ${activeGirl.name}. I saw you looking through my profile... I'm really glad you decided to reach out. How are you feeling today?
     </div>`;
 }
 
-function closeChat() { document.getElementById('chatWidget').style.display = 'none'; }
+function closeChat() { 
+    document.getElementById('chatWidget').style.display = 'none'; 
+}
 
 window.onload = loadGrid;
