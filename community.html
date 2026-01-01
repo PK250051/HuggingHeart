@@ -194,6 +194,20 @@
     <div style="margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2f855a;">HuggingHeart</div>
     <p>© 2025 HuggingHeart • Calm • Kind • Human-First</p>
 </footer>
-
+<div id="profileModal" class="modal-overlay" onclick="closeProfile(event)">
+    <div class="welcome-card" style="max-width: 500px; padding: 0; overflow: hidden;" onclick="event.stopPropagation()">
+        <div id="modalImage" style="width: 100%; height: 300px; background-size: cover; background-position: center;"></div>
+        <div style="padding: 30px;">
+            <h2 id="modalName" style="margin-bottom: 5px;">Name</h2>
+            <p id="modalRole" style="color: #6fcf97; font-weight: 600; margin-bottom: 15px; text-transform: uppercase; font-size: 0.8rem;">Role</p>
+            <p id="modalBio" style="text-align: left; margin-bottom: 25px;">Bio goes here...</p>
+            
+            <div style="display: flex; gap: 10px;">
+                <a href="#" class="btn-full" id="chatLink">Start Conversation</a>
+                <a href="#" onclick="closeProfile(null)" class="btn-outline" style="border: 1px solid #e2e8f0; border-radius: 15px; width: 40%;">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
