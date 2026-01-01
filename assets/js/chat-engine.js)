@@ -1,70 +1,69 @@
-// assets/js/chat-engine.js
 let userName = "";
-let pqMaster = []; 
-let lunaPersonality = [];
+let currentGirlData = null;
 
-async function startChat() {
-    // 1. Load Files
-    const resQ = await fetch('data/questions/PQ_Master_List.csv');
-    pqMaster = await resQ.text(); // Add a simple CSV parser later
+async function startChatEngine(girl) {
+    currentGirlData = girl;
+    const display = document.getElementById('chat-display');
+    display.innerHTML = ""; // Clear chat
     
-    const resP = await fetch('data/answers/type_B1_very_shy.csv');
-    lunaPersonality = await resP.text();
-
-    // 2. Initial Greeting
-    botReply("Hai! I am Luna. 🌸 It is so nice to meet you. What is your name?");
+    await botReply(`Hai! I am ${girl.name}. 🌸 It is so nice to meet you. Before we start, what is your name?`);
 }
 
-async function botReply(fullText) {
+async function botReply(text) {
     const status = document.getElementById('typing-status');
     const display = document.getElementById('chat-display');
     
-    status.innerText = "Luna is typing...";
-    await new Promise(r => setTimeout(r, 1000));
-    status.innerText = "Online";
-
+    status.innerText = "Typing...";
+    
     const msgDiv = document.createElement('div');
     msgDiv.className = "bot-msg";
     display.appendChild(msgDiv);
-
-    // Word by Word Effect
-    const words = fullText.split(" ");
-    for(let word of words) {
-        msgDiv.innerText += word + " ";
+    
+    const words = text.split(" ");
+    for (let i = 0; i < words.length; i++) {
+        msgDiv.innerText += words[i] + " ";
         display.scrollTop = display.scrollHeight;
-        await new Promise(r => setTimeout(r, 150));
+        await new Promise(r => setTimeout(r, 100)); // Word speed
+    }
+    
+    status.innerText = "Online";
+}
+
+async function sendMessage() {
+    const input = document.getElementById('user-input');
+    const val = input.value.trim();
+    if (!val) return;
+
+    const display = document.getElementById('chat-display');
+    const uMsg = document.createElement('div');
+    uMsg.className = "user-msg";
+    uMsg.innerText = val;
+    display.appendChild(uMsg);
+    
+    input.value = "";
+    document.getElementById('suggestion-box').style.display = 'none';
+
+    if (!userName) {
+        userName = val;
+        await botReply(`Nice to meet you, ${userName}! How can I help you today?`);
+    } else {
+        // Here you will later add the CSV logic to find real answers
+        await botReply("That is very interesting... tell me more about that?");
     }
 }
 
 function handleTyping(val) {
     const box = document.getElementById('suggestion-box');
-    if(val.length > 2) {
-        // Simple filter logic for suggestions
-        box.innerHTML = `<div class="sugg-item" onclick="selectSugg('How are you?')">How are you?</div>`;
+    if (val.length > 2) {
+        // Example suggestion - you can link this to PQ_Master_List later
+        box.innerHTML = `<div class="sugg-item" onclick="useSugg('How are you today?')">How are you today?</div>`;
         box.style.display = 'block';
     } else {
         box.style.display = 'none';
     }
 }
 
-function sendMsg() {
-    const input = document.getElementById('user-input');
-    const text = input.value.trim();
-    if(!text) return;
-
-    // Add user msg to UI
-    const uDiv = document.createElement('div');
-    uDiv.className = "user-msg";
-    uDiv.innerText = text;
-    document.getElementById('chat-display').appendChild(uDiv);
-    input.value = "";
-
-    if(!userName) {
-        userName = text;
-        botReply(`Nice to meet you, ${userName}! Ask me anything.`);
-    } else {
-        botReply("That is very interesting... tell me more?");
-    }
+function useSugg(text) {
+    document.getElementById('user-input').value = text;
+    sendMessage();
 }
-
-window.onload = startChat;
