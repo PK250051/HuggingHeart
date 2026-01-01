@@ -1,4 +1,4 @@
-/* ================= GLOBAL & HOME STYLES ================= */
+/* ================= GLOBAL SETTINGS ================= */
 :root {
   --green: #6fcf97;
   --green-soft: #f0fdf4;
@@ -8,9 +8,9 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Poppins', sans-serif; background: #fff; color: var(--text); line-height: 1.5; }
+body { font-family: 'Poppins', sans-serif; background: #fff; color: var(--text); }
 
-/* NAVBAR FIX */
+/* NAVBAR FIX - Keeps other pages from hiding behind it */
 .navbar {
   position: fixed; top: 0; width: 100%; height: 75px;
   background: var(--green-soft); display: flex; align-items: center;
@@ -19,70 +19,66 @@ body { font-family: 'Poppins', sans-serif; background: #fff; color: var(--text);
 }
 .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2f855a; text-decoration: none; font-weight: 700; }
 .nav-links { display: flex; gap: 25px; position: absolute; left: 50%; transform: translateX(-50%); }
-.nav-links a { text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 500; }
-.nav-links a.active { color: var(--green); font-weight: 600; }
 
-/* HERO (HOME PAGE) */
-.hero { max-width: 1200px; margin: auto; padding: 160px 20px 80px; display: flex; align-items: center; gap: 50px; }
-.hero-text h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; line-height: 1.2; margin-bottom: 20px; }
-.hero-card { flex: 0.8; background: linear-gradient(135deg,#f0fff6,#eef7ff); padding: 40px; border-radius: 28px; box-shadow: 0 20px 40px rgba(159,211,255,0.25); }
-
-/* ================= COMMUNITY GRID (SHIFTED LEFT FIX) ================= */
+/* COMMUNITY GRID */
 .observer-grid { 
   display: grid; 
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
   gap: 30px; 
-  padding: 150px 5% 100px; 
+  padding: 140px 5% 100px; /* Top padding prevents mushing with navbar */
   max-width: 1400px; 
   margin: 0 auto; 
 }
 
 .girl-card { 
   background: #fff; border-radius: 25px; border: 1px solid var(--border); 
-  overflow: hidden; cursor: pointer; transition: 0.3s ease;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.03); opacity: 0; 
+  overflow: hidden; cursor: pointer; transition: 0.3s;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04); opacity: 0; 
   animation: cardAppear 0.6s ease forwards;
 }
 
 @keyframes cardAppear { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* IMAGE BOX & PULSING BULB */
-.img-box { width: 100%; height: 350px; position: relative; background: #f9fafb; overflow: hidden; }
-.img-box img { width: 100%; height: 100%; object-fit: cover; }
+/* PHOTO BOX - FIX FOR HEADS BEING CUT */
+.img-box { 
+    width: 100%; 
+    height: 420px; /* Increased height so head isn't cut */
+    position: relative; 
+    background: #f9fafb; 
+    overflow: hidden; 
+}
+.img-box img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    object-position: top; /* THIS FIXES THE HEAD CUT ISSUE */
+}
 
+/* ONLINE BULB */
 .status-tag { 
   position: absolute; top: 15px; left: 15px; background: rgba(255, 255, 255, 0.95); 
   padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; 
-  color: #2f855a; display: flex; align-items: center; gap: 8px; z-index: 10;
+  color: #2f855a; display: flex; align-items: center; gap: 8px;
 }
-
 .green-bulb { width: 9px; height: 9px; background: #22c55e; border-radius: 50%; position: relative; }
 .green-bulb::after { 
   content: ''; position: absolute; width: 100%; height: 100%; 
   background: #22c55e; border-radius: 50%; animation: bulb-pulse 2s infinite; 
 }
-
 @keyframes bulb-pulse { 0% { transform: scale(1); opacity: 1; } 70% { transform: scale(3); opacity: 0; } 100% { opacity: 0; } }
 
-/* INFO BOX (SHIFTED RIGHT FIX) */
+/* NAME & INFO - FIX FOR TEXT CUT/SHIFT */
 .info-box { 
-    padding: 22px 22px 22px 35px; /* Shifting text 35px from the left border */
-    min-height: 110px; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    padding: 25px 20px 25px 35px; /* Shifts text 35px right */
+    background: #fff;
 }
-.info-box p { color: var(--green); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
+.info-box p { color: var(--green); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; }
 .info-box h3 { 
-    font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #1a202c; 
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+    font-family: 'Playfair Display', serif; 
+    font-size: 1.6rem; 
+    color: #1a202c; 
+    line-height: 1.2;
 }
 
-/* ================= MOBILE ================= */
-@media (max-width: 768px) {
-  .hero { flex-direction: column; text-align: center; }
-  .nav-links { display: none; }
-  .observer-grid { grid-template-columns: 1fr 1fr; gap: 15px; padding-top: 110px; }
-  .img-box { height: 260px; }
-  .info-box { padding-left: 20px; } /* Less padding on mobile to save space */
-}
+/* OTHER PAGES FIX (HERO SECTION) */
+.hero { max-width: 1200px; margin: auto; padding: 160px 20px 80px; display: flex; align-items: center; gap: 50px; }
