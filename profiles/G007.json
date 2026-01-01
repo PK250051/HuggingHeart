@@ -1,10 +1,12 @@
 {
   "id": "G007",
-  "name": "Olivia",
-  "personality_type": "B7",
+  "name": "Olivia Singh",
+  "age": 22,
+  "city": "Toronto",
+  "country": "Canada",
+  "job": "Software Engineer",
+  "personality_type": "The Strategist",
   "answer_file": "type_B7_bold.csv",
-  "bio": "A B7 personality girl.",
-  "image": "olivia.jpg",
-  "city": "London",
-  "country": "UK"
+  "image": "G007_olivia.jpg",
+  "bio": "A logical thinker who maintains a perfect work-life balance."
 }
