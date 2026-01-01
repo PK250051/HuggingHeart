@@ -2,42 +2,112 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chat with Luna</title>
-    <link rel="stylesheet" href="assets/css/chat.css">
+    <title>HuggingHeart | Our Community Observers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
     <style>
-        /* The Suggestion Box styling */
-        .suggestion-container {
-            display: none; 
+        /* Community Specific Styles */
+        .community-hero {
+            padding: 80px 5%;
+            text-align: center;
+            background: #fdfdfd;
+        }
+        .community-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+        .observer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 40px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .observer-card {
             background: white;
-            border: 1px solid #ddd;
-            border-bottom: none;
-            position: absolute;
-            bottom: 70px; /* Sits above the input bar */
-            width: 90%;
-            z-index: 100;
-        }
-        .suggestion-item {
-            padding: 10px;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
             cursor: pointer;
-            border-bottom: 1px solid #eee;
-            font-size: 14px;
+            border: 1px solid #f0f0f0;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
-        .suggestion-item:hover { background: #f0f0f0; }
+        .observer-card:hover {
+            transform: translateY(-10px);
+            border-color: #6fcf97;
+        }
+        .observer-card img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+        }
+        .observer-info {
+            padding: 20px;
+            text-align: center;
+        }
+        .observer-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: #2f855a;
+        }
+        .observer-info p {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+        .status-tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #eaf7f0;
+            color: #2f855a;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
 
-    <div class="chat-wrapper">
-        <div id="chat-display" class="chat-display"></div>
-        
-        <div id="suggestion-box" class="suggestion-container"></div>
+<div class="navbar">
+  <div class="logo">HuggingHeart</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="community.html" class="active">Community</a>
+    <a href="about.html">About</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="careers.html">Careers</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="auth-links">
+    <a href="signin.html" class="signin">Sign In</a>
+    <a href="signin.html" class="signup">Join Free</a>
+  </div>
+</div>
 
-        <div class="input-area">
-            <input type="text" id="user-input" placeholder="Ask Luna something..." oninput="handleTyping(this.value)">
-            <button onclick="sendChatMessage()">Send</button>
-        </div>
+<div class="community-hero">
+    <h1>Meet Our <span style="color: #6fcf97;">Observers.</span></h1>
+    <p style="max-width: 600px; margin: 0 auto; color: #6b7280;">
+        Intelligent, kind, and here to facilitate genuine connections. Click on a profile to learn more about their personality and start a conversation.
+    </p>
+</div>
+
+<div class="observer-grid" id="observerGrid">
     </div>
 
-    <script src="assets/js/chat.js"></script>
+<footer>
+    <div style="margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2f855a;">HuggingHeart</div>
+    <p>© 2025 HuggingHeart • Calm • Kind • Human-First</p>
+</footer>
+
+<script src="assets/js/community.js"></script>
 </body>
 </html>
