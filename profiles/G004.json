@@ -1,5 +1,16 @@
 {
   "id": "G004",
+  "name": "Isha Clark",
+  "age": 30,
+  "city": "Hyderabad",
+  "country": "India",
+  "job": "Entrepreneur",
+  "personality_type": "Bold & Edgy",
+  "answer_file": "type_B4_balanced.csv",
+  "image": "G004_isha.jpg",
+  "bio": "A daring business owner who isn't afraid to take big risks."
+}{
+  "id": "G004",
   "name": "Isha",
   "personality_type": "B4",
   "answer_file": "type_B4_balanced.csv",
