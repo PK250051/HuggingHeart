@@ -1,10 +1,12 @@
 {
   "id": "G003",
-  "name": "Priya",
-  "personality_type": "B3",
+  "name": "Ananya Brown",
+  "age": 27,
+  "city": "Mumbai",
+  "country": "India",
+  "job": "HR Executive",
+  "personality_type": "The Creative",
   "answer_file": "type_B3_soft.csv",
-  "bio": "A B3 personality girl.",
-  "image": "priya.jpg",
-  "city": "Delhi",
-  "country": "India"
+  "image": "G003_priya.jpg",
+  "bio": "A creative soul capturing Mumbai's essence through her lens."
 }
