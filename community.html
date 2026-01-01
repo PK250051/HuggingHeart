@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* --- BASE & COLORS --- */
+        /* --- CORE STYLES --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background: #fff; color: #1a202c; }
 
@@ -22,46 +22,43 @@
         .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; }
         .nav-links a.active { color: #6fcf97; font-weight: 600; }
 
-        /* HAMBURGER */
-        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
-        .hamburger span { width: 25px; height: 3px; background: #2f855a; border-radius: 2px; }
-
-        /* GRID */
-        .community-header { text-align: center; padding: 140px 20px 60px; background: linear-gradient(to bottom, #f0fdf4, #ffffff); }
-        .observer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 20px 5% 100px; max-width: 1300px; margin: 0 auto; }
+        /* --- GRID --- */
+        .community-header { text-align: center; padding: 140px 20px 40px; background: linear-gradient(to bottom, #f0fdf4, #ffffff); }
+        .observer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 20px 5% 80px; max-width: 1300px; margin: 0 auto; }
         .girl-card { background: #fff; border-radius: 25px; border: 1px solid #eaf7f0; overflow: hidden; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
-        .girl-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(47, 133, 90, 0.1); }
+        .girl-card:hover { transform: translateY(-10px); }
         .img-box { width: 100%; height: 380px; position: relative; overflow: hidden; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-        .status-tag { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.9); padding: 5px 12px; border-radius: 12px; font-size: 0.7rem; font-weight: 700; color: #2f855a; }
         .info-box { padding: 20px; }
-        .info-box p { color: #6fcf97; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
-        .info-box h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-top: 5px; }
 
-        /* MODAL & CHAT */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
-        .profile-modal { background: #fff; width: 100%; max-width: 900px; display: flex; border-radius: 30px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); position: relative; }
-        .modal-left { flex: 1; min-height: 550px; background-size: cover; background-position: top; }
+        /* --- PROFILE MODAL (CENTER) --- */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; }
+        .profile-modal { background: #fff; width: 95%; max-width: 850px; display: flex; border-radius: 30px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
+        .modal-left { flex: 1; min-height: 500px; background-size: cover; background-position: top; }
         .modal-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-        
         .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
-        .detail-label { color: #94a3b8; }
-        .detail-value { color: #1e293b; font-weight: 600; }
+        .btn-full-index { display: block; width: 100%; padding: 15px; background: linear-gradient(135deg, #6fcf97, #9fd3ff); color: white; border: none; border-radius: 15px; font-weight: 600; cursor: pointer; margin-top: 20px; }
 
-        #chatContent { display: none; flex-direction: column; height: 100%; }
-        .chat-window { flex-grow: 1; overflow-y: auto; padding: 15px; background: #f9fafb; border-radius: 15px; margin-bottom: 15px; min-height: 250px; border: 1px solid #eaf7f0; }
-
-        .btn-full-index { display: block; width: 100%; padding: 15px; background: linear-gradient(135deg, #6fcf97, #9fd3ff); color: white; border: none; border-radius: 15px; font-weight: 600; text-align: center; margin-top: 20px; cursor: pointer; text-decoration: none; }
-        .btn-outline-index { margin-top: 15px; color: #2f855a; font-size: 0.9rem; font-weight: 500; border: none; background: none; cursor: pointer; text-align: center; }
-
+        /* --- NEW: BOTTOM LEFT CHAT WIDGET --- */
+        .chat-widget {
+            display: none; position: fixed; bottom: 20px; left: 20px;
+            width: 320px; height: 450px; background: #fff; border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15); border: 1px solid #eaf7f0;
+            z-index: 3000; flex-direction: column; overflow: hidden;
+            animation: slideUp 0.4s ease-out;
+        }
+        @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .chat-header { background: #f0fdf4; padding: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eaf7f0; }
+        .chat-header img { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; }
+        .chat-window { flex-grow: 1; padding: 15px; overflow-y: auto; background: #fafafa; font-size: 0.85rem; }
+        .chat-input { padding: 15px; display: flex; gap: 10px; border-top: 1px solid #eaf7f0; }
+        .chat-input input { flex: 1; border: 1px solid #eaf7f0; border-radius: 10px; padding: 8px 12px; outline: none; }
+        
         @media (max-width: 768px) {
-            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #f0fdf4; flex-direction: column; padding: 20px; transform: none; }
-            .nav-links.show { display: flex; }
-            .hamburger { display: flex; }
-            .observer-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-            .profile-modal { flex-direction: column; max-height: 95vh; overflow-y: auto; }
-            .modal-left { min-height: 280px; }
-            .img-box { height: 250px; }
+            .observer-grid { grid-template-columns: 1fr 1fr; }
+            .profile-modal { flex-direction: column; max-height: 90vh; overflow-y: auto; }
+            .chat-widget { width: 90%; left: 5%; bottom: 10px; }
         }
     </style>
 </head>
@@ -69,15 +66,12 @@
 
 <nav class="navbar">
     <a href="index.html" class="logo">HuggingHeart</a>
-    <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
-    <div class="nav-links" id="navMenu">
+    <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="community.html" class="active">Community</a>
         <a href="about.html">About</a>
-        <a href="how-it-works.html">Process</a>
         <a href="contact.html">Contact</a>
     </div>
-    <div class="auth-links"><a href="signin.html" style="text-decoration:none; color:#4a5568;">Sign In</a></div>
 </nav>
 
 <header class="community-header">
@@ -90,79 +84,81 @@
 <div id="pModal" class="modal-overlay" onclick="closeP()">
     <div class="profile-modal" onclick="event.stopPropagation()">
         <div id="mImg" class="modal-left"></div>
-        <div class="modal-right" id="modalUI">
-            <div id="profileContent">
-                <h2 id="mName" style="font-family:'Playfair Display',serif; color:#2f855a; font-size:2rem; margin-bottom:5px;"></h2>
-                <p id="mRole" style="color:#6fcf97; font-weight:600; font-size:0.8rem; text-transform:uppercase; margin-bottom:20px;"></p>
-                <div class="detail-row"><span class="detail-label">Personality</span><span class="detail-value" id="mPers"></span></div>
-                <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value" id="mLoc"></span></div>
-                <div class="detail-row"><span class="detail-label">Age</span><span class="detail-value" id="mAge"></span></div>
-                <p id="mBio" style="font-size:0.9rem; color:#6b7280; line-height:1.6; margin:20px 0;"></p>
-                <button onclick="startChat()" class="btn-full-index">Start the Movement</button>
-                <button class="btn-outline-index" onclick="closeP()">Maybe Later</button>
-            </div>
-            <div id="chatContent">
-                <h3 id="chatTitle" style="color:#2f855a; margin-bottom:15px;"></h3>
-                <div class="chat-window" id="chatWindow">
-                    <p style="color:#94a3b8; text-align:center; font-size:0.8rem;">Secure peer-to-peer connection active.</p>
-                </div>
-                <input type="text" placeholder="Type a message..." style="width:100%; padding:12px; border-radius:12px; border:1px solid #eaf7f0; outline:none;">
-                <button class="btn-outline-index" onclick="backToProfile()">← Back to Profile</button>
-            </div>
+        <div class="modal-right">
+            <h2 id="mName" style="font-family:'Playfair Display',serif; color:#2f855a; font-size:2rem; margin-bottom:5px;"></h2>
+            <p id="mRole" style="color:#6fcf97; font-weight:600; font-size:0.8rem; text-transform:uppercase; margin-bottom:20px;"></p>
+            <div class="detail-row"><span style="color:#94a3b8">Location</span><span id="mLoc" style="font-weight:600"></span></div>
+            <div class="detail-row"><span style="color:#94a3b8">Personality</span><span id="mPers" style="font-weight:600"></span></div>
+            <p id="mBio" style="font-size:0.9rem; color:#6b7280; line-height:1.6; margin:20px 0;"></p>
+            <button onclick="openChat()" class="btn-full-index">Start Conversation</button>
+            <button class="btn-outline-index" style="background:none; border:none; color:#94a3b8; cursor:pointer; margin-top:10px;" onclick="closeP()">Close Profile</button>
         </div>
+    </div>
+</div>
+
+<div id="chatWidget" class="chat-widget">
+    <div class="chat-header">
+        <img id="chatImg" src="" alt="">
+        <div>
+            <p id="chatName" style="font-weight:600; font-size:0.9rem; margin:0;"></p>
+            <span style="font-size:0.7rem; color:#6fcf97;">● Online</span>
+        </div>
+        <button onclick="closeChat()" style="margin-left:auto; border:none; background:none; font-size:1.2rem; cursor:pointer; color:#94a3b8;">&times;</button>
+    </div>
+    <div class="chat-window" id="chatMessages">
+        <p style="text-align:center; color:#94a3b8; font-size:0.75rem; margin-bottom:10px;">Connection Encrypted</p>
+    </div>
+    <div class="chat-input">
+        <input type="text" placeholder="Send a message...">
     </div>
 </div>
 
 <script>
     const girls = [
-        { id: "G001", name: "Luna Sharma", age: 24, city: "Mumbai", country: "India", role: "Software Engineer", pers: "Bold Strategist", img: "G001_luna.jpg", bio: "Tech enthusiast with a love for deep logic and late-night philosophy." },
-        { id: "G002", name: "Meera Iyer", age: 26, city: "Bangalore", country: "India", role: "UX Researcher", pers: "The Caretaker", img: "G002_meera.jpg", bio: "Fascinated by human behavior and creating digital empathy." },
-        { id: "G003", name: "Ananya Rai", age: 21, city: "Delhi", country: "India", role: "Digital Artist", pers: "Creative Soul", img: "G003_ananya.jpg", bio: "I see the world in colors and believe every pixel tells a story." },
-        { id: "G004", name: "Isha Verma", age: 23, city: "Pune", country: "India", role: "Data Scientist", pers: "The Analyst", img: "G004_isha.jpg", bio: "Searching for patterns in the chaos and beauty in numbers." },
-        { id: "G005", name: "Riya Kapoor", age: 24, city: "Chennai", country: "India", role: "Designer", pers: "The Techie", img: "G005_riya.jpg", bio: "Blending tech logic with modern visual style." },
-        { id: "G006", name: "Sofia Verma", age: 20, city: "Sydney", country: "Australia", role: "HR Executive", pers: "Gentle Caretaker", img: "G006_sofia.jpg", bio: "Focused on helping others find their true path in life." },
-        { id: "G007", name: "Olivia Singh", age: 22, city: "Toronto", country: "Canada", role: "Strategic Analyst", pers: "Logical Thinker", img: "G007_olivia.jpg", bio: "Maintains a perfect work-life balance and values clear minds." },
-        { id: "G008", name: "Aarohi Gupta", age: 30, city: "Hyderabad", country: "India", role: "Content Writer", pers: "Intellectual", img: "G008_aarohi.jpg", bio: "Words are my soul. I find peace in quiet libraries and long stories." },
-        { id: "G009", name: "Emma Watson", age: 25, city: "London", country: "UK", role: "Operations Lead", pers: "Efficient Leader", img: "G009_emma.jpg", bio: "Organized and always looking for the most efficient path forward." },
-        { id: "G010", name: "Amelia Chen", age: 22, city: "Singapore", country: "Singapore", role: "Frontend Dev", pers: "Globalist", img: "G010_amelia.jpg", bio: "Building beautiful interfaces for a more connected world." }
+        { id: "G001", name: "Luna Sharma", loc: "Mumbai", role: "Software Engineer", pers: "Bold Strategist", img: "G001_luna.jpg", bio: "Tech enthusiast with a love for deep logic and late-night philosophy." },
+        { id: "G002", name: "Meera Iyer", loc: "Bangalore", role: "UX Researcher", pers: "Caretaker", img: "G002_meera.jpg", bio: "Fascinated by human behavior and digital empathy." },
+        { id: "G003", name: "Ananya Rai", loc: "Delhi", role: "Digital Artist", pers: "Creative Soul", img: "G003_ananya.jpg", bio: "I see the world in colors and believe every pixel tells a story." },
+        { id: "G004", name: "Isha Verma", loc: "Pune", role: "Data Scientist", pers: "Analyst", img: "G004_isha.jpg", bio: "Searching for patterns in the chaos and beauty in numbers." },
+        { id: "G005", name: "Riya Kapoor", loc: "Chennai", role: "Designer", pers: "Techie", img: "G005_riya.jpg", bio: "Blending tech logic with modern style." },
+        { id: "G006", name: "Sofia Verma", loc: "Sydney", role: "HR Executive", pers: "Caretaker", img: "G006_sofia.jpg", bio: "Focused on helping others find their true path." },
+        { id: "G007", name: "Olivia Singh", loc: "Toronto", role: "Strategic Analyst", pers: "Strategist", img: "G007_olivia.jpg", bio: "Maintains a perfect work-life balance." },
+        { id: "G008", name: "Aarohi Gupta", loc: "Hyderabad", role: "Content Writer", pers: "Intellectual", img: "G008_aarohi.jpg", bio: "Words are my soul. I find peace in quiet libraries." },
+        { id: "G009", name: "Emma Watson", loc: "London", role: "Operations Lead", pers: "Efficient", img: "G009_emma.jpg", bio: "Organized and always looking for the most efficient path." },
+        { id: "G010", name: "Amelia Chen", loc: "Singapore", role: "Frontend Dev", pers: "Globalist", img: "G010_amelia.jpg", bio: "Building beautiful interfaces for a connected world." }
     ];
 
+    let activeGirl = null;
     const container = document.getElementById('grid');
     girls.forEach(g => {
         container.innerHTML += `<div class="girl-card" onclick="openP('${g.id}')">
-            <div class="img-box"><span class="status-tag">Online</span><img src="assets/images/girls/${g.img}"></div>
+            <div class="img-box"><img src="assets/images/girls/${g.img}"></div>
             <div class="info-box"><p>${g.role}</p><h3>${g.name}</h3></div>
         </div>`;
     });
 
-    function toggleMenu() { document.getElementById('navMenu').classList.toggle('show'); }
-
     function openP(id) {
-        const g = girls.find(x => x.id === id);
-        document.getElementById('mName').innerText = g.name;
-        document.getElementById('mAge').innerText = g.age;
-        document.getElementById('mLoc').innerText = g.city + ", " + g.country;
-        document.getElementById('mRole').innerText = g.role;
-        document.getElementById('mPers').innerText = g.pers;
-        document.getElementById('mBio').innerText = g.bio;
-        document.getElementById('mImg').style.backgroundImage = `url('assets/images/girls/${g.img}')`;
-        document.getElementById('chatTitle').innerText = "Chat with " + g.name;
-        backToProfile();
+        activeGirl = girls.find(x => x.id === id);
+        document.getElementById('mName').innerText = activeGirl.name;
+        document.getElementById('mLoc').innerText = activeGirl.loc;
+        document.getElementById('mRole').innerText = activeGirl.role;
+        document.getElementById('mPers').innerText = activeGirl.pers;
+        document.getElementById('mBio').innerText = activeGirl.bio;
+        document.getElementById('mImg').style.backgroundImage = `url('assets/images/girls/${activeGirl.img}')`;
         document.getElementById('pModal').style.display = 'flex';
-        document.body.style.overflow = 'hidden';
     }
 
-    function startChat() {
-        document.getElementById('profileContent').style.display = 'none';
-        document.getElementById('chatContent').style.display = 'flex';
+    function openChat() {
+        closeP(); // Close profile modal
+        document.getElementById('chatName').innerText = activeGirl.name;
+        document.getElementById('chatImg').src = `assets/images/girls/${activeGirl.img}`;
+        document.getElementById('chatWidget').style.display = 'flex';
+        
+        // Add greeting message
+        document.getElementById('chatMessages').innerHTML += `<div style="margin-bottom:10px;"><strong>${activeGirl.name}:</strong> Hi there! I'm ${activeGirl.name}. Glad you reached out.</div>`;
     }
 
-    function backToProfile() {
-        document.getElementById('profileContent').style.display = 'block';
-        document.getElementById('chatContent').style.display = 'none';
-    }
-
-    function closeP() { document.getElementById('pModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
+    function closeP() { document.getElementById('pModal').style.display = 'none'; }
+    function closeChat() { document.getElementById('chatWidget').style.display = 'none'; }
 </script>
 </body>
 </html>
