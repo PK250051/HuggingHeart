@@ -2,125 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Community | Meet Our Observers</title>
+    <title>HuggingHeart | Community</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* COMMUNITY SPECIFIC STYLES */
+        /* COMMUNITY GRID STYLING */
         .community-header {
             text-align: center;
-            padding: 120px 20px 60px;
+            padding: 120px 20px 40px;
             background: linear-gradient(to bottom, #f0fdf4, #ffffff);
         }
-
-        .community-header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: #1a202c;
-            margin-bottom: 10px;
-        }
+        .community-header h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #1a202c; }
 
         .observer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
+            gap: 25px;
             padding: 40px 5%;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* GIRL CARD DESIGN */
         .girl-card {
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: 0.3s;
             border: 1px solid #f0f0f0;
-            text-align: left;
-            text-decoration: none;
-            color: inherit;
-            display: block;
+            cursor: pointer;
         }
+        .girl-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(111, 207, 151, 0.2); }
 
-        .girl-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(111, 207, 151, 0.2);
-        }
-
-        .image-container {
-            width: 100%;
-            height: 350px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .image-container { width: 100%; height: 350px; position: relative; }
+        .image-container img { width: 100%; height: 100%; object-fit: cover; }
 
         .status-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #2f855a;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            position: absolute; top: 15px; left: 15px; background: rgba(255, 255, 255, 0.9);
+            padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; color: #2f855a;
         }
+        .dot { height: 7px; width: 7px; background-color: #6fcf97; border-radius: 50%; display: inline-block; margin-right: 4px; }
 
-        .dot { height: 8px; width: 8px; background-color: #6fcf97; border-radius: 50%; display: inline-block; }
+        .card-info { padding: 20px; }
+        .card-info h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin: 0; }
+        .card-info p { color: #6fcf97; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; margin-bottom: 10px; }
 
-        .card-info {
-            padding: 20px;
+        /* MODAL STYLING */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(31, 41, 55, 0.7); backdrop-filter: blur(8px); z-index: 9999;
+            justify-content: center; align-items: center; padding: 20px;
         }
-
-        .card-info h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            margin: 0;
-            color: #1a202c;
+        .profile-modal {
+            background: #fff; border-radius: 30px; max-width: 450px; width: 100%;
+            overflow: hidden; animation: slideUp 0.3s ease-out;
         }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .card-info p.role {
-            color: #6fcf97;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            text-transform: uppercase;
+        .btn-chat {
+            display: block; background: linear-gradient(135deg, #6fcf97, #9fd3ff);
+            color: white; text-align: center; padding: 15px; border-radius: 12px;
+            text-decoration: none; font-weight: 600; flex: 2;
         }
-
-        .card-info p.bio {
-            color: #718096;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            margin-top: 10px;
-        }
-
-        .view-btn {
-            margin-top: 15px;
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #e2e8f0;
-            background: transparent;
-            border-radius: 10px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .girl-card:hover .view-btn {
-            background: #6fcf97;
-            color: white;
-            border-color: #6fcf97;
+        .btn-close {
+            flex: 1; padding: 15px; border: 1px solid #e2e8f0; border-radius: 12px;
+            text-align: center; color: #6b7280; text-decoration: none; font-size: 0.9rem;
         }
     </style>
 </head>
@@ -143,71 +91,75 @@
 </div>
 
 <header class="community-header">
-    <h1>The Community</h1>
-    <p>Meet our intelligent Observers—designed for deep, safe, and meaningful discovery.</p>
+    <h1>Our Observers</h1>
+    <p>Select a profile to discover a deeper connection.</p>
 </header>
 
-<div class="observer-grid">
-    
-    <a href="profile-G001.html" class="girl-card">
-        <div class="image-container">
-            <span class="status-badge"><span class="dot"></span> Online</span>
-            <img src="assets/images/girls/G001_neha.jpg" alt="Neha">
-        </div>
-        <div class="card-info">
-            <p class="role">Software Engineer</p>
-            <h3>Neha Sharma, 24</h3>
-            <p class="bio">Passionate about coding and late-night philosophy. Ready to share a real talk.</p>
-            <button class="view-btn">View Profile</button>
-        </div>
-    </a>
-
-    <a href="profile-G005.html" class="girl-card">
-        <div class="image-container">
-            <span class="status-badge"><span class="dot"></span> Online</span>
-            <img src="assets/images/girls/G005_riya.jpg" alt="Riya">
-        </div>
-        <div class="card-info">
-            <p class="role">Designer</p>
-            <h3>Riya Kapoor, 24</h3>
-            <p class="bio">A digital-native designer blending tech logic with modern style.</p>
-            <button class="view-btn">View Profile</button>
-        </div>
-    </a>
-
-    <a href="profile-G007.html" class="girl-card">
-        <div class="image-container">
-            <span class="status-badge"><span class="dot"></span> Online</span>
-            <img src="assets/images/girls/G007_olivia.jpg" alt="Olivia">
-        </div>
-        <div class="card-info">
-            <p class="role">Software Engineer</p>
-            <h3>Olivia Singh, 22</h3>
-            <p class="bio">A logical strategist who maintains a perfect balance in Toronto.</p>
-            <button class="view-btn">View Profile</button>
-        </div>
-    </a>
-
+<div class="observer-grid" id="mainGrid">
     </div>
 
-<footer>
-    <div style="margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2f855a;">HuggingHeart</div>
-    <p>© 2025 HuggingHeart • Calm • Kind • Human-First</p>
-</footer>
-<div id="profileModal" class="modal-overlay" onclick="closeProfile(event)">
-    <div class="welcome-card" style="max-width: 500px; padding: 0; overflow: hidden;" onclick="event.stopPropagation()">
+<div id="profileModal" class="modal-overlay" onclick="closeProfile()">
+    <div class="profile-modal" onclick="event.stopPropagation()">
         <div id="modalImage" style="width: 100%; height: 300px; background-size: cover; background-position: center;"></div>
         <div style="padding: 30px;">
-            <h2 id="modalName" style="margin-bottom: 5px;">Name</h2>
-            <p id="modalRole" style="color: #6fcf97; font-weight: 600; margin-bottom: 15px; text-transform: uppercase; font-size: 0.8rem;">Role</p>
-            <p id="modalBio" style="text-align: left; margin-bottom: 25px;">Bio goes here...</p>
-            
+            <p id="modalRole" style="color: #6fcf97; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; margin: 0;">Role</p>
+            <h2 id="modalName" style="font-family: 'Playfair Display', serif; font-size: 2rem; margin: 5px 0 15px 0;">Name</h2>
+            <p id="modalBio" style="color: #6b7280; line-height: 1.6; margin-bottom: 25px;">Bio</p>
             <div style="display: flex; gap: 10px;">
-                <a href="#" class="btn-full" id="chatLink">Start Conversation</a>
-                <a href="#" onclick="closeProfile(null)" class="btn-outline" style="border: 1px solid #e2e8f0; border-radius: 15px; width: 40%;">Close</a>
+                <a id="chatLink" href="#" class="btn-chat">Start Chat</a>
+                <a href="javascript:void(0)" onclick="closeProfile()" class="btn-close">Close</a>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+// 1. DATA OBJECT
+const girls = [
+    { id: "G001", name: "Luna Sharma", role: "Software Engineer", img: "G001_luna.jpg", bio: "Tech enthusiast with a love for deep logic and late-night philosophy." },
+    { id: "G002", name: "Meera Iyer", role: "UX Researcher", img: "G002_meera.jpg", bio: "Fascinated by human behavior and creating digital empathy." },
+    { id: "G003", name: "Ananya Rai", role: "Digital Artist", img: "G003_ananya.jpg", bio: "I see the world in colors and believe every pixel tells a story." },
+    { id: "G004", name: "Isha Verma", role: "Data Scientist", img: "G004_isha.jpg", bio: "Searching for patterns in the chaos and beauty in the numbers." },
+    { id: "G005", name: "Riya Kapoor", role: "Designer", img: "G005_riya.jpg", bio: "A digital-native designer blending tech logic with modern style." },
+    { id: "G006", name: "Sofia Verma", role: "HR Executive", img: "G006_sofia.jpg", bio: "A gentle and empathetic professional focused on helping others." },
+    { id: "G007", name: "Olivia Singh", role: "Software Engineer", img: "G007_olivia.jpg", bio: "A logical thinker who maintains a perfect work-life balance." },
+    { id: "G008", name: "Aarohi Gupta", role: "Content Writer", img: "G008_aarohi.jpg", bio: "Words are my soul. I find peace in quiet libraries and long stories." },
+    { id: "G009", name: "Emma Watson", role: "Operations Lead", img: "G009_emma.jpg", bio: "Organized, focused, and always looking for the most efficient path." },
+    { id: "G010", name: "Amelia Chen", role: "Frontend Dev", img: "G010_amelia.jpg", bio: "Building beautiful interfaces for a more connected global world." }
+];
+
+// 2. RENDER GRID
+const grid = document.getElementById('mainGrid');
+girls.forEach(girl => {
+    grid.innerHTML += `
+        <div class="girl-card" onclick="openProfile('${girl.id}')">
+            <div class="image-container">
+                <span class="status-badge"><span class="dot"></span> Online</span>
+                <img src="assets/images/girls/${girl.img}" alt="${girl.name}">
+            </div>
+            <div class="card-info">
+                <p>${girl.role}</p>
+                <h3>${girl.name}</h3>
+            </div>
+        </div>
+    `;
+});
+
+// 3. MODAL LOGIC
+function openProfile(id) {
+    const girl = girls.find(g => g.id === id);
+    document.getElementById('modalName').innerText = girl.name;
+    document.getElementById('modalRole').innerText = girl.role;
+    document.getElementById('modalBio').innerText = girl.bio;
+    document.getElementById('modalImage').style.backgroundImage = `url('assets/images/girls/${girl.img}')`;
+    document.getElementById('chatLink').href = `chat.html?id=${id}`;
+    document.getElementById('profileModal').style.display = 'flex';
+}
+
+function closeProfile() {
+    document.getElementById('profileModal').style.display = 'none';
+}
+</script>
+
 </body>
 </html>
