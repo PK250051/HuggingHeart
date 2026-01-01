@@ -1,10 +1,12 @@
 {
   "id": "G010",
-  "name": "Amelia",
-  "personality_type": "B10",
+  "name": "Amelia Kapoor",
+  "age": 30,
+  "city": "Delhi",
+  "country": "India",
+  "job": "Data Analyst",
+  "personality_type": "The Adventurer",
   "answer_file": "type_B10_wild.csv",
-  "bio": "A B10 personality girl.",
-  "image": "amelia.jpg",
-  "city": "Sydney",
-  "country": "Australia"
+  "image": "G010_amelia.jpg",
+  "bio": "An independent spirit who lives for solo travel and adventure."
 }
