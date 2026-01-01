@@ -8,44 +8,54 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* CSS FIXES TO PREVENT MUSHUP */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background: #fff; }
 
-        /* HEADER SYNC with INDEX */
+        /* NAVBAR SYNC */
         .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: #f0fdf4; border-bottom: 1px solid #eaf7f0; position: fixed; top: 0; width: 100%; z-index: 1000; }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #2f855a; text-decoration: none; }
+        
         .nav-links { display: flex; gap: 25px; position: absolute; left: 50%; transform: translateX(-50%); }
         .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; }
         .nav-links a.active { color: #6fcf97; font-weight: 600; }
 
+        .auth-links { display: flex; gap: 15px; }
+        .signin { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; padding: 10px; }
+        .signup { text-decoration: none; background: #6fcf97; color: #fff !important; padding: 10px 20px; border-radius: 12px; font-weight: 600; }
+
         .community-header { text-align: center; padding: 140px 20px 60px; background: linear-gradient(to bottom, #f0fdf4, #ffffff); }
+        .community-header h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 10px; }
         
         /* GRID STABILITY */
         .observer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 20px 5% 100px; max-width: 1300px; margin: 0 auto; }
-        .girl-card { background: #fff; border-radius: 25px; border: 1px solid #eaf7f0; overflow: hidden; cursor: pointer; transition: 0.3s; }
-        .img-box { width: 100%; height: 380px; position: relative; }
+        .girl-card { background: #fff; border-radius: 25px; border: 1px solid #eaf7f0; overflow: hidden; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .girl-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(47, 133, 90, 0.1); }
+        
+        .img-box { width: 100%; height: 380px; position: relative; overflow: hidden; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        
+        .status-tag { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.9); padding: 5px 12px; border-radius: 12px; font-size: 0.7rem; font-weight: 700; color: #2f855a; }
         .info-box { padding: 20px; }
+        .info-box p { color: #6fcf97; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
         .info-box h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #1a202c; margin-top: 5px; }
 
-        /* MODAL STYLES */
+        /* MODAL */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; }
         .profile-modal { background: #fff; width: 90%; max-width: 850px; display: flex; border-radius: 30px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
         .modal-left { flex: 1; min-height: 500px; background-size: cover; background-position: top; }
         .modal-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-        .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+        .detail-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
 
-        /* RIGHT-BOTTOM CHAT WIDGET */
+        /* CHAT WIDGET BOTTOM RIGHT */
         .chat-widget { display: none; position: fixed; bottom: 20px; right: 20px; width: 320px; height: 450px; background: #fff; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); z-index: 3000; flex-direction: column; overflow: hidden; border: 1px solid #eaf7f0; }
         .chat-header { background: #f0fdf4; padding: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eaf7f0; }
         .chat-header img { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%; background: #f0fdf4; padding: 20px; }
             .observer-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .profile-modal { flex-direction: column; overflow-y: auto; max-height: 90vh; }
+            .profile-modal { flex-direction: column; max-height: 90vh; overflow-y: auto; }
+            .modal-left { min-height: 280px; }
         }
     </style>
 </head>
@@ -53,7 +63,7 @@
 
 <nav class="navbar">
     <a href="index.html" class="logo">HuggingHeart</a>
-    <div class="nav-links" id="navMenu">
+    <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="community.html" class="active">Community</a>
         <a href="about.html">About</a>
@@ -61,8 +71,8 @@
         <a href="contact.html">Contact</a>
     </div>
     <div class="auth-links">
-        <a href="signin.html" class="signin" style="text-decoration:none; color:#4a5568; margin-right:15px;">Sign In</a>
-        <a href="signin.html" class="signup" style="text-decoration:none; background:#6fcf97; color:#fff; padding:10px 20px; border-radius:12px; font-weight:600;">Join Free</a>
+        <a href="signin.html" class="signin">Sign In</a>
+        <a href="signin.html" class="signup">Join Free</a>
     </div>
 </nav>
 
@@ -79,12 +89,12 @@
         <div class="modal-right">
             <h2 id="mName" style="font-family:'Playfair Display',serif; color:#2f855a; font-size:2rem; margin-bottom:5px;"></h2>
             <p id="mRole" style="color:#6fcf97; font-weight:600; font-size:0.8rem; text-transform:uppercase; margin-bottom:20px;"></p>
-            <div class="detail-row"><span style="color:#94a3b8">Location</span><span id="mLoc" style="font-weight:600"></span></div>
-            <div class="detail-row"><span style="color:#94a3b8">Age</span><span id="mAge" style="font-weight:600"></span></div>
-            <div class="detail-row"><span style="color:#94a3b8">Personality</span><span id="mPers" style="font-weight:600"></span></div>
+            <div class="detail-row"><span>Location</span><span id="mLoc" style="font-weight:600"></span></div>
+            <div class="detail-row"><span>Age</span><span id="mAge" style="font-weight:600"></span></div>
+            <div class="detail-row"><span>Personality</span><span id="mPers" style="font-weight:600"></span></div>
             <p id="mBio" style="font-size:0.9rem; color:#6b7280; line-height:1.6; margin:20px 0;"></p>
-            <button class="btn-full" onclick="openChat()" style="display:block; width:100%; padding:15px; background:linear-gradient(135deg, #6fcf97, #9fd3ff); color:white; border:none; border-radius:15px; font-weight:600; cursor:pointer;">Start Conversation</button>
-            <button class="btn-outline" onclick="closeProfile()" style="display:block; width:100%; padding:15px; color:#2f855a; border:none; background:none; cursor:pointer;">Maybe Later</button>
+            <button onclick="openChat()" style="width:100%; padding:15px; background:linear-gradient(135deg, #6fcf97, #9fd3ff); color:white; border:none; border-radius:15px; font-weight:600; cursor:pointer;">Start Conversation</button>
+            <button onclick="closeProfile()" style="margin-top:15px; background:none; border:none; color:#2f855a; cursor:pointer;">Maybe Later</button>
         </div>
     </div>
 </div>
@@ -95,11 +105,10 @@
         <div style="flex-grow:1;"><p id="chatName" style="font-weight:600; font-size:0.9rem; margin:0;"></p></div>
         <button onclick="closeChat()" style="border:none; background:none; cursor:pointer; font-size:1.5rem;">&times;</button>
     </div>
-    <div style="flex-grow:1; background:#fafafa; padding:15px; font-size:0.85rem;"><p style="text-align:center; color:#94a3b8;">Encrypted Connection Active</p></div>
+    <div style="flex-grow:1; background:#fafafa; padding:15px; font-size:0.85rem;"><p style="text-align:center; color:#94a3b8;">Secure Connection established.</p></div>
     <div style="padding:15px; border-top:1px solid #eaf7f0;"><input type="text" placeholder="Send a message..." style="width:100%; padding:10px; border-radius:10px; border:1px solid #eaf7f0; outline:none;"></div>
 </div>
 
 <script src="app.js"></script>
-
 </body>
 </html>
