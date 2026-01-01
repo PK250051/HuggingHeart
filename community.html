@@ -10,9 +10,15 @@
     <style>
         /* --- RESET & CORE --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Poppins', sans-serif; background: #fff; color: #1a202c; }
+        body { font-family: 'Poppins', sans-serif; background: #fff; color: #1a202c; overflow-x: hidden; }
 
-        /* --- NAVBAR (Same as Index Page) --- */
+        /* --- STAGGERED LOADING ANIMATION --- */
+        @keyframes cardAppear {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- NAVBAR --- */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; position: fixed; top: 0; width: 100%;
@@ -20,12 +26,11 @@
         }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #2f855a; text-decoration: none; }
         
-        /* Centered Menu Links */
         .nav-links { 
             display: flex; gap: 25px; align-items: center; 
             position: absolute; left: 50%; transform: translateX(-50%); 
         }
-        .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; }
+        .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
         .nav-links a.active { color: #6fcf97; font-weight: 600; }
 
         .auth-links { display: flex; gap: 15px; align-items: center; }
@@ -34,6 +39,9 @@
             text-decoration: none; background: #6fcf97; color: #fff !important; 
             padding: 10px 20px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; 
         }
+
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: #2f855a; border-radius: 2px; }
 
         /* --- GRID SECTION --- */
         .community-header { 
@@ -47,23 +55,27 @@
             display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
             gap: 25px; padding: 20px 5% 100px; max-width: 1300px; margin: 0 auto; 
         }
+
         .girl-card { 
             background: #fff; border-radius: 25px; border: 1px solid #eaf7f0; 
-            overflow: hidden; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.03); 
+            overflow: hidden; cursor: pointer; transition: 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.03); 
+            opacity: 0; /* Hidden for loading effect */
         }
-        .girl-card:hover { transform: translateY(-10px); }
+        .girl-card.loaded { animation: cardAppear 0.6s ease forwards; }
+        .girl-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(47, 133, 90, 0.1); }
+
         .img-box { width: 100%; height: 380px; position: relative; overflow: hidden; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
         .info-box { padding: 20px; }
         .info-box h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-top: 5px; }
 
-        /* --- PROFILE MODAL --- */
+        /* --- MODALS --- */
         .modal-overlay { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(8px); z-index: 2000; 
             justify-content: center; align-items: center; 
         }
-        .profile-modal { background: #fff; width: 95%; max-width: 850px; display: flex; border-radius: 30px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
+        .profile-modal { background: #fff; width: 95%; max-width: 850px; display: flex; border-radius: 30px; overflow: hidden; }
         .modal-left { flex: 1; min-height: 500px; background-size: cover; background-position: top; }
         .modal-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
         .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
@@ -72,7 +84,7 @@
             color: white; border: none; border-radius: 15px; font-weight: 600; cursor: pointer; margin-top: 20px; 
         }
 
-        /* --- CHAT WIDGET (BOTTOM RIGHT) --- */
+        /* --- CHAT WIDGET --- */
         .chat-widget {
             display: none; position: fixed; bottom: 20px; right: 20px;
             width: 320px; height: 450px; background: #fff; border-radius: 20px;
@@ -88,11 +100,19 @@
         .chat-input { padding: 15px; display: flex; gap: 10px; border-top: 1px solid #eaf7f0; }
         .chat-input input { flex: 1; border: 1px solid #eaf7f0; border-radius: 10px; padding: 8px 12px; outline: none; }
 
+        /* --- MOBILE --- */
         @media (max-width: 768px) {
-            .nav-links { display: none; } /* Hamburger can be added later if needed */
-            .observer-grid { grid-template-columns: 1fr 1fr; }
+            .hamburger { display: flex; }
+            .nav-links { 
+                display: none; flex-direction: column; position: absolute; top: 100%; 
+                left: 0; width: 100%; background: #f0fdf4; padding: 20px; transform: none; 
+                border-bottom: 1px solid #eaf7f0; text-align: center; gap: 15px;
+            }
+            .nav-links.show { display: flex; }
+            .auth-links { display: none; }
+            .observer-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
             .profile-modal { flex-direction: column; max-height: 90vh; overflow-y: auto; }
-            .chat-widget { width: 90%; right: 5%; bottom: 10px; }
+            .chat-widget { width: 100%; height: 100%; bottom: 0; right: 0; border-radius: 0; }
         }
     </style>
 </head>
@@ -100,7 +120,12 @@
 
 <nav class="navbar">
     <a href="index.html" class="logo">HuggingHeart</a>
-    <div class="nav-links">
+    
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="nav-links" id="navMenu">
         <a href="index.html">Home</a>
         <a href="community.html" class="active">Community</a>
         <a href="about.html">About</a>
@@ -108,6 +133,7 @@
         <a href="careers.html">Careers</a>
         <a href="contact.html">Contact</a>
     </div>
+
     <div class="auth-links">
         <a href="signin.html" class="signin">Sign In</a>
         <a href="signin.html" class="signup">Join Free</a>
@@ -170,17 +196,26 @@
     let activeGirl = null;
     const container = document.getElementById('grid');
 
-    // Generate Grid Cards
-    girls.forEach(g => {
-        container.innerHTML += `
-        <div class="girl-card" onclick="openP('${g.id}')">
-            <div class="img-box"><img src="assets/images/girls/${g.img}"></div>
-            <div class="info-box">
-                <p style="color:#6fcf97; font-size:0.75rem; font-weight:600; text-transform:uppercase;">${g.role}</p>
-                <h3>${g.name}</h3>
-            </div>
-        </div>`;
-    });
+    // --- NEW LOADING LOGIC (One by One) ---
+    function loadGirls() {
+        girls.forEach((g, index) => {
+            setTimeout(() => {
+                const card = document.createElement('div');
+                card.className = 'girl-card loaded';
+                card.onclick = () => openP(g.id);
+                card.innerHTML = `
+                    <div class="img-box"><img src="assets/images/girls/${g.img}"></div>
+                    <div class="info-box">
+                        <p style="color:#6fcf97; font-size:0.75rem; font-weight:600; text-transform:uppercase;">${g.role}</p>
+                        <h3>${g.name}</h3>
+                    </div>
+                `;
+                container.appendChild(card);
+            }, index * 150); // 150ms delay between each card
+        });
+    }
+
+    function toggleMenu() { document.getElementById('navMenu').classList.toggle('show'); }
 
     function openP(id) {
         activeGirl = girls.find(x => x.id === id);
@@ -191,7 +226,7 @@
         document.getElementById('mBio').innerText = activeGirl.bio;
         document.getElementById('mImg').style.backgroundImage = `url('assets/images/girls/${activeGirl.img}')`;
         document.getElementById('pModal').style.display = 'flex';
-        document.body.style.overflow = 'hidden'; // Prevent background scroll
+        document.body.style.overflow = 'hidden'; 
     }
 
     function openChat() {
@@ -200,7 +235,6 @@
         document.getElementById('chatImg').src = `assets/images/girls/${activeGirl.img}`;
         document.getElementById('chatWidget').style.display = 'flex';
         
-        // Add greeting message only if not already there
         if (document.getElementById('chatMessages').children.length <= 1) {
             document.getElementById('chatMessages').innerHTML += `<div style="margin-top:15px; padding:10px; background:#fff; border-radius:10px; border:1px solid #eaf7f0;"><strong>${activeGirl.name}:</strong> Hi there! I'm ${activeGirl.name}. Glad you reached out.</div>`;
         }
@@ -212,7 +246,9 @@
     }
     
     function closeChat() { document.getElementById('chatWidget').style.display = 'none'; }
-    function closeChatWidget() { document.getElementById('chatWidget').style.display = 'none'; }
+
+    // Start loading on page load
+    window.onload = loadGirls;
 </script>
 </body>
 </html>
