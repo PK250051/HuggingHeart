@@ -1,10 +1,12 @@
 {
   "id": "G005",
-  "name": "Riya",
-  "personality_type": "B5",
+  "name": "Riya Kapoor",
+  "age": 24,
+  "city": "Chennai",
+  "country": "India",
+  "job": "Designer",
+  "personality_type": "The Techie",
   "answer_file": "type_B5_confident.csv",
-  "bio": "A B5 personality girl.",
-  "image": "riya.jpg",
-  "city": "Bangalore",
-  "country": "India"
+  "image": "G005_riya.jpg",
+  "bio": "A digital-native designer blending tech logic with modern style."
 }
