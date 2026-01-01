@@ -1,0 +1,11 @@
+{
+    "id": "G001",
+    "name": "Luna",
+    "age": 22,
+    "city": "Kyoto",
+    "country": "Japan",
+    "personality": "B1",
+    "type_file": "type_B1_very_shy.csv",
+    "bio": "A quiet artist who loves drawing and peaceful mornings.",
+    "avatar": "luna.jpg"
+}
