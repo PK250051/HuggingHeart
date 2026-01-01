@@ -1,101 +1,210 @@
-/* ===================================================
-   1. GLOBAL STYLES (Applies to ALL Pages)
-   =================================================== */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body { 
-    font-family: 'Poppins', sans-serif; 
-    background: #fff; 
-    color: #1a202c; 
-    line-height: 1.6;
-    overflow-x: hidden;
+/* ================= VARIABLES & RESET ================= */
+:root {
+  --green: #6fcf97;
+  --green-soft: #f0fdf4; /* Lightened to match your Index header background */
+  --sky: #9fd3ff;
+  --bg: #ffffff;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #eaf7f0;
 }
 
-/* NAVBAR (Same for Index, Community, etc.) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ================= NAVBAR (Unified) ================= */
 .navbar {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 15px 5%; position: fixed; top: 0; width: 100%;
-    background: #f0fdf4; z-index: 1000; border-bottom: 1px solid #eaf7f0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--green-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 5%;
+  border-bottom: 1px solid var(--border);
+  z-index: 2000;
 }
 
-.logo { 
-    font-family: 'Playfair Display', serif; font-size: 1.5rem; 
-    font-weight: 700; color: #2f855a; text-decoration: none; 
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2f855a;
+  text-decoration: none;
 }
 
-.nav-links { 
-    display: flex; gap: 25px; align-items: center; 
-    position: absolute; left: 50%; transform: translateX(-50%); 
+.nav-links {
+  display: flex;
+  gap: 25px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
-.nav-links a.active { color: #6fcf97; font-weight: 600; }
-
-.auth-links { display: flex; gap: 15px; align-items: center; }
-.signup { 
-    text-decoration: none; background: #6fcf97; color: #fff !important; 
-    padding: 10px 20px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; 
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: 0.3s;
 }
 
-/* ===================================================
-   2. COMMUNITY PAGE SPECIFIC (Relax Mode & Grid)
-   =================================================== */
+.nav-links a:hover, .nav-links a.active {
+  color: var(--green);
+  font-weight: 600;
+}
 
-/* Discovering Souls Text */
+.auth-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.signin {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.signup {
+  text-decoration: none;
+  background: var(--green);
+  color: #ffffff !important;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* ================= HOME PAGE HERO (From your Screenshot) ================= */
+.hero {
+  max-width: 1200px;
+  margin: auto;
+  padding: 140px 20px 60px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.hero-text h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: #1a202c;
+  margin-bottom: 20px;
+}
+
+.hero-text h1 span { color: var(--green); }
+
+.hero-text p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 35px;
+}
+
+/* ================= COMMUNITY GRID & RELAX MODE ================= */
+.community-header {
+  text-align: center;
+  padding: 140px 20px 40px;
+  background: linear-gradient(to bottom, var(--green-soft), #ffffff);
+}
+
 .loading-status {
-    text-align: center; color: #2f855a; font-size: 0.85rem;
-    font-weight: 600; margin: 20px 0; letter-spacing: 2px;
-    text-transform: uppercase; width: 100%; transition: opacity 0.5s;
+  text-align: center;
+  color: #2f855a;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 20px 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: opacity 0.5s;
 }
 
 .dot-pulse {
-    display: inline-block; width: 6px; height: 6px;
-    background: #6fcf97; border-radius: 50%; margin-left: 8px;
-    animation: pulse 1.5s infinite;
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  margin-left: 8px;
+  animation: pulse 1.5s infinite;
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.6); opacity: 0.4; }
-    100% { transform: scale(1); opacity: 1; }
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
-/* Grid Logic */
-.observer-grid { 
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-    gap: 25px; padding: 20px 5% 100px; max-width: 1300px; margin: 0 auto; 
+.observer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  padding: 20px 5% 100px;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
-.girl-card { 
-    background: #fff; border-radius: 25px; border: 1px solid #eaf7f0; 
-    overflow: hidden; cursor: pointer; transition: 0.4s ease; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.03); opacity: 0; 
-    animation: cardAppear 0.6s ease forwards;
+.girl-card {
+  background: #fff;
+  border-radius: 25px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.4s;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  opacity: 0;
+  animation: cardAppear 0.6s ease forwards;
 }
 
 @keyframes cardAppear {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.img-box { width: 100%; height: 380px; position: relative; overflow: hidden; background: #f9fafb; }
+.img-box { width: 100%; height: 380px; position: relative; overflow: hidden; }
 .img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 
-/* ===================================================
-   3. MOBILE & RESPONSIVENESS (Fixes Menu/Chat)
-   =================================================== */
+/* ================= MODAL & CHAT ================= */
+.modal-overlay {
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(8px); z-index: 3000;
+  justify-content: center; align-items: center;
+}
+
+.profile-modal { background: #fff; width: 90%; max-width: 850px; display: flex; border-radius: 30px; overflow: hidden; }
+.modal-left { flex: 1; min-height: 550px; background-size: cover; background-position: top; }
+.modal-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+
+.detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+
+.chat-widget {
+  display: none; position: fixed; bottom: 20px; right: 20px;
+  width: 320px; height: 450px; background: #fff; border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15); border: 1px solid var(--border);
+  z-index: 4000; flex-direction: column; overflow: hidden;
+}
+
+/* ================= MOBILE ================= */
 @media (max-width: 768px) {
-    .nav-links { 
-        display: none; flex-direction: column; position: absolute; 
-        top: 70px; left: 0; width: 100%; background: #f0fdf4; padding: 20px; 
-    }
-    .nav-links.show { display: flex; } /* JavaScript Toggles This */
-    
-    .observer-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-    
-    /* Full Screen Mobile Chat */
-    .chat-widget { 
-        width: 100% !important; height: 100% !important; 
-        bottom: 0 !important; right: 0 !important; border-radius: 0 !important; 
-    }
+  .nav-links {
+    display: none; position: absolute; top: 70px; left: 0; width: 100%;
+    background: var(--green-soft); flex-direction: column; padding: 20px;
+  }
+  .nav-links.show { display: flex; }
+  .observer-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .hero { grid-template-columns: 1fr; text-align: center; }
+  .chat-widget { width: 100%; height: 100%; bottom: 0; right: 0; border-radius: 0; }
 }
