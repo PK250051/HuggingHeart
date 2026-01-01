@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* --- DESIGN SYNC --- */
+        /* --- CORE STYLES (MATCHING INDEX) --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background: #fff; color: #1a202c; }
 
@@ -28,19 +28,18 @@
         .community-header { text-align: center; padding: 140px 20px 60px; background: linear-gradient(to bottom, #f0fdf4, #ffffff); }
         .community-header h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; }
         
-        /* GRID */
+        /* GRID STABILITY */
         .observer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 20px 5% 100px; max-width: 1300px; margin: 0 auto; }
         
-        /* PROFILE MODAL (UPDATED FOR ASSERTIVE DETAILS) */
+        /* UPDATED PROFILE MODAL (ASSERTIVE) */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; }
         .profile-modal { background: #fff; width: 90%; max-width: 850px; display: flex; border-radius: 30px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
         .modal-left { flex: 1; min-height: 550px; background-size: cover; background-position: top; }
         .modal-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
         
-        /* NEW ASSERTIVE STYLE CLASSES */
-        .motto-text { font-style: italic; color: #6fcf97; font-size: 1.1rem; margin-bottom: 10px; font-family: 'Playfair Display', serif; }
+        .motto-style { font-style: italic; color: #6fcf97; font-size: 1.1rem; margin-bottom: 10px; font-family: 'Playfair Display', serif; }
         .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
-        .bio-box { font-size: 0.95rem; color: #6b7280; line-height: 1.7; margin: 25px 0; border-left: 3px solid #f0fdf4; padding-left: 15px; }
+        .bio-style { font-size: 0.95rem; color: #6b7280; line-height: 1.7; margin: 25px 0; border-left: 3px solid #f0fdf4; padding-left: 15px; }
 
         /* CHAT WIDGET */
         .chat-widget { display: none; position: fixed; bottom: 20px; right: 20px; width: 320px; height: 450px; background: #fff; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); z-index: 3000; flex-direction: column; overflow: hidden; border: 1px solid #eaf7f0; }
@@ -83,18 +82,17 @@
     <div class="profile-modal" onclick="event.stopPropagation()">
         <div id="mImg" class="modal-left"></div>
         <div class="modal-right">
-            <p id="mMotto" class="motto-text"></p>
-            
+            <p id="mMotto" class="motto-style"></p>
             <h2 id="mName" style="font-family:'Playfair Display',serif; color:#2f855a; font-size:2.2rem; margin-bottom:5px;"></h2>
             <p id="mRole" style="color:#6fcf97; font-weight:600; font-size:0.8rem; text-transform:uppercase; margin-bottom:20px; letter-spacing: 1px;"></p>
             
-            <div class="detail-row"><span style="color:#94a3b8">Location</span><span id="mLoc" style="font-weight:600"></span></div>
-            <div class="detail-row"><span style="color:#94a3b8">Age</span><span id="mAge" style="font-weight:600"></span></div>
-            <div class="detail-row"><span style="color:#94a3b8">Personality</span><span id="mPers" style="font-weight:600"></span></div>
-            <div class="detail-row"><span style="color:#94a3b8">Love Language</span><span id="mLove" style="font-weight:600; color:#2f855a;"></span></div>
-            <div class="detail-row"><span style="color:#94a3b8">Core Values</span><span id="mValues" style="font-weight:600"></span></div>
+            <div class="detail-row"><span>Location</span><span id="mLoc" style="font-weight:600"></span></div>
+            <div class="detail-row"><span>Age</span><span id="mAge" style="font-weight:600"></span></div>
+            <div class="detail-row"><span>Personality</span><span id="mPers" style="font-weight:600"></span></div>
+            <div class="detail-row"><span>Love Language</span><span id="mLove" style="font-weight:600; color:#2f855a;"></span></div>
+            <div class="detail-row"><span>Core Values</span><span id="mValues" style="font-weight:600"></span></div>
             
-            <p id="mBio" class="bio-box"></p>
+            <p id="mBio" class="bio-style"></p>
             
             <button onclick="openChat()" style="width:100%; padding:15px; background:linear-gradient(135deg, #6fcf97, #9fd3ff); color:white; border:none; border-radius:15px; font-weight:600; cursor:pointer;">Start the Movement</button>
             <button onclick="closeProfile()" style="margin-top:15px; background:none; border:none; color:#94a3b8; cursor:pointer; font-size:0.9rem;">Return to Community</button>
@@ -108,7 +106,8 @@
         <div style="flex-grow:1;"><p id="chatName" style="font-weight:600; font-size:0.9rem; margin:0;"></p></div>
         <button onclick="closeChat()" style="border:none; background:none; cursor:pointer; font-size:1.5rem;">&times;</button>
     </div>
-    <div style="flex-grow:1; background:#fafafa; padding:15px; font-size:0.85rem;"><p style="text-align:center; color:#94a3b8;">Secure Connection established.</p></div>
+    <div class="chat-window" style="flex-grow:1; background:#fafafa; padding:15px; font-size:0.85rem; overflow-y:auto;">
+        </div>
     <div style="padding:15px; border-top:1px solid #eaf7f0;"><input type="text" placeholder="Send a message..." style="width:100%; padding:10px; border-radius:10px; border:1px solid #eaf7f0; outline:none;"></div>
 </div>
 
