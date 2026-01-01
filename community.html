@@ -8,105 +8,85 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* --- RESET & INDEX COLOR SYNC --- */
+        /* --- EXACT INDEX PAGE STYLING --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background: #fff; color: #1a202c; }
 
-        /* NAVBAR (Matching Index) */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; position: fixed; top: 0; width: 100%;
-            background: rgba(255,255,255,0.98); backdrop-filter: blur(8px);
-            z-index: 1000; border-bottom: 1px solid #eaf7f0;
+            background: #fff; z-index: 1000; border-bottom: 1px solid #eaf7f0;
         }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #2f855a; text-decoration: none; }
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; }
-        .nav-links a.active { color: #6fcf97; font-weight: 600; }
         
+        /* CENTER MENU FOR DESKTOP */
+        .nav-links { display: flex; gap: 25px; align-items: center; position: absolute; left: 50%; transform: translateX(-50%); }
+        .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #6fcf97; }
+
+        .auth-links { display: flex; gap: 15px; align-items: center; }
+        .auth-links a { text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+        .signin { color: #4a5568; }
+        .signup { background: #6fcf97; color: #fff !important; padding: 10px 20px; border-radius: 12px; font-weight: 600; }
+
+        /* HAMBURGER MENU */
         .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
         .hamburger span { width: 25px; height: 3px; background: #2f855a; border-radius: 2px; }
 
-        /* HEADER (Matching Hero Gradient) */
-        .community-header { 
-            text-align: center; 
-            padding: 140px 20px 40px; 
-            background: linear-gradient(to bottom, #f0fdf4, #ffffff); /* Index Green Tint */
-        }
+        /* HEADER SECTION */
+        .community-header { text-align: center; padding: 140px 20px 40px; background: linear-gradient(to bottom, #f0fdf4, #ffffff); }
         .community-header h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; line-height: 1.1; }
-        .community-header h1 span { color: #6fcf97; }
+        .community-header span { color: #6fcf97; }
 
-        /* GRID SECTION */
+        /* GRID SYSTEM */
         .observer-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px; padding: 40px 5% 100px; max-width: 1300px; margin: 0 auto;
+            gap: 25px; padding: 40px 5% 80px; max-width: 1300px; margin: 0 auto;
         }
         .girl-card {
             background: #fff; border-radius: 25px; border: 1px solid #eaf7f0;
-            overflow: hidden; cursor: pointer; transition: 0.3s;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            overflow: hidden; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
         .girl-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(47, 133, 90, 0.1); }
         
-        /* FIX: Full Image - No head cutting */
+        /* FULL IMAGE - NO HEAD MISSING */
         .img-box { width: 100%; height: 380px; position: relative; overflow: hidden; }
-        .img-box img { 
-            width: 100%; height: 100%; 
-            object-fit: cover; 
-            object-position: top; /* Important: Keeps heads visible */
-        }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
         
-        .status-tag {
-            position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.9);
-            padding: 5px 12px; border-radius: 12px; font-size: 0.7rem; font-weight: 700; color: #2f855a;
-        }
+        .status-tag { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.9); padding: 5px 12px; border-radius: 12px; font-size: 0.7rem; font-weight: 700; color: #2f855a; }
 
         .info-box { padding: 20px; }
-        .info-box p { color: #6fcf97; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-box p { color: #6fcf97; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
         .info-box h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #1a202c; margin-top: 5px; }
 
-        /* MODAL SYNC WITH INDEX WELCOME CARD */
+        /* MODAL (SPLIT SCREEN) */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(8px); z-index: 2000;
             justify-content: center; align-items: center; padding: 20px;
         }
-        .profile-modal {
-            background: #fff; width: 100%; max-width: 850px; display: flex;
-            border-radius: 30px; overflow: hidden; border: 1px solid #eaf7f0;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-        }
+        .profile-modal { background: #fff; width: 100%; max-width: 850px; display: flex; border-radius: 30px; overflow: hidden; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         
         .modal-left { flex: 1; min-height: 500px; background-size: cover; background-position: top; }
         .modal-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
         
-        .tag-pill { background: #f0fdf4; color: #2f855a; padding: 5px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: 700; width: fit-content; }
-        .detail-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; color: #6b7280; }
-        .detail-item span:last-child { color: #1a202c; font-weight: 600; }
-        
-        /* Button Matching Index btn-full */
-        .btn-action { 
-            background: linear-gradient(135deg, #6fcf97, #9fd3ff); 
-            color: #fff; padding: 16px; border-radius: 15px; 
-            text-decoration: none; text-align: center; font-weight: 600; margin-top: 25px; transition: 0.3s; 
-        }
-        .btn-action:hover { opacity: 0.9; transform: translateY(-2px); }
-        .btn-close-text { margin-top: 15px; border: none; background: none; color: #2f855a; cursor: pointer; font-size: 0.9rem; font-weight: 500; }
+        .btn-full-index { display: block; width: 100%; padding: 15px; background: linear-gradient(135deg, #6fcf97, #9fd3ff); color: white; text-decoration: none; border-radius: 15px; font-weight: 600; text-align: center; margin-top: 20px; }
+        .btn-outline-index { display: block; width: 100%; padding: 15px; color: #2f855a; text-decoration: none; font-size: 0.9rem; font-weight: 500; text-align: center; border: none; background: none; cursor: pointer; }
 
-        /* FOOTER SYNC */
-        footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid #eaf7f0; }
-        .foot-links { display: flex; justify-content: center; gap: 30px; margin: 25px 0; }
-        .foot-links a { color: #6b7280; text-decoration: none; font-size: 0.85rem; }
-
-        /* MOBILE FIXES */
+        /* MOBILE OPTIMIZATION */
         @media (max-width: 768px) {
-            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #fff; flex-direction: column; padding: 20px; border-top: 1px solid #eaf7f0; }
+            .nav-links { 
+                display: none; position: absolute; top: 100%; left: 0; width: 100%; 
+                background: #fff; flex-direction: column; padding: 20px; transform: none; left: 0;
+            }
             .nav-links.show { display: flex; }
             .hamburger { display: flex; }
-            .observer-grid { grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+            .auth-links { display: none; }
+            .observer-grid { grid-template-columns: 1fr 1fr; gap: 12px; padding: 10px; }
             .img-box { height: 250px; }
             .profile-modal { flex-direction: column; max-height: 90vh; overflow-y: auto; }
-            .modal-left { min-height: 300px; }
+            .modal-left { min-height: 280px; }
         }
     </style>
 </head>
@@ -114,15 +94,23 @@
 
 <nav class="navbar">
     <a href="index.html" class="logo">HuggingHeart</a>
+    
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+
     <div class="nav-links" id="navMenu">
         <a href="index.html">Home</a>
         <a href="community.html" class="active">Community</a>
         <a href="about.html">About</a>
-        <a href="how-it-works.html">Process</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="careers.html">Careers</a>
         <a href="contact.html">Contact</a>
     </div>
-    <div class="hamburger" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
+
+    <div class="auth-links">
+        <a href="signin.html" class="signin">Sign In</a>
+        <a href="signin.html" class="signup">Join Free</a>
     </div>
 </nav>
 
@@ -133,47 +121,37 @@
 
 <div class="observer-grid" id="grid"></div>
 
-<footer style="margin-top: 50px;">
-    <div style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2f855a; margin-bottom: 20px;">HuggingHeart</div>
-    <div class="foot-links">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Safety</a>
-    </div>
-    <p style="color: #6b7280; font-size: 0.8rem;">© 2026 HuggingHeart • Human-First Social Space</p>
+<footer style="margin-top: 100px; text-align: center; padding: 40px;">
+    <div style="margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2f855a;">HuggingHeart</div>
+    <p style="color: #6b7280; font-size: 0.9rem;">© 2025 HuggingHeart • Calm • Kind • Human-First</p>
 </footer>
 
 <div id="pModal" class="modal-overlay" onclick="closeP()">
     <div class="profile-modal" onclick="event.stopPropagation()">
         <div id="mImg" class="modal-left"></div>
         <div class="modal-right">
-            <span id="mTag" class="tag-pill"></span>
-            <h2 id="mName" style="font-family: 'Playfair Display', serif; margin: 15px 0; font-size: 2rem; color: #2f855a;"></h2>
+            <h2 id="mName" style="font-family: 'Playfair Display', serif; margin: 0 0 10px 0; font-size: 2rem; color: #2f855a;"></h2>
             <p id="mRole" style="color: #6fcf97; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 20px;"></p>
-            
-            <div class="detail-item"><span>Location</span><span id="mLoc"></span></div>
-            <div class="detail-item"><span>Age</span><span id="mAge"></span></div>
-            
-            <p id="mBio" style="margin: 25px 0; font-size: 0.95rem; color: #6b7280; line-height: 1.6;"></p>
-            
-            <a id="cLink" href="#" class="btn-action">Start the Conversation</a>
-            <button class="btn-close-text" onclick="closeP()">Maybe Later</button>
+            <p id="mBio" style="font-size: 0.95rem; color: #6b7280; line-height: 1.6; margin-bottom: 20px;"></p>
+            <a id="cLink" href="#" class="btn-full-index">Start the Movement</a>
+            <button class="btn-outline-index" onclick="closeP()">Maybe Later</button>
         </div>
     </div>
 </div>
 
 <script>
+    // FULL DATA G001-G010
     const girls = [
-        { id: "G001", name: "Luna Sharma", age: 24, loc: "Mumbai", role: "Software Engineer", tag: "Bold & Edgy", img: "G001_luna.jpg", bio: "Tech enthusiast with a love for deep logic and late-night philosophy. I value honesty above all." },
-        { id: "G002", name: "Meera Iyer", age: 26, loc: "Bangalore", role: "UX Researcher", tag: "Empathetic", img: "G002_meera.jpg", bio: "Fascinated by human behavior and creating digital empathy. Let's talk about what makes us human." },
-        { id: "G003", name: "Ananya Rai", age: 21, loc: "Delhi", role: "Digital Artist", tag: "Creative Soul", img: "G003_ananya.jpg", bio: "I see the world in colors and believe every pixel tells a story. Seeking deep, colorful conversations." },
-        { id: "G004", name: "Isha Verma", age: 23, loc: "Pune", role: "Data Scientist", tag: "The Analyst", img: "G004_isha.jpg", bio: "Searching for patterns in the chaos and beauty in the numbers." },
-        { id: "G005", name: "Riya Kapoor", age: 24, loc: "Chennai", role: "Designer", tag: "The Techie", img: "G005_riya.jpg", bio: "A digital-native designer blending tech logic with modern style." },
-        { id: "G006", name: "Sofia Verma", age: 20, loc: "Sydney", role: "HR Executive", tag: "Caretaker", img: "G006_sofia.jpg", bio: "A gentle and empathetic professional focused on helping others." },
-        { id: "G007", name: "Olivia Singh", age: 22, loc: "Toronto", role: "Strategic Analyst", tag: "Strategist", img: "G007_olivia.jpg", bio: "A logical thinker who maintains a perfect work-life balance." },
-        { id: "G008", name: "Aarohi Gupta", age: 30, loc: "Hyderabad", role: "Content Writer", tag: "Intellectual", img: "G008_aarohi.jpg", bio: "Words are my soul. I find peace in quiet libraries and long stories." },
-        { id: "G009", name: "Emma Watson", age: 25, loc: "London", role: "Operations Lead", tag: "Efficient", img: "G009_emma.jpg", bio: "Organized and always looking for the most efficient path forward." },
-        { id: "G010", name: "Amelia Chen", age: 22, loc: "Singapore", role: "Frontend Dev", tag: "Globalist", img: "G010_amelia.jpg", bio: "Building beautiful interfaces for a more connected global world." }
+        { id: "G001", name: "Luna Sharma", role: "Software Engineer", img: "G001_luna.jpg", bio: "Tech enthusiast with a love for deep logic and late-night philosophy." },
+        { id: "G002", name: "Meera Iyer", role: "UX Researcher", img: "G002_meera.jpg", bio: "Fascinated by human behavior and creating digital empathy." },
+        { id: "G003", name: "Ananya Rai", role: "Digital Artist", img: "G003_ananya.jpg", bio: "I see the world in colors and believe every pixel tells a story." },
+        { id: "G004", name: "Isha Verma", role: "Data Scientist", img: "G004_isha.jpg", bio: "Searching for patterns in the chaos and beauty in numbers." },
+        { id: "G005", name: "Riya Kapoor", role: "Designer", img: "G005_riya.jpg", bio: "Blending tech logic with modern style." },
+        { id: "G006", name: "Sofia Verma", role: "HR Executive", img: "G006_sofia.jpg", bio: "Gentle professional focused on helping others." },
+        { id: "G007", name: "Olivia Singh", role: "Strategic Analyst", img: "G007_olivia.jpg", bio: "A logical thinker maintaining a perfect work-life balance." },
+        { id: "G008", name: "Aarohi Gupta", role: "Content Writer", img: "G008_aarohi.jpg", bio: "Words are my soul. I find peace in quiet libraries." },
+        { id: "G009", name: "Emma Watson", role: "Operations Lead", img: "G009_emma.jpg", bio: "Always looking for the most efficient path forward." },
+        { id: "G010", name: "Amelia Chen", role: "Frontend Dev", img: "G010_amelia.jpg", bio: "Building beautiful interfaces for a global world." }
     ];
 
     const container = document.getElementById('grid');
@@ -196,10 +174,7 @@
     function openP(id) {
         const g = girls.find(x => x.id === id);
         document.getElementById('mName').innerText = g.name;
-        document.getElementById('mAge').innerText = g.age;
-        document.getElementById('mLoc').innerText = g.loc;
         document.getElementById('mRole').innerText = g.role;
-        document.getElementById('mTag').innerText = g.tag;
         document.getElementById('mBio').innerText = g.bio;
         document.getElementById('mImg').style.backgroundImage = `url('assets/images/girls/${g.img}')`;
         document.getElementById('cLink').href = `chat.html?id=${id}`;
