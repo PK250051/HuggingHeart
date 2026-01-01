@@ -8,48 +8,54 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* --- EXACT INDEX PAGE STYLING --- */
+        /* --- RESET & COLOR SYNC --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background: #fff; color: #1a202c; }
 
+        /* NAVBAR - Exact Light Green Sync */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; position: fixed; top: 0; width: 100%;
-            background: #fff; z-index: 1000; border-bottom: 1px solid #eaf7f0;
+            background: #f0fdf4; /* Match Index Hero Light Green */
+            z-index: 1000; border-bottom: 1px solid #eaf7f0;
         }
+        
         .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #2f855a; text-decoration: none; }
         
-        /* CENTER MENU FOR DESKTOP */
+        /* DESKTOP MENU CENTERED */
         .nav-links { display: flex; gap: 25px; align-items: center; position: absolute; left: 50%; transform: translateX(-50%); }
-        .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
-        .nav-links a:hover, .nav-links a.active { color: #6fcf97; }
+        .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; }
+        .nav-links a.active { color: #6fcf97; font-weight: 600; }
 
         .auth-links { display: flex; gap: 15px; align-items: center; }
-        .auth-links a { text-decoration: none; font-size: 0.9rem; font-weight: 500; }
-        .signin { color: #4a5568; }
-        .signup { background: #6fcf97; color: #fff !important; padding: 10px 20px; border-radius: 12px; font-weight: 600; }
+        .signin { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; }
+        .signup { text-decoration: none; background: #6fcf97; color: #fff !important; padding: 10px 20px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; }
 
-        /* HAMBURGER MENU */
+        /* MOBILE MENU BUTTON */
         .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
         .hamburger span { width: 25px; height: 3px; background: #2f855a; border-radius: 2px; }
 
-        /* HEADER SECTION */
-        .community-header { text-align: center; padding: 140px 20px 40px; background: linear-gradient(to bottom, #f0fdf4, #ffffff); }
-        .community-header h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; line-height: 1.1; }
+        /* HEADER - Extended Light Green Gradient */
+        .community-header { 
+            text-align: center; 
+            padding: 140px 20px 60px; 
+            background: linear-gradient(to bottom, #f0fdf4, #ffffff); 
+        }
+        .community-header h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; line-height: 1.1; color: #1a202c; }
         .community-header span { color: #6fcf97; }
 
         /* GRID SYSTEM */
         .observer-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px; padding: 40px 5% 80px; max-width: 1300px; margin: 0 auto;
+            gap: 25px; padding: 20px 5% 100px; max-width: 1300px; margin: 0 auto;
         }
         .girl-card {
             background: #fff; border-radius: 25px; border: 1px solid #eaf7f0;
-            overflow: hidden; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            overflow: hidden; cursor: pointer; transition: 0.3s;
         }
         .girl-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(47, 133, 90, 0.1); }
         
-        /* FULL IMAGE - NO HEAD MISSING */
+        /* IMAGE BOX - No heads missing */
         .img-box { width: 100%; height: 380px; position: relative; overflow: hidden; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
         
@@ -59,26 +65,24 @@
         .info-box p { color: #6fcf97; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
         .info-box h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #1a202c; margin-top: 5px; }
 
-        /* MODAL (SPLIT SCREEN) */
+        /* MODAL */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(8px); z-index: 2000;
             justify-content: center; align-items: center; padding: 20px;
         }
-        .profile-modal { background: #fff; width: 100%; max-width: 850px; display: flex; border-radius: 30px; overflow: hidden; animation: slideIn 0.3s ease; }
-        @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
+        .profile-modal { background: #fff; width: 100%; max-width: 850px; display: flex; border-radius: 30px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
         .modal-left { flex: 1; min-height: 500px; background-size: cover; background-position: top; }
         .modal-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
         
         .btn-full-index { display: block; width: 100%; padding: 15px; background: linear-gradient(135deg, #6fcf97, #9fd3ff); color: white; text-decoration: none; border-radius: 15px; font-weight: 600; text-align: center; margin-top: 20px; }
         .btn-outline-index { display: block; width: 100%; padding: 15px; color: #2f855a; text-decoration: none; font-size: 0.9rem; font-weight: 500; text-align: center; border: none; background: none; cursor: pointer; }
 
-        /* MOBILE OPTIMIZATION */
+        /* MOBILE RESPONSIVENESS */
         @media (max-width: 768px) {
             .nav-links { 
                 display: none; position: absolute; top: 100%; left: 0; width: 100%; 
-                background: #fff; flex-direction: column; padding: 20px; transform: none; left: 0;
+                background: #f0fdf4; flex-direction: column; padding: 20px; transform: none; border-bottom: 1px solid #eaf7f0;
             }
             .nav-links.show { display: flex; }
             .hamburger { display: flex; }
@@ -121,16 +125,16 @@
 
 <div class="observer-grid" id="grid"></div>
 
-<footer style="margin-top: 100px; text-align: center; padding: 40px;">
-    <div style="margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2f855a;">HuggingHeart</div>
-    <p style="color: #6b7280; font-size: 0.9rem;">© 2025 HuggingHeart • Calm • Kind • Human-First</p>
+<footer style="padding: 60px 20px; text-align: center; border-top: 1px solid #eaf7f0;">
+    <div style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2f855a; margin-bottom: 15px;">HuggingHeart</div>
+    <p style="color: #6b7280; font-size: 0.9rem;">© 2025 HuggingHeart • Human-First Social Space</p>
 </footer>
 
 <div id="pModal" class="modal-overlay" onclick="closeP()">
     <div class="profile-modal" onclick="event.stopPropagation()">
         <div id="mImg" class="modal-left"></div>
         <div class="modal-right">
-            <h2 id="mName" style="font-family: 'Playfair Display', serif; margin: 0 0 10px 0; font-size: 2rem; color: #2f855a;"></h2>
+            <h2 id="mName" style="font-family: 'Playfair Display', serif; margin-bottom: 5px; font-size: 2rem; color: #2f855a;"></h2>
             <p id="mRole" style="color: #6fcf97; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 20px;"></p>
             <p id="mBio" style="font-size: 0.95rem; color: #6b7280; line-height: 1.6; margin-bottom: 20px;"></p>
             <a id="cLink" href="#" class="btn-full-index">Start the Movement</a>
@@ -140,7 +144,6 @@
 </div>
 
 <script>
-    // FULL DATA G001-G010
     const girls = [
         { id: "G001", name: "Luna Sharma", role: "Software Engineer", img: "G001_luna.jpg", bio: "Tech enthusiast with a love for deep logic and late-night philosophy." },
         { id: "G002", name: "Meera Iyer", role: "UX Researcher", img: "G002_meera.jpg", bio: "Fascinated by human behavior and creating digital empathy." },
@@ -182,10 +185,7 @@
         document.body.style.overflow = 'hidden';
     }
 
-    function closeP() { 
-        document.getElementById('pModal').style.display = 'none'; 
-        document.body.style.overflow = 'auto'; 
-    }
+    function closeP() { document.getElementById('pModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
 </script>
 </body>
 </html>
