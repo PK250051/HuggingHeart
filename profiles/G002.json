@@ -1,10 +1,12 @@
 {
   "id": "G002",
-  "name": "Ayumi",
-  "personality_type": "B2",
+  "name": "Meera Gupta",
+  "age": 26,
+  "city": "Hyderabad",
+  "country": "India",
+  "job": "Marketing Manager",
+  "personality_type": "The Athlete",
   "answer_file": "type_B2_shy.csv",
-  "bio": "A B2 personality girl.",
-  "image": "ayumi.jpg",
-  "city": "Tokyo",
-  "country": "Japan"
+  "image": "G002_ayumi.jpg",
+  "bio": "A goal-oriented manager who excels in fitness and strategy."
 }
