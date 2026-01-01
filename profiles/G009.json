@@ -1,10 +1,12 @@
 {
   "id": "G009",
-  "name": "Emma",
-  "personality_type": "B9",
+  "name": "Emma Brown",
+  "age": 23,
+  "city": "London",
+  "country": "UK",
+  "job": "Teacher",
+  "personality_type": "The Caretaker",
   "answer_file": "type_B9_gen_z.csv",
-  "bio": "A B9 personality girl.",
-  "image": "emma.jpg",
-  "city": "New York",
-  "country": "USA"
+  "image": "G009_emma.jpg",
+  "bio": "A nurturing teacher in London who finds peace in music."
 }
