@@ -1,10 +1,12 @@
 {
   "id": "G006",
-  "name": "Sofia",
-  "personality_type": "B6",
+  "name": "Sofia Verma",
+  "age": 20,
+  "city": "Sydney",
+  "country": "Australia",
+  "job": "HR Executive",
+  "personality_type": "The Caretaker",
   "answer_file": "type_B6_witty.csv",
-  "bio": "A B6 personality girl.",
-  "image": "sofia.jpg",
-  "city": "Madrid",
-  "country": "Spain"
+  "image": "G006_sofia.jpg",
+  "bio": "A gentle and empathetic professional focused on helping others."
 }
