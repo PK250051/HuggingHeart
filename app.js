@@ -3,86 +3,16 @@
    =================================================== */
 
 const girls = [
-    { 
-        id: "G001", name: "Luna Sharma", age: 24, loc: "Mumbai", role: "Software Engineer", 
-        pers: "Bold Strategist", img: "G001_luna.jpg", 
-        motto: "Code is logic, but life is art.", 
-        loveLanguage: "Intellectual Depth", 
-        values: "Honesty, Growth",
-        bio: "I build complex systems by day and ponder the stars by night. I value deep, honest debates over small talk." 
-    },
-    { 
-        id: "G002", name: "Meera Iyer", age: 26, loc: "Bangalore", role: "UX Researcher", 
-        pers: "The Caretaker", img: "G002_meera.jpg", 
-        motto: "Empathy is the ultimate superpower.", 
-        loveLanguage: "Quality Time", 
-        values: "Kindness, Presence",
-        bio: "I spend my time studying how people feel. I value soft voices and warm hearts over digital noise." 
-    },
-    { 
-        id: "G003", name: "Ananya Rai", age: 21, loc: "Delhi", role: "Digital Artist", 
-        pers: "Creative Soul", img: "G003_ananya.jpg", 
-        motto: "Every pixel holds a silent story.", 
-        loveLanguage: "Words of Affirmation", 
-        values: "Expression, Passion",
-        bio: "I see the world in high-contrast. Seeking a connection that feels like a masterpiece in progress." 
-    },
-    { 
-        id: "G004", name: "Isha Verma", age: 23, loc: "Pune", role: "Data Scientist", 
-        pers: "The Analyst", img: "G004_isha.jpg", 
-        motto: "In a world of variables, be a constant.", 
-        loveLanguage: "Acts of Service", 
-        values: "Precision, Loyalty",
-        bio: "Searching for patterns in the chaos. I appreciate clarity, consistency, and a mind that never stops questioning." 
-    },
-    { 
-        id: "G005", name: "Riya Kapoor", age: 24, loc: "Chennai", role: "Designer", 
-        pers: "The Techie", img: "G005_riya.jpg", 
-        motto: "Simplicity is sophistication.", 
-        loveLanguage: "Thoughtful Gifts", 
-        values: "Innovation, Style",
-        bio: "Blending tech logic with modern visual style. I’m drawn to minimalist aesthetics." 
-    },
-    { 
-        id: "G006", name: "Sofia Verma", age: 20, loc: "Sydney", role: "HR Executive", 
-        pers: "Gentle Caretaker", img: "G006_sofia.jpg", 
-        motto: "Kindness is universal.", 
-        loveLanguage: "Presence", 
-        values: "Support, Harmony",
-        bio: "Dedicated to helping people find their spark. I value authentic connections that feel safe." 
-    },
-    { 
-        id: "G007", name: "Olivia Singh", age: 22, loc: "Toronto", role: "Strategic Analyst", 
-        pers: "The Strategist", img: "G007_olivia.jpg", 
-        motto: "Balance is a creation.", 
-        loveLanguage: "Stimulation", 
-        values: "Clarity, Ambition",
-        bio: "Strategic in mind, poetic in heart. I believe the best connections happen when we put the digital world on pause." 
-    },
-    { 
-        id: "G008", name: "Aarohi Gupta", age: 30, loc: "Hyderabad", role: "Content Writer", 
-        pers: "Intellectual", img: "G008_aarohi.jpg", 
-        motto: "We are all stories in the end.", 
-        loveLanguage: "Conversation", 
-        values: "Wisdom, Silence",
-        bio: "I find peace in quiet libraries. I'm looking for someone who reads between the lines." 
-    },
-    { 
-        id: "G009", name: "Emma Watson", age: 25, loc: "London", role: "Operations Lead", 
-        pers: "Efficient Leader", img: "G009_emma.jpg", 
-        motto: "Be effective, not just busy.", 
-        loveLanguage: "Shared Goals", 
-        values: "Action, Discipline",
-        bio: "Organized and focused. I respect people who value time as their most precious currency." 
-    },
-    { 
-        id: "G010", name: "Amelia Chen", age: 22, loc: "Singapore", role: "Frontend Dev", 
-        pers: "Globalist", img: "G010_amelia.jpg", 
-        motto: "The heart is bigger than the world.", 
-        loveLanguage: "New Experiences", 
-        values: "Connection, Beauty",
-        bio: "Building interfaces to connect the world. I love learning about new cultures." 
-    }
+    { id: "G001", name: "Luna Sharma", age: 24, loc: "Mumbai", role: "Software Engineer", pers: "Bold Strategist", img: "G001_luna.jpg", motto: "Code is logic, but life is art.", loveLanguage: "Intellectual Depth", values: "Honesty, Growth", bio: "I build complex systems by day and ponder the stars by night." },
+    { id: "G002", name: "Meera Iyer", age: 26, loc: "Bangalore", role: "UX Researcher", pers: "The Caretaker", img: "G002_meera.jpg", motto: "Empathy is the ultimate superpower.", loveLanguage: "Quality Time", values: "Kindness, Presence", bio: "I spend my time studying how people feel." },
+    { id: "G003", name: "Ananya Rai", age: 21, loc: "Delhi", role: "Digital Artist", pers: "Creative Soul", img: "G003_ananya.jpg", motto: "Every pixel holds a silent story.", loveLanguage: "Words of Affirmation", values: "Expression, Passion", bio: "I see the world in high-contrast." },
+    { id: "G004", name: "Isha Verma", age: 23, loc: "Pune", role: "Data Scientist", pers: "The Analyst", img: "G004_isha.jpg", motto: "In a world of variables, be a constant.", loveLanguage: "Acts of Service", values: "Precision, Loyalty", bio: "Searching for patterns in the chaos." },
+    { id: "G005", name: "Riya Kapoor", age: 24, loc: "Chennai", role: "Designer", pers: "The Techie", img: "G005_riya.jpg", motto: "Simplicity is sophistication.", loveLanguage: "Thoughtful Gifts", values: "Innovation, Style", bio: "Blending tech logic with modern visual style." },
+    { id: "G006", name: "Sofia Verma", age: 20, loc: "Sydney", role: "HR Executive", pers: "Gentle Caretaker", img: "G006_sofia.jpg", motto: "Kindness is universal.", loveLanguage: "Presence", values: "Support, Harmony", bio: "Dedicated to helping people find their spark." },
+    { id: "G007", name: "Olivia Singh", age: 22, loc: "Toronto", role: "Strategic Analyst", pers: "The Strategist", img: "G007_olivia.jpg", motto: "Balance is a creation.", loveLanguage: "Stimulation", values: "Clarity, Ambition", bio: "Strategic in mind, poetic in heart." },
+    { id: "G008", name: "Aarohi Gupta", age: 30, loc: "Hyderabad", role: "Content Writer", pers: "Intellectual", img: "G008_aarohi.jpg", motto: "We are all stories in the end.", loveLanguage: "Conversation", values: "Wisdom, Silence", bio: "I find peace in quiet libraries." },
+    { id: "G009", name: "Emma Watson", age: 25, loc: "London", role: "Operations Lead", pers: "Efficient Leader", img: "G009_emma.jpg", motto: "Be effective, not just busy.", loveLanguage: "Shared Goals", values: "Action, Discipline", bio: "Organized and focused." },
+    { id: "G010", name: "Amelia Chen", age: 22, loc: "Singapore", role: "Frontend Dev", pers: "Globalist", img: "G010_amelia.jpg", motto: "The heart is bigger than the world.", loveLanguage: "New Experiences", values: "Connection, Beauty", bio: "Building interfaces to connect the world." }
 ];
 
 let activeGirl = null;
@@ -119,7 +49,6 @@ function openProfile(id) {
     activeGirl = girls.find(x => x.id === id);
     if(!activeGirl) return;
 
-    // Set Data
     document.getElementById('mName').innerText = activeGirl.name;
     document.getElementById('mRole').innerText = activeGirl.role;
     document.getElementById('mAge').innerText = activeGirl.age;
@@ -129,11 +58,8 @@ function openProfile(id) {
     document.getElementById('mMotto').innerText = `"${activeGirl.motto}"`;
     document.getElementById('mLove').innerText = activeGirl.loveLanguage;
     document.getElementById('mValues').innerText = activeGirl.values;
-    
-    // Set Photo
     document.getElementById('mImg').style.backgroundImage = `url('assets/images/girls/${activeGirl.img}')`;
     
-    // Show
     document.getElementById('pModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
@@ -143,9 +69,94 @@ function closeProfile() {
     document.body.style.overflow = 'auto';
 }
 
+// CHAT BOT LOGIC
+function openChat() {
+    closeProfile();
+    const widget = document.getElementById('chatWidget');
+    const windowDiv = document.querySelector('.chat-window');
+    
+    widget.style.display = 'flex';
+    document.getElementById('chatName').innerText = activeGirl.name;
+    document.getElementById('chatAvatar').src = `assets/images/girls/${activeGirl.img}`;
+    
+    // Clear old chat and start sequence
+    windowDiv.innerHTML = "";
+    
+    // 1. Initial greeting
+    addMessage(`Hi! I'm ${activeGirl.name}. 😊`, 'bot');
+
+    // 2. Start Typing indicator
+    setTimeout(() => {
+        showTyping(true);
+        // 3. Ask for name after 1.5s delay
+        setTimeout(() => {
+            showTyping(false);
+            addMessage(`I'm really glad you reached out. Before we go deeper, may I know your name?`, 'bot');
+        }, 1500); 
+    }, 1000);
+}
+
+// Handle User Input (Enter key or button)
+function handleChatInput(e) {
+    if (e.key === 'Enter') {
+        const input = e.target;
+        const val = input.value.trim();
+        if (val !== "") {
+            addMessage(val, 'user');
+            input.value = "";
+            
+            // Simple bot reaction
+            setTimeout(() => {
+                showTyping(true);
+                setTimeout(() => {
+                    showTyping(false);
+                    addMessage(`It's lovely to meet you, ${val}. I can already feel a great connection!`, 'bot');
+                }, 1500);
+            }, 800);
+        }
+    }
+}
+
+// Helper: Add Message Bubble
+function addMessage(text, side) {
+    const windowDiv = document.querySelector('.chat-window');
+    const msg = document.createElement('div');
+    msg.className = `msg ${side}-msg`;
+    msg.innerHTML = text;
+    windowDiv.appendChild(msg);
+    windowDiv.scrollTop = windowDiv.scrollHeight;
+}
+
+// Helper: Typing Indicator
+function showTyping(isTyping) {
+    const windowDiv = document.querySelector('.chat-window');
+    const existing = document.getElementById('typing-indicator');
+    if (isTyping && !existing) {
+        const indicator = document.createElement('div');
+        indicator.id = 'typing-indicator';
+        indicator.className = 'typing-text';
+        indicator.innerText = `${activeGirl.name} is typing...`;
+        windowDiv.appendChild(indicator);
+    } else if (!isTyping && existing) {
+        existing.remove();
+    }
+    windowDiv.scrollTop = windowDiv.scrollHeight;
+}
+
+function closeChat() {
+    document.getElementById('chatWidget').style.display = 'none';
+}
+
 function toggleMenu() {
     const menu = document.getElementById('navMenu');
     if(menu) menu.classList.toggle('show');
 }
 
-window.onload = loadGrid;
+// Attach event listener for chat input after window loads
+window.onload = () => {
+    loadGrid();
+    const chatInput = document.querySelector('#chatWidget input');
+    if (chatInput) {
+        chatInput.addEventListener('keypress', handleChatInput);
+    }
+};
