@@ -1,8 +1,3 @@
-/**
- * HuggingHeart Community Logic
- * Handles staggered loading, assertive profile population, and personality-based chat.
- */
-
 const girls = [
     { 
         id: "G001", name: "Luna Sharma", age: 24, loc: "Mumbai", role: "Software Engineer", 
@@ -88,10 +83,6 @@ const girls = [
 
 let activeGirl = null;
 
-/**
- * 1. RELAX MODE LOAD
- * Injects one girl every 1000ms and displays the 'Discovering Souls' status.
- */
 function loadGrid() {
     const grid = document.getElementById('gridContainer');
     if(!grid) return;
@@ -110,7 +101,10 @@ function loadGrid() {
             card.onclick = () => openProfile(g.id);
             
             card.innerHTML = `
-                <div class="img-box"><span class="status-tag">Online</span><img src="assets/images/girls/${g.img}"></div>
+                <div class="img-box">
+                    <span class="status-tag"><span class="green-bulb"></span> Online</span>
+                    <img src="assets/images/girls/${g.img}">
+                </div>
                 <div class="info-box"><p>${g.role}</p><h3>${g.name}</h3></div>
             `;
             grid.appendChild(card);
@@ -121,26 +115,16 @@ function loadGrid() {
                     setTimeout(() => statusDiv.remove(), 500);
                 }, 1000);
             }
-        }, index * 1000); // 1-second delay for psychological impact
+        }, index * 1000); 
     });
 }
 
-/**
- * 2. MOBILE MENU TOGGLE
- */
 function toggleMenu() {
-    const navMenu = document.getElementById('navMenu');
-    if(navMenu) navMenu.classList.toggle('show');
+    document.getElementById('navMenu').classList.toggle('show');
 }
 
-/**
- * 3. PROFILE MODAL POPULATION
- */
 function openProfile(id) {
     activeGirl = girls.find(x => x.id === id);
-    if(!activeGirl) return;
-
-    // Mapping assertive data to HTML IDs
     document.getElementById('mName').innerText = activeGirl.name;
     document.getElementById('mRole').innerText = activeGirl.role;
     document.getElementById('mAge').innerText = activeGirl.age;
@@ -150,11 +134,9 @@ function openProfile(id) {
     document.getElementById('mMotto').innerText = `"${activeGirl.motto}"`;
     document.getElementById('mLove').innerText = activeGirl.loveLanguage;
     document.getElementById('mValues').innerText = activeGirl.values;
-    
     document.getElementById('mImg').style.backgroundImage = `url('assets/images/girls/${activeGirl.img}')`;
-    
     document.getElementById('pModal').style.display = 'flex';
-    document.body.style.overflow = 'hidden'; // Lock background scroll
+    document.body.style.overflow = 'hidden';
 }
 
 function closeProfile() {
@@ -162,32 +144,17 @@ function closeProfile() {
     document.body.style.overflow = 'auto';
 }
 
-/**
- * 4. CHAT WIDGET LOGIC
- */
 function openChat() {
     closeProfile();
-    const chatWidget = document.getElementById('chatWidget');
-    if(!chatWidget) return;
-
-    chatWidget.style.display = 'flex';
+    document.getElementById('chatWidget').style.display = 'flex';
     document.getElementById('chatName').innerText = activeGirl.name;
     document.getElementById('chatAvatar').src = `assets/images/girls/${activeGirl.img}`;
-    
-    // Clear and Inject personality-driven greeting
-    const chatWindow = document.querySelector('.chat-window') || document.getElementById('chatMessages');
-    chatWindow.innerHTML = `
-        <div style="text-align:center; color:#94a3b8; font-size:0.75rem; margin-bottom:15px;">Connection established.</div>
-        <div style="margin-bottom:15px; padding:12px; background:#f0fdf4; border-radius:12px; border:1px solid #eaf7f0; font-size: 0.9rem; line-height: 1.5;">
-            <strong>${activeGirl.name}:</strong> Hi! I'm ${activeGirl.name}. I saw you reading my motto... it's really the core of how I live my life. I'm so glad you decided to reach out. How are you feeling today?
-        </div>`;
+    const chatWin = document.querySelector('.chat-window');
+    chatWin.innerHTML = `<div style="margin-bottom:15px; padding:12px; background:#f0fdf4; border-radius:12px; border:1px solid #eaf7f0; font-size: 0.9rem;">
+        <strong>${activeGirl.name}:</strong> Hi! I'm ${activeGirl.name}. I saw you reading my motto... it's really how I live my life. I'm glad you reached out. How are you today?
+    </div>`;
 }
 
-function closeChat() { 
-    const chatWidget = document.getElementById('chatWidget');
-    if(chatWidget) chatWidget.style.display = 'none'; 
-}
+function closeChat() { document.getElementById('chatWidget').style.display = 'none'; }
 
-// Ensure the grid loads when the page finishes loading
 window.onload = loadGrid;
-``` [cite: 2, 3, 4]
