@@ -1,38 +1,66 @@
-// assets/js/chat.js
+let currentProfile = {};
+let personalityAnswers = [];
+let personalAnswers = [];
+let pqMaster = [];
 
-let personalMaster = []; // G1_G25_One_Line_Answers.csv
-let pqMaster = [];       // PQ_Master_List.csv
-let personalityBank = []; // e.g., type_B1_very_shy.csv
+async function initChat() {
+    const params = new URLSearchParams(window.location.search);
+    const girlId = params.get('id') || 'G001';
 
-async function initBrain(girlId, personalityFile) {
-    // 1. Load PQ Master (The Question IDs)
-    const pqRes = await fetch('data/questions/PQ_Master_List.csv');
-    pqMaster = parseCSV(await pqRes.text());
+    try {
+        // Load the specific profile
+        const profileRes = await fetch(`profiles/${girlId}.json`);
+        currentProfile = await profileRes.json();
 
-    // 2. Load Personal Master (The Unique Answers)
-    const pmRes = await fetch('data/answers/personal_master.csv');
-    personalMaster = parseCSV(await pmRes.text());
+        // Load PQ Master List (To find Question IDs)
+        const pqRes = await fetch('data/questions/PQ_Master_List.csv');
+        pqMaster = parseCSV(await pqRes.text());
 
-    // 3. Load Personality Bank (The "Voice")
-    const pbRes = await fetch(`data/answers/${personalityFile}`);
-    personalityBank = parseCSV(await pbRes.text());
+        // Load Personal Answers (G1-G25 Master)
+        const personalRes = await fetch('data/questions/PQ_40_Personal_Questions.csv');
+        personalAnswers = parseCSV(await personalRes.text());
+
+        // Load her specific Personality Voice
+        const voiceRes = await fetch(`data/answers/${currentProfile.answer_file}`);
+        personalityAnswers = parseCSV(await voiceRes.text());
+
+        console.log(`Chatting with ${currentProfile.name} (${currentProfile.personality_type})`);
+    } catch (err) {
+        console.error("Path Error! Check folder names:", err);
+    }
 }
 
-function getFinalResponse(userInput, girlId) {
-    const input = userInput.toLowerCase().trim();
+function getReply(userInput) {
+    const text = userInput.toLowerCase().trim();
 
-    // STEP A: Search for a Master Question Match (Personal)
-    const masterMatch = pqMaster.find(m => input.includes(m.Question_Text.toLowerCase()));
-    
-    if (masterMatch) {
-        const girlRow = personalMaster.find(row => row.Profile_ID === girlId);
-        if (girlRow && girlRow[masterMatch.Q_ID]) {
-            return girlRow[masterMatch.Q_ID]; // Returns Luna's specific age/job/city
+    // 1. Try to find a Personal Answer first
+    const pqMatch = pqMaster.find(m => text.includes(m.Question_Text.toLowerCase()));
+    if (pqMatch) {
+        const girlData = personalAnswers.find(row => row.Profile_ID === currentProfile.id);
+        if (girlData && girlData[pqMatch.Q_ID]) {
+            return girlData[pqMatch.Q_ID]; 
         }
     }
 
-    // STEP B: Search for Personality Match (General Chat)
-    const personalityMatch = personalityBank.find(p => input.includes(p.Question.toLowerCase()));
-    
-    return personalityMatch ? personalityMatch.Response : "I'm not sure how to answer that... 🌸";
+    // 2. Fallback to Personality Voice
+    const voiceMatch = personalityAnswers.find(v => 
+        text.includes(v.Question?.toLowerCase()) || 
+        text.includes(v['Common Question']?.toLowerCase())
+    );
+
+    return voiceMatch ? (voiceMatch.Response || voiceMatch[Object.keys(voiceMatch)[1]]) : "I'm not sure how to say that... 🌸";
 }
+
+// Simple CSV Helper
+function parseCSV(text) {
+    const lines = text.split('\n').filter(l => l.trim());
+    const headers = lines[0].split(',').map(h => h.trim());
+    return lines.slice(1).map(line => {
+        const values = line.split(',');
+        let obj = {};
+        headers.forEach((h, i) => obj[h] = values[i]?.trim());
+        return obj;
+    });
+}
+
+initChat();
