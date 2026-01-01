@@ -1,3 +1,8 @@
+/**
+ * HuggingHeart Community Logic
+ * Handles staggered loading, assertive profile population, and personality-based chat.
+ */
+
 const girls = [
     { 
         id: "G001", name: "Luna Sharma", age: 24, loc: "Mumbai", role: "Software Engineer", 
@@ -15,7 +20,38 @@ const girls = [
         values: "Kindness, Presence, Peace",
         bio: "I spend my time studying how people feel. I value soft voices and warm hearts over digital noise." 
     },
-    // ... Add G003 to G010 with similar assertive fields ...
+    { 
+        id: "G003", name: "Ananya Rai", age: 21, loc: "Delhi", role: "Digital Artist", 
+        pers: "Creative Soul", img: "G003_ananya.jpg", 
+        motto: "Every pixel holds a silent story.", 
+        loveLanguage: "Words of Affirmation", 
+        values: "Expression, Passion, Color",
+        bio: "I see the world in high-contrast. Seeking a connection that feels like a masterpiece in progress." 
+    },
+    { 
+        id: "G004", name: "Isha Verma", age: 23, loc: "Pune", role: "Data Scientist", 
+        pers: "The Analyst", img: "G004_isha.jpg", 
+        motto: "In a world of variables, be a constant.", 
+        loveLanguage: "Acts of Service", 
+        values: "Precision, Loyalty, Logic",
+        bio: "Searching for patterns in the chaos. I appreciate clarity, consistency, and a mind that never stops questioning." 
+    },
+    { 
+        id: "G005", name: "Riya Kapoor", age: 24, loc: "Chennai", role: "Designer", 
+        pers: "The Techie", img: "G005_riya.jpg", 
+        motto: "Simplicity is the highest form of sophistication.", 
+        loveLanguage: "Thoughtful Gifts", 
+        values: "Innovation, Style, Truth",
+        bio: "Blending tech logic with modern visual style. I’m drawn to minimalist aesthetics and maximalist conversations." 
+    },
+    { 
+        id: "G006", name: "Sofia Verma", age: 20, loc: "Sydney", role: "HR Executive", 
+        pers: "Gentle Caretaker", img: "G006_sofia.jpg", 
+        motto: "Kindness is a language everyone understands.", 
+        loveLanguage: "Physical Presence", 
+        values: "Support, Patience, Harmony",
+        bio: "Dedicated to helping people find their spark. I value authentic connections that feel safe and grounding." 
+    },
     { 
         id: "G007", name: "Olivia Singh", age: 22, loc: "Toronto", role: "Strategic Analyst", 
         pers: "The Strategist", img: "G007_olivia.jpg", 
@@ -23,11 +59,39 @@ const girls = [
         loveLanguage: "Intellectual Stimulation", 
         values: "Clarity, Ambition, Focus",
         bio: "Strategic in mind, poetic in heart. I believe the best connections happen when we put the digital world on pause." 
+    },
+    { 
+        id: "G008", name: "Aarohi Gupta", age: 30, loc: "Hyderabad", role: "Content Writer", 
+        pers: "Intellectual", img: "G008_aarohi.jpg", 
+        motto: "We are all stories in the end.", 
+        loveLanguage: "Deep Conversation", 
+        values: "Wisdom, Silence, Literature",
+        bio: "I find peace in quiet libraries. I'm looking for someone who reads between the lines and values old-soul energy." 
+    },
+    { 
+        id: "G009", name: "Emma Watson", age: 25, loc: "London", role: "Operations Lead", 
+        pers: "Efficient Leader", img: "G009_emma.jpg", 
+        motto: "Efficiency is doing things right; Effectiveness is doing the right things.", 
+        loveLanguage: "Shared Goals", 
+        values: "Action, Discipline, Reliability",
+        bio: "Organized and focused. I respect people who value time as their most precious currency." 
+    },
+    { 
+        id: "G010", name: "Amelia Chen", age: 22, loc: "Singapore", role: "Frontend Dev", 
+        pers: "Globalist", img: "G010_amelia.jpg", 
+        motto: "The world is big, but the heart is bigger.", 
+        loveLanguage: "New Experiences", 
+        values: "Connection, Culture, Beauty",
+        bio: "Building interfaces to connect the world. I love learning about new cultures and perspectives that challenge my own." 
     }
 ];
 
 let activeGirl = null;
 
+/**
+ * 1. RELAX MODE LOAD
+ * Injects one girl every 1000ms and displays the 'Discovering Souls' status.
+ */
 function loadGrid() {
     const grid = document.getElementById('gridContainer');
     if(!grid) return;
@@ -44,8 +108,11 @@ function loadGrid() {
             const card = document.createElement('div');
             card.className = 'girl-card';
             card.onclick = () => openProfile(g.id);
-            card.innerHTML = `<div class="img-box"><span class="status-tag">Online</span><img src="assets/images/girls/${g.img}"></div>
-                              <div class="info-box"><p>${g.role}</p><h3>${g.name}</h3></div>`;
+            
+            card.innerHTML = `
+                <div class="img-box"><span class="status-tag">Online</span><img src="assets/images/girls/${g.img}"></div>
+                <div class="info-box"><p>${g.role}</p><h3>${g.name}</h3></div>
+            `;
             grid.appendChild(card);
 
             if(index === girls.length - 1) {
@@ -54,12 +121,26 @@ function loadGrid() {
                     setTimeout(() => statusDiv.remove(), 500);
                 }, 1000);
             }
-        }, index * 1000); 
+        }, index * 1000); // 1-second delay for psychological impact
     });
 }
 
+/**
+ * 2. MOBILE MENU TOGGLE
+ */
+function toggleMenu() {
+    const navMenu = document.getElementById('navMenu');
+    if(navMenu) navMenu.classList.toggle('show');
+}
+
+/**
+ * 3. PROFILE MODAL POPULATION
+ */
 function openProfile(id) {
     activeGirl = girls.find(x => x.id === id);
+    if(!activeGirl) return;
+
+    // Mapping assertive data to HTML IDs
     document.getElementById('mName').innerText = activeGirl.name;
     document.getElementById('mRole').innerText = activeGirl.role;
     document.getElementById('mAge').innerText = activeGirl.age;
@@ -69,9 +150,11 @@ function openProfile(id) {
     document.getElementById('mMotto').innerText = `"${activeGirl.motto}"`;
     document.getElementById('mLove').innerText = activeGirl.loveLanguage;
     document.getElementById('mValues').innerText = activeGirl.values;
+    
     document.getElementById('mImg').style.backgroundImage = `url('assets/images/girls/${activeGirl.img}')`;
+    
     document.getElementById('pModal').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden'; // Lock background scroll
 }
 
 function closeProfile() {
@@ -79,17 +162,31 @@ function closeProfile() {
     document.body.style.overflow = 'auto';
 }
 
+/**
+ * 4. CHAT WIDGET LOGIC
+ */
 function openChat() {
     closeProfile();
-    document.getElementById('chatWidget').style.display = 'flex';
+    const chatWidget = document.getElementById('chatWidget');
+    if(!chatWidget) return;
+
+    chatWidget.style.display = 'flex';
     document.getElementById('chatName').innerText = activeGirl.name;
     document.getElementById('chatAvatar').src = `assets/images/girls/${activeGirl.img}`;
     
-    const chatWin = document.querySelector('.chat-window');
-    chatWin.innerHTML = `<div style="margin-bottom:15px; padding:12px; background:#f0fdf4; border-radius:12px; border:1px solid #eaf7f0; font-size: 0.9rem;">
-        <strong>${activeGirl.name}:</strong> Hi! I'm ${activeGirl.name}. I saw you reading my motto... it's really how I live my life. I'm glad you reached out. How are you today?
-    </div>`;
+    // Clear and Inject personality-driven greeting
+    const chatWindow = document.querySelector('.chat-window') || document.getElementById('chatMessages');
+    chatWindow.innerHTML = `
+        <div style="text-align:center; color:#94a3b8; font-size:0.75rem; margin-bottom:15px;">Connection established.</div>
+        <div style="margin-bottom:15px; padding:12px; background:#f0fdf4; border-radius:12px; border:1px solid #eaf7f0; font-size: 0.9rem; line-height: 1.5;">
+            <strong>${activeGirl.name}:</strong> Hi! I'm ${activeGirl.name}. I saw you reading my motto... it's really the core of how I live my life. I'm so glad you decided to reach out. How are you feeling today?
+        </div>`;
 }
 
-function closeChat() { document.getElementById('chatWidget').style.display = 'none'; }
+function closeChat() { 
+    const chatWidget = document.getElementById('chatWidget');
+    if(chatWidget) chatWidget.style.display = 'none'; 
+}
+
+// Ensure the grid loads when the page finishes loading
 window.onload = loadGrid;
