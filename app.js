@@ -36,7 +36,7 @@ function loadGrid() {
                 <div class="info-box">
                     <p>${g.role}</p>
                     <h3>${g.name}</h3>
-                    <div style="font-size:0.85rem; color:#6b7280; margin-top:5px;">Age: ${g.age}</div>
+                    <div class="age-text">Age: ${g.age}</div>
                 </div>
             `;
             grid.appendChild(card);
@@ -44,7 +44,6 @@ function loadGrid() {
     });
 }
 
-// POPULATE PROFILE MODAL
 function openProfile(id) {
     activeGirl = girls.find(x => x.id === id);
     if(!activeGirl) return;
@@ -69,7 +68,7 @@ function closeProfile() {
     document.body.style.overflow = 'auto';
 }
 
-// CHAT BOT LOGIC
+// CHAT BOT SEQUENTIAL LOGIC
 function openChat() {
     closeProfile();
     const widget = document.getElementById('chatWidget');
@@ -78,25 +77,21 @@ function openChat() {
     widget.style.display = 'flex';
     document.getElementById('chatName').innerText = activeGirl.name;
     document.getElementById('chatAvatar').src = `assets/images/girls/${activeGirl.img}`;
-    
-    // Clear old chat and start sequence
     windowDiv.innerHTML = "";
-    
-    // 1. Initial greeting
+
+    // 1. Instant Hi
     addMessage(`Hi! I'm ${activeGirl.name}. 😊`, 'bot');
 
-    // 2. Start Typing indicator
+    // 2. Typing Delay 1.5s
     setTimeout(() => {
         showTyping(true);
-        // 3. Ask for name after 1.5s delay
         setTimeout(() => {
             showTyping(false);
-            addMessage(`I'm really glad you reached out. Before we go deeper, may I know your name?`, 'bot');
+            addMessage(`I'm really glad you reached out. Before we start our movement, may I know your name?`, 'bot');
         }, 1500); 
     }, 1000);
 }
 
-// Handle User Input (Enter key or button)
 function handleChatInput(e) {
     if (e.key === 'Enter') {
         const input = e.target;
@@ -104,20 +99,17 @@ function handleChatInput(e) {
         if (val !== "") {
             addMessage(val, 'user');
             input.value = "";
-            
-            // Simple bot reaction
             setTimeout(() => {
                 showTyping(true);
                 setTimeout(() => {
                     showTyping(false);
-                    addMessage(`It's lovely to meet you, ${val}. I can already feel a great connection!`, 'bot');
+                    addMessage(`It's lovely to meet you, ${val}. I can already feel a great connection! How are you today?`, 'bot');
                 }, 1500);
             }, 800);
         }
     }
 }
 
-// Helper: Add Message Bubble
 function addMessage(text, side) {
     const windowDiv = document.querySelector('.chat-window');
     const msg = document.createElement('div');
@@ -127,7 +119,6 @@ function addMessage(text, side) {
     windowDiv.scrollTop = windowDiv.scrollHeight;
 }
 
-// Helper: Typing Indicator
 function showTyping(isTyping) {
     const windowDiv = document.querySelector('.chat-window');
     const existing = document.getElementById('typing-indicator');
@@ -147,15 +138,9 @@ function closeChat() {
     document.getElementById('chatWidget').style.display = 'none';
 }
 
-function toggleMenu() {
-    const menu = document.getElementById('navMenu');
-    if(menu) menu.classList.toggle('show');
-}
-
-// Attach event listener for chat input after window loads
 window.onload = () => {
     loadGrid();
-    const chatInput = document.querySelector('#chatWidget input');
+    const chatInput = document.querySelector('#chatInput');
     if (chatInput) {
         chatInput.addEventListener('keypress', handleChatInput);
     }
