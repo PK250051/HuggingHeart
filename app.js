@@ -1,63 +1,125 @@
-const girls = [
-    { id: "G001", name: "Luna Sharma", age: 24, loc: "Mumbai", role: "Software Engineer", pers: "Bold Strategist", img: "G001_luna.jpg", bio: "Tech enthusiast with a love for deep logic and late-night philosophy." },
-    { id: "G002", name: "Meera Iyer", age: 26, loc: "Bangalore", role: "UX Researcher", pers: "The Caretaker", img: "G002_meera.jpg", bio: "Fascinated by human behavior and digital empathy." },
-    { id: "G003", name: "Ananya Rai", age: 21, loc: "Delhi", role: "Digital Artist", pers: "Creative Soul", img: "G003_ananya.jpg", bio: "I see the world in colors and believe every pixel tells a story." },
-    { id: "G004", name: "Isha Verma", age: 23, loc: "Pune", role: "Data Scientist", pers: "The Analyst", img: "G004_isha.jpg", bio: "Searching for patterns in the chaos and beauty in numbers." },
-    { id: "G005", name: "Riya Kapoor", age: 24, loc: "Chennai", role: "Designer", pers: "The Techie", img: "G005_riya.jpg", bio: "Blending tech logic with modern visual style." },
-    { id: "G006", name: "Sofia Verma", age: 20, loc: "Sydney", role: "HR Executive", pers: "Gentle Caretaker", img: "G006_sofia.jpg", bio: "Focused on helping others find their true path in life." },
-    { id: "G007", name: "Olivia Singh", age: 22, loc: "Toronto", role: "Strategic Analyst", pers: "The Strategist", img: "G007_olivia.jpg", bio: "Maintains a perfect work-life balance and values clear minds." },
-    { id: "G008", name: "Aarohi Gupta", age: 30, loc: "Hyderabad", role: "Content Writer", pers: "Intellectual", img: "G008_aarohi.jpg", bio: "Words are my soul. I find peace in quiet libraries." },
-    { id: "G009", name: "Emma Watson", age: 25, loc: "London", role: "Operations Lead", pers: "Efficient Leader", img: "G009_emma.jpg", bio: "Always looking for the most efficient path forward." },
-    { id: "G010", name: "Amelia Chen", age: 22, loc: "Singapore", role: "Frontend Dev", pers: "Globalist", img: "G010_amelia.jpg", bio: "Building beautiful interfaces for a more connected world." }
-];
+/* ===================================================
+   HUGGINGHEART GLOBAL STYLES
+   =================================================== */
 
-let activeGirl = null;
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-// INTERESTING LOAD: One by one
-function loadGrid() {
-    const grid = document.getElementById('gridContainer');
-    if(!grid) return;
-    grid.innerHTML = "";
+body { 
+    font-family: 'Poppins', sans-serif; 
+    background: #fff; 
+    color: #1a202c; 
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* --- RELAX MODE LOADING (Option 1) --- */
+.loading-status {
+    text-align: center;
+    color: #2f855a;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 20px 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    width: 100%;
+    transition: opacity 0.5s ease;
+}
+
+.dot-pulse {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: #6fcf97;
+    border-radius: 50%;
+    margin-left: 8px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.6); opacity: 0.4; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* --- STAGGERED ANIMATION (Option 2) --- */
+@keyframes cardAppear {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- GRID & CARDS --- */
+.observer-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 25px; 
+    padding: 20px 5% 100px; 
+    max-width: 1300px; 
+    margin: 0 auto; 
+}
+
+.girl-card { 
+    background: #fff; 
+    border-radius: 25px; 
+    border: 1px solid #eaf7f0; 
+    overflow: hidden; 
+    cursor: pointer; 
+    transition: 0.4s ease; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    opacity: 0; /* Starts hidden for the JS staggered load */
+    animation: cardAppear 0.6s ease forwards;
+}
+
+.girl-card:hover { 
+    transform: translateY(-10px); 
+    box-shadow: 0 20px 40px rgba(47, 133, 90, 0.1); 
+}
+
+.img-box { width: 100%; height: 380px; position: relative; overflow: hidden; background: #f9fafb; }
+.img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+.status-tag { 
+    position: absolute; top: 15px; left: 15px; 
+    background: rgba(255,255,255,0.9); padding: 5px 12px; 
+    border-radius: 12px; font-size: 0.7rem; font-weight: 700; color: #2f855a; 
+}
+
+.info-box { padding: 20px; }
+.info-box p { color: #6fcf97; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+.info-box h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #1a202c; margin-top: 5px; }
+
+/* --- CHAT WIDGET (BOTTOM RIGHT) --- */
+.chat-widget {
+    display: none; position: fixed; bottom: 20px; right: 20px;
+    width: 350px; height: 500px; background: #fff; border-radius: 25px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.15); border: 1px solid #eaf7f0;
+    z-index: 3000; flex-direction: column; overflow: hidden;
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.chat-header { background: #f0fdf4; padding: 18px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #eaf7f0; }
+.chat-header img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; }
+.chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; background: #fafafa; }
+.chat-input { padding: 15px; display: flex; gap: 10px; background: #fff; border-top: 1px solid #eaf7f0; }
+.chat-input input { flex: 1; border: 1px solid #eaf7f0; border-radius: 12px; padding: 12px; outline: none; font-family: inherit; }
+
+/* --- MOBILE OPTIMIZATIONS --- */
+@media (max-width: 768px) {
+    .nav-links { 
+        display: none; position: absolute; top: 70px; left: 0; width: 100%; 
+        background: #f0fdf4; flex-direction: column; padding: 30px; 
+        text-align: center; border-bottom: 1px solid #eaf7f0;
+    }
+    .nav-links.show { display: flex; }
     
-    girls.forEach((g, index) => {
-        // Create the element first
-        const card = document.createElement('div');
-        card.className = 'girl-card';
-        card.style.animationDelay = `${index * 0.15}s`; // This creates the "One-by-One" feel
-        card.onclick = () => openProfile(g.id);
-        
-        card.innerHTML = `
-            <div class="img-box"><span class="status-tag">Online</span><img src="assets/images/girls/${g.img}"></div>
-            <div class="info-box"><p>${g.role}</p><h3>${g.name}</h3></div>
-        `;
-        grid.appendChild(card);
-    });
-}
-
-function toggleMenu() {
-    document.getElementById('navMenu').classList.toggle('show');
-}
-
-function openProfile(id) {
-    activeGirl = girls.find(x => x.id === id);
-    document.getElementById('mName').innerText = activeGirl.name;
-    document.getElementById('mRole').innerText = activeGirl.role;
-    document.getElementById('mAge').innerText = activeGirl.age;
-    document.getElementById('mLoc').innerText = activeGirl.loc;
-    document.getElementById('mPers').innerText = activeGirl.pers;
-    document.getElementById('mBio').innerText = activeGirl.bio;
-    document.getElementById('mImg').style.backgroundImage = `url('assets/images/girls/${activeGirl.img}')`;
+    .observer-grid { grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+    .img-box { height: 260px; }
     
-    document.getElementById('pModal').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
+    .profile-modal { flex-direction: column; max-height: 95vh; overflow-y: auto; }
+    .modal-left { min-height: 300px; }
+    
+    .chat-widget { 
+        width: 100%; height: 100%; bottom: 0; right: 0; 
+        border-radius: 0; z-index: 4000;
+    }
 }
-
-function openChat() {
-    document.getElementById('pModal').style.display = 'none';
-    document.getElementById('chatWidget').style.display = 'flex';
-    document.getElementById('chatName').innerText = activeGirl.name;
-    document.getElementById('chatAvatar').src = `assets/images/girls/${activeGirl.img}`;
-}
-
-// Initial Run
-window.onload = loadGrid;
