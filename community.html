@@ -8,220 +8,211 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* MOBILE NAV LOGIC */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-            z-index: 10001;
-        }
-        .hamburger div {
-            width: 25px;
-            height: 3px;
-            background-color: #2f855a;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
+        /* --- RESET & BASE --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; background: #fff; color: #1a202c; line-height: 1.5; }
 
-        /* HEADER FIXES */
+        /* --- NAVIGATION --- */
         .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-            position: fixed;
-            top: 0; width: 100%;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            z-index: 10000;
-            box-sizing: border-box;
-            border-bottom: 1px solid #f1f5f9;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; position: fixed; top: 0; width: 100%;
+            background: rgba(255,255,255,0.98); backdrop-filter: blur(10px);
+            z-index: 1000; border-bottom: 1px solid #f1f5f9;
         }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #2f855a; text-decoration: none; }
+        
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #6fcf97; }
+        
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: #2f855a; border-radius: 2px; }
 
-        /* COMMUNITY CONTENT PADDING */
-        .community-header {
-            text-align: center;
-            padding: 120px 20px 20px; /* Space for fixed nav */
-            background: #ffffff;
-        }
-
-        /* GRID */
+        /* --- GRID SECTION --- */
+        .community-header { text-align: center; padding: 120px 20px 30px; }
+        .community-header h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 5px; }
+        
         .observer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 20px 5% 100px; /* Space for footer */
-            max-width: 1400px;
-            margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px; padding: 20px 5% 80px; max-width: 1300px; margin: 0 auto;
+        }
+        .girl-card {
+            background: #fff; border-radius: 20px; border: 1px solid #f0f0f0;
+            overflow: hidden; cursor: pointer; transition: 0.3s;
+        }
+        .girl-card:hover { transform: translateY(-10px); box-shadow: 0 20px 30px rgba(0,0,0,0.08); }
+        .img-box { width: 100%; height: 350px; position: relative; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .status {
+            position: absolute; top: 15px; left: 15px; background: #fff;
+            padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; color: #2f855a;
         }
 
-        /* MODAL STYLES (Keep existing split-screen logic) */
+        .info-box { padding: 20px; }
+        .info-box p { color: #6fcf97; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .info-box h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-top: 5px; }
+
+        /* --- MODAL --- */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(31, 41, 55, 0.8); backdrop-filter: blur(8px); z-index: 20000;
-            justify-content: center; align-items: center; padding: 15px;
+            background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 2000;
+            justify-content: center; align-items: center; padding: 20px;
         }
+        .profile-modal {
+            background: #fff; width: 100%; max-width: 850px; display: flex;
+            border-radius: 25px; overflow: hidden; animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .modal-left { flex: 1; min-height: 500px; background-size: cover; background-position: center; }
+        .modal-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        
+        .tag { background: #f0fdf4; color: #2f855a; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; width: fit-content; }
+        .detail-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+        
+        .btn-chat { background: linear-gradient(135deg, #6fcf97, #9fd3ff); color: #fff; padding: 15px; border-radius: 12px; text-decoration: none; text-align: center; font-weight: 600; margin-top: 25px; transition: 0.3s; }
+        .btn-chat:hover { opacity: 0.9; transform: scale(1.02); }
+        .btn-back { margin-top: 15px; border: none; background: none; color: #94a3b8; cursor: pointer; font-size: 0.9rem; font-weight: 500; }
 
-        /* FOOTER STYLES */
-        footer {
-            background: #f9fafb;
-            padding: 60px 5% 30px;
-            border-top: 1px solid #f1f5f9;
-            text-align: center;
-        }
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        .footer-links a {
-            color: #64748b;
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: 0.3s;
-        }
-        .footer-links a:hover { color: #6fcf97; }
+        /* --- FOOTER --- */
+        footer { padding: 60px 5%; border-top: 1px solid #f1f5f9; text-align: center; background: #fafafa; }
+        .foot-links { display: flex; justify-content: center; gap: 25px; margin: 20px 0; flex-wrap: wrap; }
+        .foot-links a { color: #718096; font-size: 0.85rem; text-decoration: none; transition: 0.3s; }
+        .foot-links a:hover { color: #6fcf97; }
 
-        /* MOBILE OVERRIDES */
+        /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 768px) {
-            .hamburger { display: flex; }
-            .nav-links {
-                display: none; /* Hidden by default on mobile */
-                flex-direction: column;
-                position: absolute;
-                top: 100%; left: 0; width: 100%;
-                background: white;
-                padding: 20px;
-                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-                text-align: center;
-                gap: 20px;
+            .nav-links { 
+                display: none; position: absolute; top: 100%; left: 0; width: 100%; 
+                background: #fff; flex-direction: column; padding: 30px; border-top: 1px solid #f1f5f9; gap: 20px;
             }
-            .nav-links.active { display: flex; }
-            .auth-links { display: none; } /* Hide buttons on mobile nav to save space */
-            .observer-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .community-header h1 { font-size: 1.8rem; }
+            .nav-links.show { display: flex; }
+            .hamburger { display: flex; }
+            .auth-links { display: none; }
+            
+            .observer-grid { grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+            .img-box { height: 240px; }
+            .info-box { padding: 12px; }
+            .info-box h3 { font-size: 1.05rem; }
+            
+            .profile-modal { flex-direction: column; max-height: 90vh; overflow-y: auto; border-radius: 20px; }
+            .modal-left { min-height: 300px; width: 100%; }
+            .modal-right { padding: 30px; }
         }
     </style>
 </head>
 <body>
 
-<div class="navbar">
-  <div class="logo">HuggingHeart</div>
-  
-  <div class="hamburger" onclick="toggleMenu()">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
+<nav class="navbar">
+    <a href="index.html" class="logo">HuggingHeart</a>
+    <div class="nav-links" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="community.html" class="active">Community</a>
+        <a href="about.html">About</a>
+        <a href="how-it-works.html">Process</a>
+        <a href="contact.html">Contact</a>
+        <a href="signin.html" style="color: #6fcf97; font-weight: 600;">Sign In</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+    <div class="auth-links">
+        <a href="signin.html" style="text-decoration: none; color: #4a5568; margin-right: 15px; font-weight: 500;">Sign In</a>
+        <a href="signin.html" style="text-decoration: none; background: #6fcf97; color: #fff; padding: 10px 22px; border-radius: 12px; font-weight: 600;">Join Free</a>
+    </div>
+</nav>
 
-  <div class="nav-links" id="navLinks">
-    <a href="index.html">Home</a>
-    <a href="community.html" class="active">Community</a>
-    <a href="about.html">About</a>
-    <a href="how-it-works.html">How It Works</a>
-    <a href="contact.html">Contact</a>
-    <a href="signin.html" class="mobile-only" style="color: #6fcf97; font-weight: 600;">Sign In</a>
-  </div>
-
-  <div class="auth-links">
-    <a href="signin.html" class="signin">Sign In</a>
-    <a href="signin.html" class="signup">Join Free</a>
-  </div>
+<div class="community-header">
+    <h1>Our Observers</h1>
+    <p style="color: #718096; font-size: 0.95rem;">Intelligent companions for high-trust conversations.</p>
 </div>
 
-<header class="community-header">
-    <h1>Our Observers</h1>
-    <p>Safe & intelligent companions.</p>
-</header>
-
-<div class="observer-grid" id="mainGrid"></div>
+<div class="observer-grid" id="grid"></div>
 
 <footer>
-    <div style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2f855a; margin-bottom: 10px;">HuggingHeart</div>
-    <div class="footer-links">
+    <div class="logo">HuggingHeart</div>
+    <div class="foot-links">
         <a href="terms.html">Terms & Conditions</a>
         <a href="privacy.html">Privacy Policy</a>
-        <a href="safety.html">Safety Guidelines</a>
+        <a href="safety.html">Safety</a>
         <a href="careers.html">Careers</a>
-        <a href="cookies.html">Cookie Policy</a>
     </div>
-    <p style="color: #94a3b8; font-size: 0.8rem;">© 2026 HuggingHeart • Built for Authentic Connection.</p>
+    <p style="color: #cbd5e0; font-size: 0.8rem;">© 2026 HuggingHeart • Built for Authentic Connection.</p>
 </footer>
 
-<div id="profileModal" class="modal-overlay" onclick="closeProfile()">
+<div id="pModal" class="modal-overlay" onclick="closeP()">
     <div class="profile-modal" onclick="event.stopPropagation()">
-        <div id="modalImage" class="modal-left"></div>
+        <div id="mImg" class="modal-left"></div>
         <div class="modal-right">
-            <span class="profile-tag" id="modalTag">Tag</span>
-            <h2 id="modalName" style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px;">Name</h2>
-            <p id="modalRole" style="color: #64748b; margin-bottom: 15px; font-size: 0.85rem;">Role</p>
-            <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value" id="modalCity">City</span></div>
-            <div class="detail-row"><span class="detail-label">Age</span><span class="detail-value" id="modalAge">00</span></div>
-            <p id="modalBio" style="color: #475569; line-height: 1.5; font-size: 0.9rem; margin: 20px 0;">Bio...</p>
-            <div style="display: flex; gap: 10px; width: 100%;">
-                <a id="chatLink" href="#" class="btn-chat">Chat Now</a>
-                <button onclick="closeProfile()" class="btn-close-modal">Back</button>
-            </div>
+            <span id="mTag" class="tag"></span>
+            <h2 id="mName" style="font-family: 'Playfair Display', serif; margin: 10px 0; font-size: 2rem;"></h2>
+            <p id="mRole" style="color: #718096; font-size: 0.9rem; margin-bottom: 20px;"></p>
+            
+            <div class="detail-item"><span>Location</span><span id="mLoc" style="font-weight: 600;"></span></div>
+            <div class="detail-item"><span>Age</span><span id="mAge" style="font-weight: 600;"></span></div>
+            
+            <p id="mBio" style="margin: 25px 0; font-size: 0.95rem; color: #4a5568; line-height: 1.6;"></p>
+            
+            <a id="cLink" href="#" class="btn-chat">Start Heart-to-Heart</a>
+            <button class="btn-back" onclick="closeP()">Close Profile</button>
         </div>
     </div>
 </div>
 
 <script>
-// MOBILE MENU TOGGLE
-function toggleMenu() {
-    const nav = document.getElementById('navLinks');
-    nav.classList.toggle('active');
-}
+    // FULL DATASET FOR 10 GIRLS
+    const girls = [
+        { id: "G001", name: "Luna Sharma", age: 24, loc: "Mumbai", role: "Software Engineer", tag: "Bold & Edgy", img: "G001_luna.jpg", bio: "Tech enthusiast with a love for deep logic and late-night philosophy. I value honesty above all." },
+        { id: "G002", name: "Meera Iyer", age: 26, loc: "Bangalore", role: "UX Researcher", tag: "Empathetic", img: "G002_meera.jpg", bio: "Fascinated by human behavior and creating digital empathy. Let's talk about what makes us human." },
+        { id: "G003", name: "Ananya Rai", age: 21, loc: "Delhi", role: "Digital Artist", tag: "Creative Soul", img: "G003_ananya.jpg", bio: "I see the world in colors and believe every pixel tells a story. Seeking deep, colorful conversations." },
+        { id: "G004", name: "Isha Verma", age: 23, loc: "Pune", role: "Data Scientist", tag: "The Analyst", img: "G004_isha.jpg", bio: "Searching for patterns in the chaos and beauty in the numbers. I enjoy logical but warm discussions." },
+        { id: "G005", name: "Riya Kapoor", age: 24, loc: "Chennai", role: "Designer", tag: "The Techie", img: "G005_riya.jpg", bio: "A digital-native designer blending tech logic with modern style. Let's discuss the future of design." },
+        { id: "G006", name: "Sofia Verma", age: 20, loc: "Sydney", role: "HR Executive", tag: "Caretaker", img: "G006_sofia.jpg", bio: "A gentle and empathetic professional focused on helping others. I'm a great listener for your thoughts." },
+        { id: "G007", name: "Olivia Singh", age: 22, loc: "Toronto", role: "Strategic Analyst", tag: "Strategist", img: "G007_olivia.jpg", bio: "A logical thinker who maintains a perfect work-life balance. I appreciate clear minds and kind hearts." },
+        { id: "G008", name: "Aarohi Gupta", age: 30, loc: "Hyderabad", role: "Content Writer", tag: "Intellectual", img: "G008_aarohi.jpg", bio: "Words are my soul. I find peace in quiet libraries and long stories. Let's write a conversation together." },
+        { id: "G009", name: "Emma Watson", age: 25, loc: "London", role: "Operations Lead", tag: "Efficient", img: "G009_emma.jpg", bio: "Organized, focused, and always looking for the most efficient path. I value direct and deep talk." },
+        { id: "G010", name: "Amelia Chen", age: 22, loc: "Singapore", role: "Frontend Dev", tag: "Globalist", img: "G010_amelia.jpg", bio: "Building beautiful interfaces for a more connected global world. I love learning about new cultures." }
+    ];
 
-// PROFILE DATA (Same as before)
-const girls = [
-    { id: "G001", name: "Luna Sharma", age: 24, city: "Mumbai, India", role: "Software Engineer", tag: "Bold & Edgy", img: "G001_luna.jpg", bio: "Tech enthusiast with a love for deep logic and late-night philosophy." },
-    { id: "G002", name: "Meera Iyer", age: 26, city: "Bangalore, India", role: "UX Researcher", tag: "The Empathetic", img: "G002_meera.jpg", bio: "Fascinated by human behavior and digital empathy." },
-    { id: "G003", name: "Ananya Rai", age: 21, city: "Delhi, India", role: "Digital Artist", tag: "Creative Soul", img: "G003_ananya.jpg", bio: "I see the world in colors and believe every pixel tells a story." },
-    { id: "G004", name: "Isha Verma", age: 23, city: "Pune, India", role: "Data Scientist", tag: "The Analyst", img: "G004_isha.jpg", bio: "Searching for patterns in the chaos and beauty in the numbers." },
-    { id: "G005", name: "Riya Kapoor", age: 24, city: "Chennai, India", role: "Designer", tag: "The Techie", img: "G005_riya.jpg", bio: "A digital-native designer blending tech logic with modern style." },
-    { id: "G006", name: "Sofia Verma", age: 20, city: "Sydney, Australia", role: "HR Executive", tag: "The Caretaker", img: "G006_sofia.jpg", bio: "A gentle and empathetic professional focused on helping others." },
-    { id: "G007", name: "Olivia Singh", age: 22, city: "Toronto, Canada", role: "Software Engineer", tag: "The Strategist", img: "G007_olivia.jpg", bio: "A logical thinker who maintains a perfect work-life balance." },
-    { id: "G008", name: "Aarohi Gupta", age: 30, city: "Hyderabad, India", role: "Content Writer", tag: "The Intellectual", img: "G008_aarohi.jpg", bio: "Words are my soul. I find peace in quiet libraries." },
-    { id: "G009", name: "Emma Watson", age: 25, city: "London, UK", role: "Operations Lead", tag: "The Efficient", img: "G009_emma.jpg", bio: "Organized, focused, and always looking for the best path." },
-    { id: "G010", name: "Amelia Chen", age: 22, city: "Singapore", role: "Frontend Dev", tag: "The Globalist", img: "G010_amelia.jpg", bio: "Building beautiful interfaces for a more connected world." }
-];
+    // RENDER THE GRID
+    const container = document.getElementById('grid');
+    girls.forEach(g => {
+        container.innerHTML += `
+            <div class="girl-card" onclick="openP('${g.id}')">
+                <div class="img-box">
+                    <span class="status">Online</span>
+                    <img src="assets/images/girls/${g.img}" alt="${g.name}">
+                </div>
+                <div class="info-box">
+                    <p>${g.role}</p>
+                    <h3>${g.name}</h3>
+                </div>
+            </div>`;
+    });
 
-const grid = document.getElementById('mainGrid');
-girls.forEach(girl => {
-    grid.innerHTML += `
-        <div class="girl-card" onclick="openProfile('${girl.id}')">
-            <div class="image-container">
-                <span class="status-badge"><span class="dot"></span> Online</span>
-                <img src="assets/images/girls/${girl.img}" alt="${girl.name}">
-            </div>
-            <div class="card-info">
-                <p>${girl.role}</p>
-                <h3>${girl.name}</h3>
-            </div>
-        </div>
-    `;
-});
+    // NAVIGATION TOGGLE
+    function toggleMenu() { document.getElementById('navMenu').classList.toggle('show'); }
 
-function openProfile(id) {
-    const girl = girls.find(g => g.id === id);
-    document.getElementById('modalName').innerText = girl.name;
-    document.getElementById('modalAge').innerText = girl.age;
-    document.getElementById('modalCity').innerText = girl.city;
-    document.getElementById('modalRole').innerText = girl.role;
-    document.getElementById('modalTag').innerText = girl.tag;
-    document.getElementById('modalBio').innerText = girl.bio;
-    document.getElementById('modalImage').style.backgroundImage = `url('assets/images/girls/${girl.img}')`;
-    document.getElementById('chatLink').href = `chat.html?id=${id}`;
-    document.getElementById('profileModal').style.display = 'flex';
-}
+    // MODAL FUNCTIONS
+    function openP(id) {
+        const g = girls.find(x => x.id === id);
+        document.getElementById('mName').innerText = g.name;
+        document.getElementById('mAge').innerText = g.age;
+        document.getElementById('mLoc').innerText = g.loc;
+        document.getElementById('mRole').innerText = g.role;
+        document.getElementById('mTag').innerText = g.tag;
+        document.getElementById('mBio').innerText = g.bio;
+        document.getElementById('mImg').style.backgroundImage = `url('assets/images/girls/${g.img}')`;
+        document.getElementById('cLink').href = `chat.html?id=${id}`;
+        document.getElementById('pModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Stop background scroll
+    }
 
-function closeProfile() {
-    document.getElementById('profileModal').style.display = 'none';
-}
+    function closeP() { 
+        document.getElementById('pModal').style.display = 'none'; 
+        document.body.style.overflow = 'auto'; // Re-enable scroll
+    }
 </script>
 </body>
 </html>
