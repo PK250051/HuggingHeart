@@ -8,85 +8,104 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* COMMUNITY HEADER */
+        /* COMPACT COMMUNITY HEADER */
         .community-header {
             text-align: center;
-            padding: 120px 20px 40px;
-            background: linear-gradient(to bottom, #f0fdf4, #ffffff);
+            padding: 100px 20px 20px; /* Reduced top/bottom padding */
+            background: #ffffff;
+            border-bottom: 1px solid #f1f5f9;
         }
-        .community-header h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #1a202c; }
+        .community-header h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 2.2rem; 
+            color: #1a202c; 
+            margin-bottom: 5px;
+        }
+        .community-header p {
+            font-size: 0.9rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
         /* GRID LAYOUT */
         .observer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 40px 5%;
+            gap: 20px;
+            padding: 20px 5%; /* Tighter padding for mobile */
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .girl-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             transition: 0.3s;
             border: 1px solid #f0f0f0;
             cursor: pointer;
         }
-        .girl-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(111, 207, 151, 0.2); }
 
-        .image-container { width: 100%; height: 350px; position: relative; }
+        .image-container { width: 100%; height: 320px; position: relative; }
         .image-container img { width: 100%; height: 100%; object-fit: cover; }
 
         .status-badge {
-            position: absolute; top: 15px; left: 15px; background: rgba(255, 255, 255, 0.9);
-            padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; color: #2f855a;
+            position: absolute; top: 12px; left: 12px; background: rgba(255, 255, 255, 0.9);
+            padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; font-weight: 600; color: #2f855a;
         }
-        .dot { height: 7px; width: 7px; background-color: #6fcf97; border-radius: 50%; display: inline-block; margin-right: 4px; }
+        .dot { height: 6px; width: 6px; background-color: #6fcf97; border-radius: 50%; display: inline-block; margin-right: 4px; }
 
-        .card-info { padding: 20px; }
-        .card-info h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin: 0; }
-        .card-info p { color: #6fcf97; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; margin-bottom: 10px; }
+        .card-info { padding: 15px; }
+        .card-info h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin: 0; }
+        .card-info p { color: #6fcf97; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 5px; }
 
         /* REALISTIC SPLIT-SCREEN MODAL */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(31, 41, 55, 0.7); backdrop-filter: blur(8px); z-index: 9999;
-            justify-content: center; align-items: center; padding: 20px;
+            background: rgba(31, 41, 55, 0.8); backdrop-filter: blur(8px); z-index: 9999;
+            justify-content: center; align-items: center; padding: 15px;
         }
         .profile-modal {
-            background: #fff; border-radius: 30px; max-width: 900px; width: 100%;
-            display: flex; overflow: hidden; animation: slideUp 0.4s ease-out;
+            background: #fff; border-radius: 25px; max-width: 850px; width: 100%;
+            display: flex; overflow: hidden; animation: slideUp 0.3s ease-out;
+            max-height: 90vh; /* Prevents overflow on mobile screens */
         }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .modal-left { flex: 1.2; background-size: cover; background-position: center; min-height: 500px; }
-        .modal-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .modal-left { flex: 1.1; background-size: cover; background-position: center; min-height: 450px; }
+        .modal-right { flex: 1; padding: 30px; display: flex; flex-direction: column; justify-content: center; background: #fff; }
 
         .profile-tag {
-            display: inline-block; padding: 5px 12px; background: #f0fdf4; color: #2f855a;
-            border-radius: 8px; font-size: 0.75rem; font-weight: 600; margin-bottom: 10px; width: fit-content;
+            display: inline-block; padding: 4px 10px; background: #f0fdf4; color: #2f855a;
+            border-radius: 6px; font-size: 0.7rem; font-weight: 600; margin-bottom: 8px;
         }
 
-        .detail-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
-        .detail-label { color: #94a3b8; font-size: 0.85rem; }
-        .detail-value { color: #1e293b; font-weight: 500; font-size: 0.9rem; }
+        .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+        .detail-label { color: #94a3b8; font-size: 0.8rem; }
+        .detail-value { color: #1e293b; font-weight: 500; font-size: 0.85rem; }
 
         .btn-chat {
             background: linear-gradient(135deg, #6fcf97, #9fd3ff); color: white;
-            padding: 15px 25px; border-radius: 15px; text-decoration: none;
-            font-weight: 600; text-align: center; transition: 0.3s; flex: 2;
+            padding: 14px; border-radius: 12px; text-decoration: none;
+            font-weight: 600; text-align: center; flex: 1; font-size: 0.9rem;
         }
         .btn-close-modal {
-            flex: 1; padding: 15px; border: 1px solid #e2e8f0; border-radius: 15px;
-            background: white; color: #64748b; font-weight: 500; cursor: pointer;
+            padding: 14px; border: 1px solid #e2e8f0; border-radius: 12px;
+            background: white; color: #64748b; font-weight: 500; cursor: pointer; font-size: 0.9rem;
         }
 
+        /* MOBILE FIXES */
         @media (max-width: 768px) {
-            .profile-modal { flex-direction: column; height: 90vh; overflow-y: auto; }
-            .modal-left { min-height: 250px; }
+            .community-header { padding: 80px 15px 15px; } /* Even smaller on mobile */
+            .community-header h1 { font-size: 1.8rem; }
+            .profile-modal { flex-direction: column; overflow-y: auto; }
+            .modal-left { min-height: 280px; width: 100%; }
+            .modal-right { padding: 20px; }
+            .observer-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; } /* 2 cards per row on mobile */
+            .image-container { height: 200px; }
+            .card-info h3 { font-size: 1rem; }
+            .card-info p { font-size: 0.65rem; }
         }
     </style>
 </head>
@@ -99,18 +118,16 @@
     <a href="community.html" class="active">Community</a>
     <a href="about.html">About</a>
     <a href="how-it-works.html">How It Works</a>
-    <a href="careers.html">Careers</a>
     <a href="contact.html">Contact</a>
   </div>
   <div class="auth-links">
     <a href="signin.html" class="signin">Sign In</a>
-    <a href="signin.html" class="signup">Join Free</a>
   </div>
 </div>
 
 <header class="community-header">
-    <h1>Meet Our Observers</h1>
-    <p>Intelligent companions for meaningful, safe, and heart-first discovery.</p>
+    <h1>Our Observers</h1>
+    <p>Safe & intelligent companions.</p>
 </header>
 
 <div class="observer-grid" id="mainGrid"></div>
@@ -118,21 +135,19 @@
 <div id="profileModal" class="modal-overlay" onclick="closeProfile()">
     <div class="profile-modal" onclick="event.stopPropagation()">
         <div id="modalImage" class="modal-left"></div>
-        
         <div class="modal-right">
-            <span class="profile-tag" id="modalTag">The Strategist</span>
-            <h2 id="modalName" style="font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 5px;">Name</h2>
-            <p id="modalRole" style="color: #64748b; margin-bottom: 20px; font-size: 0.9rem;">Role</p>
+            <span class="profile-tag" id="modalTag">Tag</span>
+            <h2 id="modalName" style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px;">Name</h2>
+            <p id="modalRole" style="color: #64748b; margin-bottom: 15px; font-size: 0.85rem;">Role</p>
             
             <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value" id="modalCity">City</span></div>
             <div class="detail-row"><span class="detail-label">Age</span><span class="detail-value" id="modalAge">00</span></div>
-            <div class="detail-row" style="margin-bottom: 20px;"><span class="detail-label">Status</span><span class="detail-value">Available</span></div>
 
-            <p id="modalBio" style="color: #475569; line-height: 1.6; font-size: 0.95rem; margin-bottom: 30px;">Bio content...</p>
+            <p id="modalBio" style="color: #475569; line-height: 1.5; font-size: 0.9rem; margin: 20px 0;">Bio...</p>
 
-            <div style="display: flex; gap: 15px; width: 100%;">
-                <a id="chatLink" href="#" class="btn-chat">Start Heart-to-Heart</a>
-                <button onclick="closeProfile()" class="btn-close-modal">Close</button>
+            <div style="display: flex; gap: 10px; width: 100%;">
+                <a id="chatLink" href="#" class="btn-chat">Chat Now</a>
+                <button onclick="closeProfile()" class="btn-close-modal">Back</button>
             </div>
         </div>
     </div>
@@ -140,19 +155,18 @@
 
 <script>
 const girls = [
-    { id: "G001", name: "Luna Sharma", age: 24, city: "Mumbai, India", role: "Software Engineer", tag: "Bold & Edgy", img: "G001_luna.jpg", bio: "Tech enthusiast with a love for deep logic and late-night philosophy. I value honesty above all." },
-    { id: "G002", name: "Meera Iyer", age: 26, city: "Bangalore, India", role: "UX Researcher", tag: "The Empathetic", img: "G002_meera.jpg", bio: "Fascinated by human behavior and creating digital empathy. Let's talk about what makes us human." },
-    { id: "G003", name: "Ananya Rai", age: 21, city: "Delhi, India", role: "Digital Artist", tag: "Creative Soul", img: "G003_ananya.jpg", bio: "I see the world in colors and believe every pixel tells a story. Seeking deep, colorful conversations." },
-    { id: "G004", name: "Isha Verma", age: 23, city: "Pune, India", role: "Data Scientist", tag: "The Analyst", img: "G004_isha.jpg", bio: "Searching for patterns in the chaos and beauty in the numbers. I enjoy logical but warm discussions." },
-    { id: "G005", name: "Riya Kapoor", age: 24, city: "Chennai, India", role: "Designer", tag: "The Techie", img: "G005_riya.jpg", bio: "A digital-native designer blending tech logic with modern style. Let's discuss the future of design." },
-    { id: "G006", name: "Sofia Verma", age: 20, city: "Sydney, Australia", role: "HR Executive", tag: "The Caretaker", img: "G006_sofia.jpg", bio: "A gentle and empathetic professional focused on helping others. I'm a great listener." },
-    { id: "G007", name: "Olivia Singh", age: 22, city: "Toronto, Canada", role: "Software Engineer", tag: "The Strategist", img: "G007_olivia.jpg", bio: "A logical thinker who maintains a perfect work-life balance. I appreciate clear minds and kind hearts." },
-    { id: "G008", name: "Aarohi Gupta", age: 30, city: "Hyderabad, India", role: "Content Writer", tag: "The Intellectual", img: "G008_aarohi.jpg", bio: "Words are my soul. I find peace in quiet libraries and long stories. Let's write a conversation together." },
-    { id: "G009", name: "Emma Watson", age: 25, city: "London, UK", role: "Operations Lead", tag: "The Efficient", img: "G009_emma.jpg", bio: "Organized, focused, and always looking for the most efficient path. I value direct and deep talk." },
-    { id: "G010", name: "Amelia Chen", age: 22, city: "Singapore", role: "Frontend Dev", tag: "The Globalist", img: "G010_amelia.jpg", bio: "Building beautiful interfaces for a more connected global world. I love learning about new cultures." }
+    { id: "G001", name: "Luna Sharma", age: 24, city: "Mumbai, India", role: "Software Engineer", tag: "Bold & Edgy", img: "G001_luna.jpg", bio: "Tech enthusiast with a love for deep logic and late-night philosophy." },
+    { id: "G002", name: "Meera Iyer", age: 26, city: "Bangalore, India", role: "UX Researcher", tag: "The Empathetic", img: "G002_meera.jpg", bio: "Fascinated by human behavior and digital empathy." },
+    { id: "G003", name: "Ananya Rai", age: 21, city: "Delhi, India", role: "Digital Artist", tag: "Creative Soul", img: "G003_ananya.jpg", bio: "I see the world in colors and believe every pixel tells a story." },
+    { id: "G004", name: "Isha Verma", age: 23, city: "Pune, India", role: "Data Scientist", tag: "The Analyst", img: "G004_isha.jpg", bio: "Searching for patterns in the chaos and beauty in the numbers." },
+    { id: "G005", name: "Riya Kapoor", age: 24, city: "Chennai, India", role: "Designer", tag: "The Techie", img: "G005_riya.jpg", bio: "A digital-native designer blending tech logic with modern style." },
+    { id: "G006", name: "Sofia Verma", age: 20, city: "Sydney, Australia", role: "HR Executive", tag: "The Caretaker", img: "G006_sofia.jpg", bio: "A gentle and empathetic professional focused on helping others." },
+    { id: "G007", name: "Olivia Singh", age: 22, city: "Toronto, Canada", role: "Software Engineer", tag: "The Strategist", img: "G007_olivia.jpg", bio: "A logical thinker who maintains a perfect work-life balance." },
+    { id: "G008", name: "Aarohi Gupta", age: 30, city: "Hyderabad, India", role: "Content Writer", tag: "The Intellectual", img: "G008_aarohi.jpg", bio: "Words are my soul. I find peace in quiet libraries." },
+    { id: "G009", name: "Emma Watson", age: 25, city: "London, UK", role: "Operations Lead", tag: "The Efficient", img: "G009_emma.jpg", bio: "Organized, focused, and always looking for the best path." },
+    { id: "G010", name: "Amelia Chen", age: 22, city: "Singapore", role: "Frontend Dev", tag: "The Globalist", img: "G010_amelia.jpg", bio: "Building beautiful interfaces for a more connected world." }
 ];
 
-// 1. RENDER GRID
 const grid = document.getElementById('mainGrid');
 girls.forEach(girl => {
     grid.innerHTML += `
@@ -169,7 +183,6 @@ girls.forEach(girl => {
     `;
 });
 
-// 2. MODAL LOGIC
 function openProfile(id) {
     const girl = girls.find(g => g.id === id);
     document.getElementById('modalName').innerText = girl.name;
@@ -187,6 +200,5 @@ function closeProfile() {
     document.getElementById('profileModal').style.display = 'none';
 }
 </script>
-
 </body>
 </html>
