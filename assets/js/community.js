@@ -1,22 +1,22 @@
-// assets/js/community.js
-document.addEventListener('DOMContentLoaded', async () => {
-    const grid = document.getElementById('observerGrid');
+<div id="chat-widget" class="chat-popup">
+    <div class="chat-header">
+        <div class="user-info">
+            <img id="chat-avatar" src="assets/images/girls/luna.jpg" alt="Luna">
+            <div>
+                <span id="chat-name">Luna</span>
+                <p id="typing-status">Online</p>
+            </div>
+        </div>
+        <button onclick="closeChat()">×</button>
+    </div>
     
-    try {
-        const response = await fetch('data/stats/online_status.json');
-        const girls = await response.json();
+    <div id="chat-display" class="chat-body">
+        </div>
 
-        grid.innerHTML = girls.map(girl => `
-            <a href="profile.html?id=${girl.id}" class="observer-card">
-                <img src="assets/images/girls/${girl.image}" alt="${girl.name}">
-                <div class="observer-info">
-                    <h3>${girl.name}</h3>
-                    <p>${girl.job} • ${girl.country}</p>
-                    <div class="status-tag">${girl.personality_type}</div>
-                </div>
-            </a>
-        `).join('');
-    } catch (error) {
-        console.error("Error loading community:", error);
-    }
-});
+    <div id="suggestion-box" class="suggestion-area"></div>
+
+    <div class="chat-footer">
+        <input type="text" id="user-input" placeholder="Ask me something..." oninput="handleTyping(this.value)">
+        <button onclick="sendChatMessage()">Send</button>
+    </div>
+</div>
