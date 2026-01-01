@@ -1,102 +1,48 @@
-// assets/js/chat.js
+let currentGirl = {}; // Stores Luna's profile
+let personalityBank = []; // Stores the B1 responses
+let suggestionList = []; // Stores the PQ suggestions
 
-let lunaAnswers = [];
-let masterQuestions = [];
-
-// 1. Initialize Chat and Load Data
 async function initChat() {
     try {
-        // Load Luna's personality (B1)
-        const respA = await fetch('data/personalities/type_B1_very_shy.csv');
-        const textA = await respA.text();
-        lunaAnswers = parseCSV(textA);
+        // 1. Load the Profile (Luna)
+        const profileRes = await fetch('profiles/G001_luna.json');
+        currentGirl = await profileRes.json();
 
-        // Load Master Questions for Suggestions
-        const respQ = await fetch('data/questions/PQ_master.csv');
-        const textQ = await respQ.text();
-        masterQuestions = parseCSV(textQ);
+        // 2. Load the Personality (B1 Answers)
+        const answerRes = await fetch(`data/answers/${currentGirl.type_file}`);
+        const answerData = await answerRes.text();
+        personalityBank = parseCSV(answerData);
 
-        addMessage("Luna", "Hi! I'm Luna. I'm a bit shy... but I'd love to talk. What's on your mind?");
+        // 3. Load Suggestions (PQ Master)
+        const suggRes = await fetch('data/questions/PQ_Master_List.csv');
+        const suggData = await suggRes.text();
+        suggestionList = parseCSV(suggData);
+
+        console.log("System Ready: Chatting with " + currentGirl.name);
     } catch (err) {
-        console.error("File loading failed. Check your data folder paths.", err);
+        console.error("Path Error: Check if folders and files are named correctly.", err);
     }
 }
 
-// 2. Suggestion Logic (Matches while you type)
-function handleTyping(val) {
-    const box = document.getElementById('suggestion-box');
-    if (val.length < 2) {
-        box.style.display = 'none';
-        return;
-    }
-
-    const matches = masterQuestions.filter(q => 
-        q.question.toLowerCase().includes(val.toLowerCase())
-    ).slice(0, 3);
-
-    if (matches.length > 0) {
-        box.innerHTML = matches.map(m => `
-            <div class="sugg-item" onclick="applySuggestion('${m.question.replace(/'/g, "\\'")}')">
-                ${m.question}
-            </div>
-        `).join('');
-        box.style.display = 'block';
-    } else {
-        box.style.display = 'none';
-    }
-}
-
-function applySuggestion(text) {
-    document.getElementById('user-input').value = text;
-    document.getElementById('suggestion-box').style.display = 'none';
-    processUserMessage(text);
-}
-
-// 3. Messaging Logic
-function processUserMessage(text) {
-    addMessage("You", text);
-    
-    // Find the answer in the personality CSV
-    const match = lunaAnswers.find(a => 
-        text.toLowerCase().includes(a.question.toLowerCase())
-    );
-
-    setTimeout(() => {
-        const reply = match ? match.answer : "That's a nice question... I'm not sure how to answer yet. Tell me more about you?";
-        addMessage("Luna", reply);
-    }, 800);
-}
-
-// 4. Helper: Parse CSV Text
-function parseCSV(text) {
-    return text.split('\n').slice(1).map(line => {
-        const parts = line.split(',');
+// Simple CSV Parser
+function parseCSV(data) {
+    const rows = data.split('\n');
+    return rows.slice(1).map(row => {
+        const columns = row.split(',');
         return { 
-            question: parts[0]?.trim(), 
-            answer: parts[1]?.trim() 
+            q: columns[0]?.trim().toLowerCase(), 
+            a: columns[1]?.trim() 
         };
-    }).filter(item => item.question);
+    }).filter(item => item.q);
 }
 
-// 5. Helper: UI Message Appending
-function addMessage(sender, text) {
-    const window = document.getElementById('chat-window');
-    const msgDiv = document.createElement('div');
-    msgDiv.className = `message ${sender.toLowerCase()}`;
-    msgDiv.innerHTML = `<strong>${sender}:</strong> ${text}`;
-    window.appendChild(msgDiv);
-    window.scrollTop = window.scrollHeight;
+// Handle User Messages
+function getReply(userInput) {
+    const input = userInput.toLowerCase().trim();
+    // Search the personality bank for a matching question
+    const match = personalityBank.find(item => input.includes(item.q) || item.q.includes(input));
+    
+    return match ? match.a : "i... i don't know what to say to that. 🌸";
 }
 
-// Event Listeners
-document.getElementById('send-btn').addEventListener('click', () => {
-    const input = document.getElementById('user-input');
-    const val = input.value.trim();
-    if(val) {
-        processUserMessage(val);
-        input.value = "";
-    }
-});
-
-// Run on load
 initChat();
