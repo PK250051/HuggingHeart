@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Community | HuggingHeart</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,47 +16,33 @@
             <a href="careers.html">Careers</a>
             <a href="contact.html">Contact</a>
         </div>
-        <div class="auth-links">
-            <a href="signin.html" class="signin-btn">Sign In</a>
-            <a href="signin.html" class="signup-btn">Join Free</a>
-        </div>
+        <div class="auth-links"><a href="signin.html" class="signup-btn">Join Free</a></div>
     </nav>
 
     <div class="main-content">
-        <div class="container">
-            <div class="observer-grid" id="gridContainer"></div>
-        </div>
+        <div id="gridContainer" class="observer-grid"></div>
     </div>
 
-    <div id="pModal" class="modal-overlay" onclick="closeProfile()">
+    <div id="pModal" class="modal-overlay" onclick="this.style.display='none'">
         <div class="profile-modal" onclick="event.stopPropagation()" style="background:#fff; width:90%; max-width:850px; display:flex; border-radius:30px; overflow:hidden;">
-            <div id="mImg" style="flex:1; min-height:550px;"></div>
+            <div id="mImg" style="flex:1; min-height:500px;"></div>
             <div style="flex:1; padding:40px;">
-                <p id="mMotto" style="font-style:italic; color:#6fcf97; font-family:'Playfair Display';"></p>
-                <h2 id="mName" style="color:#2f855a; font-size:2.2rem; font-family:'Playfair Display';"></h2>
-                <p id="mRole" style="color:#6fcf97; font-weight:600; text-transform:uppercase; font-size:0.8rem; margin-bottom:15px;"></p>
-                <div style="font-size:0.9rem; line-height:1.8;">
-                    <p>Location: <span id="mLoc" style="font-weight:600"></span></p>
-                    <p>Age: <span id="mAge" style="font-weight:600"></span></p>
-                    <p>Personality: <span id="mPers" style="font-weight:600"></span></p>
-                    <p>Love Language: <span id="mLove" style="font-weight:600; color:#2f855a"></span></p>
-                    <p>Values: <span id="mValues" style="font-weight:600"></span></p>
-                </div>
-                <p id="mBio" style="margin-top:15px; color:#6b7280; font-size:0.95rem; line-height:1.6; border-left:3px solid #f0fdf4; padding-left:15px;"></p>
-                <button onclick="openChat()" style="width:100%; padding:15px; background:linear-gradient(135deg, #6fcf97, #9fd3ff); color:white; border:none; border-radius:15px; font-weight:600; cursor:pointer; margin-top:20px;">Start Chat</button>
+                <h2 id="mName" style="color:#2f855a; font-family:'Playfair Display'; font-size:2rem;"></h2>
+                <p id="mBio" style="margin:20px 0; color:#6b7280; font-size:0.9rem;"></p>
+                <button onclick="openChat()" style="width:100%; padding:15px; background:var(--green); color:#fff; border:none; border-radius:15px; cursor:pointer; font-weight:600;">Start Chat</button>
             </div>
         </div>
     </div>
 
     <div id="chatWidget" class="chat-widget">
-        <div style="background:#f0fdf4; padding:15px; display:flex; align-items:center; gap:10px; border-bottom:1px solid #eaf7f0;">
-            <img id="chatAvatar" src="" style="width:35px; height:35px; border-radius:50%; object-fit:cover;">
-            <p id="chatName" style="font-weight:600; font-size:0.9rem; margin:0;"></p>
-            <button onclick="closeChat()" style="border:none; background:none; cursor:pointer; font-size:1.5rem; margin-left:auto;">&times;</button>
+        <div style="padding:15px; background:var(--soft); border-bottom:1px solid #eaf7f0; display:flex; justify-content:space-between;">
+            <span id="chatName" style="font-weight:600;"></span>
+            <button onclick="document.getElementById('chatWidget').style.display='none'" style="border:none; background:none; cursor:pointer;">&times;</button>
         </div>
-        <div class="chat-window" id="chatWindow"></div>
-        <div style="padding:15px; border-top:1px solid #eaf7f0;">
-            <input type="text" id="chatInput" placeholder="Press Enter to send..." style="width:100%; padding:10px; border-radius:10px; border:1px solid #eaf7f0; outline:none;">
+        <div id="chatWindow" class="chat-window"></div>
+        <div id="suggestArea" class="live-suggestion-area"></div>
+        <div style="padding:15px; border-top:1px solid #f1f5f9;">
+            <input type="text" id="chatInput" placeholder="Ask about age, hobby..." style="width:100%; padding:10px; border-radius:10px; border:1px solid #eaf7f0; outline:none;">
         </div>
     </div>
 
