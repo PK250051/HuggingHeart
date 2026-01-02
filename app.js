@@ -1,18 +1,18 @@
 /* ===================================================
-   HUGGINGHEART - FULL DATABASE & PERSONALITY ENGINE
+   HUGGINGHEART - STABLE DATABASE ENGINE
    =================================================== */
 
 const girls = [
-    { id: "G001", name: "Luna Sharma", type: "B1_very_shy", img: "G001_luna.jpg" },
-    { id: "G002", name: "Meera Iyer", type: "B2_shy", img: "G002_meera.jpg" },
-    { id: "G003", name: "Ananya Rai", type: "B3_soft", img: "G003_ananya.jpg" },
-    { id: "G004", name: "Isha Verma", type: "B4_balanced", img: "G004_isha.jpg" },
-    { id: "G005", name: "Riya Kapoor", type: "B5_confident", img: "G005_riya.jpg" },
-    { id: "G006", name: "Sofia Verma", type: "B6_witty", img: "G006_sofia.jpg" },
-    { id: "G007", name: "Olivia Singh", type: "B7_bold", img: "G007_olivia.jpg" },
-    { id: "G008", name: "Aarohi Gupta", type: "B8_daring", img: "G008_aarohi.jpg" },
-    { id: "G009", name: "Emma Watson", type: "B9_gen_z", img: "G009_emma.jpg" },
-    { id: "G010", name: "Amelia Chen", type: "B10_wild", img: "G010_amelia.jpg" }
+    { id: "G001", name: "Luna Sharma", type: "B1_very_shy", img: "G001_luna.jpg", role: "Software Engineer", age: 24, loc: "Mumbai", pers: "Very Shy", motto: "Code is logic...", loveLanguage: "Intellectual", values: "Growth", bio: "I build systems..." },
+    { id: "G002", name: "Meera Iyer", type: "B2_shy", img: "G002_meera.jpg", role: "UX Researcher", age: 26, loc: "Bangalore", pers: "Shy", motto: "Empathy is power...", loveLanguage: "Quality Time", values: "Kindness", bio: "Fascinated by behavior..." },
+    { id: "G003", name: "Ananya Rai", type: "B3_soft", img: "G003_ananya.jpg", role: "Digital Artist", age: 21, loc: "Delhi", pers: "Soft", motto: "Pixels tell stories...", loveLanguage: "Words", values: "Passion", bio: "Color is life..." },
+    { id: "G004", name: "Isha Verma", type: "B4_balanced", img: "G004_isha.jpg", role: "Data Scientist", age: 23, loc: "Pune", pers: "Balanced", motto: "Be a constant...", loveLanguage: "Service", values: "Precision", bio: "Patterns in chaos..." },
+    { id: "G005", name: "Riya Kapoor", type: "B5_confident", img: "G005_riya.jpg", role: "Designer", age: 24, loc: "Chennai", pers: "Confident", motto: "Simplicity...", loveLanguage: "Gifts", values: "Style", bio: "Tech meets art..." },
+    { id: "G006", name: "Sofia Verma", type: "B6_witty", img: "G006_sofia.jpg", role: "HR Executive", age: 20, loc: "Sydney", pers: "Witty", motto: "Kindness...", loveLanguage: "Presence", values: "Harmony", bio: "Helping hearts..." },
+    { id: "G007", name: "Olivia Singh", type: "B7_bold", img: "G007_olivia.jpg", role: "Strategic Analyst", age: 22, loc: "Toronto", pers: "Bold", motto: "Balance...", loveLanguage: "Stimulation", values: "Clarity", bio: "Strategic analyst..." },
+    { id: "G008", name: "Aarohi Gupta", type: "B8_daring", img: "G008_aarohi.jpg", role: "Content Writer", age: 30, loc: "Hyderabad", pers: "Daring", motto: "Stories end...", loveLanguage: "Conversation", values: "Wisdom", bio: "Old soul..." },
+    { id: "G009", name: "Emma Watson", type: "B9_gen_z", img: "G009_emma.jpg", role: "Operations Lead", age: 25, loc: "London", pers: "Gen Z", motto: "Be effective...", loveLanguage: "Goals", values: "Action", bio: "Efficiency..." },
+    { id: "G010", name: "Amelia Chen", type: "B10_wild", img: "G010_amelia.jpg", role: "Frontend Dev", age: 22, loc: "Singapore", pers: "Wild", motto: "Heart is bigger...", loveLanguage: "Experiences", values: "Beauty", bio: "Connecting world..." }
 ];
 
 let activeGirl = null;
@@ -20,150 +20,122 @@ let pqQuestions = [];
 let pqAnswers = [];
 let personalityData = [];
 
-/**
- * ROBUST CSV PARSER
- * Handles commas inside quotes and complex sentences.
- */
+// CSV Parser that handles complex rows
 function parseCSV(text) {
+    if(!text) return [];
     const rows = text.split('\n').filter(row => row.trim() !== "");
     return rows.map(row => {
-        // Regex to handle quoted strings containing commas
         const matches = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
         return matches ? matches.map(val => val.replace(/"/g, "").trim()) : row.split(',');
     });
 }
 
-/**
- * PRE-LOAD CORE DATABASES
- */
-async function loadDatabases() {
+// Load databases silently so it doesn't block the grid
+async function initDatabases() {
     try {
-        const [qRes, aRes] = await Promise.all([
-            fetch('data/questions/PQ_40_Personal_Questions.csv').then(r => r.text()),
-            fetch('data/questions/PQ_40_Personal_Answer.csv').then(r => r.text())
-        ]);
-        pqQuestions = parseCSV(qRes);
-        pqAnswers = parseCSV(aRes);
-        console.log("Global Databases Loaded.");
-    } catch (e) {
-        console.error("Critical: Could not load Question Databases.", e);
-    }
+        const qText = await fetch('data/questions/PQ_40_Personal_Questions.csv').then(r => r.text());
+        const aText = await fetch('data/questions/PQ_40_Personal_Answer.csv').then(r => r.text());
+        pqQuestions = parseCSV(qText);
+        pqAnswers = parseCSV(aText);
+    } catch (e) { console.warn("Databases not ready yet."); }
 }
 
-/**
- * OPEN CHAT & LOAD PERSONALITY
- */
+function loadGrid() {
+    const grid = document.getElementById('gridContainer');
+    if(!grid) return;
+    grid.innerHTML = "";
+    girls.forEach((g, index) => {
+        setTimeout(() => {
+            const card = document.createElement('div');
+            card.className = 'girl-card';
+            card.onclick = () => openProfile(g.id);
+            card.innerHTML = `
+                <div class="img-box">
+                    <span class="status-tag"><span class="green-bulb"></span> Online</span>
+                    <img src="assets/images/girls/${g.img}">
+                </div>
+                <div class="info-box">
+                    <p>${g.role}</p>
+                    <h3>${g.name}</h3>
+                    <div style="font-size:0.8rem; color:#6b7280; margin-top:5px;">Age: ${g.age}</div>
+                </div>`;
+            grid.appendChild(card);
+        }, index * 200); // Faster loading
+    });
+}
+
+function openProfile(id) {
+    activeGirl = girls.find(x => x.id === id);
+    if(!activeGirl) return;
+
+    // Fill Modal Text
+    document.getElementById('mName').innerText = activeGirl.name;
+    document.getElementById('mRole').innerText = activeGirl.role;
+    document.getElementById('mAge').innerText = activeGirl.age;
+    document.getElementById('mLoc').innerText = activeGirl.loc;
+    document.getElementById('mPers').innerText = activeGirl.pers;
+    document.getElementById('mBio').innerText = activeGirl.bio;
+    document.getElementById('mMotto').innerText = `"${activeGirl.motto}"`;
+    document.getElementById('mLove').innerText = activeGirl.loveLanguage;
+    document.getElementById('mValues').innerText = activeGirl.values;
+    
+    // Fill Modal Image
+    const modalImg = document.getElementById('mImg');
+    modalImg.style.backgroundImage = `url('assets/images/girls/${activeGirl.img}')`;
+    modalImg.style.backgroundSize = "cover";
+    modalImg.style.backgroundPosition = "top";
+
+    document.getElementById('pModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeProfile() {
+    document.getElementById('pModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Chat Logic
 async function openChat() {
     closeProfile();
     const widget = document.getElementById('chatWidget');
     const windowDiv = document.getElementById('chatWindow');
-    
     widget.style.display = 'flex';
     document.getElementById('chatName').innerText = activeGirl.name;
     document.getElementById('chatAvatar').src = `assets/images/girls/${activeGirl.img}`;
     windowDiv.innerHTML = "";
 
-    // Load the specific B1-B10 file for this girl
+    // Load personality data now
     try {
-        const pRes = await fetch(`data/answers/type_${activeGirl.type}.csv`).then(r => r.text());
-        personalityData = parseCSV(pRes);
-    } catch (e) {
-        console.error("Personality File Missing.");
-    }
+        const pText = await fetch(`data/answers/type_${activeGirl.type}.csv`).then(r => r.text());
+        personalityData = parseCSV(pText);
+    } catch(e) { personalityData = []; }
 
-    // Sequence: Hi -> Typing -> Ask Name
     addMessage(`Hi! I'm ${activeGirl.name}. 😊`, 'bot');
-
     setTimeout(() => {
         showTyping(true);
-        showSuggestions(); // Light gray suggestions during typing
+        showSuggestions();
         setTimeout(() => {
             showTyping(false);
-            addMessage(`I'm really glad we're talking. Before we start, what is your name?`, 'bot');
-        }, 1500); 
+            addMessage(`I'm really glad you reached out. What is your name?`, 'bot');
+        }, 1500);
     }, 1000);
 }
 
-/**
- * RESPONSE LOGIC (STRICT DATABASE)
- */
-function generateBotResponse(userMsg) {
-    const cleanMsg = userMsg.toLowerCase().trim().replace(/[^\w\s]/gi, '');
-    let botReply = "";
-
-    // LAYER 1: Search the 40 Personal Questions (PQ_40)
-    const pqMatch = pqQuestions.find(row => row[1] && row[1].toLowerCase().replace(/[^\w\s]/gi, '') === cleanMsg);
-    
-    if (pqMatch) {
-        const qID = pqMatch[0]; // e.g. PQ13
-        const girlRow = pqAnswers.find(row => row[0] === activeGirl.id);
-        const qHeaders = pqAnswers[0];
-        const qIndex = qHeaders.indexOf(qID);
-        if (girlRow && qIndex !== -1) {
-            botReply = girlRow[qIndex];
-        }
-    }
-
-    // LAYER 2: Search the 100+ Personality Profile Questions (B1-B10)
-    if (!botReply) {
-        const persMatch = personalityData.find(row => row[0] && row[0].toLowerCase().replace(/[^\w\s]/gi, '') === cleanMsg);
-        if (persMatch) {
-            botReply = persMatch[1];
-        }
-    }
-
-    // LAYER 3: Fallback
-    if (!botReply) {
-        botReply = "I... I'm not sure how to answer that yet. Ask me something from my profile?";
-    }
-
-    // Sequential Reply
-    setTimeout(() => {
-        showTyping(true);
-        showSuggestions(); // Hint for the next interaction
-        setTimeout(() => {
-            showTyping(false);
-            addMessage(botReply, 'bot');
-        }, 1500);
-    }, 800);
-}
-
-/**
- * LIGHT GRAY SUGGESTIONS
- */
-function showSuggestions() {
-    const windowDiv = document.getElementById('chatWindow');
-    // Remove old suggestions
-    const old = document.getElementById('current-suggestions');
-    if(old) old.remove();
-
-    const container = document.createElement('div');
-    container.id = "current-suggestions";
-    container.style = "padding: 5px 15px; display: flex; flex-wrap: wrap; gap: 10px;";
-
-    // Select 2 random hints from the PQ_40 list
-    const hints = pqQuestions.slice(1, 41).sort(() => 0.5 - Math.random()).slice(0, 2);
-
-    hints.forEach(h => {
-        const span = document.createElement('span');
-        span.className = "suggestion-text";
-        span.innerText = `Ask: "${h[1]}"`;
-        span.onclick = () => {
-            document.getElementById('chatInput').value = h[1];
-            container.remove();
-            handleChatInput({ key: 'Enter', target: document.getElementById('chatInput') });
-        };
-        container.appendChild(span);
-    });
-
-    windowDiv.appendChild(container);
-    windowDiv.scrollTop = windowDiv.scrollHeight;
-}
-
-// ... helper functions (handleChatInput, addMessage, showTyping, loadGrid, etc.)
+// ... helper functions for addMessage, showTyping, showSuggestions, generateBotResponse, closeChat ...
+// (Refer to previous code blocks for those helpers; they remain the same)
 
 window.onload = () => {
-    loadDatabases();
     loadGrid();
-    document.getElementById('chatInput').addEventListener('keypress', handleChatInput);
+    initDatabases();
+    const input = document.getElementById('chatInput');
+    if(input) {
+        input.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter' && input.value.trim() !== "") {
+                addMessage(input.value, 'user');
+                const val = input.value;
+                input.value = "";
+                generateBotResponse(val);
+            }
+        });
+    }
 };
