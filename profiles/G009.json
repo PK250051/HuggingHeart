@@ -5,7 +5,8 @@
   "city": "London",
   "country": "UK",
   "job": "Teacher",
-  "personality_type": "The Caretaker",
+  "personality_code": "B9",
+  "personality_label": "The Caretaker",
   "answer_file": "type_B9_gen_z.csv",
   "image": "G009_emma.jpg",
   "bio": "A nurturing teacher in London who finds peace in music."
