@@ -5,7 +5,8 @@
   "city": "Mumbai",
   "country": "India",
   "job": "Brand Manager",
-  "personality_type": "Balanced Thinker",
+  "personality_code": "B4",
+  "personality_label": "Balanced Thinker",
   "answer_file": "type_B4_balanced.csv",
   "image": "G004_isha.jpg",
   "bio": "A composed strategist with a strong sense of self-awareness."
