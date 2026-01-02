@@ -1,21 +1,12 @@
 {
   "id": "G004",
-  "name": "Isha Clark",
-  "age": 30,
-  "city": "Hyderabad",
+  "name": "Isha Malhotra",
+  "age": 28,
+  "city": "Mumbai",
   "country": "India",
-  "job": "Entrepreneur",
-  "personality_type": "Bold & Edgy",
+  "job": "Brand Manager",
+  "personality_type": "Balanced Thinker",
   "answer_file": "type_B4_balanced.csv",
   "image": "G004_isha.jpg",
-  "bio": "A daring business owner who isn't afraid to take big risks."
-}{
-  "id": "G004",
-  "name": "Isha",
-  "personality_type": "B4",
-  "answer_file": "type_B4_balanced.csv",
-  "bio": "A B4 personality girl.",
-  "image": "isha.jpg",
-  "city": "Mumbai",
-  "country": "India"
+  "bio": "A composed strategist with a strong sense of self-awareness."
 }
