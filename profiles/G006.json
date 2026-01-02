@@ -1,12 +1,12 @@
 {
   "id": "G006",
-  "name": "Sofia Verma",
-  "age": 20,
-  "city": "Sydney",
-  "country": "Australia",
-  "job": "HR Executive",
-  "personality_type": "The Caretaker",
+  "name": "Sofia Martinez",
+  "age": 29,
+  "city": "Madrid",
+  "country": "Spain",
+  "job": "Marketing Strategist",
+  "personality_type": "Witty Communicator",
   "answer_file": "type_B6_witty.csv",
   "image": "G006_sofia.jpg",
-  "bio": "A gentle and empathetic professional focused on helping others."
+  "bio": "A sharp conversationalist with a playful sense of humor."
 }
