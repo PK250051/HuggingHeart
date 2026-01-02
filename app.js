@@ -1,82 +1,89 @@
-let girlId = sessionStorage.getItem("girlId");
-let answerFile = sessionStorage.getItem("answerFile");
+/* =========================
+   GLOBAL STATE
+========================= */
+window.activeGirl = null;
 
-let PQ = [];
-let PQ_ANS = [];
-let PERSONALITY = [];
+/* =========================
+   LOAD COMMUNITY CARDS
+========================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const grid = document.getElementById("girlGrid");
+  if (!grid) return; // not on community page
 
-function parseCSV(text) {
-  const rows = [];
-  let row = [], cell = "", inside = false;
-  for (let c of text) {
-    if (c === '"') inside = !inside;
-    else if (c === ',' && !inside) {
-      row.push(cell); cell = "";
-    } else if (c === '\n') {
-      row.push(cell); rows.push(row);
-      row = []; cell = "";
-    } else cell += c;
+  const girlIds = [
+    "G001","G002","G003","G004","G005",
+    "G006","G007","G008","G009","G010"
+  ];
+
+  let index = 0;
+
+  function loadNext() {
+    if (index >= girlIds.length) return;
+
+    const id = girlIds[index];
+    fetch(`profiles/${id}.json`)
+      .then(res => res.json())
+      .then(girl => {
+        const card = document.createElement("div");
+        card.className = "girl-card";
+
+        card.innerHTML = `
+          <div class="status-dot"></div>
+          <img src="assets/images/girls/${girl.image}">
+          <div class="girl-info">
+            <h3>${girl.name}</h3>
+            <p>${girl.job} • ${girl.country}</p>
+          </div>
+        `;
+
+        card.onclick = () => openProfile(girl);
+
+        grid.appendChild(card);
+
+        index++;
+        setTimeout(loadNext, 800); // staggered load
+      })
+      .catch(err => {
+        console.error("Profile load failed:", id, err);
+        index++;
+        loadNext();
+      });
   }
-  row.push(cell); rows.push(row);
-  return rows;
-}
 
-Promise.all([
-  fetch("data/questions/PQ_40_Personal_Questions.csv").then(r=>r.text()),
-  fetch("data/questions/PQ_40_Personal_Answer.csv").then(r=>r.text()),
-  fetch(`data/answers/${answerFile}`).then(r=>r.text())
-]).then(([pq, ans, per]) => {
-  PQ = parseCSV(pq);
-  PQ_ANS = parseCSV(ans);
-  PERSONALITY = parseCSV(per);
+  loadNext();
 });
 
-function sendMessage() {
-  const input = document.getElementById("userInput");
-  const text = input.value.toLowerCase();
-  input.value = "";
-  addChat("You", text);
+/* =========================
+   PROFILE MODAL
+========================= */
+function openProfile(girl) {
+  window.activeGirl = girl;
 
-  let reply = doubleScan(text);
-  addChat("Her", reply);
+  document.getElementById("mImg").src =
+    `assets/images/girls/${girl.image}`;
+  document.getElementById("mName").innerText = girl.name;
+  document.getElementById("mBio").innerText = girl.bio;
+
+  document.getElementById("pModal").style.display = "flex";
 }
 
-function doubleScan(text) {
-  // SCAN 1 – PERSONAL QUESTIONS
-  for (let i=1;i<PQ.length;i++) {
-    if (text.includes(PQ[i][1].toLowerCase())) {
-      for (let j=1;j<PQ_ANS.length;j++) {
-        if (PQ_ANS[j][0] === PQ[i][0] &&
-            PQ_ANS[j][1] === girlId) {
-          return PQ_ANS[j][2];
-        }
-      }
-    }
-  }
-
-  // SCAN 2 – PERSONALITY FILE
-  for (let i=1;i<PERSONALITY.length;i++) {
-    if (text.includes(PERSONALITY[i][0].toLowerCase())) {
-      return PERSONALITY[i][1];
-    }
-  }
-
-  return "Hmm… tell me more.";
+function closeProfile() {
+  document.getElementById("pModal").style.display = "none";
 }
 
-function addChat(sender, text) {
-  const box = document.getElementById("chatBox");
-  box.innerHTML += `<p><b>${sender}:</b> ${text}</p>`;
+/* =========================
+   CHAT WIDGET
+========================= */
+function openChat() {
+  if (!window.activeGirl) return;
+
+  document.getElementById("chatName").innerText =
+    window.activeGirl.name;
+
+  document.getElementById("chatWidget").style.display = "block";
+  document.getElementById("pModal").style.display = "none";
 }
 
-function showSuggestions() {
-  const val = document.getElementById("userInput").value.toLowerCase();
-  const sug = document.getElementById("suggestions");
-  sug.innerHTML = "";
-
-  PQ.forEach((r,i)=>{
-    if (i>0 && r[1].toLowerCase().includes(val)) {
-      sug.innerHTML += `<div>${r[1]}</div>`;
-    }
-  });
+function closeChat() {
+  document.getElementById("chatWidget").style.display = "none";
 }
