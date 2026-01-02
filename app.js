@@ -1,12 +1,18 @@
 /* ===================================================
-   HUGGINGHEART - 100% ACCURATE DATA ENGINE
+   HUGGINGHEART - ULTIMATE DATABASE & CHATBOT ENGINE
    =================================================== */
 
 const girls = [
-    { id: "G001", name: "Luna Sharma", type: "B1_very_shy", img: "G001_luna.jpg", role: "Software Engineer", age: 24, bio: "I build systems and ponder the stars." },
-    { id: "G002", name: "Meera Iyer", type: "B2_shy", img: "G002_meera.jpg", role: "UX Researcher", age: 26, bio: "Fascinated by human behavior." },
-    { id: "G003", name: "Ananya Rai", type: "B3_soft", img: "G003_ananya.jpg", role: "Digital Artist", age: 21, bio: "World in high-contrast." },
-    // ... add G004 to G010 following this pattern
+    { id: "G001", name: "Luna Sharma", type: "B1_very_shy", img: "G001_luna.jpg", role: "Software Engineer", age: 24, loc: "Mumbai", pers: "Reserved", bio: "I build complex systems by day and ponder the stars by night. I value deep, honest debates over small talk." },
+    { id: "G002", name: "Meera Iyer", type: "B2_shy", img: "G002_meera.jpg", role: "UX Researcher", age: 26, loc: "Bangalore", pers: "Reserved", bio: "Fascinated by human behavior and soft voices." },
+    { id: "G003", name: "Ananya Rai", type: "B3_soft", img: "G003_ananya.jpg", role: "Digital Artist", age: 21, loc: "Delhi", pers: "Creative", bio: "I see the world in high-contrast and vibrant colors." },
+    { id: "G004", name: "Isha Verma", type: "B4_balanced", img: "G004_isha.jpg", role: "Data Scientist", age: 23, loc: "Pune", pers: "Analytical", bio: "Searching for logical patterns in chaos." },
+    { id: "G005", name: "Riya Kapoor", type: "B5_confident", img: "G005_riya.jpg", role: "Designer", age: 24, loc: "Chennai", pers: "Modern", bio: "Blending tech logic with modern visual style." },
+    { id: "G006", name: "Sofia Verma", type: "B6_witty", img: "G006_sofia.jpg", role: "HR Executive", age: 20, loc: "Sydney", pers: "Witty", bio: "Helping people find their spark in a noisy world." },
+    { id: "G007", name: "Olivia Singh", type: "B7_bold", img: "G007_olivia.jpg", role: "Strategic Analyst", age: 22, loc: "Toronto", pers: "Bold", bio: "Strategic in mind, poetic in heart." },
+    { id: "G008", name: "Aarohi Gupta", type: "B8_daring", img: "G008_aarohi.jpg", role: "Content Writer", age: 30, loc: "Hyderabad", pers: "Daring", bio: "Old soul who finds peace in quiet libraries." },
+    { id: "G009", name: "Emma Watson", type: "B9_gen_z", img: "G009_emma.jpg", role: "Operations Lead", age: 25, loc: "London", pers: "Vibrant", bio: "Organized leader with global vision." },
+    { id: "G010", name: "Amelia Chen", type: "B10_wild", img: "G010_amelia.jpg", role: "Frontend Dev", age: 22, loc: "Singapore", pers: "Wild", bio: "Connecting the world through code and soul." }
 ];
 
 let activeGirl = null;
@@ -14,80 +20,215 @@ let pqQuestions = [];
 let pqAnswers = [];
 let personalityData = [];
 
-// Better CSV Parser
+/**
+ * ROBUST CSV PARSER
+ * Correctly handles commas and newlines inside quoted strings.
+ */
 function parseCSV(text) {
-    const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
-    return lines.map(line => {
-        const result = [];
-        let cur = "", inQuote = false;
-        for (let char of line) {
-            if (char === '"') inQuote = !inQuote;
-            else if (char === ',' && !inQuote) { result.push(cur.trim()); cur = ""; }
-            else cur += char;
+    const rows = [];
+    let currentRow = [];
+    let currentCell = "";
+    let inQuotes = false;
+
+    for (let i = 0; i < text.length; i++) {
+        let char = text[i];
+        let nextChar = text[i + 1];
+
+        if (char === '"' && inQuotes && nextChar === '"') {
+            currentCell += '"';
+            i++;
+        } else if (char === '"') {
+            inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+            currentRow.push(currentCell.trim());
+            currentCell = "";
+        } else if ((char === '\r' || char === '\n') && !inQuotes) {
+            if (currentCell || currentRow.length > 0) {
+                currentRow.push(currentCell.trim());
+                rows.push(currentRow);
+                currentRow = [];
+                currentCell = "";
+            }
+        } else {
+            currentCell += char;
         }
-        result.push(cur.trim());
-        return result;
+    }
+    if (currentCell || currentRow.length > 0) {
+        currentRow.push(currentCell.trim());
+        rows.push(currentRow);
+    }
+    return rows;
+}
+
+/**
+ * INITIALIZATION
+ */
+async function init() {
+    try {
+        const [qRes, aRes] = await Promise.all([
+            fetch('data/questions/PQ_40_Personal_Questions.csv').then(r => r.text()),
+            fetch('data/questions/PQ_40_Personal_Answer.csv').then(r => r.text())
+        ]);
+        pqQuestions = parseCSV(qRes);
+        pqAnswers = parseCSV(aRes);
+        loadGrid();
+    } catch (e) {
+        console.error("Database Load Error:", e);
+    }
+}
+
+/**
+ * GRID LOADING (0.8s Staggered)
+ */
+function loadGrid() {
+    const grid = document.getElementById('gridContainer');
+    if (!grid) return;
+    grid.innerHTML = "";
+    girls.forEach((g, i) => {
+        setTimeout(() => {
+            const card = document.createElement('div');
+            card.className = "girl-card";
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0)";
+            card.innerHTML = `
+                <div class="img-box">
+                    <div class="status-tag"><div class="green-bulb"></div> Online</div>
+                    <img src="assets/images/girls/${g.img}">
+                </div>
+                <div class="info-box">
+                    <p style="color:#6fcf97; font-weight:700; font-size:0.75rem; text-transform:uppercase;">${g.role}</p>
+                    <h3>${g.name}</h3>
+                    <span style="font-size:0.85rem; color:#6b7280;">Age: ${g.age}</span>
+                </div>`;
+            card.onclick = () => openProfile(g.id);
+            grid.appendChild(card);
+        }, i * 800); 
     });
 }
 
-async function initDatabases() {
-    const [qRes, aRes] = await Promise.all([
-        fetch('data/questions/PQ_40_Personal_Questions.csv').then(r => r.text()),
-        fetch('data/questions/PQ_40_Personal_Answer.csv').then(r => r.text())
-    ]);
-    pqQuestions = parseCSV(qRes);
-    pqAnswers = parseCSV(aRes);
-    loadGrid();
-}
-
-function loadGrid() {
-    const grid = document.getElementById('gridContainer');
-    grid.innerHTML = girls.map(g => `
-        <div class="girl-card" onclick="openProfile('${g.id}')">
-            <div class="img-box">
-                <div class="status-tag"><div class="green-bulb"></div> Online</div>
-                <img src="assets/images/girls/${g.img}">
-            </div>
-            <div class="info-box">
-                <p style="color:#6fcf97; font-weight:700; font-size:0.75rem;">${g.role}</p>
-                <h3>${g.name}</h3>
-                <span style="font-size:0.85rem; color:#6b7280;">Age: ${g.age}</span>
-            </div>
-        </div>
-    `).join('');
-}
-
+/**
+ * PROFILE MODAL
+ */
 function openProfile(id) {
     activeGirl = girls.find(g => g.id === id);
     document.getElementById('mName').innerText = activeGirl.name;
     document.getElementById('mAge').innerText = activeGirl.age;
     document.getElementById('mBio').innerText = activeGirl.bio;
     document.getElementById('mImg').style.backgroundImage = `url('assets/images/girls/${activeGirl.img}')`;
-    document.getElementById('mImg').style.backgroundSize = "cover";
     document.getElementById('pModal').style.display = 'flex';
 }
 
-function closeProfile() { document.getElementById('pModal').style.display = 'none'; }
-
-async function openChat() {
+function closeProfile() {
     document.getElementById('pModal').style.display = 'none';
+}
+
+/**
+ * CHAT ENGINE
+ */
+async function openChat() {
+    closeProfile();
     document.getElementById('chatWidget').style.display = 'flex';
     document.getElementById('chatName').innerText = activeGirl.name;
     document.getElementById('chatAvatar').src = `assets/images/girls/${activeGirl.img}`;
     
-    // Load Personality
+    const windowDiv = document.getElementById('chatWindow');
+    windowDiv.innerHTML = "";
+
+    // Load secret personality
     const pRes = await fetch(`data/answers/type_${activeGirl.type}.csv`).then(r => r.text());
     personalityData = parseCSV(pRes);
     
     addMessage(`Hi! I'm ${activeGirl.name}. 😊`, 'bot');
 }
 
-// ... include generateBotResponse, addMessage, and updateSuggestions from previous version
+/**
+ * LIVE SUGGESTIONS (PQ + Personality)
+ */
+function updateSuggestions(val) {
+    const sArea = document.getElementById('suggestArea');
+    sArea.innerHTML = "";
+    if (val.length < 2) return;
 
+    const searchTerm = val.toLowerCase();
+    
+    // Search PQ
+    const pqMatches = pqQuestions.filter(q => q[1] && q[1].toLowerCase().includes(searchTerm)).slice(0, 2);
+    // Search Personality
+    const pMatches = personalityData.filter(p => p[0] && p[0].toLowerCase().includes(searchTerm)).slice(0, 2);
+
+    [...pqMatches, ...pMatches].forEach(match => {
+        const text = match[1] || match[0];
+        const span = document.createElement('span');
+        span.className = "suggest-item";
+        span.innerText = `Ask: "${text}"`;
+        span.onclick = () => {
+            document.getElementById('chatInput').value = text;
+            sArea.innerHTML = "";
+            handleChatInput({ key: 'Enter' });
+        };
+        sArea.appendChild(span);
+    });
+}
+
+/**
+ * BOT RESPONSE LOGIC
+ */
+function generateBotResponse(msg) {
+    const clean = msg.toLowerCase().trim().replace(/[^\w\s]/gi, '');
+    let reply = "";
+
+    // 1. PQ Check
+    const pq = pqQuestions.find(q => q[1] && q[1].toLowerCase().replace(/[^\w\s]/gi, '') === clean);
+    if (pq) {
+        const girlRow = pqAnswers.find(row => row[0] === activeGirl.id);
+        const colIdx = pqAnswers[0].indexOf(pq[0]);
+        if (girlRow && colIdx !== -1) reply = girlRow[colIdx];
+    }
+
+    // 2. Personality Check
+    if (!reply) {
+        const pers = personalityData.find(p => p[0] && p[0].toLowerCase().replace(/[^\w\s]/gi, '') === clean);
+        if (pers) reply = pers[1];
+    }
+
+    if (!reply) reply = "...I'm a bit shy. Could you ask me something else?";
+
+    // Simulate typing
+    setTimeout(() => {
+        addMessage(reply, 'bot');
+    }, 1200);
+}
+
+function addMessage(text, side) {
+    const win = document.getElementById('chatWindow');
+    const m = document.createElement('div');
+    m.className = `msg ${side}-msg`;
+    m.innerText = text;
+    win.appendChild(m);
+    win.scrollTop = win.scrollHeight;
+}
+
+function handleChatInput(e) {
+    if (e.key === 'Enter') {
+        const input = document.getElementById('chatInput');
+        const val = input.value.trim();
+        if (!val) return;
+        addMessage(val, 'user');
+        input.value = "";
+        document.getElementById('suggestArea').innerHTML = "";
+        generateBotResponse(val);
+    }
+}
+
+function closeChat() {
+    document.getElementById('chatWidget').style.display = 'none';
+}
+
+// Window Listeners
 window.onload = () => {
-    initDatabases();
+    init();
     const ci = document.getElementById('chatInput');
-    if(ci) {
+    if (ci) {
         ci.addEventListener('input', (e) => updateSuggestions(e.target.value));
         ci.addEventListener('keypress', handleChatInput);
     }
