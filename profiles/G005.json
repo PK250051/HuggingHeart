@@ -5,7 +5,8 @@
   "city": "Bengaluru",
   "country": "India",
   "job": "Startup Founder",
-  "personality_type": "Confident Leader",
+  "personality_code": "B5",
+  "personality_label": "Confident Leader",
   "answer_file": "type_B5_confident.csv",
   "image": "G005_riya.jpg",
   "bio": "A driven entrepreneur who believes in bold execution."
