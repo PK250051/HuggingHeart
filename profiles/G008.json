@@ -5,7 +5,8 @@
   "city": "Hyderabad",
   "country": "India",
   "job": "Content Writer",
-  "personality_type": "The Intellectual",
+  "personality_code": "B8",
+  "personality_label": "The Intellectual",
   "answer_file": "type_B8_daring.csv",
   "image": "G008_aarohi.jpg",
   "bio": "A reserved and deeply intellectual writer who values privacy."
