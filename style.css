@@ -1,35 +1,28 @@
 /* ================= GLOBAL & NAVBAR ================= */
-:root { --green: #6fcf97; --dark: #1a202c; --soft: #f0fdf4; --border: #eaf7f0; }
+:root { --green: #6fcf97; --dark: #1a202c; --soft: #f0fdf4; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Poppins', sans-serif; background: #fff; color: var(--dark); overflow-x: hidden; }
 
-/* Fixed Navbar with high Z-Index */
 .navbar {
     display: flex; justify-content: space-between; align-items: center;
     padding: 0 5%; position: fixed; top: 0; width: 100%; height: 80px;
-    background: var(--soft); z-index: 9999; border-bottom: 1px solid var(--border);
+    background: var(--soft); z-index: 9999; border-bottom: 1px solid #eaf7f0;
 }
-.logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: #2f855a; text-decoration: none; }
-.nav-links { display: flex; gap: 18px; }
-.nav-links a { text-decoration: none; color: #4a5568; font-size: 0.8rem; font-weight: 500; }
-.auth-links { display: flex; gap: 10px; }
+.nav-links { display: flex; gap: 15px; position: absolute; left: 50%; transform: translateX(-50%); }
+.nav-links a { text-decoration: none; color: #4a5568; font-size: 0.8rem; }
+
+.auth-links { display: flex; gap: 10px; z-index: 10000; }
 .btn-auth { text-decoration: none; background: var(--green); color: #fff !important; padding: 8px 18px; border-radius: 10px; font-weight: 600; font-size: 0.8rem; }
 
 /* ================= 3-COLUMN GRID ================= */
-.main-content { padding-top: 120px; } /* Ensures content starts after Navbar */
+.main-content { padding-top: 120px; }
 .observer-grid { 
-    display: grid; 
-    grid-template-columns: repeat(3, 1fr); /* FORCED 3 PER ROW */
-    gap: 30px; 
-    max-width: 1200px; 
-    margin: 0 auto; 
-    padding: 0 20px 100px; 
+    display: grid; grid-template-columns: repeat(3, 1fr); 
+    gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 20px 100px; 
 }
-@media (max-width: 992px) { .observer-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .observer-grid { grid-template-columns: 1fr; } }
 
 .girl-card { 
-    background: #fff; border-radius: 20px; border: 1px solid var(--border); 
+    background: #fff; border-radius: 20px; border: 1px solid #eaf7f0; 
     height: 520px; overflow: hidden; cursor: pointer; transition: 0.3s; 
     position: relative; opacity: 0; transform: translateY(20px); 
 }
@@ -42,16 +35,9 @@ body { font-family: 'Poppins', sans-serif; background: #fff; color: var(--dark);
 
 .img-box { width: 100%; height: 360px; overflow: hidden; }
 .img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.info-box { padding: 20px; }
 
 /* ================= CHAT & SUGGESTIONS ================= */
-.chat-widget { display: none; position: fixed; bottom: 20px; right: 20px; width: 350px; height: 500px; background: #fff; border-radius: 20px; z-index: 11000; box-shadow: 0 10px 40px rgba(0,0,0,0.2); flex-direction: column; border: 1px solid var(--border); overflow: hidden; }
-.chat-window { flex: 1; padding: 15px; overflow-y: auto; background: #fafafa; display: flex; flex-direction: column; gap: 8px; }
-.live-suggest { padding: 8px 15px; background: #fff; border-top: 1px solid #eee; min-height: 40px; }
-.suggest-item { color: #94a3b8; font-size: 0.75rem; font-style: italic; cursor: pointer; display: block; margin-bottom: 3px; border-bottom: 1px dashed #ddd; width: fit-content; }
-.msg { max-width: 85%; padding: 10px; border-radius: 12px; font-size: 0.85rem; }
-.bot-msg { align-self: flex-start; background: #fff; border: 1px solid #eee; }
-.user-msg { align-self: flex-end; background: var(--green); color: white; }
-
-/* MODAL */
 .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 10000; justify-content: center; align-items: center; }
+.chat-widget { display: none; position: fixed; bottom: 20px; right: 20px; width: 350px; height: 500px; background: #fff; border-radius: 20px; z-index: 11000; box-shadow: 0 10px 40px rgba(0,0,0,0.2); flex-direction: column; border: 1px solid #eaf7f0; overflow: hidden; }
+.suggest-area { padding: 8px 15px; background: #fff; border-top: 1px solid #eee; min-height: 40px; }
+.suggest-item { color: #94a3b8; font-size: 0.75rem; font-style: italic; cursor: pointer; display: block; margin-bottom: 3px; border-bottom: 1px dashed #ddd; width: fit-content; }
