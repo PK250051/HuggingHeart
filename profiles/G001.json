@@ -5,7 +5,8 @@
   "city": "Paris",
   "country": "France",
   "job": "Software Engineer",
-  "personality_type": "Bold & Edgy",
+  "personality_code": "B1",
+  "personality_label": "Bold & Edgy",
   "answer_file": "type_B1_very_shy.csv",
   "image": "G001_luna.jpg",
   "bio": "An assertive tech lead in Paris who sets firm boundaries."
