@@ -5,7 +5,8 @@
   "city": "Delhi",
   "country": "India",
   "job": "Data Analyst",
-  "personality_type": "The Adventurer",
+  "personality_code": "B10",
+  "personality_label": "The Adventurer",
   "answer_file": "type_B10_wild.csv",
   "image": "G010_amelia.jpg",
   "bio": "An independent spirit who lives for solo travel and adventure."
