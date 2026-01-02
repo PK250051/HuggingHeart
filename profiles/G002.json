@@ -1,12 +1,12 @@
 {
   "id": "G002",
-  "name": "Meera Gupta",
-  "age": 26,
-  "city": "Hyderabad",
-  "country": "India",
-  "job": "Marketing Manager",
-  "personality_type": "The Athlete",
+  "name": "Ayumi Tanaka",
+  "age": 24,
+  "city": "Tokyo",
+  "country": "Japan",
+  "job": "UX Designer",
+  "personality_type": "Shy Observer",
   "answer_file": "type_B2_shy.csv",
   "image": "G002_ayumi.jpg",
-  "bio": "A goal-oriented manager who excels in fitness and strategy."
+  "bio": "A soft-spoken designer who enjoys minimalism and quiet moments."
 }
