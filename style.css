@@ -1,49 +1,59 @@
-/* ================= GLOBAL RESET ================= */
+/* ================= GLOBAL RESET & VARS ================= */
 :root {
     --green: #6fcf97;
-    --dark: #1a202c;
+    --green-dark: #2f855a;
     --soft-bg: #f0fdf4;
-    --border: #eaf7f0;
+    --text: #1a202c;
+    --text-light: #6b7280;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Poppins', sans-serif; color: var(--dark); line-height: 1.6; background: #fff; overflow-x: hidden; }
+body { font-family: 'Poppins', sans-serif; background: #fff; color: var(--text); overflow-x: hidden; }
 
-/* ================= NAVIGATION BAR ================= */
+/* ================= NAV BAR (FIXED & HIGH Z-INDEX) ================= */
 .navbar {
     display: flex; justify-content: space-between; align-items: center;
     padding: 0 5%; position: fixed; top: 0; width: 100%; height: 80px;
-    background: var(--soft-bg); z-index: 9000; border-bottom: 1px solid var(--border);
+    background: var(--soft-bg); z-index: 9000; border-bottom: 1px solid #eaf7f0;
 }
-.logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: #2f855a; text-decoration: none; }
+.logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--green-dark); text-decoration: none; }
 .nav-links { display: flex; gap: 20px; position: absolute; left: 50%; transform: translateX(-50%); }
-.nav-links a { text-decoration: none; color: #4a5568; font-size: 0.85rem; font-weight: 500; }
+.nav-links a { text-decoration: none; color: #4a5568; font-size: 0.85rem; font-weight: 500; transition: 0.3s; }
 .nav-links a.active { color: var(--green); font-weight: 600; }
-
 .auth-links { display: flex; align-items: center; gap: 15px; z-index: 9001; }
-.signup-btn { 
-    text-decoration: none; background: var(--green); color: #fff !important; 
-    padding: 10px 22px; border-radius: 12px; font-weight: 600; font-size: 0.85rem;
-}
+.signin-btn { text-decoration: none; color: #4a5568; font-size: 0.85rem; }
+.signup-btn { text-decoration: none; background: var(--green); color: #fff !important; padding: 10px 22px; border-radius: 12px; font-weight: 600; font-size: 0.85rem; }
 
-/* ================= WRAPPERS (Prevents Mush-up) ================= */
-.main-content { padding-top: 120px; min-height: 85vh; }
-.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+/* ================= MAIN WRAPPER (PREVENTS MUSH-UP) ================= */
+.main-content { padding-top: 100px; min-height: 85vh; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
 
-/* ================= COMMUNITY GRID ================= */
-.observer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-.girl-card { background: #fff; border-radius: 25px; border: 1px solid var(--border); height: 520px; overflow: hidden; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; }
+/* ================= COMMUNITY GRID & BULB ================= */
+.observer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+.girl-card { background: #fff; border-radius: 25px; border: 1px solid #eaf7f0; height: 530px; overflow: hidden; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; position: relative; }
+.girl-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.06); }
+
 .img-box { width: 100%; height: 380px; position: relative; overflow: hidden; }
 .img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.info-box { padding: 20px 30px; }
-.info-box h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; }
 
-/* ================= CHAT & MODAL ================= */
+.status-tag { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.9); padding: 6px 14px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; color: var(--green-dark); display: flex; align-items: center; gap: 8px; z-index: 10; }
+.green-bulb { width: 9px; height: 9px; background: #22c55e; border-radius: 50%; position: relative; }
+.green-bulb::after { content: ''; position: absolute; width: 100%; height: 100%; background: #22c55e; border-radius: 50%; animation: pulse-bulb 2s infinite; }
+@keyframes pulse-bulb { 0% { transform: scale(1); opacity: 1; } 70% { transform: scale(3); opacity: 0; } 100% { opacity: 0; } }
+
+.info-box { padding: 25px; flex-grow: 1; }
+.info-box h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 5px; }
+.age-label { font-size: 0.85rem; color: var(--text-light); }
+
+/* ================= CHAT SUGGESTIONS (LIGHT GRAY) ================= */
+.suggestion-container { margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+.suggestion-text { color: #94a3b8; font-size: 0.75rem; font-style: italic; cursor: pointer; text-decoration: underline dotted; transition: 0.2s; }
+.suggestion-text:hover { color: var(--text-light); }
+
+/* ================= MODAL & CHAT ================= */
 .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); z-index: 9100; justify-content: center; align-items: center; }
-.chat-widget { display: none; position: fixed; bottom: 20px; right: 20px; width: 340px; height: 480px; background: #fff; border-radius: 20px; z-index: 9500; box-shadow: 0 10px 40px rgba(0,0,0,0.1); flex-direction: column; overflow: hidden; border: 1px solid var(--border); }
+.chat-widget { display: none; position: fixed; bottom: 20px; right: 20px; width: 340px; height: 480px; background: #fff; border-radius: 20px; z-index: 9200; box-shadow: 0 10px 40px rgba(0,0,0,0.1); flex-direction: column; overflow: hidden; border: 1px solid #eaf7f0; }
 .chat-window { flex-grow: 1; background: #fafafa; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-.msg { max-width: 85%; padding: 10px 14px; border-radius: 15px; font-size: 0.85rem; }
-.bot-msg { align-self: flex-start; background: #fff; border: 1px solid var(--border); }
-.user-msg { align-self: flex-end; background: var(--green); color: white; }
-.suggestion-text { color: #94a3b8; font-size: 0.75rem; font-style: italic; cursor: pointer; border-bottom: 1px dashed #cbd5e1; margin-right: 15px; }
-
-footer { text-align: center; padding: 60px 0; border-top: 1px solid #f1f5f9; color: #94a3b8; }
+.msg { max-width: 85%; padding: 10px 14px; border-radius: 15px; font-size: 0.85rem; line-height: 1.4; }
+.bot-msg { align-self: flex-start; background: #fff; border: 1px solid #eaf7f0; border-bottom-left-radius: 2px; }
+.user-msg { align-self: flex-end; background: var(--green); color: white; border-bottom-right-radius: 2px; }
+.typing-indicator { font-size: 0.75rem; color: #94a3b8; font-style: italic; margin-bottom: 10px; }
