@@ -5,7 +5,8 @@
   "city": "Tokyo",
   "country": "Japan",
   "job": "UX Designer",
-  "personality_type": "Shy Observer",
+  "personality_code": "B2",
+  "personality_label": "Shy Observer",
   "answer_file": "type_B2_shy.csv",
   "image": "G002_ayumi.jpg",
   "bio": "A soft-spoken designer who enjoys minimalism and quiet moments."
