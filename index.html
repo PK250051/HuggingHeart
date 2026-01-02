@@ -4,70 +4,72 @@
 <meta charset="UTF-8">
 <title>HuggingHeart | Real Connections, No Pressure</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Stop swiping, start connecting. HuggingHeart is the world's first emotion-first social platform for genuine relationships.">
-
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 
 <style>
-/* ================= POPUP STYLES ================= */
-.modal-overlay {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(31, 41, 55, 0.6); /* Transparent dark grey */
-    backdrop-filter: blur(8px);
-    z-index: 9999;
-    justify-content: center;
-    align-items: center;
-}
+    /* ================= HOME PAGE RECOVERY STYLES ================= */
+    :root {
+        --green: #6fcf97;
+        --dark: #1a202c;
+    }
 
-.welcome-card {
-    background: #fff;
-    padding: 40px;
-    border-radius: 30px;
-    max-width: 400px;
-    width: 90%;
-    text-align: center;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-    border: 1px solid #eaf7f0;
-}
+    body { overflow-x: hidden; }
 
-.welcome-card h2 {
-    font-family: 'Playfair Display', serif;
-    color: #2f855a;
-    font-size: 2rem;
-    margin-bottom: 15px;
-}
+    /* Fix Navbar for Home */
+    .navbar {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 0 5%; position: fixed; top: 0; width: 100%; height: 80px;
+        background: #f0fdf4; z-index: 5000; border-bottom: 1px solid #eaf7f0;
+    }
 
-.welcome-card p {
-    color: #6b7280;
-    margin-bottom: 25px;
-    line-height: 1.6;
-}
+    /* Fix Hero Mush-up */
+    .hero {
+        display: flex; align-items: center; justify-content: space-between;
+        max-width: 1200px; margin: 0 auto; padding: 180px 5% 100px;
+        gap: 50px;
+    }
 
-.btn-full {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    background: linear-gradient(135deg, #6fcf97, #9fd3ff);
-    color: white;
-    text-decoration: none;
-    border-radius: 15px;
-    font-weight: 600;
-    margin-bottom: 15px;
-    transition: 0.3s;
-}
+    .hero-text { flex: 1.2; }
+    .hero-text h1 { font-family: 'Playfair Display', serif; font-size: 3.8rem; color: var(--dark); margin-bottom: 25px; }
+    .hero-text p { font-size: 1.1rem; color: #6b7280; margin-bottom: 40px; line-height: 1.8; }
 
-.btn-outline {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    color: #2f855a;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
+    .hero-actions { display: flex; gap: 20px; }
+    .hero-actions a { padding: 16px 32px; border-radius: 15px; text-decoration: none; font-weight: 600; transition: 0.3s; }
+    .primary { background: var(--green); color: #fff; }
+    .secondary { border: 1px solid #cbd5e1; color: var(--dark); }
+
+    /* Hero Side Card */
+    .hero-card {
+        flex: 0.8; background: #fff; padding: 40px; border-radius: 30px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.05); border-left: 6px solid var(--green);
+    }
+
+    /* Section & Cards */
+    .section { padding: 100px 5%; background: #fcfdfd; text-align: center; }
+    .cards { display: flex; gap: 30px; max-width: 1200px; margin: 0 auto; justify-content: center; }
+    .card {
+        flex: 1; background: #fff; padding: 40px 30px; border-radius: 25px;
+        border: 1px solid #f1f5f9; transition: 0.3s;
+    }
+    .card:hover { transform: translateY(-10px); border-color: var(--green); }
+
+    /* Popup Styles */
+    .modal-overlay {
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(8px); z-index: 9999;
+        justify-content: center; align-items: center;
+    }
+    .welcome-card {
+        background: #fff; padding: 45px; border-radius: 35px; max-width: 420px; width: 90%;
+        text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 968px) {
+        .hero { flex-direction: column; text-align: center; padding-top: 140px; }
+        .hero-actions { justify-content: center; }
+        .cards { flex-direction: column; }
+    }
 </style>
 </head>
 
@@ -75,15 +77,15 @@
 
 <div id="welcomeModal" class="modal-overlay">
     <div class="welcome-card">
-        <h2>Welcome Home.</h2>
-        <p>Join a community where meaningful conversation and emotional intelligence come first.</p>
-        <a href="signin.html" class="btn-full">Join the Movement</a>
-        <a href="#" onclick="closeModal()" class="btn-outline">Maybe Later</a>
+        <h2 style="font-family:'Playfair Display'; color:#2f855a; font-size:2.2rem; margin-bottom:15px;">Welcome Home.</h2>
+        <p style="color:#6b7280; margin-bottom:30px; line-height:1.6;">Join a community where meaningful conversation and emotional intelligence come first.</p>
+        <a href="signin.html" style="display:block; padding:18px; background:linear-gradient(135deg, #6fcf97, #9fd3ff); color:white; text-decoration:none; border-radius:15px; font-weight:600; margin-bottom:10px;">Join the Movement</a>
+        <a href="#" onclick="closeModal()" style="display:block; padding:10px; color:#94a3b8; text-decoration:none; font-size:0.9rem;">Maybe Later</a>
     </div>
 </div>
 
-<div class="navbar">
-  <div class="logo">HuggingHeart</div>
+<nav class="navbar">
+  <a href="index.html" class="logo">HuggingHeart</a>
   <div class="nav-links">
     <a href="index.html" class="active">Home</a>
     <a href="community.html">Community</a>
@@ -93,14 +95,14 @@
     <a href="contact.html">Contact</a>
   </div>
   <div class="auth-links">
-    <a href="signin.html" class="signin">Sign In</a>
+    <a href="signin.html" style="text-decoration:none; color:#4a5568; margin-right:20px; font-weight:500;">Sign In</a>
     <a href="signin.html" class="signup">Join Free</a>
   </div>
-</div>
+</nav>
 
 <div class="hero">
   <div class="hero-text">
-    <h1 style="line-height: 1.1;">Finally, a Social Space <br><span style="color: #6fcf97;">That Has a Heart.</span></h1>
+    <h1>Finally, a Social Space <br><span style="color: #6fcf97;">That Has a Heart.</span></h1>
     <p>
       Ditch the stress of mindless swiping. HuggingHeart is where deep conversation meets intelligent discovery. We’ve built a high-trust ecosystem for people who value kindness and authentic connection.
     </p>
@@ -110,12 +112,12 @@
     </div>
   </div>
 
-  <div class="hero-card" style="border-left: 5px solid #6fcf97;">
-    <h3 style="font-size: 1.4rem;">The New Standard</h3>
-    <p style="font-style: italic; margin-bottom: 15px;">"We’re a sanctuary for those who value depth over digital noise."</p>
-    <div style="display: flex; flex-direction: column; gap: 10px; font-weight: 500; font-size: 0.9rem;">
+  <div class="hero-card">
+    <h3 style="font-family: 'Playfair Display'; font-size: 1.6rem; color: #2f855a; margin-bottom: 10px;">The New Standard</h3>
+    <p style="font-style: italic; color: #6b7280; margin-bottom: 25px;">"We’re a sanctuary for those who value depth over digital noise."</p>
+    <div style="display: flex; flex-direction: column; gap: 15px; font-weight: 500; font-size: 0.95rem; color: #4a5568;">
         <span>✅ 0% Pressure. Safe Space.</span>
-        <span>✅ Intelligent AI Observers.</span>
+        <span>✅ Intelligent Personality Mapping.</span>
         <span>✅ Conversation-First Logic.</span>
     </div>
   </div>
@@ -124,42 +126,41 @@
 <div class="section">
   <div class="cards">
     <div class="card">
-      <div style="font-size: 2rem; margin-bottom: 10px;">🤝</div>
-      <h4>Depth Over Distance</h4>
-      <p>Stop collecting matches. Start building bonds. Our platform rewards meaningful interaction and emotional intelligence.</p>
+      <div style="font-size: 2.5rem; margin-bottom: 20px;">🤝</div>
+      <h4 style="font-family: 'Playfair Display'; font-size: 1.4rem; margin-bottom: 15px;">Depth Over Distance</h4>
+      <p style="color: #6b7280; font-size: 0.95rem;">Stop collecting matches. Our platform rewards meaningful interaction and emotional intelligence.</p>
     </div>
     <div class="card">
-      <div style="font-size: 2rem; margin-bottom: 10px;">🛡️</div>
-      <h4>Intelligent Discovery</h4>
-      <p>Meet our AI Observers like Luna, designed to facilitate warm, respectful, and safe community experiences.</p>
+      <div style="font-size: 2.5rem; margin-bottom: 20px;">🛡️</div>
+      <h4 style="font-family: 'Playfair Display'; font-size: 1.4rem; margin-bottom: 15px;">Intelligent Discovery</h4>
+      <p style="color: #6b7280; font-size: 0.95rem;">Meet our Observers like Luna, designed to facilitate warm, respectful, and safe community experiences.</p>
     </div>
     <div class="card">
-      <div style="font-size: 2rem; margin-bottom: 10px;">🌍</div>
-      <h4>A Global Soul</h4>
-      <p>Connect with thinkers and kind hearts from every corner of the world. Authenticity has no borders.</p>
+      <div style="font-size: 2.5rem; margin-bottom: 20px;">🌍</div>
+      <h4 style="font-family: 'Playfair Display'; font-size: 1.4rem; margin-bottom: 15px;">A Global Soul</h4>
+      <p style="color: #6b7280; font-size: 0.95rem;">Connect with thinkers and kind hearts from every corner of the world. Authenticity has no borders.</p>
     </div>
   </div>
 </div>
 
-<footer style="margin-top: 100px;">
-<div style="margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2f855a;">HuggingHeart</div>
-<p>© 2025 HuggingHeart • Calm • Kind • Human-First</p>
+<footer style="text-align: center; padding: 60px 20px; border-top: 1px solid #f1f5f9;">
+    <div style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #2f855a; margin-bottom: 10px;">HuggingHeart</div>
+    <p style="color: #94a3b8; font-size: 0.9rem;">Calm • Kind • Human-First</p>
+    <p style="color: #cbd5e1; font-size: 0.8rem; margin-top: 20px;">© 2026 HuggingHeart. All Rights Reserved.</p>
 </footer>
 
 <script>
-// Logic to show popup after 1 second
 window.onload = function() {
-    // Check if they already closed it this session
     if (!sessionStorage.getItem('popupShown')) {
         setTimeout(() => {
             document.getElementById('welcomeModal').style.display = 'flex';
-        }, 1000);
+        }, 1200);
     }
 }
 
 function closeModal() {
     document.getElementById('welcomeModal').style.display = 'none';
-    sessionStorage.setItem('popupShown', 'true'); // Don't show again until they refresh/reopen
+    sessionStorage.setItem('popupShown', 'true');
 }
 </script>
 
