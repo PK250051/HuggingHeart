@@ -2,67 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>HuggingHeart | Community</title>
+    <title>Community | HuggingHeart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background: #fff; color: #1a202c; overflow-x: hidden; }
-
-        /* NAVBAR - High Z-index ensures buttons are clickable */
-        .navbar {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 5%; position: fixed; top: 0; width: 100%; height: 80px;
-            background: #f0fdf4; z-index: 5000; border-bottom: 1px solid #eaf7f0;
-        }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #2f855a; text-decoration: none; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 0 5%; position: fixed; top: 0; width: 100%; height: 80px; background: #f0fdf4; z-index: 5000; border-bottom: 1px solid #eaf7f0; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2f855a; text-decoration: none; font-weight: 700; }
         .nav-links { display: flex; gap: 25px; position: absolute; left: 50%; transform: translateX(-50%); }
-        .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; }
-        .auth-links { z-index: 5001; }
+        .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; }
+        .nav-links a.active { color: #6fcf97; font-weight: 600; }
         .signup { text-decoration: none; background: #6fcf97; color: #fff !important; padding: 10px 22px; border-radius: 12px; font-weight: 600; }
-
         .community-header { text-align: center; padding: 140px 20px 40px; background: linear-gradient(to bottom, #f0fdf4, #ffffff); }
-        
-        /* GRID & EQUAL CARDS */
         .observer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; padding: 20px 5% 100px; max-width: 1400px; margin: 0 auto; }
-        .girl-card { background: #fff; border-radius: 25px; border: 1px solid #eaf7f0; height: 530px; overflow: hidden; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; }
-        
+        .girl-card { background: #fff; border-radius: 25px; border: 1px solid #eaf7f0; height: 520px; overflow: hidden; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; }
         .img-box { width: 100%; height: 380px; position: relative; overflow: hidden; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-
-        /* PULSING GREEN BULB */
         .status-tag { position: absolute; top: 15px; left: 15px; background: rgba(255, 255, 255, 0.9); padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; color: #2f855a; display: flex; align-items: center; gap: 6px; }
         .green-bulb { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; position: relative; }
         .green-bulb::after { content: ''; position: absolute; width: 100%; height: 100%; background: #22c55e; border-radius: 50%; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 70% { transform: scale(3); opacity: 0; } }
-
-        /* INFO BOX SHIFTED RIGHT */
         .info-box { padding: 20px 20px 20px 35px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
         .info-box p { color: #6fcf97; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
         .info-box h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #1a202c; }
-
-        /* CHAT & SUGGESTIONS */
         .chat-widget { display: none; position: fixed; bottom: 20px; right: 20px; width: 340px; height: 480px; background: #fff; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); z-index: 7000; flex-direction: column; overflow: hidden; border: 1px solid #eaf7f0; }
         .chat-window { flex-grow: 1; background: #fafafa; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
         .msg { max-width: 85%; padding: 10px 14px; border-radius: 15px; font-size: 0.85rem; }
         .bot-msg { align-self: flex-start; background: #fff; border: 1px solid #eaf7f0; border-bottom-left-radius: 2px; }
         .user-msg { align-self: flex-end; background: #6fcf97; color: white; border-bottom-right-radius: 2px; }
-        
-        .suggestion-text { color: #94a3b8; font-size: 0.75rem; font-style: italic; margin-top: 5px; cursor: pointer; display: inline-block; border-bottom: 1px dashed #cbd5e1; margin-right: 15px; }
-        .typing-text { font-size: 0.75rem; color: #94a3b8; font-style: italic; margin-bottom: 5px; }
-
-        /* MODAL */
+        .suggestion-text { color: #94a3b8; font-size: 0.75rem; font-style: italic; cursor: pointer; border-bottom: 1px dashed #cbd5e1; }
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(8px); z-index: 6000; justify-content: center; align-items: center; }
         .profile-modal { background: #fff; width: 90%; max-width: 850px; display: flex; border-radius: 30px; overflow: hidden; }
-        .modal-left { flex: 1; min-height: 550px; background-size: cover; background-position: top; }
+        .modal-left { flex: 1; min-height: 550px; }
         .modal-right { flex: 1; padding: 40px; }
-
         @media (max-width: 768px) { .nav-links { display: none; } .observer-grid { grid-template-columns: 1fr 1fr; } .profile-modal { flex-direction: column; } }
     </style>
 </head>
 <body>
-
 <nav class="navbar">
     <a href="index.html" class="logo">HuggingHeart</a>
     <div class="nav-links">
@@ -74,19 +52,15 @@
     </div>
     <div class="auth-links"><a href="signin.html" class="signup">Join Free</a></div>
 </nav>
-
-<header class="community-header"><h1>Meet Our <span style="color:#6fcf97;">Observers.</span></h1></header>
-
 <div class="observer-grid" id="gridContainer"></div>
-
 <div id="pModal" class="modal-overlay" onclick="closeProfile()">
     <div class="profile-modal" onclick="event.stopPropagation()">
         <div id="mImg" class="modal-left"></div>
         <div class="modal-right">
             <p id="mMotto" style="font-style: italic; color: #6fcf97; font-family: 'Playfair Display';"></p>
-            <h2 id="mName" style="color:#2f855a; font-size:2rem; font-family: 'Playfair Display';"></h2>
+            <h2 id="mName" style="color:#2f855a; font-size:2.2rem; font-family: 'Playfair Display';"></h2>
             <p id="mRole" style="color:#6fcf97; font-weight:600; text-transform:uppercase; font-size:0.8rem; margin-bottom:15px;"></p>
-            <div id="mDetails" style="font-size: 0.9rem; line-height: 1.8;">
+            <div style="font-size: 0.9rem; line-height: 1.8;">
                 <p>Location: <span id="mLoc" style="font-weight:600"></span></p>
                 <p>Age: <span id="mAge" style="font-weight:600"></span></p>
                 <p>Personality: <span id="mPers" style="font-weight:600"></span></p>
@@ -98,11 +72,10 @@
         </div>
     </div>
 </div>
-
 <div id="chatWidget" class="chat-widget">
-    <div class="chat-header">
+    <div style="background:#f0fdf4; padding:15px; display:flex; align-items:center; gap:10px; border-bottom:1px solid #eaf7f0;">
         <img id="chatAvatar" src="" style="width:35px; height:35px; border-radius:50%; object-fit:cover;">
-        <p id="chatName" style="font-weight:600; margin-left:10px;"></p>
+        <p id="chatName" style="font-weight:600;"></p>
         <button onclick="closeChat()" style="margin-left:auto; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
     </div>
     <div class="chat-window" id="chatWindow"></div>
@@ -110,7 +83,6 @@
         <input type="text" id="chatInput" placeholder="Type name and press Enter..." style="width:100%; padding:10px; border-radius:10px; border:1px solid #eaf7f0; outline:none;">
     </div>
 </div>
-
 <script src="app.js"></script>
 </body>
 </html>
