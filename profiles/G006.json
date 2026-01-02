@@ -5,7 +5,8 @@
   "city": "Madrid",
   "country": "Spain",
   "job": "Marketing Strategist",
-  "personality_type": "Witty Communicator",
+  "personality_code": "B6",
+  "personality_label": "Witty Communicator",
   "answer_file": "type_B6_witty.csv",
   "image": "G006_sofia.jpg",
   "bio": "A sharp conversationalist with a playful sense of humor."
