@@ -1,9 +1,5 @@
-/* ===================================================
-   HUGGINGHEART - ACCURATE DATABASE ENGINE
-   =================================================== */
-
 const girls = [
-    { id: "G001", name: "Luna Sharma", type: "B1_very_shy", img: "G001_luna.jpg", role: "Software Engineer", age: 24, loc: "Mumbai", pers: "Reserved", motto: "Code is logic...", loveLanguage: "Intellectual", values: "Honesty", bio: "I build complex systems by day and ponder the stars." },
+    { id: "G001", name: "Luna Sharma", type: "B1_very_shy", img: "G001_luna.jpg", role: "Software Engineer", age: 24, loc: "Mumbai", pers: "Reserved", motto: "Code is logic...", loveLanguage: "Intellectual", values: "Honesty", bio: "I build systems and ponder the stars." },
     { id: "G002", name: "Meera Iyer", type: "B2_shy", img: "G002_meera.jpg", role: "UX Researcher", age: 26, loc: "Bangalore", pers: "Caring", motto: "Empathy is power.", loveLanguage: "Time", values: "Kindness", bio: "Fascinated by human behavior." },
     { id: "G003", name: "Ananya Rai", type: "B3_soft", img: "G003_ananya.jpg", role: "Digital Artist", age: 21, loc: "Delhi", pers: "Creative", motto: "Pixels tell stories.", loveLanguage: "Words", values: "Passion", bio: "World in high-contrast." },
     { id: "G004", name: "Isha Verma", type: "B4_balanced", img: "G004_isha.jpg", role: "Data Scientist", age: 23, loc: "Pune", pers: "Analytical", motto: "Be a constant.", loveLanguage: "Service", values: "Precision", bio: "Patterns in chaos." },
@@ -20,7 +16,6 @@ let pqQuestions = [];
 let pqAnswers = [];
 let personalityData = [];
 
-// Advanced CSV Parser: Handles commas inside quoted text
 function parseCSV(text) {
     if(!text) return [];
     const rows = text.split('\n').filter(r => r.trim() !== "");
@@ -49,7 +44,7 @@ function loadGrid() {
         const card = document.createElement('div');
         card.className = 'girl-card';
         card.innerHTML = `
-            <div class="img-box"><span class="status-tag"><span class="green-bulb"></span> Online</span><img src="assets/images/girls/${g.img}"></div>
+            <div class="img-box"><img src="assets/images/girls/${g.img}"></div>
             <div class="info-box"><p>${g.role}</p><h3>${g.name}</h3></div>`;
         card.onclick = () => { activeGirl = g; openProfile(); };
         grid.appendChild(card);
@@ -73,7 +68,6 @@ function openProfile() {
     mImg.style.backgroundPosition = "top";
 
     document.getElementById('pModal').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
 }
 
 async function openChat() {
@@ -91,20 +85,12 @@ async function openChat() {
     } catch(e) { personalityData = []; }
 
     addMessage(`Hi! I'm ${activeGirl.name}. 😊`, 'bot');
-    setTimeout(() => {
-        showTyping(true);
-        showSuggestions();
-        setTimeout(() => {
-            showTyping(false);
-            addMessage(`I'm really glad you reached out. What is your name?`, 'bot');
-        }, 1500);
-    }, 1000);
+    setTimeout(() => { showTyping(true); showSuggestions(); setTimeout(() => { showTyping(false); addMessage(`I'm really glad you reached out. What is your name?`, 'bot'); }, 1500); }, 1000);
 }
 
 function generateBotResponse(userMsg) {
     const cleanMsg = userMsg.toLowerCase().trim().replace(/[^\w\s]/gi, '');
     let botReply = "";
-
     const pqMatch = pqQuestions.find(row => row[1] && row[1].toLowerCase().replace(/[^\w\s]/gi, '') === cleanMsg);
     if (pqMatch) {
         const qID = pqMatch[0];
@@ -116,16 +102,8 @@ function generateBotResponse(userMsg) {
         const persMatch = personalityData.find(row => row[0] && row[0].toLowerCase().replace(/[^\w\s]/gi, '') === cleanMsg);
         if (persMatch) botReply = persMatch[1];
     }
-    if (!botReply) botReply = "I... I'm not sure. Ask me something else?";
-
-    setTimeout(() => {
-        showTyping(true);
-        showSuggestions();
-        setTimeout(() => {
-            showTyping(false);
-            addMessage(botReply, 'bot');
-        }, 1500);
-    }, 800);
+    if (!botReply) botReply = "I... I'm not sure. Ask me something from my profile?";
+    setTimeout(() => { showTyping(true); showSuggestions(); setTimeout(() => { showTyping(false); addMessage(botReply, 'bot'); }, 1500); }, 800);
 }
 
 function showSuggestions() {
@@ -135,17 +113,12 @@ function showSuggestions() {
     const container = document.createElement('div');
     container.id = "current-suggestions";
     container.style = "padding: 5px 0; display:flex; flex-wrap:wrap; gap:10px;";
-
     const hints = pqQuestions.slice(1, 41).sort(() => 0.5 - Math.random()).slice(0, 2);
     hints.forEach(h => {
         const span = document.createElement('span');
         span.className = "suggestion-text";
         span.innerText = `Ask: "${h[1]}"`;
-        span.onclick = () => {
-            document.getElementById('chatInput').value = h[1];
-            container.remove();
-            handleChatInput({ key: 'Enter' });
-        };
+        span.onclick = () => { document.getElementById('chatInput').value = h[1]; container.remove(); handleChatInput({ key: 'Enter' }); };
         container.appendChild(span);
     });
     windowDiv.appendChild(container);
@@ -187,9 +160,4 @@ function handleChatInput(e) {
 function closeProfile() { document.getElementById('pModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
 function closeChat() { document.getElementById('chatWidget').style.display = 'none'; }
 
-window.onload = () => {
-    initDatabases();
-    loadGrid();
-    const input = document.getElementById('chatInput');
-    if(input) input.addEventListener('keypress', handleChatInput);
-};
+window.onload = () => { initDatabases(); loadGrid(); const input = document.getElementById('chatInput'); if(input) input.addEventListener('keypress', handleChatInput); };
