@@ -8,7 +8,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Poppins', sans-serif; color: var(--dark); line-height: 1.6; background: #fff; overflow-x: hidden; }
 
-/* ================= NAVIGATION BAR (FIXED) ================= */
+/* ================= NAVIGATION BAR ================= */
 .navbar {
     display: flex; justify-content: space-between; align-items: center;
     padding: 0 5%; position: fixed; top: 0; width: 100%; height: 80px;
@@ -16,30 +16,28 @@ body { font-family: 'Poppins', sans-serif; color: var(--dark); line-height: 1.6;
 }
 .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: #2f855a; text-decoration: none; }
 .nav-links { display: flex; gap: 20px; position: absolute; left: 50%; transform: translateX(-50%); }
-.nav-links a { text-decoration: none; color: #4a5568; font-size: 0.85rem; font-weight: 500; transition: 0.3s; }
+.nav-links a { text-decoration: none; color: #4a5568; font-size: 0.85rem; font-weight: 500; }
 .nav-links a.active { color: var(--green); font-weight: 600; }
 
 .auth-links { display: flex; align-items: center; gap: 15px; z-index: 9001; }
-.signin-btn { text-decoration: none; color: #4a5568; font-size: 0.85rem; font-weight: 500; }
 .signup-btn { 
     text-decoration: none; background: var(--green); color: #fff !important; 
     padding: 10px 22px; border-radius: 12px; font-weight: 600; font-size: 0.85rem;
 }
 
-/* ================= PAGE WRAPPERS ================= */
+/* ================= WRAPPERS (Prevents Mush-up) ================= */
 .main-content { padding-top: 120px; min-height: 85vh; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-/* ================= COMMUNITY GRID & CARDS ================= */
-.observer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding-bottom: 80px; }
+/* ================= COMMUNITY GRID ================= */
+.observer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
 .girl-card { background: #fff; border-radius: 25px; border: 1px solid var(--border); height: 520px; overflow: hidden; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; }
-.girl-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
 .img-box { width: 100%; height: 380px; position: relative; overflow: hidden; }
 .img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.info-box { padding: 22px 22px 22px 30px; }
-.info-box h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--dark); }
+.info-box { padding: 20px 30px; }
+.info-box h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; }
 
-/* ================= MODAL & CHAT UI ================= */
+/* ================= CHAT & MODAL ================= */
 .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); z-index: 9100; justify-content: center; align-items: center; }
 .chat-widget { display: none; position: fixed; bottom: 20px; right: 20px; width: 340px; height: 480px; background: #fff; border-radius: 20px; z-index: 9500; box-shadow: 0 10px 40px rgba(0,0,0,0.1); flex-direction: column; overflow: hidden; border: 1px solid var(--border); }
 .chat-window { flex-grow: 1; background: #fafafa; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
@@ -47,11 +45,5 @@ body { font-family: 'Poppins', sans-serif; color: var(--dark); line-height: 1.6;
 .bot-msg { align-self: flex-start; background: #fff; border: 1px solid var(--border); }
 .user-msg { align-self: flex-end; background: var(--green); color: white; }
 .suggestion-text { color: #94a3b8; font-size: 0.75rem; font-style: italic; cursor: pointer; border-bottom: 1px dashed #cbd5e1; margin-right: 15px; }
-
-/* Status Bulb */
-.status-tag { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.9); padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; color: #2f855a; display: flex; align-items: center; gap: 6px; }
-.green-bulb { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; position: relative; }
-.green-bulb::after { content: ''; position: absolute; width: 100%; height: 100%; background: #22c55e; border-radius: 50%; animation: pulse 2s infinite; }
-@keyframes pulse { 0% { transform: scale(1); opacity: 1; } 70% { transform: scale(3); opacity: 0; } }
 
 footer { text-align: center; padding: 60px 0; border-top: 1px solid #f1f5f9; color: #94a3b8; }
