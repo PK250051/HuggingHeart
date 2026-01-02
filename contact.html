@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HuggingHeart | Contact</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+<style>
+/* CONTACT FORM */
+.contact-wrap{
+  max-width:520px;
+  margin:70px auto;
+}
+.contact-wrap h1{margin-bottom:10px}
+.contact-wrap p{margin-bottom:24px;color:#6b7280}
+.contact-wrap input,
+.contact-wrap textarea{
+  width:100%;
+  padding:12px;
+  margin-bottom:14px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  font-family:'Poppins',sans-serif;
+}
+.contact-wrap button{
+  padding:12px 26px;
+  border:none;
+  border-radius:24px;
+  background:linear-gradient(135deg,#6fcf97,#9fd3ff);
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* CHAT BUTTON */
+.chat-fab{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#6fcf97,#9fd3ff);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  cursor:pointer;
+  box-shadow:0 12px 24px rgba(0,0,0,0.25);
+  z-index:2000;
+}
+
+/* CHAT WINDOW */
+.chat-window{
+  position:fixed;
+  right:22px;
+  bottom:90px;
+  width:330px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.25);
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+  z-index:2000;
+}
+.chat-header{
+  background:#eaf7f0;
+  padding:12px;
+  font-weight:600;
+  color:#2f855a;
+}
+.chat-body{
+  padding:12px;
+  height:270px;
+  overflow-y:auto;
+  font-size:14px;
+}
+.chat-msg{
+  margin-bottom:8px;
+  padding:8px 10px;
+  border-radius:10px;
+}
+.bot{background:#f3f4f6}
+.user{background:#d1fae5;text-align:right}
+
+.chat-input{
+  display:flex;
+  border-top:1px solid #e5e7eb;
+}
+.chat-input input{
+  flex:1;
+  border:none;
+  padding:10px;
+}
+.chat-input button{
+  border:none;
+  background:#6fcf97;
+  color:#fff;
+  padding:0 14px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; background: #fff; color: #1a202c; overflow-x: hidden; }
+
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; position: fixed; top: 0; width: 100%;
+            background: #f0fdf4; z-index: 1000; border-bottom: 1px solid #eaf7f0;
+        }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #2f855a; text-decoration: none; }
+        
+        .nav-links { 
+            display: flex; gap: 25px; align-items: center; 
+            position: absolute; left: 50%; transform: translateX(-50%); 
+        }
+        .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: #6fcf97; }
+        .nav-links a.active { color: #6fcf97; font-weight: 600; }
+
+        .auth-links { display: flex; gap: 15px; align-items: center; }
+        .signin { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; }
+        .signup { 
+            text-decoration: none; background: #6fcf97; color: #fff !important; 
+            padding: 10px 20px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; 
+        }
+
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: #2f855a; border-radius: 2px; }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6b7280;
+            font-size: 0.9rem;
+            border-top: 1px solid #eaf7f0;
+            background: #f9fafb;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links { 
+                display: none; flex-direction: column; position: absolute; top: 100%; 
+                left: 0; width: 100%; background: #f0fdf4; padding: 20px; transform: none; 
+                border-bottom: 1px solid #eaf7f0; text-align: center; gap: 15px;
+            }
+            .nav-links.show { display: flex; }
+            .auth-links { display: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">HuggingHeart</a>
+    
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="nav-links" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="community.html">Community</a>
+        <a href="about.html">About</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="careers.html">Careers</a>
+        <a href="contact.html" class="active">Contact</a>
+    </div>
+
+    <div class="auth-links">
+        <a href="signin.html" class="signin">Sign In</a>
+        <a href="signin.html" class="signup">Join Free</a>
+    </div>
+</nav>
+
+<!-- CONTACT FORM -->
+<div class="contact-wrap" style="padding-top: 100px;">
+    <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #1a202c; margin-bottom: 10px;">Contact Support</h1>
+    <p style="color: #6b7280; margin-bottom: 24px;">Account, billing, or technical issues. You may also use the help assistant.</p>
+    <p style="color: #2f855a; margin-bottom: 24px; font-weight: 600;">Email: <a href="mailto:support@huggingheart.com" style="color: #2f855a; text-decoration: none;">support@huggingheart.com</a></p>
+
+  <form>
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Email Address" required>
+    <textarea placeholder="Describe your issue"></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</div>
+
+<footer>
+© 2025 HuggingHeart • Calm • Kind • Human
+</footer>
+
+<!-- CHAT BUTTON -->
+<div class="chat-fab" onclick="toggleChat()">?</div>
+
+<!-- CHAT WINDOW -->
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header" id="chatHeader"></div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Type here…">
+    <button onclick="sendMsg()">Send</button>
+  </div>
+</div>
+
+<script>
+/* RANDOM SUPPORT AGENT */
+const agents = [
+  "Aanya Sharma (India)","Emily Carter (USA)","Sofia Williams (UK)",
+  "Olivia Brown (Canada)","Isabella Rossi (Italy)","Zara Ali (UAE)",
+  "Maya Patel (India)","Hannah Lee (South Korea)","Laura García (Spain)",
+  "Chloe Martin (France)","Nina Petrova (Russia)","Anna Müller (Germany)",
+  "Fatima Hassan (Egypt)","Yuki Tanaka (Japan)","Sara Johnson (USA)",
+  "Eva Novak (Czech Republic)","Amelia Wilson (Australia)",
+  "Noor Khan (Pakistan)","Lily Anderson (USA)","Priya Mehta (India)"
+];
+
+const agent = agents[Math.floor(Math.random()*agents.length)];
+let step = 0;
+let userData = JSON.parse(localStorage.getItem("hh_user")) || {};
+
+/* 100 SUPPORT Q&A */
+const qa = [
+  {q:["login","sign in"],a:"Please check your email and password and try again."},
+  {q:["forgot","password"],a:"Use the Forgot Password option to reset securely."},
+  {q:["verify","email"],a:"Please check your inbox and spam folder for verification mail."},
+  {q:["account locked"],a:"For security, accounts may lock temporarily. Please try later."},
+  {q:["change email"],a:"Email changes will be available in account settings."},
+  {q:["profile","photo"],a:"Profile updates can be done from your profile page."},
+  {q:["delete account"],a:"Account deletion options will be provided in settings."},
+  {q:["hacked","security"],a:"Please reset password immediately and contact support."},
+  {q:["logout"],a:"Refreshing the page usually resolves logout issues."},
+  {q:["session"],a:"Sessions expire automatically for safety."},
+
+  {q:["payment","billing"],a:"Please ensure your payment method is valid."},
+  {q:["failed payment"],a:"You may retry or use another payment method."},
+  {q:["refund"],a:"Refund policies will be shared during purchase."},
+  {q:["subscription"],a:"Subscription details appear in your account dashboard."},
+  {q:["cancel"],a:"Cancellation options will be available in settings."},
+  {q:["charged twice"],a:"Please contact support using the form above."},
+  {q:["invoice"],a:"Invoices will be emailed to you."},
+  {q:["pricing"],a:"Pricing details are available on our website."},
+  {q:["free"],a:"We offer free access with optional upgrades."},
+  {q:["trial"],a:"Trials may be introduced later."},
+
+  {q:["slow","lag"],a:"Please check your internet connection."},
+  {q:["bug","error"],a:"Thank you for reporting. We will fix it."},
+  {q:["mobile"],a:"Please update your browser for best experience."},
+  {q:["browser"],a:"We support modern browsers only."},
+  {q:["chat"],a:"Chat may be under maintenance."},
+  {q:["notification"],a:"Notification settings will be available later."},
+  {q:["email not received"],a:"Please wait or check spam folder."},
+  {q:["maintenance"],a:"We perform maintenance to improve services."},
+  {q:["feature"],a:"Some features are under development."},
+  {q:["update"],a:"Updates will be announced on the platform."},
+
+  {q:["privacy"],a:"Your privacy is very important to us."},
+  {q:["data"],a:"We follow standard data protection practices."},
+  {q:["terms"],a:"Please review our Terms of Service."},
+  {q:["rules"],a:"Respectful behavior is required."},
+  {q:["report"],a:"Reporting options will be available in community."},
+  {q:["block"],a:"Blocking tools will be added later."},
+  {q:["harassment"],a:"We take safety seriously. Please report."},
+  {q:["feedback"],a:"We appreciate your feedback."},
+  {q:["feature request"],a:"You may suggest features via contact form."},
+  {q:["help"],a:"I’m here to assist you. Please explain your issue."}
+];
+
+/* CHAT FUNCTIONS */
+function toggleChat(){
+  const w = document.getElementById("chatWindow");
+  w.style.display = w.style.display==="flex"?"none":"flex";
+
+  if(step===0){
+    document.getElementById("chatHeader").innerText = agent+" • Support";
+    document.getElementById("chatBody").innerHTML =
+      `<div class="chat-msg bot">Hi, I’m ${agent}. May I know your name?</div>`;
+    step=1;
+  }
+}
+
+function sendMsg(){
+  const input=document.getElementById("userInput");
+  const text=input.value.trim();
+  if(!text)return;
+
+  const body=document.getElementById("chatBody");
+  body.innerHTML+=`<div class="chat-msg user">${text}</div>`;
+
+  let reply="";
+
+  if(step===1){
+    userData.name=text;
+    reply=`Nice to meet you, ${text}. May I have your email address?`;
+    step=2;
+  }else if(step===2){
+    userData.email=text;
+    localStorage.setItem("hh_user",JSON.stringify(userData));
+    reply="Thank you. How can I help you today?";
+    step=3;
+  }else{
+    const t=text.toLowerCase();
+    reply="Thank you. Please describe a bit more or use the form above.";
+    for(let i of qa){
+      if(i.q.some(k=>t.includes(k))){
+        reply=i.a;
+        break;
+      }
+    }
+  }
+
+  body.innerHTML+=`<div class="chat-msg bot">${reply}</div>`;
+  body.scrollTop=body.scrollHeight;
+  input.value="";
+}
+
+function toggleMenu() { 
+    document.getElementById('navMenu').classList.toggle('show'); 
+}
+</script>
+
+</body>
+</html>

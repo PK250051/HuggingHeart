@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HuggingHeart | Careers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Careers at HuggingHeart — join us in building calm, human-first technology.">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; background: #fff; color: #1a202c; overflow-x: hidden; }
+
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; position: fixed; top: 0; width: 100%;
+            background: #f0fdf4; z-index: 1000; border-bottom: 1px solid #eaf7f0;
+        }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #2f855a; text-decoration: none; }
+        
+        .nav-links { 
+            display: flex; gap: 25px; align-items: center; 
+            position: absolute; left: 50%; transform: translateX(-50%); 
+        }
+        .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: #6fcf97; }
+        .nav-links a.active { color: #6fcf97; font-weight: 600; }
+
+        .auth-links { display: flex; gap: 15px; align-items: center; }
+        .signin { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; }
+        .signup { 
+            text-decoration: none; background: #6fcf97; color: #fff !important; 
+            padding: 10px 20px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; 
+        }
+
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: #2f855a; border-radius: 2px; }
+
+        .section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 140px 5% 100px;
+            line-height: 1.8;
+        }
+        .section h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #1a202c;
+            margin-bottom: 30px;
+        }
+        .section p {
+            color: #4a5568;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6b7280;
+            font-size: 0.9rem;
+            border-top: 1px solid #eaf7f0;
+            background: #f9fafb;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links { 
+                display: none; flex-direction: column; position: absolute; top: 100%; 
+                left: 0; width: 100%; background: #f0fdf4; padding: 20px; transform: none; 
+                border-bottom: 1px solid #eaf7f0; text-align: center; gap: 15px;
+            }
+            .nav-links.show { display: flex; }
+            .auth-links { display: none; }
+            .section { padding: 120px 5% 80px; }
+            .section h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">HuggingHeart</a>
+    
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="nav-links" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="community.html">Community</a>
+        <a href="about.html">About</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="careers.html" class="active">Careers</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="auth-links">
+        <a href="signin.html" class="signin">Sign In</a>
+        <a href="signin.html" class="signup">Join Free</a>
+    </div>
+</nav>
+
+<div class="section">
+    <h1>Careers</h1>
+    <p>
+        We are building a calm, respectful platform focused on meaningful human
+        connection. If you care about ethics, design, and people-first technology,
+        you may feel at home here.
+    </p>
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #1a202c; margin-top: 40px; margin-bottom: 20px;">Why Join HuggingHeart?</h2>
+    <p>
+        At HuggingHeart, we're building more than a platform — we're creating a movement toward more meaningful human connections. 
+        If you're passionate about ethical technology, user-centered design, and making a positive impact on how people connect, 
+        you'll find a home here.
+    </p>
+
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #1a202c; margin-top: 40px; margin-bottom: 20px;">What We're Looking For</h2>
+    <p>
+        We value diverse perspectives, creative problem-solving, and a commitment to our core values: calm, kind, and human-first. 
+        Whether you're a developer, designer, marketer, or support specialist, if you share our vision, we want to hear from you.
+    </p>
+
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #1a202c; margin-top: 40px; margin-bottom: 20px;">Open Positions</h2>
+    <p>
+        Open roles will be published soon. For early interest and inquiries, please reach out to us at 
+        <a href="mailto:support@huggingheart.com" style="color: #2f855a; text-decoration: none; font-weight: 600;">support@huggingheart.com</a> 
+        or use our <a href="contact.html" style="color: #2f855a; text-decoration: none; font-weight: 600;">Contact page</a>.
+    </p>
+</div>
+
+<footer>
+    © 2025 HuggingHeart • Calm • Kind • Human
+</footer>
+
+<script>
+    function toggleMenu() { 
+        document.getElementById('navMenu').classList.toggle('show'); 
+    }
+</script>
+</body>
+</html>

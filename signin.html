@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Join HuggingHeart | Signup & Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ================= BRAND VARIABLES ================= */
+:root {
+  --green: #6fcf97;
+  --green-soft: #eaf7f0;
+  --sky: #9fd3ff;
+  --bg: #f9fbfd;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --dark-green: #2f855a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  background-image: radial-gradient(circle at top right, var(--green-soft), transparent),
+                    radial-gradient(circle at bottom left, #eef7ff, transparent);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* AUTH CONTAINER */
+.auth-container {
+  width: 100%;
+  max-width: 450px;
+  background: var(--card);
+  border-radius: 30px;
+  padding: 45px;
+  box-shadow: 0 25px 50px rgba(159, 211, 255, 0.25);
+  border: 1px solid rgba(255,255,255,0.8);
+  position: relative;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.auth-header h1 {
+  font-family: 'Playfair Display', serif;
+  color: var(--dark-green);
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.auth-header p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* FORM STYLES */
+form { display: none; }
+form.active { display: block; }
+
+.input-group { margin-bottom: 20px; }
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--dark-green);
+}
+
+input {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 15px;
+  border: 1px solid var(--border);
+  background: #fcfdfc;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: var(--green);
+  background: #fff;
+  box-shadow: 0 0 0 4px var(--green-soft);
+}
+
+/* BUTTONS */
+button.primary {
+  width: 100%;
+  background: linear-gradient(135deg, var(--green), var(--sky));
+  color: #fff;
+  border: none;
+  padding: 16px;
+  border-radius: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+  box-shadow: 0 10px 20px rgba(111, 207, 151, 0.2);
+  margin-top: 10px;
+}
+
+button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(159, 211, 255, 0.4);
+}
+
+button.primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* TOGGLE & FOOTER */
+.toggle {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.toggle span {
+  color: var(--dark-green);
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.toggle span:hover { text-decoration: underline; }
+
+.back-home {
+  display: block;
+  text-align: center;
+  margin-top: 25px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  color: var(--muted);
+  transition: 0.3s;
+}
+
+.back-home:hover { color: var(--dark-green); }
+
+.footer-note {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.75rem;
+  color: #a0aec0;
+  line-height: 1.4;
+}
+
+/* MOBILE FIX */
+@media (max-width: 480px) {
+    .auth-container { padding: 30px 20px; border-radius: 0; min-height: 100vh; }
+    body { padding: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="auth-container">
+  <div class="auth-header">
+    <h1>HuggingHeart</h1>
+    <p id="formSubtitle">Create an account to start meaningful connections.</p>
+  </div>
+
+  <form id="signupForm" class="active">
+    <div class="input-group">
+        <label>Full Name</label>
+        <input type="text" id="signupName" placeholder="e.g. Luna Ribeiro" required>
+    </div>
+
+    <div class="input-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="you@example.com" required>
+    </div>
+
+    <div class="input-group">
+        <label>Password</label>
+        <input type="password" placeholder="Min. 8 characters" required>
+    </div>
+
+    <button type="submit" class="primary">Create Account</button>
+  </form>
+
+  <form id="loginForm">
+    <div class="input-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="you@example.com" required>
+    </div>
+
+    <div class="input-group">
+        <label>Password</label>
+        <input type="password" placeholder="Enter your password" required>
+    </div>
+
+    <button type="submit" class="primary">Login</button>
+  </form>
+
+  <div class="toggle">
+    <span id="toggleText" onclick="toggleForm()">Already have an account? Login</span>
+  </div>
+
+  <a href="index.html" class="back-home">← Back to Homepage</a>
+
+  <div class="footer-note">
+    By continuing, you agree to HuggingHeart’s <br>
+    <b>Terms of Service</b> & <b>Community Guidelines</b>.
+  </div>
+</div>
+
+<script>
+let isSignup = true;
+
+// Toggle between Login and Signup
+function toggleForm() {
+  const signup = document.getElementById("signupForm");
+  const login = document.getElementById("loginForm");
+  const subtitle = document.getElementById("formSubtitle");
+  const toggle = document.getElementById("toggleText");
+
+  if (isSignup) {
+    signup.classList.remove("active");
+    login.classList.add("active");
+    subtitle.innerText = "Welcome back. We've missed your presence.";
+    toggle.innerText = "Don’t have an account? Sign up";
+  } else {
+    login.classList.remove("active");
+    signup.classList.add("active");
+    subtitle.innerText = "Create an account to start meaningful connections.";
+    toggle.innerText = "Already have an account? Login";
+  }
+  isSignup = !isSignup;
+}
+
+// Logic to "Save" name and redirect
+document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button');
+        
+        // Save Name to LocalStorage if Signing Up
+        if(isSignup) {
+            const name = document.getElementById("signupName").value;
+            localStorage.setItem("luna_user_name", name);
+        }
+
+        btn.innerText = "Connecting...";
+        btn.disabled = true;
+
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1200);
+    });
+});
+</script>
+
+</body>
+</html>

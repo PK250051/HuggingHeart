@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Feed | HuggingHeart</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --pink:#ff4d7d;
+  --gold:#ffd700;
+  --bg:#121212;
+  --card:#1e1e1e;
+  --text:#f5f5f5;
+  --muted:#bbbbbb;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#1a1a1a,#2c1a2e);
+  color:var(--text);
+}
+
+/* NAVBAR */
+.navbar{
+  background:#1a1a1a;
+  padding:14px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:10;
+  box-shadow:0 6px 20px rgba(0,0,0,0.4);
+}
+.navbar h1{
+  color:var(--pink);
+  font-size:1.6rem;
+}
+.navbar nav a{
+  margin-left:20px;
+  color:var(--gold);
+  text-decoration:none;
+  font-weight:600;
+}
+.navbar nav a:hover{color:var(--pink);}
+
+/* LAYOUT */
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:30px 20px 120px;
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:30px;
+}
+
+/* CREATE POST */
+.create-post{
+  background:var(--card);
+  padding:20px;
+  border-radius:16px;
+  margin-bottom:25px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.45);
+}
+.create-post textarea{
+  width:100%;
+  background:#2a2a2a;
+  border:none;
+  border-radius:10px;
+  padding:14px;
+  color:#fff;
+  resize:none;
+}
+.create-post button{
+  margin-top:12px;
+  background:var(--gold);
+  border:none;
+  padding:10px 20px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+.create-post button:hover{
+  background:var(--pink);
+  color:#fff;
+}
+
+/* POST */
+.post{
+  background:var(--card);
+  border-radius:16px;
+  padding:22px;
+  margin-bottom:25px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.45);
+}
+.post-header{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:12px;
+}
+.avatar{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--pink),var(--gold));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  color:#1a1a1a;
+}
+.post-header strong{
+  display:block;
+}
+.post-header span{
+  font-size:0.85rem;
+  color:var(--muted);
+}
+.post p{
+  margin:15px 0;
+  line-height:1.7;
+  color:#ddd;
+}
+.post-actions{
+  display:flex;
+  gap:20px;
+  font-size:0.9rem;
+  color:var(--muted);
+}
+.post-actions span{
+  cursor:pointer;
+}
+.post-actions span:hover{
+  color:var(--pink);
+}
+
+/* SIDEBAR */
+.sidebar{
+  position:sticky;
+  top:90px;
+}
+.sidebar-card{
+  background:var(--card);
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:25px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.45);
+}
+.sidebar-card h3{
+  color:var(--gold);
+  margin-bottom:15px;
+}
+.suggest{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
+}
+.suggest .avatar{
+  width:36px;
+  height:36px;
+  font-size:0.9rem;
+}
+.suggest button{
+  margin-left:auto;
+  background:transparent;
+  border:1px solid var(--gold);
+  color:var(--gold);
+  padding:4px 10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.suggest button:hover{
+  background:var(--pink);
+  color:#fff;
+  border:none;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:80px;
+  font-size:0.9rem;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .container{
+    grid-template-columns:1fr;
+  }
+  .sidebar{
+    position:static;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <h1>HuggingHeart</h1>
+  <nav>
+    <a href="feed.html">Feed</a>
+    <a href="profile.html">Profile</a>
+    <a href="contact.html">Help</a>
+    <a href="signup.html">Logout</a>
+  </nav>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+  <!-- FEED COLUMN -->
+  <div>
+
+    <!-- CREATE POST -->
+    <div class="create-post">
+      <textarea rows="3" placeholder="Share something meaningful..."></textarea>
+      <button>Post</button>
+    </div>
+
+    <!-- POSTS -->
+    <div class="post">
+      <div class="post-header">
+        <div class="avatar">A</div>
+        <div>
+          <strong>Alex Morgan</strong>
+          <span>2 hours ago</span>
+        </div>
+      </div>
+      <p>
+        Real connections start when we slow down and listen.
+        Glad to be part of a community that values depth.
+      </p>
+      <div class="post-actions">
+        <span>❤️ Like</span>
+        <span>💬 Comment</span>
+        <span>🔁 Share</span>
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="post-header">
+        <div class="avatar">S</div>
+        <div>
+          <strong>Sophia Lee</strong>
+          <span>5 hours ago</span>
+        </div>
+      </div>
+      <p>
+        Conversation is an art. Ask better questions,
+        and you’ll discover better people.
+      </p>
+      <div class="post-actions">
+        <span>❤️ Like</span>
+        <span>💬 Comment</span>
+        <span>🔁 Share</span>
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="post-header">
+        <div class="avatar">M</div>
+        <div>
+          <strong>Michael Chen</strong>
+          <span>Yesterday</span>
+        </div>
+      </div>
+      <p>
+        HuggingHeart feels different — less noise,
+        more meaning. Exactly what social platforms should be.
+      </p>
+      <div class="post-actions">
+        <span>❤️ Like</span>
+        <span>💬 Comment</span>
+        <span>🔁 Share</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <div class="sidebar-card">
+      <h3>Suggested Connections</h3>
+
+      <div class="suggest">
+        <div class="avatar">L</div>
+        <span>Liam Patel</span>
+        <button>Follow</button>
+      </div>
+
+      <div class="suggest">
+        <div class="avatar">E</div>
+        <span>Emma Brown</span>
+        <button>Follow</button>
+      </div>
+
+      <div class="suggest">
+        <div class="avatar">N</div>
+        <span>Noah Kim</span>
+        <button>Follow</button>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Community Tip</h3>
+      <p style="color:#ddd;line-height:1.6;">
+        Be respectful. Be curious.  
+        Meaningful connections grow from genuine conversations.
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2025 HuggingHeart • Global Social Connection Platform
+</footer>
+
+</body>
+</html>

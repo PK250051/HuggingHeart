@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HuggingHeart | Real Connections, No Pressure</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Stop swiping, start connecting. HuggingHeart is the world's first emotion-first social platform for genuine relationships.">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background: #fff; color: #1a202c; overflow-x: hidden; }
+
+    .navbar {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 15px 5%; position: fixed; top: 0; width: 100%;
+        background: #f0fdf4; z-index: 1000; border-bottom: 1px solid #eaf7f0;
+    }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #2f855a; text-decoration: none; }
+    
+    .nav-links { 
+        display: flex; gap: 25px; align-items: center; 
+        position: absolute; left: 50%; transform: translateX(-50%); 
+    }
+    .nav-links a { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
+    .nav-links a:hover { color: #6fcf97; }
+    .nav-links a.active { color: #6fcf97; font-weight: 600; }
+
+    .auth-links { display: flex; gap: 15px; align-items: center; }
+    .signin { text-decoration: none; color: #4a5568; font-size: 0.9rem; font-weight: 500; }
+    .signup { 
+        text-decoration: none; background: #6fcf97; color: #fff !important; 
+        padding: 10px 20px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; 
+    }
+
+    .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .hamburger span { width: 25px; height: 3px; background: #2f855a; border-radius: 2px; }
+
+    footer {
+        text-align: center;
+        padding: 40px 20px;
+        color: #6b7280;
+        font-size: 0.9rem;
+        border-top: 1px solid #eaf7f0;
+        background: #f9fafb;
+    }
+
+    @media (max-width: 768px) {
+        .hamburger { display: flex; }
+        .nav-links { 
+            display: none; flex-direction: column; position: absolute; top: 100%; 
+            left: 0; width: 100%; background: #f0fdf4; padding: 20px; transform: none; 
+            border-bottom: 1px solid #eaf7f0; text-align: center; gap: 15px;
+        }
+        .nav-links.show { display: flex; }
+        .auth-links { display: none; }
+    }
+</style>
+
+<style>
+/* ================= POPUP STYLES ================= */
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(31, 41, 55, 0.6); /* Transparent dark grey */
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-card {
+    background: #fff;
+    padding: 40px;
+    border-radius: 30px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    border: 1px solid #eaf7f0;
+}
+
+.welcome-card h2 {
+    font-family: 'Playfair Display', serif;
+    color: #2f855a;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.welcome-card p {
+    color: #6b7280;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.btn-full {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #6fcf97, #9fd3ff);
+    color: white;
+    text-decoration: none;
+    border-radius: 15px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.btn-outline {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    color: #2f855a;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+</style>
+</head>
+
+<body>
+
+<div id="welcomeModal" class="modal-overlay">
+    <div class="welcome-card">
+        <h2>Welcome Home.</h2>
+        <p>Join a community where meaningful conversation and emotional intelligence come first.</p>
+        <a href="signin.html" class="btn-full">Join the Movement</a>
+        <a href="#" onclick="closeModal()" class="btn-outline">Maybe Later</a>
+    </div>
+</div>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">HuggingHeart</a>
+    
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="nav-links" id="navMenu">
+        <a href="index.html" class="active">Home</a>
+        <a href="community.html">Community</a>
+        <a href="about.html">About</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="careers.html">Careers</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="auth-links">
+        <a href="signin.html" class="signin">Sign In</a>
+        <a href="signin.html" class="signup">Join Free</a>
+    </div>
+</nav>
+
+<style>
+    .hero-section {
+        background: linear-gradient(to bottom, #f0fdf4, #ffffff);
+        padding: 120px 5% 60px;
+        text-align: center;
+    }
+    .hero-section h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 3rem;
+        color: #1a202c;
+        margin-bottom: 20px;
+    }
+    .hero-section h1 span {
+        color: #6fcf97;
+    }
+    .hero-section p {
+        font-size: 1.1rem;
+        color: #6b7280;
+        max-width: 700px;
+        margin: 0 auto 40px;
+        line-height: 1.8;
+    }
+    .hero-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .primary, .secondary {
+        padding: 14px 28px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+    .primary {
+        background: linear-gradient(135deg, #6fcf97, #9fd3ff);
+        color: #fff;
+    }
+    .primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(111, 207, 151, 0.3);
+    }
+    .secondary {
+        background: #fff;
+        color: #2f855a;
+        border: 2px solid #6fcf97;
+    }
+    .secondary:hover {
+        background: #f0fdf4;
+    }
+
+    /* SOCIAL MEDIA FEED */
+    .feed-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 5% 100px;
+    }
+
+    /* CREATE POST */
+    .create-post-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        border: 1px solid #eaf7f0;
+    }
+    .create-post-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+    .create-post-header img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #6fcf97;
+    }
+    .create-post-header input {
+        flex: 1;
+        padding: 12px 16px;
+        border: 1px solid #eaf7f0;
+        border-radius: 25px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.95rem;
+        outline: none;
+    }
+    .create-post-actions {
+        display: flex;
+        gap: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #eaf7f0;
+    }
+    .post-action-btn {
+        flex: 1;
+        padding: 10px;
+        background: #f9fafb;
+        border: 1px solid #eaf7f0;
+        border-radius: 10px;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.9rem;
+        color: #4a5568;
+        transition: 0.3s;
+    }
+    .post-action-btn:hover {
+        background: #f0fdf4;
+        color: #2f855a;
+    }
+
+    /* POST CARD */
+    .post-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        border: 1px solid #eaf7f0;
+        transition: 0.3s;
+    }
+    .post-card:hover {
+        box-shadow: 0 8px 30px rgba(47, 133, 90, 0.1);
+    }
+    .post-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+    .post-header img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #6fcf97;
+    }
+    .post-header-info h4 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.1rem;
+        color: #1a202c;
+        margin-bottom: 3px;
+    }
+    .post-header-info span {
+        font-size: 0.85rem;
+        color: #6b7280;
+    }
+    .post-content {
+        margin-bottom: 15px;
+        line-height: 1.7;
+        color: #4a5568;
+    }
+    .post-image {
+        width: 100%;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        max-height: 600px;
+        object-fit: contain;
+        object-position: center;
+        background: #f9fafb;
+    }
+    .post-actions {
+        display: flex;
+        gap: 20px;
+        padding-top: 15px;
+        border-top: 1px solid #eaf7f0;
+    }
+    .post-action {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        color: #6b7280;
+        font-size: 0.9rem;
+        transition: 0.3s;
+    }
+    .post-action:hover {
+        color: #6fcf97;
+    }
+    .post-action.liked {
+        color: #6fcf97;
+    }
+    .post-action svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+        position: sticky;
+        top: 100px;
+        height: fit-content;
+    }
+    .sidebar-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        border: 1px solid #eaf7f0;
+    }
+    .sidebar-card h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.3rem;
+        color: #1a202c;
+        margin-bottom: 20px;
+    }
+    .observer-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .observer-item:hover {
+        background: #f0fdf4;
+    }
+    .observer-item img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #6fcf97;
+    }
+    .observer-item-info h5 {
+        font-size: 0.95rem;
+        color: #1a202c;
+        margin-bottom: 2px;
+    }
+    .observer-item-info span {
+        font-size: 0.8rem;
+        color: #6b7280;
+    }
+
+    @media (max-width: 768px) {
+        .hero-section h1 { font-size: 2rem; }
+        .feed-container { padding: 20px 3% 80px; }
+        .create-post-actions { flex-direction: column; }
+    }
+</style>
+
+<div class="hero-section">
+    <h1>Finally, a Social Space <br><span>That Has a Heart.</span></h1>
+    <p>
+        Ditch the stress of mindless swiping. HuggingHeart is where deep conversation meets intelligent discovery. We've built a high-trust ecosystem for people who value kindness and authentic connection.
+    </p>
+    <div class="hero-actions">
+        <a href="signin.html" class="primary">Start for Free</a>
+        <a href="community.html" class="secondary">Meet Our Observers</a>
+    </div>
+</div>
+
+<div class="feed-container">
+    <!-- CREATE POST -->
+    <div class="create-post-card">
+        <div class="create-post-header">
+            <img src="assets/images/girls/G001_luna.jpg" alt="You" id="userAvatar">
+            <input type="text" placeholder="What's on your mind?" id="postInput">
+        </div>
+        <div class="create-post-actions">
+            <button class="post-action-btn" onclick="openPostModal('text')">📝 Write</button>
+            <button class="post-action-btn" onclick="openPostModal('image')">📷 Photo</button>
+            <button class="post-action-btn" onclick="openPostModal('chat')">💬 Chat with Observer</button>
+        </div>
+    </div>
+
+    <!-- POSTS FEED -->
+    <div id="postsFeed">
+        <!-- Posts will be dynamically added here -->
+    </div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" style="position: fixed; right: 5%; top: 100px; width: 280px; display: none;" id="sidebar">
+    <div class="sidebar-card">
+        <h3>Active Observers</h3>
+        <div class="observer-item" onclick="window.location.href='community.html'">
+            <img src="assets/images/girls/G001_luna.jpg" alt="Luna">
+            <div class="observer-item-info">
+                <h5>Luna</h5>
+                <span>Online • Software Engineer</span>
+            </div>
+        </div>
+        <div class="observer-item" onclick="window.location.href='community.html'">
+            <img src="assets/images/girls/G002_meera.jpg" alt="Meera">
+            <div class="observer-item-info">
+                <h5>Meera</h5>
+                <span>Online • Marketing Manager</span>
+            </div>
+        </div>
+        <div class="observer-item" onclick="window.location.href='community.html'">
+            <img src="assets/images/girls/G003_ananya.jpg" alt="Ananya">
+            <div class="observer-item-info">
+                <h5>Ananya</h5>
+                <span>Online • HR Executive</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer style="margin-top: 100px;">
+<div style="margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #2f855a;">HuggingHeart</div>
+<p>© 2025 HuggingHeart • Calm • Kind • Human-First</p>
+</footer>
+
+<script>
+// 10 Posts - One per girl (G001-G010) with special paragraphs
+const samplePosts = [
+    // G001 - Neha Iyer (B1 - Very Shy)
+    {
+        id: 1,
+        author: "Neha Iyer",
+        avatar: "assets/images/girls/G001_luna.jpg",
+        time: "2 hours ago",
+        persType: "B1",
+        content: "Just finished reading a beautiful novel in the quiet of my Paris apartment. Sometimes the best moments are the quietest ones. 🌸 There's something magical about losing yourself in a story when the world outside is still. I find peace in these small, intimate moments—just me, a good book, and the gentle hum of the city below. What brings you peace?",
+        image: "assets/images/girls/G001_luna.jpg",
+        likes: 18,
+        comments: 3,
+        liked: false
+    },
+    // G002 - Meera Gupta (B2 - Shy)
+    {
+        id: 2,
+        author: "Meera Gupta",
+        avatar: "assets/images/girls/G002_meera.jpg",
+        time: "4 hours ago",
+        persType: "B2",
+        content: "Morning workout complete! There's something incredibly empowering about starting the day with movement. Small steps lead to big changes, and I'm learning to celebrate every milestone, no matter how small. Today I ran an extra kilometer, and it reminded me that growth happens when we push ourselves just a little bit beyond our comfort zone. What are you working towards today?",
+        image: "assets/images/girls/G002_meera.jpg",
+        likes: 22,
+        comments: 5,
+        liked: false
+    },
+    // G003 - Ananya Brown (B3 - Soft)
+    {
+        id: 3,
+        author: "Ananya Brown",
+        avatar: "assets/images/girls/G003_ananya.jpg",
+        time: "6 hours ago",
+        persType: "B3",
+        content: "Art is not what you see, but what you make others see. Here's a glimpse of Mumbai through my lens 📸 Every corner of this city tells a story—the vibrant colors of the markets, the quiet moments in the parks, the way light dances on the water at sunset. Photography has taught me to find beauty in the ordinary, to see the world with softer eyes. What beauty have you noticed today?",
+        image: "assets/images/girls/G003_ananya.jpg",
+        likes: 45,
+        comments: 12,
+        liked: true
+    },
+    // G004 - Isha Clark (B4 - Balanced)
+    {
+        id: 4,
+        author: "Isha Clark",
+        avatar: "assets/images/girls/G004_isha.jpg",
+        time: "8 hours ago",
+        persType: "B4",
+        content: "Taking risks is scary, but staying in your comfort zone is scarier. Here's to building something meaningful! 💪 Today I made a decision that could change everything—and I'm excited about it. Life is about finding that perfect balance between caution and courage, between planning and spontaneity. Sometimes you have to trust your gut and leap. What risk are you considering?",
+        image: "assets/images/girls/G004_isha.jpg",
+        likes: 35,
+        comments: 8,
+        liked: false
+    },
+    // G005 - Riya Kapoor (B5 - Confident)
+    {
+        id: 5,
+        author: "Riya Kapoor",
+        avatar: "assets/images/girls/G005_riya.jpg",
+        time: "10 hours ago",
+        persType: "B5",
+        content: "Just launched a new design project that I've been working on for months! Excited to see where this takes us. Confidence is key! ✨ There's something powerful about believing in your vision and seeing it come to life. Every project teaches me something new, pushes me to grow, and reminds me why I love what I do. Success isn't about perfection—it's about progress and passion. What are you creating?",
+        image: "assets/images/girls/G005_riya.jpg",
+        likes: 52,
+        comments: 15,
+        liked: false
+    },
+    // G006 - Sofia Verma (B6 - Witty)
+    {
+        id: 6,
+        author: "Sofia Verma",
+        avatar: "assets/images/girls/G006_sofia.jpg",
+        time: "12 hours ago",
+        persType: "B6",
+        content: "Life's too short to be serious all the time. Here's to finding joy in the little things! 😊 Today I laughed so hard my stomach hurt, and it reminded me that happiness doesn't have to be complicated. Sometimes it's in a perfectly brewed cup of coffee, a silly joke, or a moment of pure silliness. Let's not forget to have fun along the way. What made you smile today?",
+        image: "assets/images/girls/G006_sofia.jpg",
+        likes: 38,
+        comments: 10,
+        liked: false
+    },
+    // G007 - Olivia Singh (B7 - Bold)
+    {
+        id: 7,
+        author: "Olivia Singh",
+        avatar: "assets/images/girls/G007_olivia.jpg",
+        time: "1 day ago",
+        persType: "B7",
+        content: "Sometimes you have to be bold and take what you want. No regrets, just results. 😉 I've learned that playing it safe gets you nowhere. Today I made a move that scared me, but I did it anyway—and I'm proud of that. Life rewards the brave, the ones who aren't afraid to go after what they want. What are you bold enough to pursue?",
+        image: "assets/images/girls/G007_olivia.jpg",
+        likes: 41,
+        comments: 11,
+        liked: true
+    },
+    // G008 - Aarohi Gupta (B8 - Daring)
+    {
+        id: 8,
+        author: "Aarohi Gupta",
+        avatar: "assets/images/girls/G008_aarohi.jpg",
+        time: "1 day ago",
+        persType: "B8",
+        content: "Deep thoughts require deep conversations. What's the most interesting thing you've learned recently? I spent hours today diving into a topic I knew nothing about, and it opened up a whole new world of understanding. There's something thrilling about intellectual exploration, about challenging your own perspectives and expanding your mind. Knowledge is power, but curiosity is the engine. What's challenging your thinking?",
+        image: "assets/images/girls/G008_aarohi.jpg",
+        likes: 28,
+        comments: 7,
+        liked: false
+    },
+    // G009 - Emma Brown (B9 - Gen Z)
+    {
+        id: 9,
+        author: "Emma Brown",
+        avatar: "assets/images/girls/G009_emma.jpg",
+        time: "1 day ago",
+        persType: "B9",
+        content: "Teaching is wild but rewarding. These kids keep me on my toes! 😈 What's your vibe today? There's never a dull moment in the classroom—every day brings new challenges, new laughs, and new moments of growth. Watching these young minds discover and explore reminds me why I do what I do. Education isn't just about facts—it's about sparking curiosity and building confidence. What's energizing you right now?",
+        image: "assets/images/girls/G009_emma.jpg",
+        likes: 33,
+        comments: 9,
+        liked: false
+    },
+    // G010 - Amelia Kapoor (B10 - Wild)
+    {
+        id: 10,
+        author: "Amelia Kapoor",
+        avatar: "assets/images/girls/G010_amelia.jpg",
+        time: "2 days ago",
+        persType: "B10",
+        content: "Just booked my next solo adventure! Life's too short to stay in one place. Who's coming with me? 🌍 There's something liberating about traveling alone—you learn to trust yourself, to embrace the unknown, and to find home wherever you go. Every journey changes you, teaches you something new about the world and yourself. Adventure is out there, waiting. Where's your next destination?",
+        image: "assets/images/girls/G010_amelia.jpg",
+        likes: 56,
+        comments: 18,
+        liked: false
+    }
+];
+
+// Load posts from localStorage or use sample posts
+let storedPosts = JSON.parse(localStorage.getItem('hh_posts'));
+let posts;
+
+// If stored posts exist but don't have images, or if we need to update, use samplePosts
+if (storedPosts && storedPosts.length === 10 && storedPosts.every(p => p.image)) {
+    posts = storedPosts;
+} else {
+    // Use sample posts and save them
+    posts = samplePosts;
+    localStorage.setItem('hh_posts', JSON.stringify(posts));
+}
+
+// Load posts on page load
+function loadPosts() {
+    const feed = document.getElementById('postsFeed');
+    if (!feed) {
+        console.error('Posts feed container not found!');
+        return;
+    }
+    
+    // Ensure we have exactly 10 posts with images
+    if (!posts || posts.length === 0) {
+        posts = samplePosts;
+        localStorage.setItem('hh_posts', JSON.stringify(posts));
+    }
+    
+    // Filter to show only the 10 sample posts (one per girl)
+    let displayPosts = posts.filter(p => p.id >= 1 && p.id <= 10).slice(0, 10);
+    if (displayPosts.length < 10) {
+        // If we don't have 10 posts, use samplePosts
+        posts = samplePosts;
+        localStorage.setItem('hh_posts', JSON.stringify(posts));
+        displayPosts = posts;
+    }
+    
+    feed.innerHTML = displayPosts.map(post => `
+        <div class="post-card" data-post-id="${post.id}">
+            <div class="post-header">
+                <img src="${post.avatar}" alt="${post.author}">
+                <div class="post-header-info">
+                    <h4>${post.author}</h4>
+                    <span>${post.time}</span>
+                </div>
+            </div>
+            <div class="post-content">${post.content}</div>
+            ${post.image ? `<img src="${post.image}" alt="Post image" class="post-image">` : ''}
+            <div class="post-actions">
+                <div class="post-action ${post.liked ? 'liked' : ''}" onclick="toggleLike(${post.id})">
+                    <svg fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.834a1 1 0 001.707.707l3.546-3.547a1 1 0 00.293-.707V8.5a1.5 1.5 0 00-1.5-1.5h-5.379a1 1 0 01-.707-.293l-1.121-1.121A1.5 1.5 0 015.379 5H8.5a1.5 1.5 0 011.5 1.5v1.333z"/>
+                    </svg>
+                    <span>${post.likes}</span>
+                </div>
+                <div class="post-action" onclick="toggleComments(${post.id})">
+                    <svg fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>${post.comments}</span>
+                </div>
+                <div class="post-action" onclick="sharePost(${post.id})">
+                    <svg fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"/>
+                    </svg>
+                    <span>Share</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function toggleLike(postId) {
+    const post = posts.find(p => p.id === postId);
+    if (post) {
+        post.liked = !post.liked;
+        post.likes += post.liked ? 1 : -1;
+        localStorage.setItem('hh_posts', JSON.stringify(posts));
+        loadPosts();
+    }
+}
+
+function toggleComments(postId) {
+    alert('Comments feature coming soon!');
+}
+
+function sharePost(postId) {
+    if (navigator.share) {
+        const post = posts.find(p => p.id === postId);
+        navigator.share({
+            title: `Post by ${post.author}`,
+            text: post.content,
+            url: window.location.href
+        });
+    } else {
+        alert('Post shared!');
+    }
+}
+
+function openPostModal(type) {
+    if (type === 'chat') {
+        window.location.href = 'community.html';
+        return;
+    }
+    const input = document.getElementById('postInput');
+    if (input && input.value.trim()) {
+        const newPost = {
+            id: Date.now(),
+            author: "You",
+            avatar: "assets/images/girls/G001_luna.jpg",
+            time: "Just now",
+            content: input.value,
+            image: type === 'image' ? "assets/images/girls/G001_luna.jpg" : null,
+            likes: 0,
+            comments: 0,
+            liked: false
+        };
+        posts.unshift(newPost);
+        localStorage.setItem('hh_posts', JSON.stringify(posts));
+        input.value = '';
+        loadPosts();
+    } else {
+        alert('Please write something first!');
+    }
+}
+
+// Enter key to post
+document.addEventListener('DOMContentLoaded', function() {
+    const postInput = document.getElementById('postInput');
+    if (postInput) {
+        postInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                openPostModal('text');
+            }
+        });
+    }
+    loadPosts();
+    
+    // Show sidebar on larger screens
+    if (window.innerWidth > 1200) {
+        document.getElementById('sidebar').style.display = 'block';
+    }
+});
+
+// Logic to show popup after 1 second
+window.onload = function() {
+    // Check if they already closed it this session
+    if (!sessionStorage.getItem('popupShown')) {
+        setTimeout(() => {
+            document.getElementById('welcomeModal').style.display = 'flex';
+        }, 1000);
+    }
+}
+
+function closeModal() {
+    document.getElementById('welcomeModal').style.display = 'none';
+    sessionStorage.setItem('popupShown', 'true');
+}
+
+function toggleMenu() { 
+    document.getElementById('navMenu').classList.toggle('show'); 
+}
+</script>
+
+</body>
+</html>

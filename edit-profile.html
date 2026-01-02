@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edit Profile | HuggingHeart</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#1a1a1a,#2c1a2e);
+  color:#f5f5f5;
+}
+.container{
+  max-width:700px;
+  margin:60px auto;
+  background:#1e1e1e;
+  padding:40px;
+  border-radius:18px;
+}
+h1{color:#ff4d7d;text-align:center;margin-bottom:30px}
+label{display:block;margin:15px 0 6px}
+input,textarea{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:none;
+}
+textarea{resize:none}
+button{
+  margin-top:20px;
+  width:100%;
+  padding:14px;
+  background:#ffd700;
+  border:none;
+  border-radius:10px;
+  font-weight:700;
+}
+button:hover{background:#ff4d7d;color:#fff}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Edit Your Profile</h1>
+
+<label>Display Name</label>
+<input type="text" placeholder="Your name">
+
+<label>Bio</label>
+<textarea rows="4" placeholder="Tell something about yourself"></textarea>
+
+<label>Interests</label>
+<input type="text" placeholder="Music, Travel, Tech">
+
+<label>Profile Visibility</label>
+<input type="text" placeholder="Public / Connections Only">
+
+<button>Save Changes</button>
+</div>
+</body>
+</html>
