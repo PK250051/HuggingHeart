@@ -4,57 +4,38 @@
     <meta charset="UTF-8">
     <title>Community | HuggingHeart</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
         <a href="index.html" class="logo">HuggingHeart</a>
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="community.html" class="active">Community</a>
-            <a href="about.html">About</a>
-            <a href="how-it-works.html">How It Works</a>
-            <a href="careers.html">Careers</a>
-            <a href="contact.html">Contact</a>
+            <a href="index.html">Home</a><a href="community.html" class="active">Community</a><a href="about.html">About</a>
         </div>
-        <div class="auth-links">
-            <a href="signin.html" class="btn-auth">Sign In</a>
-            <a href="signin.html" class="btn-auth">Join Free</a>
-        </div>
+        <div class="auth-links"><a href="signin.html" class="btn-auth">Sign In</a><a href="signin.html" class="btn-auth">Join Free</a></div>
     </nav>
 
-    <div class="main-content">
-        <div id="gridContainer" class="observer-grid"></div>
-    </div>
+    <div class="main-content"><div id="gridContainer" class="observer-grid"></div></div>
 
-    <div id="pModal" class="modal-overlay" onclick="closeProfile()">
-        <div class="profile-modal" onclick="event.stopPropagation()" style="background:#fff; width:90%; max-width:850px; display:flex; border-radius:30px; overflow:hidden;">
-            <div id="mImg" style="flex:1; min-height:550px;"></div>
+    <div id="pModal" class="modal-overlay">
+        <div class="profile-modal" style="background:#fff; width:90%; max-width:850px; display:flex; border-radius:30px; overflow:hidden;">
+            <div id="mImg" style="flex:1; min-height:500px;"></div>
             <div style="flex:1; padding:40px;">
-                <p id="mMotto" style="font-style:italic; color:#6fcf97; font-family:'Playfair Display';"></p>
-                <h2 id="mName" style="color:#2f855a; font-size:2.2rem; font-family:'Playfair Display';"></h2>
-                <div style="margin: 20px 0; font-size:0.9rem; line-height:1.8;">
-                    <p>Age: <span id="mAge" style="font-weight:600"></span></p>
-                    <p id="mBio" style="color:#6b7280;"></p>
+                <h2 id="mName" style="color:#2f855a; font-family:'Playfair Display'; font-size:2rem;"></h2>
+                <p style="margin:20px 0; color:#6b7280;">Age: <span id="mAge"></span><br><br><span id="mBio"></span></p>
+                <div style="display:flex; gap:10px;">
+                    <button onclick="document.getElementById('pModal').style.display='none'" style="flex:1; padding:15px; border:1px solid #ddd; border-radius:15px; cursor:pointer; background:#f9f9f9;">Back to Community</button>
+                    <button onclick="openChat()" style="flex:1; padding:15px; background:var(--green); color:#fff; border:none; border-radius:15px; cursor:pointer; font-weight:600;">Start Chat</button>
                 </div>
-                <button onclick="openChat()" style="width:100%; padding:15px; background:var(--green); color:#fff; border:none; border-radius:15px; cursor:pointer; font-weight:600;">Start Chat</button>
             </div>
         </div>
     </div>
 
     <div id="chatWidget" class="chat-widget">
-        <div style="padding:15px; background:var(--soft); border-bottom:1px solid #eaf7f0; display:flex; align-items:center;">
-            <img id="chatAvatar" src="" style="width:30px; height:30px; border-radius:50%; margin-right:10px;">
-            <span id="chatName" style="font-weight:600;"></span>
-            <button onclick="closeChat()" style="margin-left:auto; border:none; background:none; cursor:pointer; font-size:1.5rem;">&times;</button>
-        </div>
-        <div id="chatWindow" class="chat-window" style="flex-grow:1; overflow-y:auto; padding:15px; display:flex; flex-direction:column; gap:10px; background:#fafafa;"></div>
-        <div id="suggestArea" style="padding:5px 15px; background:#fff; font-size:0.75rem;"></div>
-        <div style="padding:15px; border-top:1px solid #f1f5f9;">
-            <input type="text" id="chatInput" placeholder="Ask something..." style="width:100%; padding:10px; border-radius:10px; border:1px solid #eaf7f0;">
-        </div>
+        <div style="padding:15px; background:var(--soft); border-bottom:1px solid #eaf7f0; display:flex; justify-content:space-between;"><span id="chatName" style="font-weight:600;"></span><button onclick="document.getElementById('chatWidget').style.display='none'" style="border:none; background:none; cursor:pointer;">&times;</button></div>
+        <div id="chatWindow" class="chat-window"></div>
+        <div id="suggestArea" class="suggest-box"></div>
+        <div style="padding:15px; border-top:1px solid #f1f5f9;"><input type="text" id="chatInput" placeholder="Ask something..." style="width:100%; padding:10px; border-radius:10px; border:1px solid #eaf7f0; outline:none;"></div>
     </div>
-
     <script src="app.js"></script>
 </body>
 </html>
