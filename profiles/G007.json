@@ -5,7 +5,8 @@
   "city": "Toronto",
   "country": "Canada",
   "job": "Software Engineer",
-  "personality_type": "The Strategist",
+  "personality_code": "B7",
+  "personality_label": "The Strategist",
   "answer_file": "type_B7_bold.csv",
   "image": "G007_olivia.jpg",
   "bio": "A logical thinker who maintains a perfect work-life balance."
