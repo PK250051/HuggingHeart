@@ -1,48 +1,68 @@
-let selectedGirl = null;
+let activeGirl = null;
+
+document.addEventListener("DOMContentLoaded", loadGirls);
 
 async function loadGirls() {
-    const grid = document.getElementById('observerGrid');
-    try {
-        const res = await fetch('data/stats/online_status.json');
-        const girls = await res.json();
+  const grid = document.getElementById("girlGrid");
+  if (!grid) {
+    console.error("girlGrid not found");
+    return;
+  }
 
-        grid.innerHTML = girls.map(girl => `
-            <div class="observer-card" onclick="viewProfile('${girl.id}')">
-                <img src="assets/images/girls/${girl.image}" alt="${girl.name}">
-                <div class="obs-info">
-                    <h3>${girl.name}</h3>
-                    <p>${girl.job} • ${girl.country}</p>
-                    <span style="color: #2f855a; font-size: 0.8rem; font-weight: 600;">${girl.personality_type}</span>
-                </div>
-            </div>
-        `).join('');
-    } catch (e) { console.error("Error loading girls", e); }
+  const ids = [
+    "G001","G002","G003","G004","G005",
+    "G006","G007","G008","G009","G010"
+  ];
+
+  for (let id of ids) {
+    try {
+      const res = await fetch(`profiles/${id}.json`);
+      const girl = await res.json();
+
+      const card = document.createElement("div");
+      card.className = "girl-card";
+      card.innerHTML = `
+        <div class="status-dot"></div>
+        <img src="assets/images/girls/${girl.image}">
+        <div class="girl-info">
+          <h3>${girl.name}</h3>
+          <p>${girl.job} • ${girl.country}</p>
+        </div>
+      `;
+
+      card.onclick = () => openProfile(girl);
+      grid.appendChild(card);
+
+      await new Promise(r => setTimeout(r, 400));
+    } catch (e) {
+      console.error("Failed loading", id, e);
+    }
+  }
 }
 
-async function viewProfile(id) {
-    const res = await fetch(`profiles/${id}.json`);
-    selectedGirl = await res.json();
-    
-    document.getElementById('prof-img').src = `assets/images/girls/${selectedGirl.image}`;
-    document.getElementById('prof-name').innerText = selectedGirl.name;
-    document.getElementById('prof-bio').innerText = selectedGirl.bio;
-    document.getElementById('profileOverlay').style.display = 'flex';
+function openProfile(girl) {
+  activeGirl = girl;
+
+  document.getElementById("mImg").src =
+    `assets/images/girls/${girl.image}`;
+  document.getElementById("mName").innerText = girl.name;
+  document.getElementById("mBio").innerText = girl.bio;
+
+  document.getElementById("pModal").style.display = "flex";
 }
 
 function closeProfile() {
-    document.getElementById('profileOverlay').style.display = 'none';
+  document.getElementById("pModal").style.display = "none";
 }
 
 function openChat() {
-    closeProfile();
-    document.getElementById('chatBox').style.display = 'flex';
-    document.getElementById('chat-header-img').src = `assets/images/girls/${selectedGirl.image}`;
-    document.getElementById('chat-header-name').innerText = selectedGirl.name;
-    startChatEngine(selectedGirl);
+  if (!activeGirl) return;
+
+  document.getElementById("chatName").innerText = activeGirl.name;
+  document.getElementById("chatWidget").style.display = "block";
+  closeProfile();
 }
 
 function closeChat() {
-    document.getElementById('chatBox').style.display = 'none';
+  document.getElementById("chatWidget").style.display = "none";
 }
-
-window.onload = loadGirls;
