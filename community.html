@@ -1,49 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Community | HuggingHeart</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Community | HuggingHeart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding-top: 90px;
+      background: #f9fafb;
+    }
+
+    .main-content {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    /* GRID */
+    .observer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    @media (max-width: 900px) {
+      .observer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .girl-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .3s, box-shadow .3s;
+      position: relative;
+    }
+
+    .girl-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 40px rgba(0,0,0,.1);
+    }
+
+    .girl-card img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+    }
+
+    .status-dot {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+      border: 2px solid #fff;
+    }
+
+    .girl-info {
+      padding: 18px;
+    }
+
+    .girl-info h3 {
+      margin: 0;
+      font-family: 'Playfair Display';
+      font-size: 20px;
+    }
+
+    .girl-info p {
+      margin: 6px 0 0;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .profile-container {
+      background: #fff;
+      border-radius: 20px;
+      max-width: 900px;
+      width: 95%;
+      display: flex;
+      overflow: hidden;
+    }
+
+    .profile-left img {
+      width: 300px;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-right {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* CHAT */
+    .chat-widget {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 360px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 25px 40px rgba(0,0,0,.15);
+      z-index: 1100;
+      overflow: hidden;
+    }
+
+    .chat-window {
+      height: 280px;
+      padding: 15px;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+  </style>
 </head>
+
 <body>
-    <nav class="navbar">
-        <a href="index.html" class="logo">HuggingHeart</a>
-        <div class="nav-links">
-            <a href="index.html">Home</a><a href="community.html" class="active">Community</a><a href="about.html">About</a>
-            <a href="how-it-works.html">How It Works</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a>
-        </div>
-        <div class="auth-links">
-            <a href="signin.html" class="btn-auth">Sign In</a><a href="signin.html" class="btn-auth">Join Free</a>
-        </div>
-    </nav>
 
-    <div class="main-content"><div id="gridContainer" class="observer-grid"></div></div>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="logo">HuggingHeart</a>
 
-    <div id="pModal" class="modal-overlay">
-        <div class="profile-container">
-            <div id="mImg" class="profile-left"></div>
-            <div class="profile-right">
-                <h2 id="mName" style="font-family:'Playfair Display'; font-size:2.8rem; color:#2f855a;"></h2>
-                <p id="mBio" style="margin:25px 0; line-height:1.8; color:#6b7280; font-size:1rem;"></p>
-                <div style="display:flex; gap:15px; margin-top:auto;">
-                    <button onclick="document.getElementById('pModal').style.display='none'" style="flex:1; padding:18px; border:1px solid #ddd; border-radius:15px; cursor:pointer; background:#f9f9f9;">Back to Community</button>
-                    <button onclick="openChat()" style="flex:1; padding:18px; background:var(--green); color:#fff; border:none; border-radius:15px; cursor:pointer; font-weight:600;">Start Chat</button>
-                </div>
-            </div>
-        </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="community.html" class="active">Community</a>
+    <a href="about.html">About</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="careers.html">Careers</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="auth-links">
+    <a href="signin.html" class="btn-auth">Sign In</a>
+    <a href="signup.html" class="btn-auth">Join Free</a>
+  </div>
+</nav>
+
+<!-- GRID -->
+<div class="main-content">
+  <div id="girlGrid" class="observer-grid"></div>
+</div>
+
+<!-- PROFILE MODAL -->
+<div id="pModal" class="modal-overlay">
+  <div class="profile-container">
+    <div class="profile-left">
+      <img id="mImg">
     </div>
+    <div class="profile-right">
+      <h2 id="mName"></h2>
+      <p id="mBio"></p>
 
-    <div id="chatWidget" class="chat-widget">
-        <div style="padding:15px; background:var(--soft); border-bottom:1px solid #eaf7f0; display:flex; justify-content:space-between; align-items:center;">
-            <span id="chatName" style="font-weight:600;"></span>
-            <button onclick="document.getElementById('chatWidget').style.display='none'" style="border:none; background:none; cursor:pointer; font-size:1.5rem;">&times;</button>
-        </div>
-        <div id="chatWindow" class="chat-window"></div>
-        <div id="suggestArea" class="suggest-area"></div>
-        <div style="padding:15px; border-top:1px solid #f1f5f9;"><input type="text" id="chatInput" placeholder="Ask a question..." style="width:100%; padding:12px; border-radius:12px; border:1px solid #eaf7f0; outline:none;"></div>
+      <div style="display:flex; gap:15px; margin-top:auto;">
+        <button onclick="closeProfile()">Back to Community</button>
+        <button onclick="openChat()">Start Chat</button>
+      </div>
     </div>
+  </div>
+</div>
 
-    <script src="app.js"></script>
+<!-- CHAT WIDGET -->
+<div id="chatWidget" class="chat-widget">
+  <div style="padding:15px; background:#f0fdf4; display:flex; justify-content:space-between;">
+    <span id="chatName"></span>
+    <button onclick="closeChat()">×</button>
+  </div>
+
+  <div id="chatWindow" class="chat-window"></div>
+
+  <div style="padding:15px;">
+    <input id="chatInput" placeholder="Ask a question…" style="width:100%; padding:12px;">
+  </div>
+</div>
+
+<script src="app.js"></script>
+
 </body>
 </html>
