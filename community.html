@@ -21,13 +21,13 @@
     <div class="main-content"><div id="gridContainer" class="observer-grid"></div></div>
 
     <div id="pModal" class="modal-overlay">
-        <div class="profile-modal" style="background:#fff; width:90%; max-width:900px; display:flex; border-radius:30px; overflow:hidden; height:600px;">
+        <div class="profile-modal" style="background:#fff; width:90%; max-width:850px; display:flex; border-radius:30px; overflow:hidden; height:600px;">
             <div id="mImg" style="flex:0.8; background-size:cover; background-position:top;"></div>
             <div style="flex:1.2; padding:40px; display:flex; flex-direction:column;">
                 <h2 id="mName" style="font-family:'Playfair Display'; font-size:2.5rem; color:#2f855a;"></h2>
                 <p id="mBio" style="margin-top:20px; line-height:1.6; color:#6b7280; font-size:0.95rem;"></p>
                 <div style="margin-top:auto; display:flex; gap:10px;">
-                    <button onclick="document.getElementById('pModal').style.display='none'" style="flex:1; padding:15px; border:1px solid #ddd; border-radius:12px; cursor:pointer;">Back to Community</button>
+                    <button onclick="document.getElementById('pModal').style.display='none'" style="flex:1; padding:15px; border:1px solid #ddd; border-radius:12px; cursor:pointer; background:#f9f9f9;">Back to Community</button>
                     <button onclick="openChat()" style="flex:1; padding:15px; background:var(--green); color:#fff; border:none; border-radius:12px; cursor:pointer; font-weight:600;">Start Chat</button>
                 </div>
             </div>
@@ -41,61 +41,10 @@
         </div>
         <div id="chatWindow" class="chat-window"></div>
         <div id="suggestArea" class="suggest-area"></div>
-        <div style="padding:15px; border-top:1px solid #eee;">
-            <input type="text" id="chatInput" placeholder="Ask about hobby, age..." style="width:100%; padding:10px; border-radius:10px; border:1px solid #ddd; outline:none;">
+        <div style="padding:15px; border-top:1px solid #f1f5f9;">
+            <input type="text" id="chatInput" placeholder="Ask a question..." style="width:100%; padding:10px; border-radius:10px; border:1px solid #eaf7f0; outline:none;">
         </div>
     </div>
-
-    <script src="app.js"></script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Community | HuggingHeart</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar">
-        <a href="index.html" class="logo">HuggingHeart</a>
-        <div class="nav-links">
-            <a href="index.html">Home</a><a href="community.html" class="active">Community</a><a href="about.html">About</a>
-            <a href="how-it-works.html">How It Works</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a>
-        </div>
-        <div class="auth-links">
-            <a href="signin.html" class="btn-auth">Sign In</a><a href="signin.html" class="btn-auth">Join Free</a>
-        </div>
-    </nav>
-
-    <div class="main-content"><div id="gridContainer" class="observer-grid"></div></div>
-
-    <div id="pModal" class="modal-overlay">
-        <div class="profile-modal" style="background:#fff; width:90%; max-width:900px; display:flex; border-radius:30px; overflow:hidden; height:600px;">
-            <div id="mImg" style="flex:0.8; background-size:cover; background-position:top;"></div>
-            <div style="flex:1.2; padding:40px; display:flex; flex-direction:column;">
-                <h2 id="mName" style="font-family:'Playfair Display'; font-size:2.5rem; color:#2f855a;"></h2>
-                <p id="mBio" style="margin-top:20px; line-height:1.6; color:#6b7280; font-size:0.95rem;"></p>
-                <div style="margin-top:auto; display:flex; gap:10px;">
-                    <button onclick="document.getElementById('pModal').style.display='none'" style="flex:1; padding:15px; border:1px solid #ddd; border-radius:12px; cursor:pointer;">Back to Community</button>
-                    <button onclick="openChat()" style="flex:1; padding:15px; background:var(--green); color:#fff; border:none; border-radius:12px; cursor:pointer; font-weight:600;">Start Chat</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="chatWidget" class="chat-widget">
-        <div style="padding:15px; background:var(--soft); display:flex; justify-content:space-between; align-items:center;">
-            <span id="chatName" style="font-weight:600;"></span>
-            <button onclick="document.getElementById('chatWidget').style.display='none'" style="border:none; background:none; cursor:pointer; font-size:1.5rem;">&times;</button>
-        </div>
-        <div id="chatWindow" class="chat-window"></div>
-        <div id="suggestArea" class="suggest-area"></div>
-        <div style="padding:15px; border-top:1px solid #eee;">
-            <input type="text" id="chatInput" placeholder="Ask about hobby, age..." style="width:100%; padding:10px; border-radius:10px; border:1px solid #ddd; outline:none;">
-        </div>
-    </div>
-
     <script src="app.js"></script>
 </body>
 </html>
