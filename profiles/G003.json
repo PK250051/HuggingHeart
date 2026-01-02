@@ -5,7 +5,8 @@
   "city": "Delhi",
   "country": "India",
   "job": "HR Consultant",
-  "personality_type": "Soft & Caring",
+  "personality_code": "B3",
+  "personality_label": "Soft & Caring",
   "answer_file": "type_B3_soft.csv",
   "image": "G003_priya.jpg",
   "bio": "A warm-hearted professional who values empathy and balance."
