@@ -1,12 +1,12 @@
 {
   "id": "G005",
   "name": "Riya Kapoor",
-  "age": 24,
-  "city": "Chennai",
+  "age": 27,
+  "city": "Bengaluru",
   "country": "India",
-  "job": "Designer",
-  "personality_type": "The Techie",
+  "job": "Startup Founder",
+  "personality_type": "Confident Leader",
   "answer_file": "type_B5_confident.csv",
   "image": "G005_riya.jpg",
-  "bio": "A digital-native designer blending tech logic with modern style."
+  "bio": "A driven entrepreneur who believes in bold execution."
 }
